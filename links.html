@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SanSatel Energy — Links</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    background: #080F1E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Fondo animado */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 20%, rgba(29,78,216,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(217,119,6,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Perfil */
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 32px;
+    animation: fadeDown 0.6s ease;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .avatar-wrap {
+    position: relative;
+    margin-bottom: 16px;
+  }
+
+  .avatar-ring {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(135deg, #1D4ED8, #F59E0B, #1D4ED8);
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .avatar-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #080F1E;
+    background: #0D1F3C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    color: white;
+  }
+
+  .avatar-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .profile-name {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 4px;
+    letter-spacing: -0.5px;
+  }
+
+  .profile-handle {
+    font-size: 14px;
+    color: #3B82F6;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  .profile-bio {
+    font-size: 13px;
+    color: #7B8FAE;
+    text-align: center;
+    line-height: 1.6;
+    max-width: 300px;
+  }
+
+  /* Stats */
+  .stats {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 12px 24px;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 18px;
+    font-weight: 800;
+    color: #fff;
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: #4E6080;
+    font-weight: 500;
+  }
+
+  /* Links */
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .link-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    border-radius: 16px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(10px);
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .link-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.05);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .link-btn:hover {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+  }
+
+  .link-btn:hover::before { opacity: 1; }
+
+  .link-btn:active { transform: scale(0.98); }
+
+  /* Variantes de color */
+  .link-btn.primary {
+    background: linear-gradient(135deg, #D97706, #F59E0B);
+    border-color: transparent;
+    color: #080F1E;
+  }
+  .link-btn.primary:hover { box-shadow: 0 12px 30px rgba(217,119,6,0.4); }
+
+  .link-btn.blue {
+    background: linear-gradient(135deg, #1D4ED8, #2563EB);
+    border-color: transparent;
+  }
+  .link-btn.blue:hover { box-shadow: 0 12px 30px rgba(29,78,216,0.4); }
+
+  .link-btn.whatsapp {
+    background: linear-gradient(135deg, #128C7E, #25D366);
+    border-color: transparent;
+  }
+  .link-btn.whatsapp:hover { box-shadow: 0 12px 30px rgba(37,211,102,0.3); }
+
+  .link-btn.glass {
+    background: rgba(255,255,255,0.05);
+  }
+
+  .link-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .link-btn.primary .link-icon { background: rgba(0,0,0,0.15); }
+
+  .link-text { flex: 1; }
+  .link-title { display: block; font-size: 15px; font-weight: 700; }
+  .link-sub { display: block; font-size: 12px; opacity: 0.7; margin-top: 1px; font-weight: 400; }
+
+  .link-arrow {
+    font-size: 18px;
+    opacity: 0.6;
+    transition: transform 0.2s;
+  }
+  .link-btn:hover .link-arrow { transform: translateX(4px); opacity: 1; }
+
+  /* Animación escalonada */
+  .link-btn:nth-child(1) { animation-delay: 0.1s; }
+  .link-btn:nth-child(2) { animation-delay: 0.2s; }
+  .link-btn:nth-child(3) { animation-delay: 0.3s; }
+  .link-btn:nth-child(4) { animation-delay: 0.4s; }
+  .link-btn:nth-child(5) { animation-delay: 0.5s; }
+  .link-btn:nth-child(6) { animation-delay: 0.6s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 32px;
+    text-align: center;
+    font-size: 12px;
+    color: #2A3A52;
+    animation: fadeUp 0.5s 0.7s ease both;
+  }
+
+  .footer a { color: #3B82F6; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Perfil -->
+  <div class="profile">
+    <div class="avatar-wrap">
+      <div class="avatar-ring">
+        <div class="avatar-inner">
+          <img src="assets/post_2.jpg" alt="SanSatel"
+            onerror="this.style.display='none'">
+        </div>
+      </div>
+    </div>
+    <div class="profile-name">SanSatel Energy</div>
+    <div class="profile-handle">@sansatel_asesoras</div>
+    <div class="profile-bio">Consultora de telecomunicaciones, energía y soluciones digitales para empresas</div>
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-num">27</span>
+        <span class="stat-label">seguidores</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">24</span>
+        <span class="stat-label">publicaciones</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">4+</span>
+        <span class="stat-label">servicios</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Links -->
+  <div class="links">
+
+    <a href="https://wa.me/34660619034?text=Hola%20Sandra%2C%20me%20interesa%20tu%20asesor%C3%ADa" target="_blank" class="link-btn whatsapp">
+      <div class="link-icon">💬</div>
+      <div class="link-text">
+        <span class="link-title">Escríbeme por WhatsApp</span>
+        <span class="link-sub">Respondo en minutos · 660 619 034</span>
+      </div>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <a href="https://landing.sansatel.com" target="_blank" class="link-btn primary">
+      <div class="link-icon">⚡</div>
+      <div class="link-text">
+        <span class="link-title">Solicitar propuesta gratuita</span>
+        <span class="link-sub">Ahorra en tu factura sin compromiso</span>
+      </div>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <a href="https://www.sansatel.com" target="_blank" class="link-btn blue">
+      <div class="link-icon">🌐</div>
+      <div class="link-text">
+        <span class="link-title">Mi web — sansatel.com</span>
+        <span class="link-sub">Telecomunicaciones · Energía · Digitalización</span>
+      </div>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <a href="https://www.sansatel.com/#servicios" target="_blank" class="link-btn glass">
+      <div class="link-icon">📡</div>
+      <div class="link-text">
+        <span class="link-title">Telecomunicaciones</span>
+        <span class="link-sub">Movistar · Vodafone · Orange · O2</span>
+      </div>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <a href="https://www.sansatel.com/#servicios" target="_blank" class="link-btn glass">
+      <div class="link-icon">⚡</div>
+      <div class="link-text">
+        <span class="link-title">Energía</span>
+        <span class="link-sub">Optimiza tu factura de luz y gas</span>
+      </div>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <a href="mailto:contacto@sansatel.com" class="link-btn glass">
+      <div class="link-icon">✉</div>
+      <div class="link-text">
+        <span class="link-title">Email</span>
+        <span class="link-sub">contacto@sansatel.com</span>
+      </div>
+      <span class="link-arrow">→</span>
+    </a>
+
+  </div>
+
+  <div class="footer">
+    © 2026 SanSatel Energy · <a href="https://www.sansatel.com">sansatel.com</a>
+  </div>
+
+</div>
+
+</body>
+</html>
