@@ -1435,28 +1435,30 @@
     img.src = src;
   }
 
-  for (let i = 1; i <= 6; i++) {
-    (function(idx) {
-      const src = `assets/instagram/post-${idx}.jpg`;
-      tryLoadImage(src, () => {
-        // Replace grid placeholder
-        if (gridItems[idx - 1]) {
-          gridItems[idx - 1].innerHTML = `<img src="${src}" alt="Post ${idx}">`;
-        }
-        // Replace gallery placeholder
-        if (galleryItems[idx - 1]) {
-          galleryItems[idx - 1].innerHTML = `
-            <img src="${src}" alt="Publicación ${idx}">
-            <div class="gallery-item-overlay"></div>
-          `;
-        }
-      });
-    })(i);
-  }
+  const photoPaths = [
+    'assets/post_1.jpg','assets/post_2.jpg','assets/post_3.jpg',
+    'assets/post_4.jpg','assets/post_5.jpg','assets/post_6.jpg',
+    'assets/instagram/post-1.jpg','assets/instagram/post-2.jpg','assets/instagram/post-3.jpg',
+    'assets/instagram/post-4.jpg','assets/instagram/post-5.jpg','assets/instagram/post-6.jpg'
+  ];
+
+  let loaded = 0;
+  photoPaths.forEach((src, i) => {
+    if (loaded >= 6) return;
+    tryLoadImage(src, () => {
+      if (loaded >= 6) return;
+      const idx = loaded;
+      loaded++;
+      if (gridItems[idx]) gridItems[idx].innerHTML = `<img src="${src}" alt="Post ${idx+1}">`;
+      if (galleryItems[idx]) galleryItems[idx].innerHTML = `<img src="${src}" alt="Publicación ${idx+1}"><div class="gallery-item-overlay"></div>`;
+    });
+  });
 
   // Load profile pic
-  tryLoadImage('assets/instagram/profile.jpg', () => {
-    // Profile pic already wired via onerror fallback
+  ['assets/profile.jpg','assets/instagram/profile.jpg'].forEach(src => {
+    tryLoadImage(src, () => {
+      document.querySelectorAll('.ig-avatar-inner img').forEach(img => img.src = src);
+    });
   });
 
   // Navbar scroll effect
