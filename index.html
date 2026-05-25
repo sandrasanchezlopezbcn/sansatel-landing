@@ -1078,7 +1078,7 @@
         <div class="ig-avatar-wrap">
           <div class="ig-avatar-ring">
             <div class="ig-avatar-inner">
-              <img src="assets/instagram/profile.jpg" alt="SanSatel Energy"
+              <img src="assets/profile.jpg" alt="SanSatel Energy"
                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
               <div class="ig-avatar-fallback" style="display:none;">SansaTel</div>
             </div>
@@ -1122,13 +1122,12 @@
 
       <div class="ig-grid-label">Publicaciones recientes</div>
       <div class="ig-grid" id="igGrid">
-        <!-- Se rellenan con fotos o placeholders -->
-        <div class="ig-grid-item"><div class="ig-grid-placeholder"><span class="ig-grid-placeholder-icon">📡</span></div></div>
-        <div class="ig-grid-item"><div class="ig-grid-placeholder"><span class="ig-grid-placeholder-icon">⚡</span></div></div>
-        <div class="ig-grid-item"><div class="ig-grid-placeholder"><span class="ig-grid-placeholder-icon">🔒</span></div></div>
-        <div class="ig-grid-item"><div class="ig-grid-placeholder"><span class="ig-grid-placeholder-icon">💡</span></div></div>
-        <div class="ig-grid-item"><div class="ig-grid-placeholder"><span class="ig-grid-placeholder-icon">📱</span></div></div>
-        <div class="ig-grid-item"><div class="ig-grid-placeholder"><span class="ig-grid-placeholder-icon">🌐</span></div></div>
+        <div class="ig-grid-item"><img src="assets/post_1.jpg" alt="Post 1"></div>
+        <div class="ig-grid-item"><img src="assets/post_2.jpg" alt="Post 2"></div>
+        <div class="ig-grid-item"><img src="assets/post_3.jpg" alt="Post 3"></div>
+        <div class="ig-grid-item"><img src="assets/post_4.jpg" alt="Post 4"></div>
+        <div class="ig-grid-item"><img src="assets/post_5.jpg" alt="Post 5"></div>
+        <div class="ig-grid-item"><img src="assets/post_6.jpg" alt="Post 6"></div>
       </div>
     </div>
 
@@ -1284,12 +1283,12 @@
   <p class="section-subtitle">Sígueme en @sansatel_asesoras para consejos sobre telecomunicaciones, energía y digitalización para empresas.</p>
 
   <div class="gallery-grid" id="gallery">
-    <div class="gallery-item reveal"><div class="gallery-placeholder"><span class="gallery-placeholder-icon">📡</span><span class="gallery-placeholder-text">Próximamente</span></div></div>
-    <div class="gallery-item reveal reveal-delay-1"><div class="gallery-placeholder"><span class="gallery-placeholder-icon">⚡</span><span class="gallery-placeholder-text">Próximamente</span></div></div>
-    <div class="gallery-item reveal reveal-delay-2"><div class="gallery-placeholder"><span class="gallery-placeholder-icon">🔒</span><span class="gallery-placeholder-text">Próximamente</span></div></div>
-    <div class="gallery-item reveal reveal-delay-1"><div class="gallery-placeholder"><span class="gallery-placeholder-icon">💻</span><span class="gallery-placeholder-text">Próximamente</span></div></div>
-    <div class="gallery-item reveal reveal-delay-2"><div class="gallery-placeholder"><span class="gallery-placeholder-icon">🌐</span><span class="gallery-placeholder-text">Próximamente</span></div></div>
-    <div class="gallery-item reveal reveal-delay-3"><div class="gallery-placeholder"><span class="gallery-placeholder-icon">📱</span><span class="gallery-placeholder-text">Próximamente</span></div></div>
+    <div class="gallery-item reveal"><img src="assets/post_1.jpg" alt="Publicación 1"><div class="gallery-item-overlay"></div></div>
+    <div class="gallery-item reveal reveal-delay-1"><img src="assets/post_2.jpg" alt="Publicación 2"><div class="gallery-item-overlay"></div></div>
+    <div class="gallery-item reveal reveal-delay-2"><img src="assets/post_3.jpg" alt="Publicación 3"><div class="gallery-item-overlay"></div></div>
+    <div class="gallery-item reveal reveal-delay-1"><img src="assets/post_4.jpg" alt="Publicación 4"><div class="gallery-item-overlay"></div></div>
+    <div class="gallery-item reveal reveal-delay-2"><img src="assets/post_5.jpg" alt="Publicación 5"><div class="gallery-item-overlay"></div></div>
+    <div class="gallery-item reveal reveal-delay-3"><img src="assets/post_6.jpg" alt="Publicación 6"><div class="gallery-item-overlay"></div></div>
   </div>
 
   <div class="gallery-notice">
@@ -1435,28 +1434,30 @@
     img.src = src;
   }
 
-  for (let i = 1; i <= 6; i++) {
-    (function(idx) {
-      const src = `assets/instagram/post-${idx}.jpg`;
-      tryLoadImage(src, () => {
-        // Replace grid placeholder
-        if (gridItems[idx - 1]) {
-          gridItems[idx - 1].innerHTML = `<img src="${src}" alt="Post ${idx}">`;
-        }
-        // Replace gallery placeholder
-        if (galleryItems[idx - 1]) {
-          galleryItems[idx - 1].innerHTML = `
-            <img src="${src}" alt="Publicación ${idx}">
-            <div class="gallery-item-overlay"></div>
-          `;
-        }
-      });
-    })(i);
-  }
+  const photoPaths = [
+    'assets/post_1.jpg','assets/post_2.jpg','assets/post_3.jpg',
+    'assets/post_4.jpg','assets/post_5.jpg','assets/post_6.jpg',
+    'assets/instagram/post-1.jpg','assets/instagram/post-2.jpg','assets/instagram/post-3.jpg',
+    'assets/instagram/post-4.jpg','assets/instagram/post-5.jpg','assets/instagram/post-6.jpg'
+  ];
+
+  let loaded = 0;
+  photoPaths.forEach((src, i) => {
+    if (loaded >= 6) return;
+    tryLoadImage(src, () => {
+      if (loaded >= 6) return;
+      const idx = loaded;
+      loaded++;
+      if (gridItems[idx]) gridItems[idx].innerHTML = `<img src="${src}" alt="Post ${idx+1}">`;
+      if (galleryItems[idx]) galleryItems[idx].innerHTML = `<img src="${src}" alt="Publicación ${idx+1}"><div class="gallery-item-overlay"></div>`;
+    });
+  });
 
   // Load profile pic
-  tryLoadImage('assets/instagram/profile.jpg', () => {
-    // Profile pic already wired via onerror fallback
+  ['assets/profile.jpg','assets/instagram/profile.jpg'].forEach(src => {
+    tryLoadImage(src, () => {
+      document.querySelectorAll('.ig-avatar-inner img').forEach(img => img.src = src);
+    });
   });
 
   // Navbar scroll effect
