@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Argumentario Subitur — Sandra Sánchez</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f8f9fa;
+    color: #1a1a2e;
+    padding: 40px 20px;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.08);
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #1D4ED8, #1e3a8a);
+    padding: 40px;
+    color: white;
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+
+  .badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .date-badge {
+    background: #F59E0B;
+    color: #1a1a2e;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .header h1 span {
+    color: #F59E0B;
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .meta-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.6;
+  }
+
+  .meta-value {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  /* NÚMEROS CLAVE */
+  .numbers-bar {
+    background: #0f172a;
+    padding: 20px 40px;
+    display: flex;
+    gap: 0;
+  }
+
+  .number-item {
+    flex: 1;
+    text-align: center;
+    padding: 0 16px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .number-item:last-child { border-right: none; }
+
+  .number-value {
+    font-size: 26px;
+    font-weight: 800;
+    color: #F59E0B;
+    display: block;
+  }
+
+  .number-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 4px;
+    display: block;
+  }
+
+  /* CONTENIDO */
+  .content {
+    padding: 40px;
+  }
+
+  /* SECCIÓN */
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  .section-number {
+    background: #1D4ED8;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #1D4ED8;
+  }
+
+  /* QUOTE */
+  .quote {
+    background: #f0f4ff;
+    border-left: 4px solid #1D4ED8;
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 10px 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #1e3a8a;
+    font-style: italic;
+  }
+
+  .note {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: #f8fafc;
+    border-radius: 6px;
+    font-style: normal;
+  }
+
+  /* OBJECIONES */
+  .objection-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .objection-item {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .objection-trigger {
+    background: #fef3c7;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #92400e;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .objection-trigger::before {
+    content: "💬";
+    font-style: normal;
+  }
+
+  .objection-response {
+    padding: 12px 16px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #1e3a8a;
+    font-style: italic;
+    background: #f0f4ff;
+  }
+
+  /* TABLA */
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 13px;
+  }
+
+  .comparison-table thead tr {
+    background: #1D4ED8;
+    color: white;
+  }
+
+  .comparison-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .comparison-table th:last-child {
+    background: #F59E0B;
+    color: #1a1a2e;
+  }
+
+  .comparison-table td {
+    padding: 11px 16px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .comparison-table tbody tr:nth-child(even) {
+    background: #f8fafc;
+  }
+
+  .comparison-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .check { color: #16a34a; font-weight: 700; }
+  .cross { color: #dc2626; font-weight: 700; }
+  .highlight-cell {
+    font-weight: 700;
+    color: #1D4ED8;
+  }
+
+  /* MICROCIERRE */
+  .microcierre {
+    background: linear-gradient(135deg, #1e3a8a, #1D4ED8);
+    border-radius: 12px;
+    padding: 24px;
+    color: white;
+    margin-top: 8px;
+  }
+
+  .microcierre p {
+    font-size: 14px;
+    line-height: 1.7;
+    font-style: italic;
+    margin-bottom: 12px;
+  }
+
+  .microcierre p:last-child { margin-bottom: 0; }
+
+  /* FRASE FINAL */
+  .frase-final {
+    background: #0f172a;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    margin-top: 32px;
+  }
+
+  .frase-final p {
+    color: rgba(255,255,255,0.6);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+
+  .frase-final blockquote {
+    color: #F59E0B;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* FOOTER */
+  .footer {
+    padding: 20px 40px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8fafc;
+  }
+
+  .footer-brand {
+    font-weight: 700;
+    font-size: 14px;
+    color: #1D4ED8;
+  }
+
+  .footer-info {
+    font-size: 12px;
+    color: #94a3b8;
+  }
+
+  /* DIFERENCIAL CARDS */
+  .diferencial-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .diferencial-card {
+    background: #f0f4ff;
+    border: 1px solid #c7d7f9;
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .diferencial-icon {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+
+  .diferencial-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 4px;
+  }
+
+  .diferencial-desc {
+    font-size: 12px;
+    color: #475569;
+    line-height: 1.5;
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .page { box-shadow: none; border-radius: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">
+      <span class="badge">Argumentario Comercial</span>
+      <span class="date-badge">Lunes 8 Junio · 16h</span>
+    </div>
+    <h1>Visita <span>SUBITUR</span></h1>
+    <div style="font-size:15px; opacity:0.8; margin-top:6px;">Daniel Tura · Reus, Tarragona</div>
+    <div class="header-meta">
+      <div class="meta-item">
+        <span class="meta-label">Referido por</span>
+        <span class="meta-value">Rafa i Tere ✓</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Permanencia vence</span>
+        <span class="meta-value">30 Junio 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Operador actual</span>
+        <span class="meta-value">Movistar</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Perfil</span>
+        <span class="meta-value">Leal, sin dolor</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NÚMEROS CLAVE -->
+  <div class="numbers-bar">
+    <div class="number-item">
+      <span class="number-value">573€</span>
+      <span class="number-label">Paga ahora/mes</span>
+    </div>
+    <div class="number-item">
+      <span class="number-value">298€</span>
+      <span class="number-label">Orange con IVA</span>
+    </div>
+    <div class="number-item">
+      <span class="number-value">275€</span>
+      <span class="number-label">Ahorro mensual</span>
+    </div>
+    <div class="number-item">
+      <span class="number-value">3.300€</span>
+      <span class="number-label">Ahorro anual</span>
+    </div>
+  </div>
+
+  <!-- CONTENIDO -->
+  <div class="content">
+
+    <!-- 1. APERTURA -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">1</div>
+        <div class="section-title">Apertura — Rafa primero, oferta después</div>
+      </div>
+      <div class="quote">
+        "Daniel, antes de nada — llevas tiempo conociendo cómo trabajamos a través de Rafa. Sabes que no venimos a colocar nada. Vengo a que tengas los números reales encima de la mesa y decidas tú con criterio."
+      </div>
+    </div>
+
+    <!-- 2. DIAGNÓSTICO -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">2</div>
+        <div class="section-title">Diagnóstico — pregunta antes de mostrar nada</div>
+      </div>
+      <div class="quote">
+        "¿Qué te ha propuesto Movistar exactamente? ¿Ya tienes números?"
+      </div>
+      <div class="note">
+        ▸ Si te da el precio → escuchas y presentas en consecuencia.<br>
+        ▸ Si no te lo da → <em>"Sin saber eso no puedo hacerte una comparativa honesta. ¿Me lo puedes enseñar?"</em>
+      </div>
+    </div>
+
+    <!-- 3. NEUTRALIZAR ORANGE -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">3</div>
+        <div class="section-title">Neutraliza Orange — hazlo tú antes de que lo saque él</div>
+      </div>
+      <div class="quote">
+        "Sé que tuviste una mala experiencia con Orange. Por eso quiero que entiendas algo: aquí no tratas con Orange directamente — tratas conmigo. Si algo falla, me llamas a mí. No a un call center. Igual que hace Rafa."
+      </div>
+    </div>
+
+    <!-- 4. DIFERENCIAL -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">4</div>
+        <div class="section-title">Diferencial — antes que el precio</div>
+      </div>
+      <div class="quote">
+        "Daniel, lo que te traigo tiene algo que Movistar no puede darte: doble protección si os cae la fibra. Primero — backup 4G automático: si cae la fibra, la conexión sigue. Segundo — vuestras extensiones funcionan sobre red móvil. Si cae todo, la centralita sigue recibiendo llamadas. Ningún cliente sin atención. Movistar no os da eso a ningún precio."
+      </div>
+      <div class="diferencial-grid">
+        <div class="diferencial-card">
+          <div class="diferencial-icon">📡</div>
+          <div class="diferencial-title">Backup 4G automático</div>
+          <div class="diferencial-desc">Si cae la fibra, la conexión a internet sigue funcionando por 4G sin intervención.</div>
+        </div>
+        <div class="diferencial-card">
+          <div class="diferencial-icon">📱</div>
+          <div class="diferencial-title">Extensiones sobre red móvil</div>
+          <div class="diferencial-desc">Las extensiones de centralita siguen activas aunque caiga fibra y backup. Cero llamadas perdidas.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. PRECIO -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">5</div>
+        <div class="section-title">Números — después del diferencial, nunca antes</div>
+      </div>
+      <div class="quote">
+        "Y por todo eso pagas 298€ al mes con IVA. Ahora mismo pagas 573€. Son 275€ menos cada mes — más de 3.300€ al año."
+      </div>
+      <div class="note">▸ Pausa. Deja que lo procese. No llenes el silencio.</div>
+
+      <table class="comparison-table" style="margin-top:16px;">
+        <thead>
+          <tr>
+            <th>Concepto</th>
+            <th>Movistar ahora</th>
+            <th>Orange</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Mensual con IVA</td>
+            <td>573€</td>
+            <td class="highlight-cell">298€</td>
+          </tr>
+          <tr>
+            <td>Ahorro mensual</td>
+            <td>—</td>
+            <td class="highlight-cell">275€</td>
+          </tr>
+          <tr>
+            <td>Ahorro anual</td>
+            <td>—</td>
+            <td class="highlight-cell">3.300€</td>
+          </tr>
+          <tr>
+            <td>Backup si cae fibra</td>
+            <td><span class="cross">✗ No</span></td>
+            <td><span class="check">✓ Doble</span></td>
+          </tr>
+          <tr>
+            <td>Extensiones activas sin fibra</td>
+            <td><span class="cross">✗ No</span></td>
+            <td><span class="check">✓ Sí</span></td>
+          </tr>
+          <tr>
+            <td>Gestora personal</td>
+            <td><span class="cross">✗ Call center</span></td>
+            <td><span class="check">✓ Sandra</span></td>
+          </tr>
+          <tr>
+            <td>Precio fijo</td>
+            <td><span class="cross">✗ Puede subir</span></td>
+            <td><span class="check">✓ 36 meses</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 6. OBJECIONES -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">6</div>
+        <div class="section-title">Manejo de objeciones</div>
+      </div>
+      <div class="objection-grid">
+        <div class="objection-item">
+          <div class="objection-trigger">"Movistar me va a igualar el precio"</div>
+          <div class="objection-response">"Pueden llegar al 50% de retención — serían unos 287€. Prácticamente lo mismo. Pero sin el doble backup. Si la fibra cae, Subitur para. ¿Eso cuánto os cuesta?"</div>
+        </div>
+        <div class="objection-item">
+          <div class="objection-trigger">"Tuve mala experiencia con Orange"</div>
+          <div class="objection-response">"Lo sé. Y entiendo que eso pesa. Por eso lo que te ofrezco no es Orange solo — soy yo detrás. Si hay un problema, no esperas a un call center."</div>
+        </div>
+        <div class="objection-item">
+          <div class="objection-trigger">"Necesito pensarlo"</div>
+          <div class="objection-response">"Normal. ¿Qué parte concretamente te genera más duda ahora mismo?"</div>
+        </div>
+        <div class="objection-item">
+          <div class="objection-trigger">"Son 36 meses, es mucho compromiso"</div>
+          <div class="objection-response">"Sí, es un compromiso. A cambio tienes precio fijo 3 años — Movistar puede subirte en cualquier renovación. En 36 meses son más de 9.900€ de ahorro frente a lo que pagas ahora."</div>
+        </div>
+        <div class="objection-item">
+          <div class="objection-trigger">"Lo tengo que consultar con alguien"</div>
+          <div class="objection-response">"¿Con quién lo tienes que hablar? ¿Le puedo acompañar a esa reunión o te preparo algo que puedas presentar tú?"</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. MICROCIERRE -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">7</div>
+        <div class="section-title">Microcierre — no salgas sin esto</div>
+      </div>
+      <div class="microcierre">
+        <p>"Daniel, el 30 de junio vence tu permanencia. Es el momento limpio. ¿Qué necesitas para poder decirme sí antes del 25?"</p>
+      </div>
+    </div>
+
+    <!-- FRASE FINAL -->
+    <div class="frase-final">
+      <p>Recuerda antes de entrar</p>
+      <blockquote>"No vas a vender telecomunicaciones. Vas a demostrar que eres la persona más fiable que Daniel va a tener detrás de sus comunicaciones."</blockquote>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span class="footer-brand">SANSATEL · Sandra Sánchez</span>
+    <span class="footer-info">Argumentario confidencial · 8 Junio 2026</span>
+  </div>
+
+</div>
+</body>
+</html>
