@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GymTrack — Mi entrenamiento</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A1628;
+    --bg2: #0D1F3C;
+    --bg3: #112040;
+    --blue: #1D4ED8;
+    --blue-light: #3B82F6;
+    --amber: #D97706;
+    --amber-light: #F59E0B;
+    --green: #10B981;
+    --green-light: #34D399;
+    --red: #EF4444;
+    --white: #F1F5F9;
+    --gray: #7B8FAE;
+    --gray2: #4E6080;
+    --border: rgba(30,58,138,0.25);
+    --card-bg: rgba(11,25,50,0.9);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--white);
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 3px; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(10,22,40,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .nav-logo span { color: var(--green-light); }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    padding: 16px 24px 0;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .tab-btn {
+    padding: 10px 20px;
+    border: none;
+    background: transparent;
+    color: var(--gray);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn.active {
+    color: var(--green-light);
+    border-bottom-color: var(--green-light);
+  }
+  .tab-btn:hover:not(.active) { color: var(--white); }
+
+  /* ── VIEWS ── */
+  .view { display: none; padding: 24px; max-width: 700px; margin: 0 auto; }
+  .view.active { display: block; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    backdrop-filter: blur(10px);
+  }
+  .card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--white);
+  }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-green { background: var(--green); color: #fff; }
+  .btn-green:hover { background: var(--green-light); }
+  .btn-blue { background: var(--blue); color: #fff; }
+  .btn-blue:hover { background: var(--blue-light); }
+  .btn-amber { background: var(--amber); color: #0A1628; }
+  .btn-amber:hover { background: var(--amber-light); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--gray);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { color: var(--white); border-color: var(--gray2); }
+  .btn-danger { background: var(--red); color: #fff; }
+  .btn-sm { padding: 6px 12px; font-size: 12px; border-radius: 8px; }
+  .btn-full { width: 100%; justify-content: center; }
+
+  /* ── FORM ELEMENTS ── */
+  input, select, textarea {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    padding: 10px 14px;
+    width: 100%;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--blue-light);
+  }
+  input::placeholder { color: var(--gray2); }
+  select option { background: var(--bg2); }
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .field { margin-bottom: 14px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+
+  /* ── MÁQUINAS ── */
+  .machine-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+  }
+  .machine-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 10px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .machine-chip:hover { border-color: var(--blue-light); }
+  .machine-chip.selected {
+    border-color: var(--green);
+    background: rgba(16,185,129,0.1);
+  }
+  .machine-chip .icon { font-size: 28px; }
+  .machine-chip .name { font-size: 12px; font-weight: 500; color: var(--white); line-height: 1.3; }
+  .machine-chip .muscle { font-size: 11px; color: var(--gray); }
+
+  /* ── EJERCICIO EN RUTINA ── */
+  .exercise-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+  .exercise-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .exercise-name {
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .exercise-muscle {
+    font-size: 11px;
+    color: var(--gray);
+    margin-top: 2px;
+  }
+
+  /* ── SESIÓN ACTIVA ── */
+  .set-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .set-row:last-child { border-bottom: none; }
+  .set-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--bg2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gray);
+    flex-shrink: 0;
+  }
+  .set-num.done { background: var(--green); color: #fff; }
+  .set-info { flex: 1; font-size: 13px; color: var(--gray); }
+  .set-info strong { color: var(--white); }
+  .set-check {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .set-check:hover { border-color: var(--green); }
+  .set-check.done { background: var(--green); border-color: var(--green); }
+
+  /* ── TEMPORIZADOR ── */
+  .timer-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(10,22,40,0.97);
+    border-top: 1px solid var(--green);
+    padding: 12px 24px;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 200;
+  }
+  .timer-bar.visible { display: flex; }
+  .timer-label { font-size: 12px; color: var(--gray); }
+  .timer-count {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--green-light);
+  }
+  .timer-count.urgent { color: var(--amber-light); }
+
+  /* ── HISTORIAL ── */
+  .history-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .history-date {
+    font-size: 12px;
+    color: var(--gray);
+    margin-bottom: 6px;
+  }
+  .history-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .history-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    background: rgba(59,130,246,0.15);
+    color: var(--blue-light);
+    border: 1px solid rgba(59,130,246,0.25);
+  }
+  .tag.green {
+    background: rgba(16,185,129,0.15);
+    color: var(--green-light);
+    border-color: rgba(16,185,129,0.25);
+  }
+
+  /* ── PROGRESO ── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .stat-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--green-light);
+  }
+  .stat-lbl { font-size: 11px; color: var(--gray); margin-top: 4px; }
+
+  /* ── EMPTY STATE ── */
+  .empty {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--gray);
+  }
+  .empty .icon { font-size: 48px; margin-bottom: 12px; }
+  .empty p { font-size: 14px; }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 300;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 20px 20px 0 0;
+    padding: 24px;
+    width: 100%;
+    max-width: 700px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  .modal-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  /* ── BADGE ── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+  }
+  .badge-green { background: rgba(16,185,129,0.2); color: var(--green-light); }
+  .badge-amber { background: rgba(217,119,6,0.2); color: var(--amber-light); }
+
+  /* ── ALERT ── */
+  .alert {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: var(--green);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 400;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+  .alert.show { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 480px) {
+    .field-row { grid-template-columns: 1fr 1fr; }
+    .machine-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Gym<span>Track</span></div>
+  <div id="session-badge" class="badge badge-amber" style="display:none">🔥 Sesión activa</div>
+</nav>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('inicio')">🏠 Inicio</button>
+  <button class="tab-btn" onclick="showTab('rutina')">💪 Nueva rutina</button>
+  <button class="tab-btn" onclick="showTab('sesion')">▶️ Sesión</button>
+  <button class="tab-btn" onclick="showTab('historial')">📋 Historial</button>
+  <button class="tab-btn" onclick="showTab('maquinas')">⚙️ Máquinas</button>
+</div>
+
+<!-- ═══ INICIO ═══ -->
+<div id="view-inicio" class="view active">
+  <div class="stat-grid" id="stats-grid"></div>
+
+  <div class="section-header">
+    <div class="section-title">Última sesión</div>
+  </div>
+  <div id="last-session-card"></div>
+
+  <div style="margin-top:24px">
+    <button class="btn btn-green btn-full" style="font-size:16px;padding:16px" onclick="showTab('rutina')">
+      ➕ Crear nueva rutina
+    </button>
+  </div>
+</div>
+
+<!-- ═══ NUEVA RUTINA ═══ -->
+<div id="view-rutina" class="view">
+  <div class="section-header">
+    <div class="section-title">Nueva rutina</div>
+  </div>
+
+  <div class="card">
+    <div class="field">
+      <label>Nombre de la sesión</label>
+      <input type="text" id="workout-name" placeholder="Ej: Piernas, Pecho y espalda, Full body…">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Selecciona las máquinas de hoy</div>
+    <div class="machine-grid" id="machine-selector"></div>
+  </div>
+
+  <div id="exercises-config" style="display:none">
+    <div class="card">
+      <div class="card-title">Configura series y repeticiones</div>
+      <div id="exercises-list"></div>
+      <button class="btn btn-green btn-full" style="margin-top:8px" onclick="startSession()">
+        ▶️ Empezar sesión
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SESIÓN ACTIVA ═══ -->
+<div id="view-sesion" class="view">
+  <div id="session-content">
+    <div class="empty">
+      <div class="icon">💪</div>
+      <p>No hay sesión activa.<br>Crea una rutina para empezar.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HISTORIAL ═══ -->
+<div id="view-historial" class="view">
+  <div class="section-header">
+    <div class="section-title">Historial</div>
+    <button class="btn btn-ghost btn-sm" onclick="if(confirm('¿Borrar todo el historial?')) { localStorage.removeItem(\'gymHistory\'); renderHistory(); renderStats(); }">Limpiar</button>
+  </div>
+  <div id="history-list"></div>
+</div>
+
+<!-- ═══ MÁQUINAS ═══ -->
+<div id="view-maquinas" class="view">
+  <div class="section-header">
+    <div class="section-title">Mis máquinas</div>
+    <button class="btn btn-blue btn-sm" onclick="openAddMachine()">+ Añadir</button>
+  </div>
+  <div id="machines-list"></div>
+</div>
+
+<!-- ═══ MODAL AÑADIR MÁQUINA ═══ -->
+<div class="modal-overlay" id="modal-machine">
+  <div class="modal">
+    <div class="modal-title">Nueva máquina</div>
+    <div class="field">
+      <label>Nombre</label>
+      <input type="text" id="m-name" placeholder="Ej: Press de banca">
+    </div>
+    <div class="field">
+      <label>Grupo muscular</label>
+      <select id="m-muscle">
+        <option value="Pecho">Pecho</option>
+        <option value="Espalda">Espalda</option>
+        <option value="Hombros">Hombros</option>
+        <option value="Bíceps">Bíceps</option>
+        <option value="Tríceps">Tríceps</option>
+        <option value="Piernas">Piernas</option>
+        <option value="Glúteos">Glúteos</option>
+        <option value="Core / Abdominales">Core / Abdominales</option>
+        <option value="Cardio">Cardio</option>
+        <option value="Cuerpo completo">Cuerpo completo</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Icono (emoji)</label>
+      <input type="text" id="m-icon" placeholder="🏋️" maxlength="4" style="font-size:24px;text-align:center">
+    </div>
+    <div style="display:flex;gap:10px;margin-top:8px">
+      <button class="btn btn-ghost btn-full" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-green btn-full" onclick="saveMachine()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TEMPORIZADOR DE DESCANSO ═══ -->
+<div class="timer-bar" id="timer-bar">
+  <div>
+    <div class="timer-label">Descanso</div>
+    <div class="timer-count" id="timer-count">1:30</div>
+  </div>
+  <div style="display:flex;gap:8px">
+    <button class="btn btn-ghost btn-sm" onclick="addTime(30)">+30s</button>
+    <button class="btn btn-ghost btn-sm" onclick="stopTimer()">Saltar</button>
+  </div>
+</div>
+
+<!-- ALERT TOAST -->
+<div class="alert" id="alert"></div>
+
+<script>
+// ══════════════════════════════
+// DATOS POR DEFECTO
+// ══════════════════════════════
+const DEFAULT_MACHINES = [
+  { id: 'm1', name: 'Press de banca', muscle: 'Pecho', icon: '🏋️' },
+  { id: 'm2', name: 'Press inclinado', muscle: 'Pecho', icon: '📐' },
+  { id: 'm3', name: 'Aperturas polea', muscle: 'Pecho', icon: '🦋' },
+  { id: 'm4', name: 'Dominadas / Jalón', muscle: 'Espalda', icon: '⬆️' },
+  { id: 'm5', name: 'Remo en polea', muscle: 'Espalda', icon: '🚣' },
+  { id: 'm6', name: 'Remo con barra', muscle: 'Espalda', icon: '🔧' },
+  { id: 'm7', name: 'Press militar', muscle: 'Hombros', icon: '🔝' },
+  { id: 'm8', name: 'Elevaciones laterales', muscle: 'Hombros', icon: '✈️' },
+  { id: 'm9', name: 'Curl de bíceps', muscle: 'Bíceps', icon: '💪' },
+  { id: 'm10', name: 'Predicador', muscle: 'Bíceps', icon: '🙏' },
+  { id: 'm11', name: 'Extensión tríceps', muscle: 'Tríceps', icon: '⬇️' },
+  { id: 'm12', name: 'Press francés', muscle: 'Tríceps', icon: '🇫🇷' },
+  { id: 'm13', name: 'Sentadilla', muscle: 'Piernas', icon: '🦵' },
+  { id: 'm14', name: 'Prensa de piernas', muscle: 'Piernas', icon: '🦶' },
+  { id: 'm15', name: 'Extensión de cuádriceps', muscle: 'Piernas', icon: '🔁' },
+  { id: 'm16', name: 'Curl femoral', muscle: 'Piernas', icon: '🔄' },
+  { id: 'm17', name: 'Hip thrust', muscle: 'Glúteos', icon: '🍑' },
+  { id: 'm18', name: 'Abductor / Aductor', muscle: 'Glúteos', icon: '↔️' },
+  { id: 'm19', name: 'Abdominales crunch', muscle: 'Core / Abdominales', icon: '🎯' },
+  { id: 'm20', name: 'Cinta de correr', muscle: 'Cardio', icon: '🏃' },
+  { id: 'm21', name: 'Bicicleta estática', muscle: 'Cardio', icon: '🚴' },
+  { id: 'm22', name: 'Elíptica', muscle: 'Cardio', icon: '〰️' },
+];
+
+// ══════════════════════════════
+// ESTADO
+// ══════════════════════════════
+let machines = JSON.parse(localStorage.getItem('gymMachines') || 'null') || DEFAULT_MACHINES;
+let history = JSON.parse(localStorage.getItem('gymHistory') || '[]');
+let currentSession = JSON.parse(localStorage.getItem('gymCurrentSession') || 'null');
+
+let selectedMachines = [];
+let timerInterval = null;
+let timerSeconds = 0;
+
+// ══════════════════════════════
+// SAVE HELPERS
+// ══════════════════════════════
+function saveMachines() { localStorage.setItem('gymMachines', JSON.stringify(machines)); }
+function saveHistory() { localStorage.setItem('gymHistory', JSON.stringify(history)); }
+function saveCurrentSession() { localStorage.setItem('gymCurrentSession', JSON.stringify(currentSession)); }
+
+// ══════════════════════════════
+// TABS
+// ══════════════════════════════
+function showTab(tab) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('view-' + tab).classList.add('active');
+  const tabs = ['inicio','rutina','sesion','historial','maquinas'];
+  document.querySelectorAll('.tab-btn')[tabs.indexOf(tab)].classList.add('active');
+
+  if (tab === 'inicio') renderInicio();
+  if (tab === 'rutina') renderMachineSelector();
+  if (tab === 'sesion') renderSession();
+  if (tab === 'historial') renderHistory();
+  if (tab === 'maquinas') renderMachinesList();
+}
+
+// ══════════════════════════════
+// INICIO
+// ══════════════════════════════
+function renderInicio() {
+  // Stats
+  const sg = document.getElementById('stats-grid');
+  const totalSessions = history.length;
+  const thisWeek = history.filter(s => {
+    const d = new Date(s.date);
+    const now = new Date();
+    const diff = (now - d) / (1000*60*60*24);
+    return diff <= 7;
+  }).length;
+  const totalSets = history.reduce((acc, s) => acc + s.exercises.reduce((a, e) => a + e.sets.filter(x => x.done).length, 0), 0);
+
+  sg.innerHTML = `
+    <div class="stat-box"><div class="stat-num">${totalSessions}</div><div class="stat-lbl">Sesiones totales</div></div>
+    <div class="stat-box"><div class="stat-num">${thisWeek}</div><div class="stat-lbl">Esta semana</div></div>
+    <div class="stat-box"><div class="stat-num">${totalSets}</div><div class="stat-lbl">Series hechas</div></div>
+  `;
+
+  // Last session
+  const lsc = document.getElementById('last-session-card');
+  if (history.length === 0) {
+    lsc.innerHTML = '<div class="empty"><div class="icon">🏁</div><p>Aún no hay sesiones.<br>¡Empieza hoy!</p></div>';
+    return;
+  }
+  const last = history[history.length - 1];
+  const date = new Date(last.date).toLocaleDateString('es-ES', { weekday:'long', day:'numeric', month:'long' });
+  const doneSets = last.exercises.reduce((a, e) => a + e.sets.filter(x => x.done).length, 0);
+  const totalSetsCount = last.exercises.reduce((a, e) => a + e.sets.length, 0);
+  lsc.innerHTML = `
+    <div class="history-item">
+      <div class="history-date">${date}</div>
+      <div class="history-title">${last.name}</div>
+      <div style="font-size:13px;color:var(--gray);margin-bottom:10px">${doneSets}/${totalSetsCount} series completadas · ${last.duration || '—'} min</div>
+      <div class="history-tags">
+        ${last.exercises.map(e => `<span class="tag green">${machines.find(m=>m.id===e.machineId)?.icon || ''} ${e.machineName}</span>`).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// ══════════════════════════════
+// MÁQUINAS — SELECTOR
+// ══════════════════════════════
+function renderMachineSelector() {
+  selectedMachines = [];
+  document.getElementById('exercises-config').style.display = 'none';
+
+  const grid = document.getElementById('machine-selector');
+  grid.innerHTML = machines.map(m => `
+    <div class="machine-chip" id="chip-${m.id}" onclick="toggleMachine('${m.id}')">
+      <div class="icon">${m.icon}</div>
+      <div class="name">${m.name}</div>
+      <div class="muscle">${m.muscle}</div>
+    </div>
+  `).join('');
+}
+
+function toggleMachine(id) {
+  const idx = selectedMachines.indexOf(id);
+  if (idx === -1) {
+    selectedMachines.push(id);
+    document.getElementById('chip-' + id).classList.add('selected');
+  } else {
+    selectedMachines.splice(idx, 1);
+    document.getElementById('chip-' + id).classList.remove('selected');
+  }
+  renderExercisesConfig();
+}
+
+function renderExercisesConfig() {
+  const container = document.getElementById('exercises-config');
+  const list = document.getElementById('exercises-list');
+
+  if (selectedMachines.length === 0) {
+    container.style.display = 'none';
+    return;
+  }
+  container.style.display = 'block';
+
+  list.innerHTML = selectedMachines.map(id => {
+    const m = machines.find(x => x.id === id);
+    return `
+      <div class="exercise-item">
+        <div class="exercise-header">
+          <div>
+            <div class="exercise-name">${m.icon} ${m.name}</div>
+            <div class="exercise-muscle">${m.muscle}</div>
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="toggleMachine('${id}')">✕</button>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Series</label>
+            <input type="number" id="sets-${id}" value="3" min="1" max="10">
+          </div>
+          <div class="field">
+            <label>Reps</label>
+            <input type="number" id="reps-${id}" value="12" min="1" max="100">
+          </div>
+          <div class="field">
+            <label>Kg</label>
+            <input type="number" id="weight-${id}" value="0" min="0" step="0.5">
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ══════════════════════════════
+// INICIAR SESIÓN
+// ══════════════════════════════
+function startSession() {
+  if (selectedMachines.length === 0) { showAlert('Selecciona al menos una máquina'); return; }
+  const name = document.getElementById('workout-name').value.trim() || 'Sesión del día';
+
+  const exercises = selectedMachines.map(id => {
+    const m = machines.find(x => x.id === id);
+    const sets = parseInt(document.getElementById('sets-' + id).value) || 3;
+    const reps = parseInt(document.getElementById('reps-' + id).value) || 12;
+    const weight = parseFloat(document.getElementById('weight-' + id).value) || 0;
+    return {
+      machineId: id,
+      machineName: m.name,
+      machineIcon: m.icon,
+      sets: Array.from({ length: sets }, (_, i) => ({ num: i+1, reps, weight, done: false }))
+    };
+  });
+
+  currentSession = {
+    id: Date.now(),
+    name,
+    date: new Date().toISOString(),
+    startTime: Date.now(),
+    exercises
+  };
+  saveCurrentSession();
+  document.getElementById('session-badge').style.display = 'flex';
+  showTab('sesion');
+}
+
+// ══════════════════════════════
+// SESIÓN ACTIVA
+// ══════════════════════════════
+function renderSession() {
+  const container = document.getElementById('session-content');
+  if (!currentSession) {
+    container.innerHTML = '<div class="empty"><div class="icon">💪</div><p>No hay sesión activa.<br>Crea una rutina para empezar.</p></div>';
+    return;
+  }
+
+  const totalSets = currentSession.exercises.reduce((a, e) => a + e.sets.length, 0);
+  const doneSets = currentSession.exercises.reduce((a, e) => a + e.sets.filter(s => s.done).length, 0);
+  const pct = Math.round(doneSets / totalSets * 100);
+
+  container.innerHTML = `
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700">${currentSession.name}</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:2px">${doneSets}/${totalSets} series completadas</div>
+        </div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--green-light)">${pct}%</div>
+      </div>
+      <div style="height:6px;background:var(--bg3);border-radius:3px;overflow:hidden">
+        <div style="height:100%;width:${pct}%;background:var(--green);border-radius:3px;transition:width 0.3s"></div>
+      </div>
+    </div>
+
+    ${currentSession.exercises.map((ex, ei) => `
+      <div class="card">
+        <div class="card-title">${ex.machineIcon} ${ex.machineName}</div>
+        ${ex.sets.map((set, si) => `
+          <div class="set-row">
+            <div class="set-num ${set.done ? 'done' : ''}">${set.num}</div>
+            <div class="set-info">
+              <strong>${set.reps} reps</strong>
+              ${set.weight > 0 ? ` · <strong>${set.weight} kg</strong>` : ''}
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <input type="number" value="${set.weight}" min="0" step="0.5"
+                style="width:64px;text-align:center;padding:6px;font-size:13px"
+                onchange="updateWeight(${ei},${si},this.value)" placeholder="kg">
+              <button class="set-check ${set.done ? 'done' : ''}" onclick="toggleSet(${ei},${si})">
+                ${set.done ? '✓' : ''}
+              </button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `).join('')}
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
+      <button class="btn btn-ghost btn-full" onclick="if(confirm('¿Abandonar la sesión?')) cancelSession()">Cancelar</button>
+      <button class="btn btn-green btn-full" onclick="finishSession()">Finalizar ✓</button>
+    </div>
+  `;
+}
+
+function toggleSet(ei, si) {
+  currentSession.exercises[ei].sets[si].done = !currentSession.exercises[ei].sets[si].done;
+  saveCurrentSession();
+  renderSession();
+  if (currentSession.exercises[ei].sets[si].done) startTimer(90);
+}
+
+function updateWeight(ei, si, val) {
+  currentSession.exercises[ei].sets[si].weight = parseFloat(val) || 0;
+  saveCurrentSession();
+}
+
+function finishSession() {
+  const elapsed = Math.round((Date.now() - currentSession.startTime) / 60000);
+  currentSession.duration = elapsed;
+  history.push(currentSession);
+  saveHistory();
+  currentSession = null;
+  saveCurrentSession();
+  document.getElementById('session-badge').style.display = 'none';
+  stopTimer();
+  showAlert('¡Sesión completada! 🎉');
+  showTab('historial');
+}
+
+function cancelSession() {
+  currentSession = null;
+  saveCurrentSession();
+  document.getElementById('session-badge').style.display = 'none';
+  stopTimer();
+  renderSession();
+}
+
+// ══════════════════════════════
+// TEMPORIZADOR
+// ══════════════════════════════
+function startTimer(seconds) {
+  stopTimer();
+  timerSeconds = seconds;
+  const bar = document.getElementById('timer-bar');
+  bar.classList.add('visible');
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    if (timerSeconds <= 0) {
+      stopTimer();
+      showAlert('¡A por la siguiente serie!');
+      return;
+    }
+    updateTimerDisplay();
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const el = document.getElementById('timer-count');
+  const m = Math.floor(timerSeconds / 60);
+  const s = timerSeconds % 60;
+  el.textContent = `${m}:${s.toString().padStart(2,'0')}`;
+  el.className = 'timer-count' + (timerSeconds <= 10 ? ' urgent' : '');
+}
+
+function addTime(s) { timerSeconds += s; updateTimerDisplay(); }
+
+function stopTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+  document.getElementById('timer-bar').classList.remove('visible');
+}
+
+// ══════════════════════════════
+// HISTORIAL
+// ══════════════════════════════
+function renderHistory() {
+  const list = document.getElementById('history-list');
+  if (history.length === 0) {
+    list.innerHTML = '<div class="empty"><div class="icon">📋</div><p>Aún no hay sesiones registradas.</p></div>';
+    return;
+  }
+  list.innerHTML = [...history].reverse().map((s, i) => {
+    const date = new Date(s.date).toLocaleDateString('es-ES', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+    const doneSets = s.exercises.reduce((a, e) => a + e.sets.filter(x => x.done).length, 0);
+    const totalSets = s.exercises.reduce((a, e) => a + e.sets.length, 0);
+    return `
+      <div class="history-item">
+        <div class="history-date">${date}</div>
+        <div style="display:flex;justify-content:space-between;align-items:start">
+          <div class="history-title">${s.name}</div>
+          <button class="btn btn-ghost btn-sm" onclick="deleteSession(${history.length - 1 - i})">🗑</button>
+        </div>
+        <div style="font-size:13px;color:var(--gray);margin:4px 0 10px">${doneSets}/${totalSets} series · ${s.duration || '—'} min</div>
+        <div class="history-tags">
+          ${s.exercises.map(e => `<span class="tag green">${e.machineIcon} ${e.machineName}</span>`).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function deleteSession(idx) {
+  if (!confirm('¿Eliminar esta sesión?')) return;
+  history.splice(idx, 1);
+  saveHistory();
+  renderHistory();
+  renderStats();
+}
+
+function renderStats() {
+  if (document.getElementById('view-inicio').classList.contains('active')) renderInicio();
+}
+
+// ══════════════════════════════
+// GESTIÓN DE MÁQUINAS
+// ══════════════════════════════
+function renderMachinesList() {
+  const list = document.getElementById('machines-list');
+  const grouped = {};
+  machines.forEach(m => {
+    if (!grouped[m.muscle]) grouped[m.muscle] = [];
+    grouped[m.muscle].push(m);
+  });
+
+  list.innerHTML = Object.entries(grouped).map(([muscle, ms]) => `
+    <div class="card">
+      <div class="card-title">${muscle}</div>
+      ${ms.map(m => `
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="font-size:24px">${m.icon}</span>
+            <span style="font-size:14px;font-weight:500">${m.name}</span>
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="deleteMachine('${m.id}')">🗑</button>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+}
+
+function openAddMachine() {
+  document.getElementById('m-name').value = '';
+  document.getElementById('m-icon').value = '';
+  document.getElementById('modal-machine').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal-machine').classList.remove('open');
+}
+
+function saveMachine() {
+  const name = document.getElementById('m-name').value.trim();
+  const muscle = document.getElementById('m-muscle').value;
+  const icon = document.getElementById('m-icon').value.trim() || '🏋️';
+  if (!name) { showAlert('Escribe un nombre'); return; }
+  machines.push({ id: 'm' + Date.now(), name, muscle, icon });
+  saveMachines();
+  closeModal();
+  renderMachinesList();
+  showAlert('Máquina añadida');
+}
+
+function deleteMachine(id) {
+  if (!confirm('¿Eliminar esta máquina?')) return;
+  machines = machines.filter(m => m.id !== id);
+  saveMachines();
+  renderMachinesList();
+}
+
+// ══════════════════════════════
+// ALERT TOAST
+// ══════════════════════════════
+function showAlert(msg) {
+  const el = document.getElementById('alert');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+// ══════════════════════════════
+// INIT
+// ══════════════════════════════
+if (currentSession) document.getElementById('session-badge').style.display = 'flex';
+renderInicio();
+</script>
+</body>
+</html>
