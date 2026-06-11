@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GymTrack — Mi entrenamiento</title>
+<title>GymTrack — Tu entrenador personal</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -16,6 +16,8 @@
     --amber-light: #F59E0B;
     --green: #10B981;
     --green-light: #34D399;
+    --purple: #8B5CF6;
+    --purple-light: #A78BFA;
     --red: #EF4444;
     --white: #F1F5F9;
     --gray: #7B8FAE;
@@ -31,66 +33,154 @@
     background: var(--bg);
     color: var(--white);
     min-height: 100vh;
-    padding-bottom: 80px;
+    padding-bottom: 100px;
+    overflow-x: hidden;
   }
 
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 3px; }
 
-  /* ── NAV ── */
+  /* ─── WIZARD ─── */
+  .wizard-overlay {
+    position: fixed; inset: 0;
+    background: var(--bg);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .wizard-overlay.hidden { display: none; }
+  .wizard-step { display: none; width: 100%; max-width: 420px; }
+  .wizard-step.active { display: block; }
+  .wizard-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .wizard-logo span { color: var(--green-light); }
+  .wizard-subtitle { text-align: center; color: var(--gray); font-size: 15px; margin-bottom: 40px; }
+  .wizard-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .wizard-desc { color: var(--gray); font-size: 14px; margin-bottom: 24px; }
+
+  .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+  .option-card {
+    background: var(--bg3);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .option-card:hover { border-color: var(--blue-light); }
+  .option-card.selected { border-color: var(--green); background: rgba(16,185,129,0.1); }
+  .option-card .opt-icon { font-size: 36px; margin-bottom: 8px; }
+  .option-card .opt-title { font-size: 14px; font-weight: 600; }
+  .option-card .opt-desc { font-size: 11px; color: var(--gray); margin-top: 4px; }
+
+  .days-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
+  .day-chip {
+    background: var(--bg3);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .day-chip.selected { border-color: var(--green); background: rgba(16,185,129,0.1); }
+  .day-chip .day-num { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: var(--green-light); }
+  .day-chip .day-lbl { font-size: 11px; color: var(--gray); margin-top: 2px; }
+
+  .color-grid { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+  .color-dot {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  .color-dot.selected { border-color: white; transform: scale(1.2); }
+
+  /* ─── NAV ─── */
   nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    padding: 14px 24px;
+    position: sticky; top: 0; z-index: 100;
+    padding: 12px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(10,22,40,0.95);
+    background: rgba(10,22,40,0.97);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
   }
-  .nav-logo {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--white);
-  }
+  .nav-logo { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; }
   .nav-logo span { color: var(--green-light); }
+  .profile-switcher { display: flex; gap: 6px; align-items: center; }
+  .profile-btn {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    transition: all 0.2s;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .profile-btn.active { border-color: white; }
+  .add-profile-btn {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    border: 2px dashed var(--gray2);
+    cursor: pointer;
+    background: transparent;
+    color: var(--gray);
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .add-profile-btn:hover { border-color: var(--green); color: var(--green); }
 
-  /* ── TABS ── */
+  /* ─── TABS ─── */
   .tabs {
     display: flex;
-    gap: 4px;
-    padding: 16px 24px 0;
     border-bottom: 1px solid var(--border);
     overflow-x: auto;
+    background: rgba(10,22,40,0.97);
   }
   .tab-btn {
-    padding: 10px 20px;
+    flex: 1;
+    min-width: 70px;
+    padding: 12px 8px;
     border: none;
     background: transparent;
     color: var(--gray);
     font-family: 'Inter', sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     cursor: pointer;
     border-bottom: 2px solid transparent;
     transition: all 0.2s;
     white-space: nowrap;
   }
-  .tab-btn.active {
-    color: var(--green-light);
-    border-bottom-color: var(--green-light);
-  }
+  .tab-btn.active { color: var(--green-light); border-bottom-color: var(--green-light); }
   .tab-btn:hover:not(.active) { color: var(--white); }
 
-  /* ── VIEWS ── */
-  .view { display: none; padding: 24px; max-width: 700px; margin: 0 auto; }
+  /* ─── VIEWS ─── */
+  .view { display: none; padding: 20px; max-width: 600px; margin: 0 auto; }
   .view.active { display: block; }
 
-  /* ── CARDS ── */
+  /* ─── CARDS ─── */
   .card {
     background: var(--card-bg);
     border: 1px solid var(--border);
@@ -101,743 +191,951 @@
   }
   .card-title {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 16px;
-    color: var(--white);
+    font-size: 15px; font-weight: 600;
+    margin-bottom: 14px; color: var(--white);
   }
 
-  /* ── BUTTONS ── */
+  /* ─── TODAY CARD ─── */
+  .today-hero {
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .today-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(59,130,246,0.15));
+    border: 1px solid rgba(16,185,129,0.3);
+    border-radius: 20px;
+  }
+  .today-hero > * { position: relative; }
+  .today-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--green-light); margin-bottom: 6px; }
+  .today-title { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .today-subtitle { font-size: 13px; color: var(--gray); margin-bottom: 20px; }
+  .today-muscles { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+  .muscle-tag {
+    font-size: 12px; font-weight: 600;
+    padding: 4px 10px; border-radius: 20px;
+    background: rgba(16,185,129,0.15);
+    color: var(--green-light);
+    border: 1px solid rgba(16,185,129,0.3);
+  }
+
+  /* ─── EJERCICIOS PREVIEW ─── */
+  .ex-preview { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+  .ex-preview-item {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px; padding: 10px 14px;
+  }
+  .ex-preview-icon { font-size: 20px; width: 32px; text-align: center; }
+  .ex-preview-name { font-size: 13px; font-weight: 500; flex: 1; }
+  .ex-preview-info { font-size: 11px; color: var(--gray); }
+
+  /* ─── BUTTONS ─── */
   .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: none;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 22px; border-radius: 12px; border: none;
+    font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
   }
   .btn-green { background: var(--green); color: #fff; }
-  .btn-green:hover { background: var(--green-light); }
+  .btn-green:hover { background: var(--green-light); color: #0A1628; }
   .btn-blue { background: var(--blue); color: #fff; }
   .btn-blue:hover { background: var(--blue-light); }
   .btn-amber { background: var(--amber); color: #0A1628; }
   .btn-amber:hover { background: var(--amber-light); }
-  .btn-ghost {
-    background: transparent;
-    color: var(--gray);
-    border: 1px solid var(--border);
-  }
+  .btn-ghost { background: transparent; color: var(--gray); border: 1px solid var(--border); }
   .btn-ghost:hover { color: var(--white); border-color: var(--gray2); }
   .btn-danger { background: var(--red); color: #fff; }
-  .btn-sm { padding: 6px 12px; font-size: 12px; border-radius: 8px; }
+  .btn-sm { padding: 6px 14px; font-size: 12px; border-radius: 8px; }
   .btn-full { width: 100%; justify-content: center; }
 
-  /* ── FORM ELEMENTS ── */
+  /* ─── FORM ─── */
   input, select, textarea {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: var(--white);
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    padding: 10px 14px;
-    width: 100%;
-    transition: border-color 0.2s;
-    outline: none;
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 10px; color: var(--white);
+    font-family: 'Inter', sans-serif; font-size: 14px;
+    padding: 10px 14px; width: 100%;
+    transition: border-color 0.2s; outline: none;
   }
-  input:focus, select:focus, textarea:focus {
-    border-color: var(--blue-light);
-  }
+  input:focus, select:focus { border-color: var(--blue-light); }
   input::placeholder { color: var(--gray2); }
   select option { background: var(--bg2); }
   label {
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--gray);
-    margin-bottom: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    display: block; font-size: 11px; font-weight: 700;
+    color: var(--gray); margin-bottom: 6px;
+    text-transform: uppercase; letter-spacing: 0.06em;
   }
   .field { margin-bottom: 14px; }
-  .field-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-  .field-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; }
+  @media(max-width:480px) { .field-row { grid-template-columns: 1fr 1fr; } }
 
-  /* ── PRESETS DE DESCANSO ── */
-  .rest-presets {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-top: 6px;
-  }
-  .rest-preset {
-    padding: 5px 10px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    background: var(--bg3);
-    color: var(--gray);
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .rest-preset:hover, .rest-preset.active {
-    border-color: var(--amber-light);
-    color: var(--amber-light);
-    background: rgba(217,119,6,0.1);
-  }
-
-  /* ── MÁQUINAS ── */
-  .machine-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 10px;
-  }
-  .machine-chip {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    padding: 14px 10px;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-align: center;
-  }
-  .machine-chip:hover { border-color: var(--blue-light); }
-  .machine-chip.selected {
-    border-color: var(--green);
-    background: rgba(16,185,129,0.1);
-  }
-  .machine-chip .icon { font-size: 28px; }
-  .machine-chip .name { font-size: 12px; font-weight: 500; color: var(--white); line-height: 1.3; }
-  .machine-chip .muscle { font-size: 11px; color: var(--gray); }
-
-  /* ── EJERCICIO EN RUTINA ── */
-  .exercise-item {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px;
-    margin-bottom: 10px;
-  }
-  .exercise-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-  }
-  .exercise-name {
-    font-weight: 600;
-    font-size: 14px;
-  }
-  .exercise-muscle {
-    font-size: 11px;
-    color: var(--gray);
-    margin-top: 2px;
-  }
-
-  /* ── SESIÓN ACTIVA ── */
+  /* ─── SESIÓN ─── */
   .set-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
   }
   .set-row:last-child { border-bottom: none; }
   .set-num {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: var(--bg2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--gray);
-    flex-shrink: 0;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--bg2); display: flex; align-items: center;
+    justify-content: center; font-size: 11px; font-weight: 700;
+    color: var(--gray); flex-shrink: 0;
   }
   .set-num.done { background: var(--green); color: #fff; }
   .set-info { flex: 1; font-size: 13px; color: var(--gray); }
   .set-info strong { color: var(--white); }
   .set-check {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    border: 2px solid var(--border);
-    background: transparent;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    transition: all 0.2s;
-    flex-shrink: 0;
+    width: 30px; height: 30px; border-radius: 8px;
+    border: 2px solid var(--border); background: transparent;
+    cursor: pointer; display: flex; align-items: center;
+    justify-content: center; font-size: 14px; transition: all 0.2s; flex-shrink: 0;
   }
   .set-check:hover { border-color: var(--green); }
   .set-check.done { background: var(--green); border-color: var(--green); }
 
-  /* ── TEMPORIZADOR ── */
+  /* ─── TIMER ─── */
   .timer-bar {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    background: rgba(10,22,40,0.97);
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(10,22,40,0.98);
     border-top: 2px solid var(--green);
-    padding: 12px 24px;
-    display: none;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 200;
-    gap: 12px;
+    padding: 10px 20px;
+    display: none; align-items: center; justify-content: space-between;
+    z-index: 200; gap: 12px;
   }
   .timer-bar.visible { display: flex; }
-  .timer-label { font-size: 11px; color: var(--gray); line-height: 1.3; }
-  .timer-exercise { font-size: 13px; font-weight: 600; color: var(--white); }
+  .timer-info { flex: 1; min-width: 0; }
+  .timer-exname { font-size: 12px; font-weight: 600; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .timer-label { font-size: 11px; color: var(--gray); }
   .timer-count {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--green-light);
-    min-width: 70px;
-    text-align: center;
+    font-family: 'Space Grotesk', sans-serif; font-size: 30px;
+    font-weight: 700; color: var(--green-light); min-width: 65px; text-align: center;
   }
   .timer-count.urgent { color: var(--amber-light); animation: pulse 0.5s infinite alternate; }
-  @keyframes pulse { from { opacity: 1; } to { opacity: 0.5; } }
+  @keyframes pulse { from { opacity:1 } to { opacity:0.4 } }
+  .timer-presets { display: flex; gap: 5px; flex-direction: column; }
+  .timer-preset {
+    font-size: 11px; font-weight: 600; padding: 4px 8px;
+    border-radius: 6px; border: 1px solid var(--border);
+    background: transparent; color: var(--gray); cursor: pointer;
+    transition: all 0.2s;
+  }
+  .timer-preset:hover { color: var(--amber-light); border-color: var(--amber-light); }
 
-  /* ── HISTORIAL ── */
+  /* ─── HISTORIAL ─── */
   .history-item {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 12px;
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 14px; padding: 16px; margin-bottom: 12px;
   }
-  .history-date {
-    font-size: 12px;
-    color: var(--gray);
-    margin-bottom: 6px;
-  }
-  .history-title {
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-  .history-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
+  .history-date { font-size: 11px; color: var(--gray); margin-bottom: 4px; }
+  .history-title { font-weight: 600; font-size: 15px; margin-bottom: 6px; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
   .tag {
-    font-size: 11px;
-    padding: 3px 8px;
-    border-radius: 20px;
-    background: rgba(59,130,246,0.15);
-    color: var(--blue-light);
-    border: 1px solid rgba(59,130,246,0.25);
-  }
-  .tag.green {
-    background: rgba(16,185,129,0.15);
-    color: var(--green-light);
-    border-color: rgba(16,185,129,0.25);
+    font-size: 11px; padding: 3px 8px; border-radius: 20px;
+    background: rgba(16,185,129,0.12); color: var(--green-light);
+    border: 1px solid rgba(16,185,129,0.25);
   }
 
-  /* ── PROGRESO ── */
-  .stat-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 20px;
-  }
+  /* ─── STATS ─── */
+  .stat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 16px; }
   .stat-box {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px;
-    text-align: center;
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px; text-align: center;
   }
-  .stat-num {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--green-light);
-  }
-  .stat-lbl { font-size: 11px; color: var(--gray); margin-top: 4px; }
+  .stat-num { font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; color: var(--green-light); }
+  .stat-lbl { font-size: 10px; color: var(--gray); margin-top: 3px; }
 
-  /* ── EMPTY STATE ── */
-  .empty {
-    text-align: center;
-    padding: 48px 24px;
-    color: var(--gray);
+  /* ─── PERFIL ─── */
+  .profile-hero {
+    text-align: center; padding: 28px 20px;
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 20px; margin-bottom: 16px;
   }
+  .profile-avatar-big {
+    width: 72px; height: 72px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px; font-weight: 700; margin: 0 auto 12px;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .profile-name-big { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; }
+  .profile-goal-label { font-size: 13px; color: var(--gray); margin-top: 4px; }
+
+  /* ─── EMPTY ─── */
+  .empty { text-align: center; padding: 48px 20px; color: var(--gray); }
   .empty .icon { font-size: 48px; margin-bottom: 12px; }
   .empty p { font-size: 14px; }
 
-  /* ── SECTION HEADER ── */
-  .section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-  }
-  .section-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-  }
+  /* ─── SECTION HEADER ─── */
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; }
 
-  /* ── MODAL ── */
+  /* ─── MODAL ─── */
   .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 300;
-    align-items: flex-end;
-    justify-content: center;
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.75); z-index: 500;
+    align-items: flex-end; justify-content: center;
   }
   .modal-overlay.open { display: flex; }
   .modal {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 20px 20px 0 0;
-    padding: 24px;
-    width: 100%;
-    max-width: 700px;
-    max-height: 80vh;
-    overflow-y: auto;
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 20px 20px 0 0; padding: 24px;
+    width: 100%; max-width: 600px; max-height: 85vh; overflow-y: auto;
   }
-  .modal-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 20px;
-  }
+  .modal-title { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 20px; }
 
-  /* ── BADGE ── */
+  /* ─── BADGE ─── */
   .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 8px;
-    border-radius: 20px;
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px;
   }
-  .badge-green { background: rgba(16,185,129,0.2); color: var(--green-light); }
   .badge-amber { background: rgba(217,119,6,0.2); color: var(--amber-light); }
 
-  /* ── ALERT ── */
+  /* ─── ALERT ─── */
   .alert {
-    position: fixed;
-    top: 80px;
-    right: 20px;
-    background: var(--green);
-    color: #fff;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 600;
-    z-index: 400;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.3s;
-    pointer-events: none;
+    position: fixed; top: 80px; right: 16px;
+    background: var(--green); color: #fff;
+    padding: 10px 18px; border-radius: 10px;
+    font-size: 13px; font-weight: 600; z-index: 600;
+    opacity: 0; transform: translateY(-8px); transition: all 0.3s; pointer-events: none;
   }
   .alert.show { opacity: 1; transform: translateY(0); }
+  .alert.amber { background: var(--amber); color: #0A1628; }
 
-  @media (max-width: 480px) {
-    .field-row { grid-template-columns: 1fr 1fr; }
-    .machine-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
-    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+  /* ─── PROGRESS BAR ─── */
+  .progress-bar {
+    height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; margin-top: 10px;
   }
+  .progress-fill { height: 100%; background: var(--green); border-radius: 3px; transition: width 0.4s; }
 </style>
 </head>
 <body>
 
-<nav>
+<!-- ══════════════════════════════════════════════
+     WIZARD DE CONFIGURACIÓN
+══════════════════════════════════════════════ -->
+<div class="wizard-overlay" id="wizard">
+
+  <!-- Paso 0: Bienvenida -->
+  <div class="wizard-step active" id="ws0">
+    <div class="wizard-logo">Gym<span>Track</span></div>
+    <div class="wizard-subtitle">Tu entrenador personal inteligente</div>
+    <div style="text-align:center;margin-bottom:32px">
+      <div style="font-size:72px;margin-bottom:16px">💪</div>
+      <p style="color:var(--gray);font-size:14px;line-height:1.6">La app que decide qué entrenar hoy según tus objetivos, tu nivel y tu historial.</p>
+    </div>
+    <button class="btn btn-green btn-full" style="font-size:16px;padding:16px" onclick="nextWizard(1)">Empezar →</button>
+  </div>
+
+  <!-- Paso 1: Nombre -->
+  <div class="wizard-step" id="ws1">
+    <div class="wizard-title">¿Cómo te llamas?</div>
+    <div class="wizard-desc">Para personalizar tu experiencia.</div>
+    <div class="field">
+      <label>Tu nombre</label>
+      <input type="text" id="w-name" placeholder="Ej: Sandra" maxlength="20" autofocus>
+    </div>
+    <div class="wizard-title" style="margin-top:24px">Elige un color</div>
+    <div class="color-grid" id="color-grid"></div>
+    <button class="btn btn-green btn-full" onclick="nextWizard(2)">Siguiente →</button>
+  </div>
+
+  <!-- Paso 2: Objetivo -->
+  <div class="wizard-step" id="ws2">
+    <div class="wizard-title">¿Cuál es tu objetivo?</div>
+    <div class="wizard-desc">La app adaptará ejercicios, series y repeticiones.</div>
+    <div class="option-grid">
+      <div class="option-card" data-goal="muscle" onclick="selectOption(this,'goal')">
+        <div class="opt-icon">💪</div>
+        <div class="opt-title">Ganar músculo</div>
+        <div class="opt-desc">Hipertrofia y fuerza</div>
+      </div>
+      <div class="option-card" data-goal="lose" onclick="selectOption(this,'goal')">
+        <div class="opt-icon">🔥</div>
+        <div class="opt-title">Perder peso</div>
+        <div class="opt-desc">Quemar grasa</div>
+      </div>
+      <div class="option-card" data-goal="tone" onclick="selectOption(this,'goal')">
+        <div class="opt-icon">✨</div>
+        <div class="opt-title">Tonificar</div>
+        <div class="opt-desc">Definición muscular</div>
+      </div>
+      <div class="option-card" data-goal="endurance" onclick="selectOption(this,'goal')">
+        <div class="opt-icon">🏃</div>
+        <div class="opt-title">Resistencia</div>
+        <div class="opt-desc">Cardio y aguante</div>
+      </div>
+    </div>
+    <button class="btn btn-green btn-full" onclick="nextWizard(3)">Siguiente →</button>
+  </div>
+
+  <!-- Paso 3: Nivel -->
+  <div class="wizard-step" id="ws3">
+    <div class="wizard-title">¿Cuál es tu nivel?</div>
+    <div class="wizard-desc">Ajustamos la intensidad a ti.</div>
+    <div class="option-grid">
+      <div class="option-card" data-level="beginner" onclick="selectOption(this,'level')">
+        <div class="opt-icon">🌱</div>
+        <div class="opt-title">Principiante</div>
+        <div class="opt-desc">Menos de 6 meses</div>
+      </div>
+      <div class="option-card" data-level="intermediate" onclick="selectOption(this,'level')">
+        <div class="opt-icon">⚡</div>
+        <div class="opt-title">Intermedio</div>
+        <div class="opt-desc">6 meses – 2 años</div>
+      </div>
+      <div class="option-card" data-level="advanced" onclick="selectOption(this,'level')">
+        <div class="opt-icon">🏆</div>
+        <div class="opt-title">Avanzado</div>
+        <div class="opt-desc">Más de 2 años</div>
+      </div>
+    </div>
+    <button class="btn btn-green btn-full" onclick="nextWizard(4)">Siguiente →</button>
+  </div>
+
+  <!-- Paso 4: Días -->
+  <div class="wizard-step" id="ws4">
+    <div class="wizard-title">¿Cuántos días entrenas?</div>
+    <div class="wizard-desc">A la semana.</div>
+    <div class="days-grid">
+      <div class="day-chip" data-days="2" onclick="selectDays(this)"><div class="day-num">2</div><div class="day-lbl">días</div></div>
+      <div class="day-chip" data-days="3" onclick="selectDays(this)"><div class="day-num">3</div><div class="day-lbl">días</div></div>
+      <div class="day-chip" data-days="4" onclick="selectDays(this)"><div class="day-num">4</div><div class="day-lbl">días</div></div>
+      <div class="day-chip" data-days="5" onclick="selectDays(this)"><div class="day-num">5</div><div class="day-lbl">días</div></div>
+      <div class="day-chip" data-days="6" onclick="selectDays(this)"><div class="day-num">6</div><div class="day-lbl">días</div></div>
+    </div>
+    <button class="btn btn-green btn-full" onclick="finishWizard()">¡Empezar a entrenar! 🚀</button>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     APP PRINCIPAL
+══════════════════════════════════════════════ -->
+<nav id="main-nav" style="display:none">
   <div class="nav-logo">Gym<span>Track</span></div>
-  <div id="session-badge" class="badge badge-amber" style="display:none">🔥 Sesión activa</div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <div id="session-badge" class="badge badge-amber" style="display:none">🔥 Activa</div>
+    <div class="profile-switcher" id="profile-switcher"></div>
+  </div>
 </nav>
 
-<div class="tabs">
-  <button class="tab-btn active" onclick="showTab('inicio')">🏠 Inicio</button>
-  <button class="tab-btn" onclick="showTab('rutina')">💪 Nueva rutina</button>
+<div class="tabs" id="main-tabs" style="display:none">
+  <button class="tab-btn active" onclick="showTab('hoy')">🏠 Hoy</button>
   <button class="tab-btn" onclick="showTab('sesion')">▶️ Sesión</button>
   <button class="tab-btn" onclick="showTab('historial')">📋 Historial</button>
-  <button class="tab-btn" onclick="showTab('maquinas')">⚙️ Máquinas</button>
+  <button class="tab-btn" onclick="showTab('perfil')">👤 Perfil</button>
 </div>
 
-<!-- ═══ INICIO ═══ -->
-<div id="view-inicio" class="view active">
-  <div class="stat-grid" id="stats-grid"></div>
-
-  <div class="section-header">
-    <div class="section-title">Última sesión</div>
-  </div>
-  <div id="last-session-card"></div>
-
-  <div style="margin-top:24px">
-    <button class="btn btn-green btn-full" style="font-size:16px;padding:16px" onclick="showTab('rutina')">
-      ➕ Crear nueva rutina
-    </button>
-  </div>
+<!-- HOY -->
+<div id="view-hoy" class="view active" style="display:none">
+  <div id="hoy-content"></div>
 </div>
 
-<!-- ═══ NUEVA RUTINA ═══ -->
-<div id="view-rutina" class="view">
-  <div class="section-header">
-    <div class="section-title">Nueva rutina</div>
-  </div>
-
-  <div class="card">
-    <div class="field">
-      <label>Nombre de la sesión</label>
-      <input type="text" id="workout-name" placeholder="Ej: Piernas, Pecho y espalda, Full body…">
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Selecciona las máquinas de hoy</div>
-    <div class="machine-grid" id="machine-selector"></div>
-  </div>
-
-  <div id="exercises-config" style="display:none">
-    <div class="card">
-      <div class="card-title">Configura series y repeticiones</div>
-      <div id="exercises-list"></div>
-      <button class="btn btn-green btn-full" style="margin-top:8px" onclick="startSession()">
-        ▶️ Empezar sesión
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ SESIÓN ACTIVA ═══ -->
-<div id="view-sesion" class="view">
+<!-- SESIÓN -->
+<div id="view-sesion" class="view" style="display:none">
   <div id="session-content">
-    <div class="empty">
-      <div class="icon">💪</div>
-      <p>No hay sesión activa.<br>Crea una rutina para empezar.</p>
-    </div>
+    <div class="empty"><div class="icon">💪</div><p>No hay sesión activa.<br>Ve a "Hoy" para empezar.</p></div>
   </div>
 </div>
 
-<!-- ═══ HISTORIAL ═══ -->
-<div id="view-historial" class="view">
+<!-- HISTORIAL -->
+<div id="view-historial" class="view" style="display:none">
   <div class="section-header">
     <div class="section-title">Historial</div>
-    <button class="btn btn-ghost btn-sm" onclick="if(confirm('¿Borrar todo el historial?')) { localStorage.removeItem(\'gymHistory\'); renderHistory(); renderStats(); }">Limpiar</button>
+    <button class="btn btn-ghost btn-sm" onclick="clearHistory()">Limpiar</button>
   </div>
   <div id="history-list"></div>
 </div>
 
-<!-- ═══ MÁQUINAS ═══ -->
-<div id="view-maquinas" class="view">
-  <div class="section-header">
-    <div class="section-title">Mis máquinas</div>
-    <button class="btn btn-blue btn-sm" onclick="openAddMachine()">+ Añadir</button>
-  </div>
-  <div id="machines-list"></div>
+<!-- PERFIL -->
+<div id="view-perfil" class="view" style="display:none">
+  <div id="perfil-content"></div>
 </div>
 
-<!-- ═══ MODAL AÑADIR MÁQUINA ═══ -->
-<div class="modal-overlay" id="modal-machine">
+<!-- MODAL NUEVO PERFIL -->
+<div class="modal-overlay" id="modal-new-profile">
   <div class="modal">
-    <div class="modal-title">Nueva máquina</div>
+    <div class="modal-title">Nuevo perfil</div>
+    <div class="field"><label>Nombre</label><input type="text" id="np-name" placeholder="Nombre" maxlength="20"></div>
+    <div class="field"><label>Color</label><div class="color-grid" id="np-color-grid"></div></div>
     <div class="field">
-      <label>Nombre</label>
-      <input type="text" id="m-name" placeholder="Ej: Press de banca">
-    </div>
-    <div class="field">
-      <label>Grupo muscular</label>
-      <select id="m-muscle">
-        <option value="Pecho">Pecho</option>
-        <option value="Espalda">Espalda</option>
-        <option value="Hombros">Hombros</option>
-        <option value="Bíceps">Bíceps</option>
-        <option value="Tríceps">Tríceps</option>
-        <option value="Piernas">Piernas</option>
-        <option value="Glúteos">Glúteos</option>
-        <option value="Core / Abdominales">Core / Abdominales</option>
-        <option value="Cardio">Cardio</option>
-        <option value="Cuerpo completo">Cuerpo completo</option>
+      <label>Objetivo</label>
+      <select id="np-goal">
+        <option value="muscle">💪 Ganar músculo</option>
+        <option value="lose">🔥 Perder peso</option>
+        <option value="tone">✨ Tonificar</option>
+        <option value="endurance">🏃 Resistencia</option>
       </select>
     </div>
     <div class="field">
-      <label>Icono (emoji)</label>
-      <input type="text" id="m-icon" placeholder="🏋️" maxlength="4" style="font-size:24px;text-align:center">
+      <label>Nivel</label>
+      <select id="np-level">
+        <option value="beginner">🌱 Principiante</option>
+        <option value="intermediate">⚡ Intermedio</option>
+        <option value="advanced">🏆 Avanzado</option>
+      </select>
     </div>
-    <div style="display:flex;gap:10px;margin-top:8px">
-      <button class="btn btn-ghost btn-full" onclick="closeModal()">Cancelar</button>
-      <button class="btn btn-green btn-full" onclick="saveMachine()">Guardar</button>
+    <div class="field">
+      <label>Días a la semana</label>
+      <select id="np-days">
+        <option value="2">2 días</option>
+        <option value="3">3 días</option>
+        <option value="4" selected>4 días</option>
+        <option value="5">5 días</option>
+        <option value="6">6 días</option>
+      </select>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
+      <button class="btn btn-ghost btn-full" onclick="closeModal('modal-new-profile')">Cancelar</button>
+      <button class="btn btn-green btn-full" onclick="saveNewProfile()">Guardar</button>
     </div>
   </div>
 </div>
 
-<!-- ═══ TEMPORIZADOR DE DESCANSO ═══ -->
+<!-- MODAL EDITAR PERFIL -->
+<div class="modal-overlay" id="modal-edit-profile">
+  <div class="modal">
+    <div class="modal-title">Editar perfil</div>
+    <div class="field"><label>Nombre</label><input type="text" id="ep-name" maxlength="20"></div>
+    <div class="field">
+      <label>Objetivo</label>
+      <select id="ep-goal">
+        <option value="muscle">💪 Ganar músculo</option>
+        <option value="lose">🔥 Perder peso</option>
+        <option value="tone">✨ Tonificar</option>
+        <option value="endurance">🏃 Resistencia</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Nivel</label>
+      <select id="ep-level">
+        <option value="beginner">🌱 Principiante</option>
+        <option value="intermediate">⚡ Intermedio</option>
+        <option value="advanced">🏆 Avanzado</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Días a la semana</label>
+      <select id="ep-days">
+        <option value="2">2 días</option>
+        <option value="3">3 días</option>
+        <option value="4">4 días</option>
+        <option value="5">5 días</option>
+        <option value="6">6 días</option>
+      </select>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
+      <button class="btn btn-ghost btn-full" onclick="closeModal('modal-edit-profile')">Cancelar</button>
+      <button class="btn btn-green btn-full" onclick="saveEditProfile()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- TIMER -->
 <div class="timer-bar" id="timer-bar">
-  <div style="flex:1;min-width:0">
-    <div class="timer-label">Descansando · <span id="timer-exercise-name" style="color:var(--white)"></span></div>
-    <div class="rest-presets" style="margin-top:4px">
-      <span class="rest-preset" onclick="startTimer(30)">30s</span>
-      <span class="rest-preset" onclick="startTimer(60)">1min</span>
-      <span class="rest-preset" onclick="startTimer(90)">1:30</span>
-      <span class="rest-preset" onclick="startTimer(120)">2min</span>
-      <span class="rest-preset" onclick="startTimer(180)">3min</span>
-    </div>
+  <div class="timer-info">
+    <div class="timer-exname" id="timer-exname"></div>
+    <div class="timer-label">Descansando…</div>
   </div>
-  <div style="display:flex;align-items:center;gap:10px">
-    <div class="timer-count" id="timer-count">1:30</div>
-    <div style="display:flex;flex-direction:column;gap:6px">
-      <button class="btn btn-ghost btn-sm" onclick="addTime(30)" style="padding:4px 10px">+30s</button>
-      <button class="btn btn-ghost btn-sm" onclick="stopTimer()" style="padding:4px 10px">Saltar ⏭</button>
-    </div>
+  <div class="timer-count" id="timer-count">1:30</div>
+  <div class="timer-presets">
+    <button class="timer-preset" onclick="addTime(30)">+30s</button>
+    <button class="timer-preset" onclick="stopTimer()">Saltar ⏭</button>
   </div>
 </div>
 
-<!-- ALERT TOAST -->
 <div class="alert" id="alert"></div>
 
 <script>
-// ══════════════════════════════
-// DATOS POR DEFECTO
-// ══════════════════════════════
-const DEFAULT_MACHINES = [
-  { id: 'm1', name: 'Press de banca', muscle: 'Pecho', icon: '🏋️' },
-  { id: 'm2', name: 'Press inclinado', muscle: 'Pecho', icon: '📐' },
-  { id: 'm3', name: 'Aperturas polea', muscle: 'Pecho', icon: '🦋' },
-  { id: 'm4', name: 'Dominadas / Jalón', muscle: 'Espalda', icon: '⬆️' },
-  { id: 'm5', name: 'Remo en polea', muscle: 'Espalda', icon: '🚣' },
-  { id: 'm6', name: 'Remo con barra', muscle: 'Espalda', icon: '🔧' },
-  { id: 'm7', name: 'Press militar', muscle: 'Hombros', icon: '🔝' },
-  { id: 'm8', name: 'Elevaciones laterales', muscle: 'Hombros', icon: '✈️' },
-  { id: 'm9', name: 'Curl de bíceps', muscle: 'Bíceps', icon: '💪' },
-  { id: 'm10', name: 'Predicador', muscle: 'Bíceps', icon: '🙏' },
-  { id: 'm11', name: 'Extensión tríceps', muscle: 'Tríceps', icon: '⬇️' },
-  { id: 'm12', name: 'Press francés', muscle: 'Tríceps', icon: '🇫🇷' },
-  { id: 'm13', name: 'Sentadilla', muscle: 'Piernas', icon: '🦵' },
-  { id: 'm14', name: 'Prensa de piernas', muscle: 'Piernas', icon: '🦶' },
-  { id: 'm15', name: 'Extensión de cuádriceps', muscle: 'Piernas', icon: '🔁' },
-  { id: 'm16', name: 'Curl femoral', muscle: 'Piernas', icon: '🔄' },
-  { id: 'm17', name: 'Hip thrust', muscle: 'Glúteos', icon: '🍑' },
-  { id: 'm18', name: 'Abductor / Aductor', muscle: 'Glúteos', icon: '↔️' },
-  { id: 'm19', name: 'Abdominales crunch', muscle: 'Core / Abdominales', icon: '🎯' },
-  { id: 'm20', name: 'Cinta de correr', muscle: 'Cardio', icon: '🏃' },
-  { id: 'm21', name: 'Bicicleta estática', muscle: 'Cardio', icon: '🚴' },
-  { id: 'm22', name: 'Elíptica', muscle: 'Cardio', icon: '〰️' },
-];
+// ══════════════════════════════════════════════
+// BASE DE EJERCICIOS
+// ══════════════════════════════════════════════
+const EXERCISES = {
+  pecho: [
+    { id:'p1', name:'Press de banca con barra', icon:'🏋️', compound:true },
+    { id:'p2', name:'Press de banca con mancuernas', icon:'🏋️', compound:true },
+    { id:'p3', name:'Press inclinado con barra', icon:'📐', compound:true },
+    { id:'p4', name:'Press inclinado con mancuernas', icon:'📐', compound:true },
+    { id:'p5', name:'Press declinado', icon:'📉', compound:true },
+    { id:'p6', name:'Aperturas con mancuernas', icon:'🦋', compound:false },
+    { id:'p7', name:'Cruces en polea', icon:'✂️', compound:false },
+    { id:'p8', name:'Fondos en paralelas (pecho)', icon:'⬇️', compound:true },
+    { id:'p9', name:'Pull-over con mancuerna', icon:'🔄', compound:false },
+    { id:'p10', name:'Press en máquina pecho', icon:'🤖', compound:true },
+  ],
+  espalda: [
+    { id:'e1', name:'Dominadas / Jalón al pecho', icon:'⬆️', compound:true },
+    { id:'e2', name:'Jalón agarre estrecho', icon:'🔼', compound:true },
+    { id:'e3', name:'Remo con barra', icon:'🚣', compound:true },
+    { id:'e4', name:'Remo con mancuerna', icon:'💪', compound:true },
+    { id:'e5', name:'Remo en polea baja', icon:'🔧', compound:true },
+    { id:'e6', name:'Remo en máquina', icon:'🤖', compound:true },
+    { id:'e7', name:'Pull-over en polea', icon:'🌀', compound:false },
+    { id:'e8', name:'Peso muerto', icon:'⚡', compound:true },
+    { id:'e9', name:'Hiperextensiones', icon:'🦾', compound:false },
+    { id:'e10', name:'Face pull en polea', icon:'😤', compound:false },
+    { id:'e11', name:'Encogimientos de hombros', icon:'🤷', compound:false },
+  ],
+  hombros: [
+    { id:'h1', name:'Press militar con barra', icon:'🔝', compound:true },
+    { id:'h2', name:'Press militar con mancuernas', icon:'🔛', compound:true },
+    { id:'h3', name:'Elevaciones laterales', icon:'✈️', compound:false },
+    { id:'h4', name:'Elevaciones frontales', icon:'☝️', compound:false },
+    { id:'h5', name:'Pájaros (vuelos traseros)', icon:'🐦', compound:false },
+    { id:'h6', name:'Press Arnold', icon:'🦾', compound:true },
+    { id:'h7', name:'Elevaciones laterales en polea', icon:'↔️', compound:false },
+  ],
+  biceps: [
+    { id:'b1', name:'Curl con barra', icon:'💪', compound:false },
+    { id:'b2', name:'Curl con mancuernas alternado', icon:'🔁', compound:false },
+    { id:'b3', name:'Curl martillo', icon:'🔨', compound:false },
+    { id:'b4', name:'Curl en banco predicador', icon:'🙏', compound:false },
+    { id:'b5', name:'Curl en polea baja', icon:'〰️', compound:false },
+    { id:'b6', name:'Curl concentrado', icon:'🎯', compound:false },
+    { id:'b7', name:'Curl con barra Z', icon:'〽️', compound:false },
+  ],
+  triceps: [
+    { id:'t1', name:'Press francés con barra', icon:'🇫🇷', compound:false },
+    { id:'t2', name:'Extensión en polea alta', icon:'⬇️', compound:false },
+    { id:'t3', name:'Extensión sobre la cabeza', icon:'🙌', compound:false },
+    { id:'t4', name:'Fondos en banco (tríceps)', icon:'🪑', compound:false },
+    { id:'t5', name:'Patada de tríceps', icon:'🦵', compound:false },
+    { id:'t6', name:'Press cerrado en banca', icon:'🤜', compound:true },
+    { id:'t7', name:'Press en polea (cuerda)', icon:'🔗', compound:false },
+  ],
+  piernas: [
+    { id:'l1', name:'Sentadilla con barra', icon:'🦵', compound:true },
+    { id:'l2', name:'Sentadilla goblet', icon:'🏆', compound:true },
+    { id:'l3', name:'Prensa de piernas', icon:'🦶', compound:true },
+    { id:'l4', name:'Extensión de cuádriceps', icon:'🔁', compound:false },
+    { id:'l5', name:'Curl femoral tumbado', icon:'🔄', compound:false },
+    { id:'l6', name:'Curl femoral de pie', icon:'🔃', compound:false },
+    { id:'l7', name:'Zancadas con mancuernas', icon:'🚶', compound:true },
+    { id:'l8', name:'Zancadas búlgaras', icon:'🇧🇬', compound:true },
+    { id:'l9', name:'Peso muerto rumano', icon:'🇷🇴', compound:true },
+    { id:'l10', name:'Sentadilla sumo', icon:'🤼', compound:true },
+    { id:'l11', name:'Step-up al banco', icon:'🪜', compound:true },
+    { id:'l12', name:'Pantorrillas de pie', icon:'👟', compound:false },
+    { id:'l13', name:'Pantorrillas sentado', icon:'🪑', compound:false },
+  ],
+  gluteos: [
+    { id:'g1', name:'Hip thrust con barra', icon:'🍑', compound:true },
+    { id:'g2', name:'Patada trasera en polea', icon:'🦵', compound:false },
+    { id:'g3', name:'Abductor en máquina', icon:'↔️', compound:false },
+    { id:'g4', name:'Aductor en máquina', icon:'↕️', compound:false },
+    { id:'g5', name:'Peso muerto con piernas rígidas', icon:'⬇️', compound:true },
+    { id:'g6', name:'Puente de glúteos en suelo', icon:'🌉', compound:false },
+    { id:'g7', name:'Sentadilla lateral con banda', icon:'↗️', compound:false },
+    { id:'g8', name:'Zancada lateral', icon:'↙️', compound:false },
+  ],
+  core: [
+    { id:'c1', name:'Crunch abdominal', icon:'🎯', compound:false },
+    { id:'c2', name:'Crunch en polea', icon:'〰️', compound:false },
+    { id:'c3', name:'Plancha', icon:'📏', compound:false },
+    { id:'c4', name:'Plancha lateral', icon:'📐', compound:false },
+    { id:'c5', name:'Elevación de piernas tumbado', icon:'⬆️', compound:false },
+    { id:'c6', name:'Elevación de piernas colgado', icon:'🏗️', compound:false },
+    { id:'c7', name:'Russian twist', icon:'🔄', compound:false },
+    { id:'c8', name:'Bicicleta abdominal', icon:'🚴', compound:false },
+    { id:'c9', name:'Rueda abdominal', icon:'⚙️', compound:false },
+    { id:'c10', name:'Dead bug', icon:'🐛', compound:false },
+    { id:'c11', name:'Mountain climbers', icon:'🧗', compound:false },
+  ],
+  cardio: [
+    { id:'cv1', name:'Cinta de correr – HIIT', icon:'🏃', compound:false },
+    { id:'cv2', name:'Cinta de correr – ritmo suave', icon:'🚶', compound:false },
+    { id:'cv3', name:'Bicicleta estática', icon:'🚴', compound:false },
+    { id:'cv4', name:'Elíptica', icon:'〰️', compound:false },
+    { id:'cv5', name:'Remo ergómetro', icon:'🚣', compound:false },
+    { id:'cv6', name:'Saltar a la comba', icon:'💫', compound:false },
+    { id:'cv7', name:'Burpees', icon:'💥', compound:true },
+  ],
+};
 
-// ══════════════════════════════
+// ══════════════════════════════════════════════
+// PLANES SEMANALES
+// ══════════════════════════════════════════════
+const WEEKLY_PLANS = {
+  2: [
+    { name:'Tren superior', muscles:['pecho','espalda','hombros','biceps','triceps'], tag:'upper' },
+    { name:'Tren inferior + Core', muscles:['piernas','gluteos','core'], tag:'lower' },
+  ],
+  3: [
+    { name:'Empuje', muscles:['pecho','hombros','triceps'], tag:'push' },
+    { name:'Tirón', muscles:['espalda','biceps'], tag:'pull' },
+    { name:'Piernas y Glúteos', muscles:['piernas','gluteos','core'], tag:'legs' },
+  ],
+  4: [
+    { name:'Pecho y Tríceps', muscles:['pecho','triceps','core'], tag:'chest_tri' },
+    { name:'Espalda y Bíceps', muscles:['espalda','biceps'], tag:'back_bi' },
+    { name:'Piernas y Glúteos', muscles:['piernas','gluteos'], tag:'legs' },
+    { name:'Hombros y Core', muscles:['hombros','core','cardio'], tag:'shoulders' },
+  ],
+  5: [
+    { name:'Pecho y Tríceps', muscles:['pecho','triceps'], tag:'chest_tri' },
+    { name:'Espalda y Bíceps', muscles:['espalda','biceps'], tag:'back_bi' },
+    { name:'Piernas y Glúteos', muscles:['piernas','gluteos'], tag:'legs' },
+    { name:'Hombros y Core', muscles:['hombros','core'], tag:'shoulders' },
+    { name:'Full Body + Cardio', muscles:['pecho','espalda','piernas','core','cardio'], tag:'fullbody' },
+  ],
+  6: [
+    { name:'Empuje', muscles:['pecho','hombros','triceps'], tag:'push' },
+    { name:'Tirón', muscles:['espalda','biceps'], tag:'pull' },
+    { name:'Piernas y Glúteos', muscles:['piernas','gluteos'], tag:'legs' },
+    { name:'Empuje (variante)', muscles:['pecho','hombros','triceps'], tag:'push2' },
+    { name:'Tirón (variante)', muscles:['espalda','biceps'], tag:'pull2' },
+    { name:'Piernas + Core', muscles:['piernas','gluteos','core'], tag:'legs2' },
+  ],
+};
+
+// ══════════════════════════════════════════════
+// PARÁMETROS POR OBJETIVO Y NIVEL
+// ══════════════════════════════════════════════
+const GOAL_PARAMS = {
+  muscle:    { sets:4, repsMin:8,  repsMax:12, rest:90,  restLabel:'90s', exPerMuscle:{main:3,small:2} },
+  lose:      { sets:3, repsMin:15, repsMax:20, rest:45,  restLabel:'45s', exPerMuscle:{main:2,small:2} },
+  tone:      { sets:3, repsMin:12, repsMax:15, rest:60,  restLabel:'60s', exPerMuscle:{main:2,small:2} },
+  endurance: { sets:3, repsMin:20, repsMax:25, rest:30,  restLabel:'30s', exPerMuscle:{main:2,small:2} },
+};
+
+const LEVEL_MULT = { beginner: 0.7, intermediate: 1, advanced: 1.2 };
+
+// Músculos "principales" (requieren más ejercicios) vs accesorios
+const MAIN_MUSCLES = ['pecho','espalda','piernas'];
+
+// ══════════════════════════════════════════════
+// COLORES DE PERFIL
+// ══════════════════════════════════════════════
+const PROFILE_COLORS = ['#10B981','#3B82F6','#8B5CF6','#EF4444','#F59E0B','#EC4899','#06B6D4','#84CC16'];
+const GOAL_LABELS = { muscle:'💪 Ganar músculo', lose:'🔥 Perder peso', tone:'✨ Tonificar', endurance:'🏃 Resistencia' };
+const LEVEL_LABELS = { beginner:'🌱 Principiante', intermediate:'⚡ Intermedio', advanced:'🏆 Avanzado' };
+
+// ══════════════════════════════════════════════
 // ESTADO
-// ══════════════════════════════
-let machines = JSON.parse(localStorage.getItem('gymMachines') || 'null') || DEFAULT_MACHINES;
-let history = JSON.parse(localStorage.getItem('gymHistory') || '[]');
-let currentSession = JSON.parse(localStorage.getItem('gymCurrentSession') || 'null');
-
-let selectedMachines = [];
+// ══════════════════════════════════════════════
+let profiles = JSON.parse(localStorage.getItem('gtProfiles') || '[]');
+let currentProfileId = localStorage.getItem('gtCurrentProfile') || null;
+let currentSession = JSON.parse(localStorage.getItem('gtCurrentSession') || 'null');
 let timerInterval = null;
 let timerSeconds = 0;
 
-// ══════════════════════════════
-// SAVE HELPERS
-// ══════════════════════════════
-function saveMachines() { localStorage.setItem('gymMachines', JSON.stringify(machines)); }
-function saveHistory() { localStorage.setItem('gymHistory', JSON.stringify(history)); }
-function saveCurrentSession() { localStorage.setItem('gymCurrentSession', JSON.stringify(currentSession)); }
+// Wizard temp state
+let wState = { name:'', color: PROFILE_COLORS[0], goal:'', level:'', days:3 };
 
-// ══════════════════════════════
-// TABS
-// ══════════════════════════════
-function showTab(tab) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('view-' + tab).classList.add('active');
-  const tabs = ['inicio','rutina','sesion','historial','maquinas'];
-  document.querySelectorAll('.tab-btn')[tabs.indexOf(tab)].classList.add('active');
+// ══════════════════════════════════════════════
+// SAVE
+// ══════════════════════════════════════════════
+function saveProfiles() { localStorage.setItem('gtProfiles', JSON.stringify(profiles)); }
+function saveCurrentProfile() { localStorage.setItem('gtCurrentProfile', currentProfileId); }
+function saveCurrentSession() { localStorage.setItem('gtCurrentSession', JSON.stringify(currentSession)); }
 
-  if (tab === 'inicio') renderInicio();
-  if (tab === 'rutina') renderMachineSelector();
-  if (tab === 'sesion') renderSession();
-  if (tab === 'historial') renderHistory();
-  if (tab === 'maquinas') renderMachinesList();
+function getHistory(profileId) {
+  return JSON.parse(localStorage.getItem('gtHistory_' + profileId) || '[]');
+}
+function saveHistory(profileId, history) {
+  localStorage.setItem('gtHistory_' + profileId, JSON.stringify(history));
 }
 
-// ══════════════════════════════
-// INICIO
-// ══════════════════════════════
-function renderInicio() {
-  // Stats
-  const sg = document.getElementById('stats-grid');
-  const totalSessions = history.length;
-  const thisWeek = history.filter(s => {
-    const d = new Date(s.date);
-    const now = new Date();
-    const diff = (now - d) / (1000*60*60*24);
-    return diff <= 7;
-  }).length;
-  const totalSets = history.reduce((acc, s) => acc + s.exercises.reduce((a, e) => a + e.sets.filter(x => x.done).length, 0), 0);
+function currentProfile() {
+  return profiles.find(p => p.id === currentProfileId) || profiles[0];
+}
 
-  sg.innerHTML = `
-    <div class="stat-box"><div class="stat-num">${totalSessions}</div><div class="stat-lbl">Sesiones totales</div></div>
-    <div class="stat-box"><div class="stat-num">${thisWeek}</div><div class="stat-lbl">Esta semana</div></div>
-    <div class="stat-box"><div class="stat-num">${totalSets}</div><div class="stat-lbl">Series hechas</div></div>
-  `;
-
-  // Last session
-  const lsc = document.getElementById('last-session-card');
-  if (history.length === 0) {
-    lsc.innerHTML = '<div class="empty"><div class="icon">🏁</div><p>Aún no hay sesiones.<br>¡Empieza hoy!</p></div>';
-    return;
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+function init() {
+  renderColorGrid('color-grid', 'wState');
+  if (profiles.length === 0) {
+    document.getElementById('wizard').classList.remove('hidden');
+  } else {
+    if (!currentProfileId || !profiles.find(p => p.id === currentProfileId)) {
+      currentProfileId = profiles[0].id;
+      saveCurrentProfile();
+    }
+    showApp();
   }
-  const last = history[history.length - 1];
-  const date = new Date(last.date).toLocaleDateString('es-ES', { weekday:'long', day:'numeric', month:'long' });
-  const doneSets = last.exercises.reduce((a, e) => a + e.sets.filter(x => x.done).length, 0);
-  const totalSetsCount = last.exercises.reduce((a, e) => a + e.sets.length, 0);
-  lsc.innerHTML = `
-    <div class="history-item">
-      <div class="history-date">${date}</div>
-      <div class="history-title">${last.name}</div>
-      <div style="font-size:13px;color:var(--gray);margin-bottom:10px">${doneSets}/${totalSetsCount} series completadas · ${last.duration || '—'} min</div>
-      <div class="history-tags">
-        ${last.exercises.map(e => `<span class="tag green">${machines.find(m=>m.id===e.machineId)?.icon || ''} ${e.machineName}</span>`).join('')}
-      </div>
-    </div>
-  `;
 }
 
-// ══════════════════════════════
-// MÁQUINAS — SELECTOR
-// ══════════════════════════════
-function renderMachineSelector() {
-  selectedMachines = [];
-  document.getElementById('exercises-config').style.display = 'none';
+// ══════════════════════════════════════════════
+// WIZARD
+// ══════════════════════════════════════════════
+let wizardStep = 0;
 
-  const grid = document.getElementById('machine-selector');
-  grid.innerHTML = machines.map(m => `
-    <div class="machine-chip" id="chip-${m.id}" onclick="toggleMachine('${m.id}')">
-      <div class="icon">${m.icon}</div>
-      <div class="name">${m.name}</div>
-      <div class="muscle">${m.muscle}</div>
-    </div>
+function nextWizard(step) {
+  if (step === 2) {
+    wState.name = document.getElementById('w-name').value.trim();
+    if (!wState.name) { showAlert('Escribe tu nombre', 'amber'); return; }
+  }
+  if (step === 3 && !wState.goal) { showAlert('Elige un objetivo', 'amber'); return; }
+  if (step === 4 && !wState.level) { showAlert('Elige tu nivel', 'amber'); return; }
+  document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('ws' + step).classList.add('active');
+  wizardStep = step;
+}
+
+function selectOption(el, key) {
+  el.closest('.option-grid').querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  if (key === 'goal') wState.goal = el.dataset.goal;
+  if (key === 'level') wState.level = el.dataset.level;
+}
+
+function selectDays(el) {
+  document.querySelectorAll('.day-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  wState.days = parseInt(el.dataset.days);
+}
+
+function finishWizard() {
+  if (!wState.days) { showAlert('Elige cuántos días', 'amber'); return; }
+  const profile = {
+    id: 'p' + Date.now(),
+    name: wState.name,
+    color: wState.color,
+    goal: wState.goal || 'muscle',
+    level: wState.level || 'intermediate',
+    days: wState.days,
+  };
+  profiles.push(profile);
+  saveProfiles();
+  currentProfileId = profile.id;
+  saveCurrentProfile();
+  document.getElementById('wizard').classList.add('hidden');
+  showApp();
+}
+
+function renderColorGrid(containerId, target) {
+  const grid = document.getElementById(containerId);
+  if (!grid) return;
+  grid.innerHTML = PROFILE_COLORS.map((c, i) => `
+    <div class="color-dot ${i===0?'selected':''}" style="background:${c}" data-color="${c}"
+      onclick="selectColor(this,'${containerId}','${target}')"></div>
   `).join('');
 }
 
-function toggleMachine(id) {
-  const idx = selectedMachines.indexOf(id);
-  if (idx === -1) {
-    selectedMachines.push(id);
-    document.getElementById('chip-' + id).classList.add('selected');
-  } else {
-    selectedMachines.splice(idx, 1);
-    document.getElementById('chip-' + id).classList.remove('selected');
-  }
-  renderExercisesConfig();
+function selectColor(el, containerId, target) {
+  document.querySelectorAll('#'+containerId+' .color-dot').forEach(d => d.classList.remove('selected'));
+  el.classList.add('selected');
+  if (target === 'wState') wState.color = el.dataset.color;
+  if (target === 'npColor') npSelectedColor = el.dataset.color;
 }
 
-function renderExercisesConfig() {
-  const container = document.getElementById('exercises-config');
-  const list = document.getElementById('exercises-list');
-
-  if (selectedMachines.length === 0) {
-    container.style.display = 'none';
-    return;
-  }
-  container.style.display = 'block';
-
-  list.innerHTML = selectedMachines.map(id => {
-    const m = machines.find(x => x.id === id);
-    return `
-      <div class="exercise-item">
-        <div class="exercise-header">
-          <div>
-            <div class="exercise-name">${m.icon} ${m.name}</div>
-            <div class="exercise-muscle">${m.muscle}</div>
-          </div>
-          <button class="btn btn-ghost btn-sm" onclick="toggleMachine('${id}')">✕</button>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label>Series</label>
-            <input type="number" id="sets-${id}" value="3" min="1" max="10">
-          </div>
-          <div class="field">
-            <label>Reps</label>
-            <input type="number" id="reps-${id}" value="12" min="1" max="100">
-          </div>
-          <div class="field">
-            <label>Kg</label>
-            <input type="number" id="weight-${id}" value="0" min="0" step="0.5">
-          </div>
-        </div>
-        <div class="field-row-2" style="margin-top:4px">
-          <div class="field" style="margin-bottom:0">
-            <label>⏱ Descanso entre series</label>
-            <select id="rest-${id}">
-              <option value="30">30 segundos</option>
-              <option value="45">45 segundos</option>
-              <option value="60">1 minuto</option>
-              <option value="90" selected>1 min 30 s</option>
-              <option value="120">2 minutos</option>
-              <option value="180">3 minutos</option>
-              <option value="240">4 minutos</option>
-              <option value="300">5 minutos</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    `;
-  }).join('');
+// ══════════════════════════════════════════════
+// APP
+// ══════════════════════════════════════════════
+function showApp() {
+  document.getElementById('main-nav').style.display = 'flex';
+  document.getElementById('main-tabs').style.display = 'flex';
+  document.querySelectorAll('.view').forEach(v => v.style.display = '');
+  document.getElementById('view-hoy').classList.add('active');
+  renderProfileSwitcher();
+  if (currentSession) document.getElementById('session-badge').style.display = 'flex';
+  showTab('hoy');
 }
 
-// ══════════════════════════════
-// INICIAR SESIÓN
-// ══════════════════════════════
-function startSession() {
-  if (selectedMachines.length === 0) { showAlert('Selecciona al menos una máquina'); return; }
-  const name = document.getElementById('workout-name').value.trim() || 'Sesión del día';
+function renderProfileSwitcher() {
+  const sw = document.getElementById('profile-switcher');
+  sw.innerHTML = profiles.map(p => `
+    <div class="profile-btn ${p.id===currentProfileId?'active':''}"
+      style="background:${p.color}"
+      onclick="switchProfile('${p.id}')">${p.name[0].toUpperCase()}</div>
+  `).join('');
+  if (profiles.length < 3) {
+    sw.innerHTML += `<button class="add-profile-btn" onclick="openNewProfile()" title="Añadir perfil">+</button>`;
+  }
+}
 
-  const exercises = selectedMachines.map(id => {
-    const m = machines.find(x => x.id === id);
-    const sets = parseInt(document.getElementById('sets-' + id).value) || 3;
-    const reps = parseInt(document.getElementById('reps-' + id).value) || 12;
-    const weight = parseFloat(document.getElementById('weight-' + id).value) || 0;
-    const restSeconds = parseInt(document.getElementById('rest-' + id).value) || 90;
-    return {
-      machineId: id,
-      machineName: m.name,
-      machineIcon: m.icon,
-      restSeconds,
-      sets: Array.from({ length: sets }, (_, i) => ({ num: i+1, reps, weight, done: false }))
-    };
+function switchProfile(id) {
+  currentProfileId = id;
+  saveCurrentProfile();
+  currentSession = null;
+  saveCurrentSession();
+  document.getElementById('session-badge').style.display = 'none';
+  renderProfileSwitcher();
+  showTab('hoy');
+}
+
+// ══════════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════════
+function showTab(tab) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const order = ['hoy','sesion','historial','perfil'];
+  document.getElementById('view-' + tab).classList.add('active');
+  document.querySelectorAll('.tab-btn')[order.indexOf(tab)].classList.add('active');
+  if (tab === 'hoy') renderHoy();
+  if (tab === 'sesion') renderSession();
+  if (tab === 'historial') renderHistory();
+  if (tab === 'perfil') renderPerfil();
+}
+
+// ══════════════════════════════════════════════
+// GENERAR RUTINA
+// ══════════════════════════════════════════════
+function generateRoutine(profile, planDay) {
+  const params = GOAL_PARAMS[profile.goal] || GOAL_PARAMS.muscle;
+  const levelMult = LEVEL_MULT[profile.level] || 1;
+  const exercises = [];
+  const usedIds = new Set();
+
+  planDay.muscles.forEach(muscle => {
+    const pool = EXERCISES[muscle];
+    if (!pool) return;
+    const isMain = MAIN_MUSCLES.includes(muscle);
+    const count = isMain ? params.exPerMuscle.main : params.exPerMuscle.small;
+
+    // Compound first
+    const compounds = pool.filter(e => e.compound && !usedIds.has(e.id));
+    const isolations = pool.filter(e => !e.compound && !usedIds.has(e.id));
+    const picked = [];
+
+    // Pick 1 compound if available
+    if (compounds.length > 0) {
+      const idx = Math.floor(Math.random() * Math.min(2, compounds.length));
+      picked.push(compounds[idx]);
+      usedIds.add(compounds[idx].id);
+    }
+    // Fill rest with isolations
+    while (picked.length < count && isolations.length > 0) {
+      const idx = Math.floor(Math.random() * isolations.length);
+      const ex = isolations.splice(idx, 1)[0];
+      if (!usedIds.has(ex.id)) { picked.push(ex); usedIds.add(ex.id); }
+    }
+
+    const reps = params.repsMin + Math.floor(Math.random() * (params.repsMax - params.repsMin + 1));
+    const sets = Math.round(params.sets * levelMult);
+
+    picked.forEach(ex => {
+      exercises.push({
+        id: ex.id,
+        name: ex.name,
+        icon: ex.icon,
+        muscle,
+        sets: Array.from({ length: Math.max(2, sets) }, (_, i) => ({
+          num: i + 1,
+          reps,
+          weight: 0,
+          done: false,
+        })),
+        restSeconds: params.rest,
+      });
+    });
   });
 
+  return exercises;
+}
+
+function getNextPlanDay(profile) {
+  const plan = WEEKLY_PLANS[profile.days] || WEEKLY_PLANS[3];
+  const history = getHistory(profile.id);
+  const lastPlanIdx = history.length > 0 ? (history[history.length - 1].planIndex ?? -1) : -1;
+  const nextIdx = (lastPlanIdx + 1) % plan.length;
+  return { day: plan[nextIdx], index: nextIdx };
+}
+
+// ══════════════════════════════════════════════
+// HOY
+// ══════════════════════════════════════════════
+let todayRoutine = null;
+let todayPlanDay = null;
+let todayPlanIndex = 0;
+
+function renderHoy() {
+  const p = currentProfile();
+  const container = document.getElementById('hoy-content');
+  if (!p) return;
+
+  const history = getHistory(p.id);
+  const thisWeek = history.filter(s => (Date.now() - new Date(s.date)) / 86400000 <= 7).length;
+  const totalSets = history.reduce((a, s) => a + s.exercises.reduce((b, e) => b + e.sets.filter(x => x.done).length, 0), 0);
+
+  const { day, index } = getNextPlanDay(p);
+  todayPlanDay = day;
+  todayPlanIndex = index;
+  if (!todayRoutine) todayRoutine = generateRoutine(p, day);
+
+  const muscleNames = {
+    pecho:'Pecho', espalda:'Espalda', hombros:'Hombros',
+    biceps:'Bíceps', triceps:'Tríceps', piernas:'Piernas',
+    gluteos:'Glúteos', core:'Core', cardio:'Cardio'
+  };
+
+  container.innerHTML = `
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;color:var(--gray);margin-bottom:2px">${new Date().toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'})}</div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700">Hola, ${p.name} 👋</div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-box"><div class="stat-num">${history.length}</div><div class="stat-lbl">Sesiones</div></div>
+      <div class="stat-box"><div class="stat-num">${thisWeek}</div><div class="stat-lbl">Esta semana</div></div>
+      <div class="stat-box"><div class="stat-num">${totalSets}</div><div class="stat-lbl">Series totales</div></div>
+    </div>
+
+    <div class="today-hero">
+      <div class="today-label">🤖 Tu entrenadora recomienda hoy</div>
+      <div class="today-title">${day.name}</div>
+      <div class="today-subtitle">${GOAL_LABELS[p.goal]} · ${LEVEL_LABELS[p.level]}</div>
+      <div class="today-muscles">
+        ${day.muscles.map(m => `<span class="muscle-tag">${muscleNames[m] || m}</span>`).join('')}
+      </div>
+      <div class="ex-preview">
+        ${todayRoutine.slice(0, 5).map(ex => `
+          <div class="ex-preview-item">
+            <div class="ex-preview-icon">${ex.icon}</div>
+            <div class="ex-preview-name">${ex.name}</div>
+            <div class="ex-preview-info">${ex.sets.length}×${ex.sets[0].reps}</div>
+          </div>
+        `).join('')}
+        ${todayRoutine.length > 5 ? `<div style="font-size:12px;color:var(--gray);text-align:center">+${todayRoutine.length-5} ejercicios más</div>` : ''}
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <button class="btn btn-ghost btn-full btn-sm" onclick="regenerate()">🔄 Otra rutina</button>
+        <button class="btn btn-green btn-full" onclick="startTodaySession()">▶️ ¡Empezar!</button>
+      </div>
+    </div>
+
+    ${history.length > 0 ? `
+      <div class="section-header"><div class="section-title">Última sesión</div></div>
+      ${renderHistoryItem(history[history.length-1], false)}
+    ` : ''}
+  `;
+}
+
+function regenerate() {
+  const p = currentProfile();
+  todayRoutine = generateRoutine(p, todayPlanDay);
+  renderHoy();
+}
+
+function startTodaySession() {
+  const p = currentProfile();
   currentSession = {
     id: Date.now(),
-    name,
+    profileId: p.id,
+    name: todayPlanDay.name,
+    planIndex: todayPlanIndex,
     date: new Date().toISOString(),
     startTime: Date.now(),
-    exercises
+    exercises: todayRoutine,
   };
+  todayRoutine = null;
   saveCurrentSession();
   document.getElementById('session-badge').style.display = 'flex';
   showTab('sesion');
 }
 
-// ══════════════════════════════
+// ══════════════════════════════════════════════
 // SESIÓN ACTIVA
-// ══════════════════════════════
+// ══════════════════════════════════════════════
 function renderSession() {
   const container = document.getElementById('session-content');
   if (!currentSession) {
-    container.innerHTML = '<div class="empty"><div class="icon">💪</div><p>No hay sesión activa.<br>Crea una rutina para empezar.</p></div>';
+    container.innerHTML = '<div class="empty"><div class="icon">💪</div><p>No hay sesión activa.<br>Ve a "Hoy" para empezar.</p></div>';
     return;
   }
 
@@ -846,63 +1144,59 @@ function renderSession() {
   const pct = Math.round(doneSets / totalSets * 100);
 
   container.innerHTML = `
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
         <div>
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700">${currentSession.name}</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700">${currentSession.name}</div>
           <div style="font-size:12px;color:var(--gray);margin-top:2px">${doneSets}/${totalSets} series completadas</div>
         </div>
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--green-light)">${pct}%</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:var(--green-light)">${pct}%</div>
       </div>
-      <div style="height:6px;background:var(--bg3);border-radius:3px;overflow:hidden">
-        <div style="height:100%;width:${pct}%;background:var(--green);border-radius:3px;transition:width 0.3s"></div>
-      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
     </div>
 
-    ${currentSession.exercises.map((ex, ei) => `
-      <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-          <div class="card-title" style="margin-bottom:0">${ex.machineIcon} ${ex.machineName}</div>
-          <span style="font-size:11px;color:var(--amber-light);background:rgba(217,119,6,0.15);border:1px solid rgba(217,119,6,0.3);padding:3px 8px;border-radius:20px">⏱ ${formatRest(ex.restSeconds || 90)}</span>
-        </div>
-        ${ex.sets.map((set, si) => `
-          <div class="set-row">
-            <div class="set-num ${set.done ? 'done' : ''}">${set.num}</div>
-            <div class="set-info">
-              <strong>${set.reps} reps</strong>
-              ${set.weight > 0 ? ` · <strong>${set.weight} kg</strong>` : ''}
-            </div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <input type="number" value="${set.weight}" min="0" step="0.5"
-                style="width:64px;text-align:center;padding:6px;font-size:13px"
-                onchange="updateWeight(${ei},${si},this.value)" placeholder="kg">
-              <button class="set-check ${set.done ? 'done' : ''}" onclick="toggleSet(${ei},${si})">
-                ${set.done ? '✓' : ''}
-              </button>
+    ${currentSession.exercises.map((ex, ei) => {
+      const doneCount = ex.sets.filter(s => s.done).length;
+      return `
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+            <div>
+              <div style="font-weight:700;font-size:14px">${ex.icon} ${ex.name}</div>
+              <div style="font-size:11px;color:var(--gray);margin-top:2px">${doneCount}/${ex.sets.length} series · ⏱ ${formatRest(ex.restSeconds||90)}</div>
             </div>
           </div>
-        `).join('')}
-      </div>
-    `).join('')}
+          ${ex.sets.map((set, si) => `
+            <div class="set-row">
+              <div class="set-num ${set.done?'done':''}">${set.num}</div>
+              <div class="set-info"><strong>${set.reps} reps</strong>${set.weight>0?` · <strong>${set.weight}kg</strong>`:''}</div>
+              <div style="display:flex;align-items:center;gap:6px">
+                <input type="number" value="${set.weight}" min="0" step="0.5"
+                  style="width:60px;text-align:center;padding:6px;font-size:13px"
+                  onchange="updateWeight(${ei},${si},this.value)" placeholder="kg">
+                <button class="set-check ${set.done?'done':''}" onclick="toggleSet(${ei},${si})">
+                  ${set.done?'✓':''}
+                </button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }).join('')}
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
-      <button class="btn btn-ghost btn-full" onclick="if(confirm('¿Abandonar la sesión?')) cancelSession()">Cancelar</button>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">
+      <button class="btn btn-ghost btn-full" onclick="if(confirm('¿Abandonar la sesión?'))cancelSession()">Cancelar</button>
       <button class="btn btn-green btn-full" onclick="finishSession()">Finalizar ✓</button>
     </div>
   `;
 }
 
 function toggleSet(ei, si) {
-  currentSession.exercises[ei].sets[si].done = !currentSession.exercises[ei].sets[si].done;
+  const set = currentSession.exercises[ei].sets[si];
+  set.done = !set.done;
   saveCurrentSession();
   renderSession();
-  if (currentSession.exercises[ei].sets[si].done) {
-    const ex = currentSession.exercises[ei];
-    const rest = ex.restSeconds || 90;
-    startTimer(rest, ex.machineName);
-  } else {
-    stopTimer();
-  }
+  if (set.done) startTimer(currentSession.exercises[ei].restSeconds || 90, currentSession.exercises[ei].name);
+  else stopTimer();
 }
 
 function updateWeight(ei, si, val) {
@@ -913,14 +1207,16 @@ function updateWeight(ei, si, val) {
 function finishSession() {
   const elapsed = Math.round((Date.now() - currentSession.startTime) / 60000);
   currentSession.duration = elapsed;
+  const history = getHistory(currentSession.profileId);
   history.push(currentSession);
-  saveHistory();
+  saveHistory(currentSession.profileId, history);
   currentSession = null;
   saveCurrentSession();
+  todayRoutine = null;
   document.getElementById('session-badge').style.display = 'none';
   stopTimer();
   showAlert('¡Sesión completada! 🎉');
-  showTab('historial');
+  showTab('hoy');
 }
 
 function cancelSession() {
@@ -931,161 +1227,236 @@ function cancelSession() {
   renderSession();
 }
 
-// ══════════════════════════════
-// TEMPORIZADOR
-// ══════════════════════════════
-function startTimer(seconds, exerciseName) {
+// ══════════════════════════════════════════════
+// TIMER
+// ══════════════════════════════════════════════
+function startTimer(seconds, name) {
   stopTimer();
   timerSeconds = seconds;
   const bar = document.getElementById('timer-bar');
   bar.classList.add('visible');
-  if (exerciseName) document.getElementById('timer-exercise-name').textContent = exerciseName;
+  if (name) document.getElementById('timer-exname').textContent = name;
   updateTimerDisplay();
   timerInterval = setInterval(() => {
     timerSeconds--;
-    if (timerSeconds <= 0) {
-      stopTimer();
-      showAlert('¡A por la siguiente serie!');
-      return;
-    }
+    if (timerSeconds <= 0) { stopTimer(); showAlert('¡A por la siguiente serie! 💪'); return; }
     updateTimerDisplay();
   }, 1000);
 }
 
 function updateTimerDisplay() {
   const el = document.getElementById('timer-count');
-  const m = Math.floor(timerSeconds / 60);
-  const s = timerSeconds % 60;
+  const m = Math.floor(timerSeconds / 60), s = timerSeconds % 60;
   el.textContent = `${m}:${s.toString().padStart(2,'0')}`;
   el.className = 'timer-count' + (timerSeconds <= 10 ? ' urgent' : '');
 }
 
 function addTime(s) { timerSeconds += s; updateTimerDisplay(); }
 
-function formatRest(s) {
-  if (s < 60) return s + 's';
-  const m = Math.floor(s / 60), r = s % 60;
-  return r === 0 ? m + ' min' : m + ':' + String(r).padStart(2,'0');
-}
-
 function stopTimer() {
-  clearInterval(timerInterval);
-  timerInterval = null;
+  clearInterval(timerInterval); timerInterval = null;
   document.getElementById('timer-bar').classList.remove('visible');
 }
 
-// ══════════════════════════════
+function formatRest(s) {
+  if (s < 60) return s + 's';
+  const m = Math.floor(s/60), r = s%60;
+  return r === 0 ? m+'min' : m+':'+String(r).padStart(2,'0');
+}
+
+// ══════════════════════════════════════════════
 // HISTORIAL
-// ══════════════════════════════
+// ══════════════════════════════════════════════
 function renderHistory() {
+  const p = currentProfile();
   const list = document.getElementById('history-list');
+  const history = getHistory(p.id);
   if (history.length === 0) {
-    list.innerHTML = '<div class="empty"><div class="icon">📋</div><p>Aún no hay sesiones registradas.</p></div>';
+    list.innerHTML = '<div class="empty"><div class="icon">📋</div><p>Aún no hay sesiones.</p></div>';
     return;
   }
-  list.innerHTML = [...history].reverse().map((s, i) => {
-    const date = new Date(s.date).toLocaleDateString('es-ES', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
-    const doneSets = s.exercises.reduce((a, e) => a + e.sets.filter(x => x.done).length, 0);
-    const totalSets = s.exercises.reduce((a, e) => a + e.sets.length, 0);
-    return `
-      <div class="history-item">
-        <div class="history-date">${date}</div>
-        <div style="display:flex;justify-content:space-between;align-items:start">
-          <div class="history-title">${s.name}</div>
-          <button class="btn btn-ghost btn-sm" onclick="deleteSession(${history.length - 1 - i})">🗑</button>
-        </div>
-        <div style="font-size:13px;color:var(--gray);margin:4px 0 10px">${doneSets}/${totalSets} series · ${s.duration || '—'} min</div>
-        <div class="history-tags">
-          ${s.exercises.map(e => `<span class="tag green">${e.machineIcon} ${e.machineName}</span>`).join('')}
-        </div>
+  list.innerHTML = [...history].reverse().map((s, i) => renderHistoryItem(s, true, history.length-1-i)).join('');
+}
+
+function renderHistoryItem(s, showDelete, idx) {
+  const date = new Date(s.date).toLocaleDateString('es-ES', { weekday:'long', day:'numeric', month:'long' });
+  const doneSets = s.exercises.reduce((a, e) => a + e.sets.filter(x => x.done).length, 0);
+  const totalSets = s.exercises.reduce((a, e) => a + e.sets.length, 0);
+  const muscles = [...new Set(s.exercises.map(e => e.muscle))];
+  const muscleNames = { pecho:'Pecho',espalda:'Espalda',hombros:'Hombros',biceps:'Bíceps',triceps:'Tríceps',piernas:'Piernas',gluteos:'Glúteos',core:'Core',cardio:'Cardio' };
+  return `
+    <div class="history-item">
+      <div class="history-date">${date}</div>
+      <div style="display:flex;justify-content:space-between;align-items:start">
+        <div class="history-title">${s.name}</div>
+        ${showDelete ? `<button class="btn btn-ghost btn-sm" onclick="deleteSession(${idx})" style="padding:4px 8px">🗑</button>` : ''}
       </div>
-    `;
-  }).join('');
+      <div style="font-size:12px;color:var(--gray);margin:2px 0 8px">${doneSets}/${totalSets} series · ${s.duration||'—'} min</div>
+      <div class="tag-row">
+        ${muscles.map(m => `<span class="tag">${muscleNames[m]||m}</span>`).join('')}
+      </div>
+    </div>
+  `;
 }
 
 function deleteSession(idx) {
   if (!confirm('¿Eliminar esta sesión?')) return;
+  const p = currentProfile();
+  const history = getHistory(p.id);
   history.splice(idx, 1);
-  saveHistory();
+  saveHistory(p.id, history);
   renderHistory();
-  renderStats();
 }
 
-function renderStats() {
-  if (document.getElementById('view-inicio').classList.contains('active')) renderInicio();
+function clearHistory() {
+  if (!confirm('¿Borrar todo el historial de este perfil?')) return;
+  const p = currentProfile();
+  saveHistory(p.id, []);
+  renderHistory();
 }
 
-// ══════════════════════════════
-// GESTIÓN DE MÁQUINAS
-// ══════════════════════════════
-function renderMachinesList() {
-  const list = document.getElementById('machines-list');
-  const grouped = {};
-  machines.forEach(m => {
-    if (!grouped[m.muscle]) grouped[m.muscle] = [];
-    grouped[m.muscle].push(m);
-  });
+// ══════════════════════════════════════════════
+// PERFIL
+// ══════════════════════════════════════════════
+function renderPerfil() {
+  const p = currentProfile();
+  const history = getHistory(p.id);
+  const thisWeek = history.filter(s => (Date.now()-new Date(s.date))/86400000 <= 7).length;
+  const totalSets = history.reduce((a,s) => a+s.exercises.reduce((b,e) => b+e.sets.filter(x=>x.done).length,0),0);
+  const plan = WEEKLY_PLANS[p.days] || WEEKLY_PLANS[3];
 
-  list.innerHTML = Object.entries(grouped).map(([muscle, ms]) => `
+  document.getElementById('perfil-content').innerHTML = `
+    <div class="profile-hero">
+      <div class="profile-avatar-big" style="background:${p.color}">${p.name[0].toUpperCase()}</div>
+      <div class="profile-name-big">${p.name}</div>
+      <div class="profile-goal-label">${GOAL_LABELS[p.goal]} · ${LEVEL_LABELS[p.level]}</div>
+      <div style="font-size:12px;color:var(--gray);margin-top:4px">${p.days} días/semana</div>
+      <div style="display:flex;gap:24px;justify-content:center;margin-top:16px">
+        <div style="text-align:center"><div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--green-light)">${history.length}</div><div style="font-size:11px;color:var(--gray)">Sesiones</div></div>
+        <div style="text-align:center"><div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--green-light)">${thisWeek}</div><div style="font-size:11px;color:var(--gray)">Esta semana</div></div>
+        <div style="text-align:center"><div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--green-light)">${totalSets}</div><div style="font-size:11px;color:var(--gray)">Series totales</div></div>
+      </div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:16px" onclick="openEditProfile()">✏️ Editar perfil</button>
+    </div>
+
     <div class="card">
-      <div class="card-title">${muscle}</div>
-      ${ms.map(m => `
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
-          <div style="display:flex;align-items:center;gap:12px">
-            <span style="font-size:24px">${m.icon}</span>
-            <span style="font-size:14px;font-weight:500">${m.name}</span>
-          </div>
-          <button class="btn btn-ghost btn-sm" onclick="deleteMachine('${m.id}')">🗑</button>
+      <div class="card-title">Tu plan semanal</div>
+      ${plan.map((day, i) => `
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div style="width:28px;height:28px;border-radius:50%;background:rgba(16,185,129,0.15);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--green-light)">${i+1}</div>
+          <div style="flex:1;font-size:13px;font-weight:500">${day.name}</div>
         </div>
       `).join('')}
     </div>
-  `).join('');
+
+    ${profiles.length > 1 ? `
+      <div class="card">
+        <div class="card-title">Cambiar de perfil</div>
+        ${profiles.filter(pr => pr.id !== p.id).map(pr => `
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
+            <div style="width:36px;height:36px;border-radius:50%;background:${pr.color};display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;font-family:'Space Grotesk',sans-serif">${pr.name[0].toUpperCase()}</div>
+            <div style="flex:1">
+              <div style="font-size:14px;font-weight:600">${pr.name}</div>
+              <div style="font-size:11px;color:var(--gray)">${GOAL_LABELS[pr.goal]}</div>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="switchProfile('${pr.id}')">Cambiar</button>
+          </div>
+        `).join('')}
+      </div>
+    ` : ''}
+
+    <button class="btn btn-danger btn-sm" style="width:100%;margin-top:4px;justify-content:center" onclick="deleteProfile()">Eliminar este perfil</button>
+  `;
 }
 
-function openAddMachine() {
-  document.getElementById('m-name').value = '';
-  document.getElementById('m-icon').value = '';
-  document.getElementById('modal-machine').classList.add('open');
+function deleteProfile() {
+  if (profiles.length === 1) { showAlert('No puedes borrar el único perfil', 'amber'); return; }
+  if (!confirm('¿Eliminar este perfil y su historial?')) return;
+  const p = currentProfile();
+  localStorage.removeItem('gtHistory_' + p.id);
+  profiles = profiles.filter(pr => pr.id !== p.id);
+  saveProfiles();
+  currentProfileId = profiles[0].id;
+  saveCurrentProfile();
+  renderProfileSwitcher();
+  showTab('hoy');
 }
 
-function closeModal() {
-  document.getElementById('modal-machine').classList.remove('open');
+// ── Editar perfil ──
+function openEditProfile() {
+  const p = currentProfile();
+  document.getElementById('ep-name').value = p.name;
+  document.getElementById('ep-goal').value = p.goal;
+  document.getElementById('ep-level').value = p.level;
+  document.getElementById('ep-days').value = p.days;
+  document.getElementById('modal-edit-profile').classList.add('open');
 }
 
-function saveMachine() {
-  const name = document.getElementById('m-name').value.trim();
-  const muscle = document.getElementById('m-muscle').value;
-  const icon = document.getElementById('m-icon').value.trim() || '🏋️';
-  if (!name) { showAlert('Escribe un nombre'); return; }
-  machines.push({ id: 'm' + Date.now(), name, muscle, icon });
-  saveMachines();
-  closeModal();
-  renderMachinesList();
-  showAlert('Máquina añadida');
+function saveEditProfile() {
+  const p = currentProfile();
+  const name = document.getElementById('ep-name').value.trim();
+  if (!name) { showAlert('Escribe un nombre','amber'); return; }
+  p.name = name;
+  p.goal = document.getElementById('ep-goal').value;
+  p.level = document.getElementById('ep-level').value;
+  p.days = parseInt(document.getElementById('ep-days').value);
+  saveProfiles();
+  todayRoutine = null;
+  closeModal('modal-edit-profile');
+  renderProfileSwitcher();
+  showTab('perfil');
+  showAlert('Perfil actualizado');
 }
 
-function deleteMachine(id) {
-  if (!confirm('¿Eliminar esta máquina?')) return;
-  machines = machines.filter(m => m.id !== id);
-  saveMachines();
-  renderMachinesList();
+// ── Nuevo perfil ──
+let npSelectedColor = PROFILE_COLORS[1];
+
+function openNewProfile() {
+  npSelectedColor = PROFILE_COLORS[1];
+  renderColorGrid('np-color-grid', 'npColor');
+  document.getElementById('np-name').value = '';
+  document.getElementById('modal-new-profile').classList.add('open');
 }
 
-// ══════════════════════════════
-// ALERT TOAST
-// ══════════════════════════════
-function showAlert(msg) {
+function saveNewProfile() {
+  const name = document.getElementById('np-name').value.trim();
+  if (!name) { showAlert('Escribe un nombre','amber'); return; }
+  const profile = {
+    id: 'p' + Date.now(),
+    name,
+    color: npSelectedColor,
+    goal: document.getElementById('np-goal').value,
+    level: document.getElementById('np-level').value,
+    days: parseInt(document.getElementById('np-days').value),
+  };
+  profiles.push(profile);
+  saveProfiles();
+  currentProfileId = profile.id;
+  saveCurrentProfile();
+  closeModal('modal-new-profile');
+  renderProfileSwitcher();
+  showTab('hoy');
+  showAlert('Perfil creado 🎉');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+// ══════════════════════════════════════════════
+// ALERT
+// ══════════════════════════════════════════════
+function showAlert(msg, type) {
   const el = document.getElementById('alert');
   el.textContent = msg;
-  el.classList.add('show');
+  el.className = 'alert show' + (type === 'amber' ? ' amber' : '');
   setTimeout(() => el.classList.remove('show'), 2500);
 }
 
-// ══════════════════════════════
-// INIT
-// ══════════════════════════════
-if (currentSession) document.getElementById('session-badge').style.display = 'flex';
-renderInicio();
+// ══════════════════════════════════════════════
+// START
+// ══════════════════════════════════════════════
+init();
 </script>
 </body>
 </html>
