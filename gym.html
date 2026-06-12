@@ -254,6 +254,15 @@
 <div id="view-historial" class="view" style="display:none"><div class="section-header"><div class="section-title">Historial</div><button class="btn btn-ghost btn-sm" onclick="clearHistory()">Limpiar</button></div><div id="history-list"></div></div>
 <div id="view-perfil" class="view" style="display:none"><div id="perfil-content"></div></div>
 
+<!-- MODAL ELEGIR DÍA -->
+<div class="modal-overlay" id="modal-pickday">
+  <div class="modal">
+    <div class="modal-title">¿Qué quieres entrenar hoy?</div>
+    <div id="pickday-list"></div>
+    <button class="btn btn-ghost btn-full" style="margin-top:8px" onclick="closeModal('modal-pickday')">Cancelar</button>
+  </div>
+</div>
+
 <!-- MODAL NUEVO PERFIL -->
 <div class="modal-overlay" id="modal-np">
   <div class="modal">
@@ -611,15 +620,40 @@ function renderHoy() {
           </div>`).join('')}
         ${todayEx.length>5?`<div style="font-size:12px;color:var(--gray);text-align:center;padding:4px">+${todayEx.length-5} ejercicios más</div>`:''}
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <button class="btn btn-ghost btn-full btn-sm" onclick="regen()">🔄 Cambiar rutina</button>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px">
+        <button class="btn btn-ghost btn-full btn-sm" onclick="regen()">🔄 Otra rutina</button>
         <button class="btn btn-green btn-full" onclick="startToday()">▶️ ¡Empezar!</button>
       </div>
+      <button class="btn btn-ghost btn-full btn-sm" onclick="openPickDay()" style="font-size:12px">📅 Elegir otro día del plan</button>
     </div>
     ${h.length?`<div class="section-header"><div class="section-title">Última sesión</div></div>${histItem(h[h.length-1],false)}`:''}
   `;
 }
 function regen(){ const p=curP(); todayEx=genRoutine(p,todayDay); renderHoy(); }
+
+function openPickDay(){
+  const p=curP();
+  const plan=PLANS[p.days]||PLANS[3];
+  document.getElementById('pickday-list').innerHTML=plan.map((d,i)=>`
+    <div onclick="pickDay(${i})" style="display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;border:1px solid var(--border);margin-bottom:8px;cursor:pointer;background:var(--bg3);transition:all 0.2s" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="width:28px;height:28px;border-radius:50%;background:rgba(16,185,129,0.15);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--green-light);flex-shrink:0">${i+1}</div>
+      <div>
+        <div style="font-size:14px;font-weight:600">${d.name}</div>
+        <div style="font-size:11px;color:var(--gray);margin-top:2px">${d.muscles.map(m=>MUSCLE_LBL[m]||m).join(' · ')}</div>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('modal-pickday').classList.add('open');
+}
+
+function pickDay(i){
+  const p=curP();
+  const plan=PLANS[p.days]||PLANS[3];
+  todayDay=plan[i]; todayIdx=i;
+  todayEx=genRoutine(p,todayDay);
+  closeModal('modal-pickday');
+  renderHoy();
+}
 function startToday(){
   const p=curP();
   curSession={id:Date.now(),profileId:p.id,name:todayDay.name,planIndex:todayIdx,date:new Date().toISOString(),startTime:Date.now(),exercises:todayEx};
