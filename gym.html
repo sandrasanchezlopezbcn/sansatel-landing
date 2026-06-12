@@ -61,8 +61,9 @@
   .add-profile-btn:hover { border-color:var(--green); color:var(--green); }
 
   /* TABS */
-  .tabs { display:flex; border-bottom:1px solid var(--border); background:rgba(10,22,40,0.97); }
-  .tab-btn { flex:1; padding:12px 8px; border:none; background:transparent; color:var(--gray); font-family:'Inter',sans-serif; font-size:12px; font-weight:500; cursor:pointer; border-bottom:2px solid transparent; transition:all 0.2s; }
+  .tabs { display:flex; border-bottom:1px solid var(--border); background:rgba(10,22,40,0.97); overflow-x:auto; scrollbar-width:none; }
+  .tabs::-webkit-scrollbar { display:none; }
+  .tab-btn { flex:0 0 auto; padding:10px 12px; border:none; background:transparent; color:var(--gray); font-family:'Inter',sans-serif; font-size:11px; font-weight:500; cursor:pointer; border-bottom:2px solid transparent; transition:all 0.2s; white-space:nowrap; }
   .tab-btn.active { color:var(--green-light); border-bottom-color:var(--green-light); }
   .tab-btn:hover:not(.active) { color:var(--white); }
 
@@ -202,6 +203,31 @@
   .badge { display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:600; padding:3px 9px; border-radius:20px; }
   .badge-amber { background:rgba(217,119,6,0.2); color:var(--amber-light); }
 
+  /* BIBLIOTECA DE EJERCICIOS */
+  .lib-bar { display:flex; gap:8px; overflow-x:auto; padding-bottom:10px; scrollbar-width:none; margin-bottom:16px; }
+  .lib-bar::-webkit-scrollbar { display:none; }
+  .lib-chip { flex-shrink:0; display:flex; align-items:center; gap:5px; padding:7px 13px; border-radius:20px; border:1.5px solid var(--border); background:var(--bg3); color:var(--gray); font-size:12px; font-weight:600; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+  .lib-chip:hover { border-color:var(--gray2); color:var(--white); }
+  .lib-chip.active { border-color:var(--green); background:rgba(16,185,129,0.15); color:var(--green-light); }
+  .lib-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .ex-card { background:var(--bg3); border:1.5px solid var(--border); border-radius:14px; padding:14px 12px; cursor:pointer; transition:all 0.2s; display:flex; flex-direction:column; gap:6px; position:relative; }
+  .ex-card:hover { border-color:var(--blue-light); background:rgba(59,130,246,0.06); }
+  .ex-card.fav { border-color:rgba(245,158,11,0.55); }
+  .ex-card-icon { font-size:28px; }
+  .ex-card-name { font-size:12px; font-weight:600; line-height:1.35; padding-right:16px; }
+  .ex-card-meta { font-size:11px; color:var(--gray); }
+  .ex-card-star { position:absolute; top:8px; right:8px; font-size:15px; background:transparent; border:none; cursor:pointer; padding:2px; line-height:1; }
+
+  /* EXERCISE DETAIL PANEL */
+  .ex-detail-panel { position:fixed; inset:0; background:var(--bg); z-index:400; overflow-y:auto; display:none; padding-bottom:80px; }
+  .ex-detail-panel.open { display:block; }
+  .ex-detail-hdr { display:flex; align-items:center; gap:10px; padding:13px 16px; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(10,22,40,0.97); backdrop-filter:blur(10px); z-index:10; }
+  .ex-detail-back { width:34px; height:34px; border-radius:10px; border:1px solid var(--border); background:transparent; color:var(--white); font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1; flex-shrink:0; }
+  .ex-dtabs { display:flex; border-bottom:1px solid var(--border); background:rgba(10,22,40,0.97); position:sticky; top:61px; z-index:9; }
+  .ex-dtab { flex:1; padding:11px 8px; border:none; background:transparent; color:var(--gray); font-size:13px; font-weight:500; cursor:pointer; border-bottom:2px solid transparent; transition:all 0.2s; }
+  .ex-dtab.active { color:var(--green-light); border-bottom-color:var(--green-light); }
+  .body-wrap { display:flex; justify-content:center; padding:16px 0 8px; }
+
   /* MODAL */
   .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:500; align-items:flex-end; justify-content:center; }
   .modal-overlay.open { display:flex; }
@@ -300,6 +326,7 @@
 <div class="tabs" id="main-tabs" style="display:none">
   <button class="tab-btn active" onclick="showTab('hoy')">🏠 Hoy</button>
   <button class="tab-btn" onclick="showTab('sesion')">▶️ Sesión</button>
+  <button class="tab-btn" onclick="showTab('ejercicios')">📚 Ejercicios</button>
   <button class="tab-btn" onclick="showTab('progreso')">📊 Progreso</button>
   <button class="tab-btn" onclick="showTab('historial')">📋 Historial</button>
   <button class="tab-btn" onclick="showTab('perfil')">👤 Perfil</button>
@@ -307,6 +334,7 @@
 
 <div id="view-hoy" class="view active" style="display:none"><div id="hoy-content"></div></div>
 <div id="view-sesion" class="view" style="display:none"><div id="session-content"><div class="empty"><div class="icon">💪</div><p>No hay sesión activa.<br>Ve a "Hoy" para empezar.</p></div></div></div>
+<div id="view-ejercicios" class="view" style="display:none"><div id="ejercicios-content"></div></div>
 <div id="view-progreso" class="view" style="display:none"><div id="progreso-content"></div></div>
 <div id="view-historial" class="view" style="display:none"><div class="section-header"><div class="section-title">Historial</div><button class="btn btn-ghost btn-sm" onclick="clearHistory()">Limpiar</button></div><div id="history-list"></div></div>
 <div id="view-perfil" class="view" style="display:none"><div id="perfil-content"></div></div>
@@ -361,6 +389,9 @@
     </div>
   </div>
 </div>
+
+<!-- EXERCISE DETAIL PANEL -->
+<div class="ex-detail-panel" id="ex-detail"></div>
 
 <!-- TIMER -->
 <div class="timer-bar" id="timer-bar">
@@ -622,9 +653,10 @@ function showTab(t) {
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('view-'+t).classList.add('active');
-  ['hoy','sesion','progreso','historial','perfil'].forEach((x,i)=>{ if(x===t) document.querySelectorAll('.tab-btn')[i].classList.add('active'); });
+  ['hoy','sesion','ejercicios','progreso','historial','perfil'].forEach((x,i)=>{ if(x===t) document.querySelectorAll('.tab-btn')[i].classList.add('active'); });
   if(t==='hoy') renderHoy();
   if(t==='sesion') renderSession();
+  if(t==='ejercicios') renderEjercicios();
   if(t==='progreso') renderProgreso();
   if(t==='historial') renderHist();
   if(t==='perfil') renderPerfil();
@@ -1113,6 +1145,178 @@ function renderTemplates(pid) {
         <button class="btn btn-ghost btn-sm" onclick="deleteTemplate('${t.id}')" style="padding:6px 8px">🗑</button>
       </div>`).join('')}
   `;
+}
+
+// ─── BIBLIOTECA DE EJERCICIOS ─────────────────
+const EX_TIPS = {
+  pecho:'Retrae los omóplatos y apóyalos en el banco durante todo el movimiento. Baja el peso lentamente (2-3s) y empuja de forma explosiva. Exhala al subir.',
+  espalda:'Inicia el movimiento tirando con los codos hacia atrás, no con las manos. Mantén el pecho hacia fuera y la espalda ligeramente arqueada. Aprieta las escápulas al final del recorrido.',
+  hombros:'Mantén el core activo y evita balancear el torso. En elevaciones laterales, sube hasta paralelo al suelo y baja en 3 segundos para mayor activación.',
+  biceps:'Codos pegados al cuerpo durante todo el movimiento. Sube apretando el bíceps y baja muy despacio (cuenta 3 segundos). El control en la bajada es igual de importante.',
+  triceps:'Mantén los codos completamente fijos y solo mueve el antebrazo. Extiende completamente el codo al final. El rango completo es clave para el crecimiento.',
+  piernas:'Espalda recta y core apretado durante todo el movimiento. Rodillas alineadas con los pies (no hacia dentro). Baja hasta que los muslos estén paralelos al suelo o más abajo.',
+  gluteos:'Empuja con los talones, no con los dedos. Aprieta el glúteo en la contracción máxima y aguanta 1-2 segundos antes de bajar. Esto duplica la activación muscular.',
+  core:'Exhala en el esfuerzo para activar mejor el core. Evita tirar del cuello en los crunchs. Mantén la zona lumbar pegada al suelo en los ejercicios tumbados.',
+  cardio:'Para quema de grasa: frecuencia cardíaca entre 60-75% del máximo (220 - tu edad). Para HIIT: alterna 30s al máximo con 30-60s de recuperación activa.',
+};
+
+let libFilter='all', libExId=null, libDTab='info';
+
+function getFavs(){const p=curP();if(!p)return[];return JSON.parse(localStorage.getItem('gt2_favs_'+p.id)||'[]');}
+function setFavs(f){const p=curP();if(!p)return;localStorage.setItem('gt2_favs_'+p.id,JSON.stringify(f));}
+
+function toggleFav(exId,e){
+  if(e)e.stopPropagation();
+  let f=getFavs();
+  if(f.includes(exId))f=f.filter(x=>x!==exId);else f.push(exId);
+  setFavs(f);
+  if(libExId===exId&&document.getElementById('ex-detail').classList.contains('open'))_renderExDetail();
+  else renderEjercicios();
+}
+
+function bodyDiagram(muscles){
+  const has=m=>muscles.includes(m);
+  const hi='rgba(239,68,68,0.8)',hiS='#ef4444',bg='#0D1F3C',brd='#1e3a8a';
+  const f=m=>has(m)?hi:bg, s=m=>has(m)?hiS:brd, w=m=>has(m)?'2':'1.2';
+  const arm=has('biceps')?hi:has('triceps')?'rgba(239,68,68,0.5)':bg;
+  const armS=(has('biceps')||has('triceps'))?hiS:brd, armW=(has('biceps')||has('triceps'))?'2':'1.2';
+  return `<svg viewBox="0 0 100 190" width="90" height="171" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="50" cy="13" r="10" fill="${bg}" stroke="${brd}" stroke-width="1.5"/>
+  <rect x="46" y="22" width="8" height="8" rx="2" fill="${bg}" stroke="${brd}" stroke-width="1.2"/>
+  <ellipse cx="26" cy="36" rx="10" ry="7" fill="${f('hombros')}" stroke="${s('hombros')}" stroke-width="${w('hombros')}"/>
+  <ellipse cx="74" cy="36" rx="10" ry="7" fill="${f('hombros')}" stroke="${s('hombros')}" stroke-width="${w('hombros')}"/>
+  <rect x="31" y="30" width="38" height="24" rx="6" fill="${f('pecho')}" stroke="${s('pecho')}" stroke-width="${w('pecho')}"/>
+  ${has('espalda')?`<rect x="31" y="30" width="38" height="24" rx="6" fill="rgba(239,68,68,0.25)" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,3"/>`:''}
+  <rect x="33" y="53" width="34" height="22" rx="4" fill="${f('core')}" stroke="${s('core')}" stroke-width="${w('core')}"/>
+  <rect x="14" y="31" width="13" height="36" rx="7" fill="${arm}" stroke="${armS}" stroke-width="${armW}"/>
+  <rect x="73" y="31" width="13" height="36" rx="7" fill="${arm}" stroke="${armS}" stroke-width="${armW}"/>
+  <rect x="12" y="69" width="11" height="24" rx="5" fill="${bg}" stroke="${brd}" stroke-width="1.2"/>
+  <rect x="77" y="69" width="11" height="24" rx="5" fill="${bg}" stroke="${brd}" stroke-width="1.2"/>
+  <rect x="29" y="74" width="42" height="18" rx="7" fill="${f('gluteos')}" stroke="${s('gluteos')}" stroke-width="${w('gluteos')}"/>
+  <rect x="29" y="90" width="18" height="47" rx="9" fill="${f('piernas')}" stroke="${s('piernas')}" stroke-width="${w('piernas')}"/>
+  <rect x="53" y="90" width="18" height="47" rx="9" fill="${f('piernas')}" stroke="${s('piernas')}" stroke-width="${w('piernas')}"/>
+  <rect x="30" y="139" width="15" height="32" rx="7" fill="${bg}" stroke="${brd}" stroke-width="1.2"/>
+  <rect x="55" y="139" width="15" height="32" rx="7" fill="${bg}" stroke="${brd}" stroke-width="1.2"/>
+  ${has('cardio')?`<rect x="2" y="2" width="96" height="186" rx="10" fill="none" stroke="rgba(16,185,129,0.5)" stroke-width="2.5" stroke-dasharray="5,4"/>`:''}
+  </svg>`;
+}
+
+function renderEjercicios(){
+  const favs=getFavs();
+  const filters=[
+    {k:'all',i:'🏋️',l:'Todos'},{k:'favs',i:'⭐',l:'Favoritos'},
+    {k:'pecho',i:'💪',l:'Pecho'},{k:'espalda',i:'🦾',l:'Espalda'},
+    {k:'hombros',i:'✈️',l:'Hombros'},{k:'biceps',i:'💪',l:'Bíceps'},
+    {k:'triceps',i:'⬇️',l:'Tríceps'},{k:'piernas',i:'🦵',l:'Piernas'},
+    {k:'gluteos',i:'🍑',l:'Glúteos'},{k:'core',i:'🎯',l:'Core'},{k:'cardio',i:'🏃',l:'Cardio'},
+  ];
+  const allEx=Object.entries(EX).flatMap(([m,exs])=>exs.map(e=>({...e,muscle:m})));
+  const filtered=libFilter==='all'?allEx:libFilter==='favs'?allEx.filter(e=>favs.includes(e.id)):allEx.filter(e=>e.muscle===libFilter);
+  document.getElementById('ejercicios-content').innerHTML=`
+    <div class="lib-bar">${filters.map(f=>`<div class="lib-chip ${libFilter===f.k?'active':''}" onclick="libFilter='${f.k}';renderEjercicios()">${f.i} ${f.l}</div>`).join('')}</div>
+    ${filtered.length===0
+      ?`<div class="empty"><div class="icon">⭐</div><p>No tienes favoritos aún.<br>Toca ☆ en un ejercicio para guardarlo.</p></div>`
+      :`<div class="lib-grid">${filtered.map(e=>`
+        <div class="ex-card ${favs.includes(e.id)?'fav':''}" onclick="showExDetail('${e.id}')">
+          <button class="ex-card-star" onclick="toggleFav('${e.id}',event)">${favs.includes(e.id)?'⭐':'☆'}</button>
+          <div class="ex-card-icon">${e.icon}</div>
+          <div class="ex-card-name">${e.name}</div>
+          <div class="ex-card-meta">${MUSCLE_LBL[e.muscle]||e.muscle}${e.c?' · Comp.':''}</div>
+        </div>`).join('')}</div>`}`;
+}
+
+function getExById(id){return Object.entries(EX).flatMap(([m,exs])=>exs.map(e=>({...e,muscle:m}))).find(e=>e.id===id);}
+
+function showExDetail(exId){libExId=exId;libDTab='info';document.getElementById('ex-detail').classList.add('open');_renderExDetail();}
+function closeExDetail(){document.getElementById('ex-detail').classList.remove('open');}
+
+function _renderExDetail(){
+  const ex=getExById(libExId);if(!ex)return;
+  const favs=getFavs(),isFav=favs.includes(ex.id);
+  let body='';
+  if(libDTab==='info')body=_exInfoTab(ex);
+  else if(libDTab==='hist')body=_exHistTab(ex);
+  else body=_exProgTab(ex);
+  document.getElementById('ex-detail').innerHTML=`
+    <div class="ex-detail-hdr">
+      <button class="ex-detail-back" onclick="closeExDetail()">‹</button>
+      <div style="flex:1;min-width:0">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${ex.icon} ${ex.name}</div>
+        <div style="font-size:11px;color:var(--gray)">${MUSCLE_LBL[ex.muscle]||ex.muscle}</div>
+      </div>
+      <button id="fav-btn" onclick="toggleFav('${ex.id}',event)" style="font-size:22px;background:transparent;border:none;cursor:pointer;padding:4px;line-height:1;flex-shrink:0">${isFav?'⭐':'☆'}</button>
+    </div>
+    <div class="ex-dtabs">
+      <button class="ex-dtab ${libDTab==='info'?'active':''}" onclick="libDTab='info';_renderExDetail()">📋 Info</button>
+      <button class="ex-dtab ${libDTab==='hist'?'active':''}" onclick="libDTab='hist';_renderExDetail()">📅 Historial</button>
+      <button class="ex-dtab ${libDTab==='prog'?'active':''}" onclick="libDTab='prog';_renderExDetail()">📈 Progreso</button>
+    </div>
+    <div style="padding:20px;max-width:600px;margin:0 auto">${body}</div>`;
+}
+
+function _exInfoTab(ex){
+  const yt=`https://www.youtube.com/results?search_query=como+hacer+${encodeURIComponent(ex.name)}+correctamente+gym`;
+  const tip=EX_TIPS[ex.muscle]||'Realiza el movimiento de forma controlada enfocándote en el músculo objetivo.';
+  return `
+    <div class="body-wrap">${bodyDiagram([ex.muscle])}</div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px">
+      <div style="font-size:13px;font-weight:600;margin-bottom:8px">Músculos trabajados</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <span class="muscle-tag">${MUSCLE_LBL[ex.muscle]||ex.muscle}</span>
+        ${ex.c?`<span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:rgba(59,130,246,0.15);color:var(--blue-light);border:1px solid rgba(59,130,246,0.3)">Compuesto</span>`:''}
+      </div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:14px">
+      <div style="font-size:13px;font-weight:600;margin-bottom:8px">💡 Técnica</div>
+      <p style="font-size:13px;color:var(--gray);line-height:1.75">${tip}</p>
+    </div>
+    <a href="${yt}" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border-radius:12px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.35);color:#fff;text-decoration:none;font-size:14px;font-weight:600">▶ Ver en YouTube</a>`;
+}
+
+function _exHistTab(ex){
+  const p=curP(),h=getHist(p.id),entries=[];
+  h.forEach(sess=>{
+    const e=sess.exercises.find(x=>x.id===ex.id);
+    if(e){const done=e.sets.filter(s=>s.done);const maxW=done.length?Math.max(...done.map(s=>s.weight||0)):0;entries.push({date:sess.date,name:sess.name,sets:done,maxW});}
+  });
+  if(!entries.length)return`<div class="empty"><div class="icon">📅</div><p>Aún no has hecho este ejercicio.<br>Aparecerá aquí cuando lo realices.</p></div>`;
+  return[...entries].reverse().map(e=>`
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+        <div style="font-size:12px;color:var(--gray)">${new Date(e.date).toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'})}</div>
+        ${e.maxW>0?`<div style="font-size:12px;font-weight:700;color:var(--green-light)">Max ${e.maxW}kg</div>`:''}
+      </div>
+      <div style="font-size:13px;font-weight:600;margin-bottom:8px">${e.name}</div>
+      ${e.sets.map(s=>`<div style="display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:1px solid var(--border)"><span style="color:var(--gray)">Serie ${s.num}</span><span>${s.weight>0?s.weight+'kg · ':''}${s.repsMin&&s.repsMax&&s.repsMin!==s.repsMax?s.repsMin+'-'+s.repsMax:s.repsMin||s.reps||12} reps</span></div>`).join('')}
+    </div>`).join('');
+}
+
+function _exProgTab(ex){
+  const p=curP(),h=getHist(p.id),pts=[];
+  h.forEach(sess=>{
+    const e=sess.exercises.find(x=>x.id===ex.id);
+    if(e){const ws=e.sets.filter(s=>s.done&&s.weight>0).map(s=>s.weight);if(ws.length)pts.push({date:sess.date,maxW:Math.max(...ws)});}
+  });
+  if(pts.length<2)return`<div class="empty"><div class="icon">📈</div><p>Necesitas al menos 2 sesiones con este ejercicio para ver la gráfica de progreso.</p></div>`;
+  const W=300,H=110,pad=32;
+  const maxV=Math.max(...pts.map(p=>p.maxW)),minV=Math.min(...pts.map(p=>p.maxW)),rng=maxV-minV||1;
+  const xs=pts.map((_,i)=>pad+(i/(pts.length-1))*(W-pad*2));
+  const ys=pts.map(pt=>H-pad-((pt.maxW-minV)/rng)*(H-pad*2));
+  const poly=xs.map((x,i)=>`${x},${ys[i]}`).join(' ');
+  const area=`${pad},${H-pad} `+poly+` ${W-pad},${H-pad}`;
+  return`<div class="chart-wrap">
+    <div class="chart-title">${ex.name} — Peso máximo</div>
+    <svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block">
+      <polygon points="${area}" fill="rgba(16,185,129,0.12)"/>
+      <polyline points="${poly}" fill="none" stroke="var(--green-light)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      ${pts.map((_,i)=>`<circle cx="${xs[i]}" cy="${ys[i]}" r="4" fill="var(--green-light)"/>`).join('')}
+      <text x="${pad}" y="${H-6}" fill="var(--gray)" font-size="9">${new Date(pts[0].date).toLocaleDateString('es-ES',{day:'numeric',month:'short'})}</text>
+      <text x="${W-pad}" y="${H-6}" fill="var(--gray)" font-size="9" text-anchor="end">${new Date(pts[pts.length-1].date).toLocaleDateString('es-ES',{day:'numeric',month:'short'})}</text>
+      <text x="${pad-3}" y="${pad+3}" fill="var(--gray)" font-size="9" text-anchor="end">${maxV}kg</text>
+      <text x="${pad-3}" y="${H-pad+3}" fill="var(--gray)" font-size="9" text-anchor="end">${minV}kg</text>
+    </svg>
+  </div>
+  <div style="text-align:center;margin-top:10px;font-size:12px;color:var(--gray)">${pts.length} sesiones · Mejor: <strong style="color:var(--green-light)">${maxV}kg</strong></div>`;
 }
 
 // ─── ALERT ────────────────────────────────────
