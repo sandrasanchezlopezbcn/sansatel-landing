@@ -346,6 +346,7 @@
   <div class="timer-count" id="timer-count">1:30</div>
   <div class="timer-btns">
     <button class="timer-btn" onclick="addTime(30)">+30s</button>
+    <button class="timer-btn" onclick="addTime(-30)">−30s</button>
     <button class="timer-btn" onclick="stopTimer()">Saltar ⏭</button>
   </div>
 </div>
@@ -491,10 +492,10 @@ const PLANS = {
 };
 
 const GOAL_PARAMS = {
-  muscle:   {sets:4,rMin:8, rMax:12,rest:90},
-  lose:     {sets:3,rMin:15,rMax:20,rest:45},
-  tone:     {sets:3,rMin:12,rMax:15,rest:60},
-  endurance:{sets:3,rMin:20,rMax:25,rest:30},
+  muscle:   {sets:4,rMin:8, rMax:12,rest:120},
+  lose:     {sets:3,rMin:15,rMax:20,rest:60},
+  tone:     {sets:3,rMin:12,rMax:15,rest:90},
+  endurance:{sets:3,rMin:20,rMax:25,rest:45},
 };
 const LEVEL_SETS = {beginner:3,intermediate:4,advanced:5};
 const BIG = ['pecho','espalda','piernas'];
@@ -814,7 +815,7 @@ function updTimer(){
   el.textContent=`${m}:${s.toString().padStart(2,'0')}`;
   el.className='timer-count'+(timerSec<=10?' urgent':'');
 }
-function addTime(s){ timerSec+=s; updTimer(); }
+function addTime(s){ timerSec=Math.max(5,timerSec+s); updTimer(); }
 function stopTimer(){ clearInterval(timerIv); timerIv=null; document.getElementById('timer-bar').classList.remove('visible'); }
 function fmtRest(s){ const m=Math.floor(s/60),r=s%60; return s<60?s+'s':r===0?m+'min':m+':'+String(r).padStart(2,'0'); }
 
