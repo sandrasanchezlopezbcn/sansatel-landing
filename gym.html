@@ -579,6 +579,8 @@ function curP() { return profiles.find(p=>p.id===curId)||profiles[0]; }
 // ─── INIT ─────────────────────────────────────
 function init() {
   renderColorDots('color-grid','wiz');
+  // Auto-deduplicate: keep only first 3 profiles
+  if(profiles.length>3){ profiles=profiles.slice(0,3); save(); }
   if (!profiles.length) {
     document.getElementById('wizard').classList.remove('hidden');
   } else {
@@ -586,6 +588,7 @@ function init() {
     showApp();
   }
 }
+function resetApp(){ if(!confirm('¿Borrar todos los perfiles y empezar de cero?'))return; localStorage.clear(); location.reload(); }
 
 // ─── WIZARD ───────────────────────────────────
 function nextWizard(s) {
@@ -612,6 +615,7 @@ function selectDays(el) {
   wiz.days=parseInt(el.dataset.days);
 }
 function finishWizard() {
+  if(profiles.length>0){ document.getElementById('wizard').classList.add('hidden'); showApp(); return; }
   if (!wiz.days){ alert2('Elige cuántos días','amber');return; }
   const p={id:'p'+Date.now(),name:wiz.name,color:wiz.color,goal:wiz.goal||'muscle',level:wiz.level||'intermediate',days:wiz.days,focus:wiz.focus};
   profiles.push(p); save();
@@ -929,6 +933,7 @@ function renderPerfil(){
     </div>
     ${profiles.length>1?`<div class="card"><div class="card-title">Otros perfiles</div>${profiles.filter(pr=>pr.id!==p.id).map(pr=>`<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)"><div style="width:36px;height:36px;border-radius:50%;background:${pr.color};display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;font-family:'Space Grotesk',sans-serif">${pr.name[0].toUpperCase()}</div><div style="flex:1"><div style="font-size:14px;font-weight:600">${pr.name}</div><div style="font-size:11px;color:var(--gray)">${GOAL_LBL[pr.goal]}</div></div><button class="btn btn-ghost btn-sm" onclick="switchP('${pr.id}')">Cambiar</button></div>`).join('')}</div>`:''}
     <button class="btn btn-danger btn-sm" style="width:100%;margin-top:4px;justify-content:center" onclick="delProfile()">Eliminar perfil</button>
+    <button class="btn btn-ghost btn-sm" style="width:100%;margin-top:8px;justify-content:center;color:var(--gray);font-size:11px" onclick="resetApp()">⚠️ Resetear app (borrar todo)</button>
   `;
 }
 function delProfile(){ if(profiles.length===1){alert2('No puedes borrar el único perfil','amber');return;} if(!confirm('¿Eliminar este perfil?'))return; const p=curP(); localStorage.removeItem('gt2_h_'+p.id); profiles=profiles.filter(x=>x.id!==p.id); save(); curId=profiles[0].id; saveCur(); renderSwitcher(); showTab('hoy'); }
