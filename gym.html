@@ -267,7 +267,7 @@
     <div class="wizard-title">¿Cuál es tu objetivo?</div>
     <div class="wizard-desc">Ajusto ejercicios, series y repeticiones para ti.</div>
     <div class="option-grid">
-      <div class="option-card" data-val="muscle" data-key="goal" onclick="selectOpt(this)"><div class="opt-icon">💪</div><div class="opt-title">Ganar músculo</div><div class="opt-desc">Hipertrofia y fuerza</div></div>
+      <div class="option-card selected" data-val="muscle" data-key="goal" onclick="selectOpt(this)"><div class="opt-icon">💪</div><div class="opt-title">Ganar músculo</div><div class="opt-desc">Hipertrofia y fuerza</div></div>
       <div class="option-card" data-val="lose" data-key="goal" onclick="selectOpt(this)"><div class="opt-icon">🔥</div><div class="opt-title">Perder peso</div><div class="opt-desc">Quemar grasa</div></div>
       <div class="option-card" data-val="tone" data-key="goal" onclick="selectOpt(this)"><div class="opt-icon">✨</div><div class="opt-title">Tonificar</div><div class="opt-desc">Definición muscular</div></div>
       <div class="option-card" data-val="endurance" data-key="goal" onclick="selectOpt(this)"><div class="opt-icon">🏃</div><div class="opt-title">Resistencia</div><div class="opt-desc">Cardio y aguante</div></div>
@@ -280,7 +280,7 @@
     <div class="wizard-desc">Ajusto la intensidad a ti.</div>
     <div class="option-grid" style="grid-template-columns:1fr 1fr 1fr">
       <div class="option-card" data-val="beginner" data-key="level" onclick="selectOpt(this)"><div class="opt-icon">🌱</div><div class="opt-title">Principiante</div><div class="opt-desc">&lt;6 meses</div></div>
-      <div class="option-card" data-val="intermediate" data-key="level" onclick="selectOpt(this)"><div class="opt-icon">⚡</div><div class="opt-title">Intermedio</div><div class="opt-desc">6m – 2 años</div></div>
+      <div class="option-card selected" data-val="intermediate" data-key="level" onclick="selectOpt(this)"><div class="opt-icon">⚡</div><div class="opt-title">Intermedio</div><div class="opt-desc">6m – 2 años</div></div>
       <div class="option-card" data-val="advanced" data-key="level" onclick="selectOpt(this)"><div class="opt-icon">🏆</div><div class="opt-title">Avanzado</div><div class="opt-desc">&gt;2 años</div></div>
     </div>
     <button class="btn btn-green btn-full" onclick="nextWizard(4)">Siguiente →</button>
@@ -306,7 +306,7 @@
     <div class="days-grid">
       <div class="day-chip" data-days="2" onclick="selectDays(this)"><div class="day-num">2</div><div class="day-lbl">días</div></div>
       <div class="day-chip" data-days="3" onclick="selectDays(this)"><div class="day-num">3</div><div class="day-lbl">días</div></div>
-      <div class="day-chip" data-days="4" onclick="selectDays(this)"><div class="day-num">4</div><div class="day-lbl">días</div></div>
+      <div class="day-chip selected" data-days="4" onclick="selectDays(this)"><div class="day-num">4</div><div class="day-lbl">días</div></div>
       <div class="day-chip" data-days="5" onclick="selectDays(this)"><div class="day-num">5</div><div class="day-lbl">días</div></div>
       <div class="day-chip" data-days="6" onclick="selectDays(this)"><div class="day-num">6</div><div class="day-lbl">días</div></div>
     </div>
@@ -565,7 +565,7 @@ let profiles = JSON.parse(localStorage.getItem('gt2_profiles')||'[]');
 let curId = localStorage.getItem('gt2_cur')||null;
 let curSession = JSON.parse(localStorage.getItem('gt2_session')||'null');
 let timerIv = null, timerSec = 0;
-let wiz = {name:'',color:COLORS[0],goal:'',level:'',days:0,focus:[]};
+let wiz = {name:'',color:COLORS[0],goal:'muscle',level:'intermediate',days:4,focus:[]};
 let todayEx = null, todayDay = null, todayIdx = 0;
 let npColor = COLORS[1];
 
@@ -632,6 +632,7 @@ function pickColor(el,cid,target) {
 
 // ─── APP ──────────────────────────────────────
 function showApp() {
+  document.getElementById('wizard').classList.add('hidden');
   document.getElementById('main-nav').style.display='flex';
   document.getElementById('main-tabs').style.display='flex';
   document.querySelectorAll('.view').forEach(v=>v.style.display='');
