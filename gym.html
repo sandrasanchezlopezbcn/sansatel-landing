@@ -637,12 +637,12 @@ function genRoutine(p, day) {
     if(comp.length){ const i=Math.floor(Math.random()*Math.min(2,comp.length)); picked.push(comp[i]); }
     const iso2=[...isol];
     while(picked.length<n&&iso2.length){ const i=Math.floor(Math.random()*iso2.length); picked.push(iso2.splice(i,1)[0]); }
-    const reps=par.rMin+Math.floor(Math.random()*(par.rMax-par.rMin+1));
     const extraSets=isFocusMuscle?1:0;
     picked.forEach(ex=>exs.push({
       id:ex.id,name:ex.name,icon:ex.icon,muscle:m,
       restSeconds:par.rest,
-      sets:Array.from({length:Math.max(2,sets+extraSets)},(_,i)=>({num:i+1,reps,weight:0,done:false}))
+      repsMin:par.rMin, repsMax:par.rMax,
+      sets:Array.from({length:Math.max(2,sets+extraSets)},(_,i)=>({num:i+1,repsMin:par.rMin,repsMax:par.rMax,weight:0,done:false}))
     }));
   });
   return exs;
@@ -686,7 +686,7 @@ function renderHoy() {
             <div class="ex-row-icon">${ex.icon}</div>
             <div class="ex-row-name">${ex.name}</div>
             <div style="display:flex;align-items:center;gap:6px">
-              <div class="ex-row-info">${ex.sets.length}×${ex.sets[0].reps}</div>
+              <div class="ex-row-info">${ex.sets.length}×${ex.repsMin!==ex.repsMax?`${ex.repsMin}-${ex.repsMax}`:ex.repsMin}</div>
               <a href="https://www.youtube.com/results?search_query=como+hacer+${encodeURIComponent(ex.name)}+correctamente+gym" target="_blank" style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);text-decoration:none;font-size:13px;flex-shrink:0" title="Ver en YouTube">▶</a>
             </div>
           </div>`).join('')}
@@ -773,7 +773,7 @@ function renderSession(){
         ${ex.sets.map((s,si)=>`
           <div class="set-row">
             <div class="set-num ${s.done?'done':''}">${s.num}</div>
-            <div class="set-info"><strong>${s.reps} reps</strong>${s.weight>0?` · <strong>${s.weight}kg</strong>`:''}</div>
+            <div class="set-info"><strong>${s.repsMin&&s.repsMax&&s.repsMin!==s.repsMax?`${s.repsMin}-${s.repsMax}`:(s.reps||s.repsMin||12)} reps</strong>${s.weight>0?` · <strong>${s.weight}kg</strong>`:''}</div>
             <div style="display:flex;align-items:center;gap:6px">
               <input type="number" value="${s.weight}" min="0" step="0.5" style="width:58px;text-align:center;padding:6px;font-size:13px" onchange="updW(${ei},${si},this.value)" placeholder="kg">
               <button class="set-check ${s.done?'done':''}" onclick="togSet(${ei},${si})">${s.done?'✓':''}</button>
