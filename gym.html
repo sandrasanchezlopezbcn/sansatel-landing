@@ -150,6 +150,24 @@
   .profile-hero { text-align:center; padding:28px 20px; background:var(--card-bg); border:1px solid var(--border); border-radius:20px; margin-bottom:16px; }
   .avatar-big { width:72px; height:72px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:700; margin:0 auto 12px; font-family:'Space Grotesk',sans-serif; }
 
+  /* FOCUS CHIPS */
+  .focus-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:24px; }
+  .focus-chip { background:var(--bg3); border:2px solid var(--border); border-radius:14px; padding:14px 12px; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:10px; }
+  .focus-chip:hover { border-color:var(--blue-light); }
+  .focus-chip.selected { border-color:var(--amber-light); background:rgba(217,119,6,0.1); }
+  .focus-chip .fc-icon { font-size:24px; flex-shrink:0; }
+  .focus-chip .fc-name { font-size:13px; font-weight:600; }
+  .focus-chip .fc-desc { font-size:11px; color:var(--gray); margin-top:2px; }
+
+  /* PLAN SEMANAL */
+  .week-plan { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+  .week-day { display:flex; align-items:center; gap:10px; background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:10px 14px; }
+  .week-day.today { border-color:var(--green); background:rgba(16,185,129,0.08); }
+  .week-num { width:24px; height:24px; border-radius:50%; background:rgba(16,185,129,0.15); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--green-light); flex-shrink:0; }
+  .week-num.focus-day { background:rgba(217,119,6,0.2); color:var(--amber-light); }
+  .week-name { font-size:13px; font-weight:500; flex:1; }
+  .week-focus-badge { font-size:10px; font-weight:700; padding:2px 6px; border-radius:10px; background:rgba(217,119,6,0.2); color:var(--amber-light); }
+
   /* MISC */
   .empty { text-align:center; padding:48px 20px; color:var(--gray); }
   .empty .icon { font-size:48px; margin-bottom:12px; }
@@ -220,6 +238,20 @@
   </div>
 
   <div class="wizard-step" id="ws4">
+    <div class="wizard-title">¿Dónde quieres poner el foco?</div>
+    <div class="wizard-desc">Puedes elegir varias. La app les dará más atención en tu plan.</div>
+    <div class="focus-grid">
+      <div class="focus-chip" data-focus="gluteos" onclick="toggleFocus(this)"><div class="fc-icon">🍑</div><div><div class="fc-name">Glúteos</div><div class="fc-desc">Hip thrust, patadas…</div></div></div>
+      <div class="focus-chip" data-focus="espalda" onclick="toggleFocus(this)"><div class="fc-icon">🦾</div><div><div class="fc-name">Espalda</div><div class="fc-desc">Remos, jalones…</div></div></div>
+      <div class="focus-chip" data-focus="core" onclick="toggleFocus(this)"><div class="fc-icon">🎯</div><div><div class="fc-name">Abdomen / Core</div><div class="fc-desc">Crunch, plancha…</div></div></div>
+      <div class="focus-chip" data-focus="piernas" onclick="toggleFocus(this)"><div class="fc-icon">🦵</div><div><div class="fc-name">Piernas</div><div class="fc-desc">Sentadilla, prensa…</div></div></div>
+      <div class="focus-chip" data-focus="pecho" onclick="toggleFocus(this)"><div class="fc-icon">💪</div><div><div class="fc-name">Pecho</div><div class="fc-desc">Press, aperturas…</div></div></div>
+      <div class="focus-chip" data-focus="hombros" onclick="toggleFocus(this)"><div class="fc-icon">✈️</div><div><div class="fc-name">Hombros</div><div class="fc-desc">Press, elevaciones…</div></div></div>
+    </div>
+    <button class="btn btn-green btn-full" onclick="nextWizard(5)">Siguiente →</button>
+  </div>
+
+  <div class="wizard-step" id="ws5">
     <div class="wizard-title">¿Cuántos días entrenas?</div>
     <div class="wizard-desc">A la semana.</div>
     <div class="days-grid">
@@ -287,6 +319,17 @@
     <div class="field"><label>Objetivo</label><select id="ep-goal"><option value="muscle">💪 Ganar músculo</option><option value="lose">🔥 Perder peso</option><option value="tone">✨ Tonificar</option><option value="endurance">🏃 Resistencia</option></select></div>
     <div class="field"><label>Nivel</label><select id="ep-level"><option value="beginner">🌱 Principiante</option><option value="intermediate">⚡ Intermedio</option><option value="advanced">🏆 Avanzado</option></select></div>
     <div class="field"><label>Días/semana</label><select id="ep-days"><option value="2">2 días</option><option value="3">3 días</option><option value="4">4 días</option><option value="5">5 días</option><option value="6">6 días</option></select></div>
+    <div class="field">
+      <label>Zonas de enfoque (puedes elegir varias)</label>
+      <div class="focus-grid" id="ep-focus-grid" style="margin-bottom:0">
+        <div class="focus-chip" data-focus="gluteos" onclick="this.classList.toggle('selected')"><div class="fc-icon">🍑</div><div><div class="fc-name">Glúteos</div></div></div>
+        <div class="focus-chip" data-focus="espalda" onclick="this.classList.toggle('selected')"><div class="fc-icon">🦾</div><div><div class="fc-name">Espalda</div></div></div>
+        <div class="focus-chip" data-focus="core" onclick="this.classList.toggle('selected')"><div class="fc-icon">🎯</div><div><div class="fc-name">Abdomen</div></div></div>
+        <div class="focus-chip" data-focus="piernas" onclick="this.classList.toggle('selected')"><div class="fc-icon">🦵</div><div><div class="fc-name">Piernas</div></div></div>
+        <div class="focus-chip" data-focus="pecho" onclick="this.classList.toggle('selected')"><div class="fc-icon">💪</div><div><div class="fc-name">Pecho</div></div></div>
+        <div class="focus-chip" data-focus="hombros" onclick="this.classList.toggle('selected')"><div class="fc-icon">✈️</div><div><div class="fc-name">Hombros</div></div></div>
+      </div>
+    </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
       <button class="btn btn-ghost btn-full" onclick="closeModal('modal-ep')">Cancelar</button>
       <button class="btn btn-green btn-full" onclick="saveEP()">Guardar</button>
@@ -465,7 +508,7 @@ let profiles = JSON.parse(localStorage.getItem('gt2_profiles')||'[]');
 let curId = localStorage.getItem('gt2_cur')||null;
 let curSession = JSON.parse(localStorage.getItem('gt2_session')||'null');
 let timerIv = null, timerSec = 0;
-let wiz = {name:'',color:COLORS[0],goal:'',level:'',days:0};
+let wiz = {name:'',color:COLORS[0],goal:'',level:'',days:0,focus:[]};
 let todayEx = null, todayDay = null, todayIdx = 0;
 let npColor = COLORS[1];
 
@@ -500,6 +543,12 @@ function selectOpt(el) {
   el.classList.add('selected');
   wiz[el.dataset.key]=el.dataset.val;
 }
+function toggleFocus(el) {
+  el.classList.toggle('selected');
+  const f=el.dataset.focus;
+  if(el.classList.contains('selected')) { if(!wiz.focus.includes(f)) wiz.focus.push(f); }
+  else wiz.focus=wiz.focus.filter(x=>x!==f);
+}
 function selectDays(el) {
   document.querySelectorAll('.day-chip').forEach(c=>c.classList.remove('selected'));
   el.classList.add('selected');
@@ -507,7 +556,7 @@ function selectDays(el) {
 }
 function finishWizard() {
   if (!wiz.days){ alert2('Elige cuántos días','amber');return; }
-  const p={id:'p'+Date.now(),name:wiz.name,color:wiz.color,goal:wiz.goal||'muscle',level:wiz.level||'intermediate',days:wiz.days};
+  const p={id:'p'+Date.now(),name:wiz.name,color:wiz.color,goal:wiz.goal||'muscle',level:wiz.level||'intermediate',days:wiz.days,focus:wiz.focus};
   profiles.push(p); save();
   curId=p.id; saveCur();
   document.getElementById('wizard').classList.add('hidden');
@@ -554,15 +603,33 @@ function showTab(t) {
   if(t==='perfil') renderPerfil();
 }
 
+// ─── PLAN CON ENFOQUE ─────────────────────────
+function buildFocusPlan(days, focus) {
+  if(!focus||!focus.length) return PLANS[days]||PLANS[3];
+  // Build a plan that hits focus muscles twice per week
+  const base = JSON.parse(JSON.stringify(PLANS[days]||PLANS[3]));
+  if(days<=3) return base; // For short weeks just boost exercises, don't add days
+  // For 4+ days: replace last day with a focus-heavy session
+  const focusDay = {
+    name: focus.map(f=>MUSCLE_LBL[f]).join(' + ') + ' (énfasis)',
+    muscles: [...new Set([...focus, 'core'])],
+    isFocus: true
+  };
+  const result = [...base.slice(0,-1), focusDay];
+  return result;
+}
+
 // ─── GENERAR RUTINA ───────────────────────────
 function genRoutine(p, day) {
   const par=GOAL_PARAMS[p.goal]||GOAL_PARAMS.muscle;
   const sets=LEVEL_SETS[p.level]||4;
+  const focus=p.focus||[];
   const exs=[];
   day.muscles.forEach(m=>{
     const pool=[...(EX[m]||[])];
     if(!pool.length)return;
-    const n=BIG.includes(m)?3:2;
+    const isFocusMuscle=focus.includes(m)||day.isFocus;
+    const n=isFocusMuscle?4:BIG.includes(m)?3:2; // focus = +1 exercise
     const picked=[];
     const comp=pool.filter(e=>e.c);
     const isol=pool.filter(e=>!e.c);
@@ -570,20 +637,21 @@ function genRoutine(p, day) {
     const iso2=[...isol];
     while(picked.length<n&&iso2.length){ const i=Math.floor(Math.random()*iso2.length); picked.push(iso2.splice(i,1)[0]); }
     const reps=par.rMin+Math.floor(Math.random()*(par.rMax-par.rMin+1));
+    const extraSets=isFocusMuscle?1:0;
     picked.forEach(ex=>exs.push({
       id:ex.id,name:ex.name,icon:ex.icon,muscle:m,
       restSeconds:par.rest,
-      sets:Array.from({length:Math.max(2,sets)},(_,i)=>({num:i+1,reps,weight:0,done:false}))
+      sets:Array.from({length:Math.max(2,sets+extraSets)},(_,i)=>({num:i+1,reps,weight:0,done:false}))
     }));
   });
   return exs;
 }
 function getNextDay(p) {
-  const plan=PLANS[p.days]||PLANS[3];
+  const plan=buildFocusPlan(p.days, p.focus||[]);
   const h=getHist(p.id);
   const lastIdx=h.length>0?(h[h.length-1].planIndex??-1):-1;
   const next=(lastIdx+1)%plan.length;
-  return {day:plan[next],index:next};
+  return {day:plan[next],index:next,plan};
 }
 
 // ─── HOY ──────────────────────────────────────
@@ -592,7 +660,7 @@ function renderHoy() {
   const h=getHist(p.id);
   const week=h.filter(s=>(Date.now()-new Date(s.date))/86400000<=7).length;
   const totalSets=h.reduce((a,s)=>a+s.exercises.reduce((b,e)=>b+e.sets.filter(x=>x.done).length,0),0);
-  const {day,index}=getNextDay(p);
+  const {day,index,plan}=getNextDay(p);
   todayDay=day; todayIdx=index;
   if(!todayEx) todayEx=genRoutine(p,day);
 
@@ -629,6 +697,19 @@ function renderHoy() {
       </div>
       <button class="btn btn-ghost btn-full btn-sm" onclick="openPickDay()" style="font-size:12px">📅 Elegir otro día del plan</button>
     </div>
+    <div class="section-header" style="margin-top:8px"><div class="section-title">Tu plan semanal</div></div>
+    <div class="week-plan">
+      ${plan.map((d,i)=>`
+        <div class="week-day ${i===index?'today':''}">
+          <div class="week-num ${d.isFocus?'focus-day':''}">${i+1}</div>
+          <div style="flex:1">
+            <div class="week-name">${d.name}</div>
+            <div style="font-size:11px;color:var(--gray);margin-top:2px">${d.muscles.map(m=>MUSCLE_LBL[m]||m).join(' · ')}</div>
+          </div>
+          ${d.isFocus?'<span class="week-focus-badge">★ énfasis</span>':''}
+          ${i===index?'<span style="font-size:11px;font-weight:700;color:var(--green-light)">← hoy</span>':''}
+        </div>`).join('')}
+    </div>
     ${h.length?`<div class="section-header"><div class="section-title">Última sesión</div></div>${histItem(h[h.length-1],false)}`:''}
   `;
 }
@@ -636,7 +717,7 @@ function regen(){ const p=curP(); todayEx=genRoutine(p,todayDay); renderHoy(); }
 
 function openPickDay(){
   const p=curP();
-  const plan=PLANS[p.days]||PLANS[3];
+  const plan=buildFocusPlan(p.days,p.focus||[]);
   document.getElementById('pickday-list').innerHTML=plan.map((d,i)=>`
     <div onclick="pickDay(${i})" style="display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;border:1px solid var(--border);margin-bottom:8px;cursor:pointer;background:var(--bg3);transition:all 0.2s" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'">
       <div style="width:28px;height:28px;border-radius:50%;background:rgba(16,185,129,0.15);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--green-light);flex-shrink:0">${i+1}</div>
@@ -651,7 +732,7 @@ function openPickDay(){
 
 function pickDay(i){
   const p=curP();
-  const plan=PLANS[p.days]||PLANS[3];
+  const plan=buildFocusPlan(p.days,p.focus||[]);
   todayDay=plan[i]; todayIdx=i;
   todayEx=genRoutine(p,todayDay);
   closeModal('modal-pickday');
@@ -791,8 +872,27 @@ function renderPerfil(){
 function delProfile(){ if(profiles.length===1){alert2('No puedes borrar el único perfil','amber');return;} if(!confirm('¿Eliminar este perfil?'))return; const p=curP(); localStorage.removeItem('gt2_h_'+p.id); profiles=profiles.filter(x=>x.id!==p.id); save(); curId=profiles[0].id; saveCur(); renderSwitcher(); showTab('hoy'); }
 
 // Editar perfil
-function openEP(){ const p=curP(); document.getElementById('ep-name').value=p.name; document.getElementById('ep-goal').value=p.goal; document.getElementById('ep-level').value=p.level; document.getElementById('ep-days').value=p.days; document.getElementById('modal-ep').classList.add('open'); }
-function saveEP(){ const p=curP(),name=document.getElementById('ep-name').value.trim(); if(!name){alert2('Escribe un nombre','amber');return;} p.name=name; p.goal=document.getElementById('ep-goal').value; p.level=document.getElementById('ep-level').value; p.days=parseInt(document.getElementById('ep-days').value); save(); todayEx=null; closeModal('modal-ep'); renderSwitcher(); showTab('perfil'); alert2('Perfil actualizado'); }
+function openEP(){
+  const p=curP();
+  document.getElementById('ep-name').value=p.name;
+  document.getElementById('ep-goal').value=p.goal;
+  document.getElementById('ep-level').value=p.level;
+  document.getElementById('ep-days').value=p.days;
+  // mark current focus
+  document.querySelectorAll('#ep-focus-grid .focus-chip').forEach(c=>{
+    c.classList.toggle('selected',(p.focus||[]).includes(c.dataset.focus));
+  });
+  document.getElementById('modal-ep').classList.add('open');
+}
+function saveEP(){
+  const p=curP(),name=document.getElementById('ep-name').value.trim();
+  if(!name){alert2('Escribe un nombre','amber');return;}
+  p.name=name; p.goal=document.getElementById('ep-goal').value;
+  p.level=document.getElementById('ep-level').value;
+  p.days=parseInt(document.getElementById('ep-days').value);
+  p.focus=[...document.querySelectorAll('#ep-focus-grid .focus-chip.selected')].map(c=>c.dataset.focus);
+  save(); todayEx=null; closeModal('modal-ep'); renderSwitcher(); showTab('perfil'); alert2('Perfil actualizado');
+}
 
 // Nuevo perfil
 function openNP(){ npColor=COLORS[1]; renderColorDots('np-color-grid','np'); document.getElementById('np-name').value=''; document.getElementById('modal-np').classList.add('open'); }
