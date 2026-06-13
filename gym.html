@@ -2,8 +2,14 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GymTrack — Tu entrenador personal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>GymTrack</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GymTrack">
+<meta name="theme-color" content="#0A1628">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -17,7 +23,7 @@
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior:smooth; }
-  body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--white); min-height:100vh; padding-bottom:100px; overflow-x:hidden; }
+  body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--white); min-height:100vh; padding-bottom:calc(100px + env(safe-area-inset-bottom)); overflow-x:hidden; padding-top:env(safe-area-inset-top); }
   ::-webkit-scrollbar { width:6px; }
   ::-webkit-scrollbar-track { background:var(--bg); }
   ::-webkit-scrollbar-thumb { background:var(--blue); border-radius:3px; }
@@ -1328,6 +1334,7 @@ function _exProgTab(ex){
 // ─── ALERT ────────────────────────────────────
 function alert2(msg,type){ const el=document.getElementById('alert'); el.textContent=msg; el.className='alert show'+(type===' amber'?' amber':''); setTimeout(()=>el.classList.remove('show'),2500); }
 
+if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
 init();
 </script>
 </body>
