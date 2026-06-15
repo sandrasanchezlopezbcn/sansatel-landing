@@ -758,16 +758,33 @@ function buildFocusPlan(days, focus) {
 }
 
 // ─── GENERAR RUTINA ───────────────────────────
+function estimateMin(exs){
+  let m=0;
+  exs.forEach(ex=>{
+    if(ex.isCardio){m+=ex.durationMin||20;return;}
+    const s=ex.sets.length;
+    m+=s*1+(s-1)*((ex.restSeconds||90)/60);
+  });
+  return Math.round(m);
+}
 function genRoutine(p, day) {
   const par=GOAL_PARAMS[p.goal]||GOAL_PARAMS.muscle;
   const sets=LEVEL_SETS[p.level]||4;
   const focus=p.focus||[];
   const exs=[];
+  const manyGroups=day.muscles.filter(m=>m!=='cardio').length>=3;
   day.muscles.forEach(m=>{
+    if(m==='cardio'){
+      const pool=[...(EX[m]||[])];
+      if(!pool.length)return;
+      const ex=pool[Math.floor(Math.random()*pool.length)];
+      exs.push({id:ex.id,name:ex.name,icon:ex.icon,muscle:'cardio',isCardio:true,durationMin:20,sets:[{num:1,done:false,durationMin:20}]});
+      return;
+    }
     const pool=[...(EX[m]||[])];
     if(!pool.length)return;
     const isFocusMuscle=focus.includes(m)||day.isFocus;
-    const n=isFocusMuscle?4:BIG.includes(m)?3:2; // focus = +1 exercise
+    const n=isFocusMuscle?4:BIG.includes(m)?3:2;
     const picked=[];
     const comp=pool.filter(e=>e.c);
     const isol=pool.filter(e=>!e.c);
@@ -775,11 +792,12 @@ function genRoutine(p, day) {
     const iso2=[...isol];
     while(picked.length<n&&iso2.length){ const i=Math.floor(Math.random()*iso2.length); picked.push(iso2.splice(i,1)[0]); }
     const extraSets=isFocusMuscle?1:0;
+    const nSets=Math.max(2,sets+extraSets-(manyGroups&&!BIG.includes(m)?1:0));
     picked.forEach(ex=>exs.push({
       id:ex.id,name:ex.name,icon:ex.icon,muscle:m,
       restSeconds:par.rest,
       repsMin:par.rMin, repsMax:par.rMax,
-      sets:Array.from({length:Math.max(2,sets+extraSets)},(_,i)=>({num:i+1,repsMin:par.rMin,repsMax:par.rMax,weight:0,done:false}))
+      sets:Array.from({length:nSets},(_,i)=>({num:i+1,repsMin:par.rMin,repsMax:par.rMax,weight:0,done:false}))
     }));
   });
   return exs;
@@ -823,11 +841,14 @@ function renderHoy() {
             <div class="ex-row-icon">${ex.icon}</div>
             <div class="ex-row-name">${ex.name}</div>
             <div style="display:flex;align-items:center;gap:6px">
-              <div class="ex-row-info">${ex.sets.length}×${ex.repsMin!==ex.repsMax?`${ex.repsMin}-${ex.repsMax}`:ex.repsMin}</div>
-              <a href="https://www.youtube.com/results?search_query=como+hacer+${encodeURIComponent(ex.name)}+correctamente+gym" target="_blank" style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);text-decoration:none;font-size:13px;flex-shrink:0" title="Ver en YouTube">▶</a>
+              <div class="ex-row-info">${ex.isCardio?`🕐 ${ex.durationMin} min`:`${ex.sets.length}×${ex.repsMin!==ex.repsMax?`${ex.repsMin}-${ex.repsMax}`:ex.repsMin}`}</div>
+              ${!ex.isCardio?`<a href="https://www.youtube.com/results?search_query=como+hacer+${encodeURIComponent(ex.name)}+correctamente+gym" target="_blank" style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);text-decoration:none;font-size:13px;flex-shrink:0" title="Ver en YouTube">▶</a>`:''}
             </div>
           </div>`).join('')}
         ${todayEx.length>5?`<div style="font-size:12px;color:var(--gray);text-align:center;padding:4px">+${todayEx.length-5} ejercicios más</div>`:''}
+      </div>
+      <div style="font-size:12px;color:var(--gray);margin-bottom:10px;display:flex;align-items:center;gap:6px">
+        <span>⏱</span><span>Duración estimada: <strong style="color:var(--white)">${estimateMin(todayEx)} min</strong></span>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px">
         <button class="btn btn-ghost btn-full btn-sm" onclick="regen()">🔄 Otra rutina</button>
@@ -901,7 +922,19 @@ function renderSession(){
       </div>
       <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
     </div>
-    ${curSession.exercises.map((ex,ei)=>`
+    ${curSession.exercises.map((ex,ei)=>ex.isCardio?`
+      <div class="card" style="border-color:rgba(16,185,129,0.3)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <div style="font-size:28px">${ex.icon}</div>
+          <div><div style="font-weight:700;font-size:14px">${ex.name}</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:2px">🕐 ${ex.durationMin} minutos · ritmo moderado</div></div>
+        </div>
+        <div class="set-row">
+          <div class="set-num ${ex.sets[0].done?'done':''}">🚶</div>
+          <div class="set-info" style="flex:1"><strong>${ex.durationMin} min caminando</strong><div style="font-size:11px;color:var(--gray);margin-top:2px">Velocidad cómoda, respira tranquila</div></div>
+          <button class="set-check ${ex.sets[0].done?'done':''}" onclick="togSet(${ei},0)">${ex.sets[0].done?'✓':''}</button>
+        </div>
+      </div>`:`
       <div class="card">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
           <div style="font-weight:700;font-size:14px">${ex.icon} ${ex.name}</div>
@@ -925,10 +958,11 @@ function renderSession(){
     <button class="btn btn-ghost btn-full btn-sm" style="margin-top:8px" onclick="saveTemplate()">📌 Guardar como plantilla</button>`;
 }
 function togSet(ei,si){
-  const s=curSession.exercises[ei].sets[si];
+  const ex=curSession.exercises[ei];
+  const s=ex.sets[si];
   s.done=!s.done; saveSess(); renderSession();
-  if(s.done) startTimer(curSession.exercises[ei].restSeconds||90,curSession.exercises[ei].name);
-  else stopTimer();
+  if(s.done&&!ex.isCardio) startTimer(ex.restSeconds||90,ex.name);
+  else if(!s.done) stopTimer();
 }
 function updW(ei,si,v){ curSession.exercises[ei].sets[si].weight=parseFloat(v)||0; saveSess(); }
 function finishSess(){
