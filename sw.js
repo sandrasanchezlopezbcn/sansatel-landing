@@ -1,4 +1,4 @@
-const CACHE = 'gymtrack-v2';
+const CACHE = 'gymtrack-v3';
 const ASSETS = ['/gym.html', '/manifest.json', '/apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
@@ -14,7 +14,16 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  e.respondWith(
-    caches.match(e.request).then(cached => cached || fetch(e.request).catch(() => caches.match('/gym.html')))
-  );
+  if(e.request.mode === 'navigate' || e.request.url.includes('gym.html')){
+    // Network first for HTML — always gets latest version, falls back to cache offline
+    e.respondWith(
+      fetch(e.request)
+        .then(r => { caches.open(CACHE).then(c => c.put(e.request, r.clone())); return r; })
+        .catch(() => caches.match(e.request))
+    );
+  } else {
+    e.respondWith(
+      caches.match(e.request).then(cached => cached || fetch(e.request))
+    );
+  }
 });
