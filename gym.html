@@ -816,9 +816,9 @@ function renderHoy() {
   const h=getHist(p.id);
   const week=h.filter(s=>(Date.now()-new Date(s.date))/86400000<=7).length;
   const totalSets=h.reduce((a,s)=>a+s.exercises.reduce((b,e)=>b+e.sets.filter(x=>x.done).length,0),0);
-  const {day,index,plan}=getNextDay(p);
-  todayDay=day; todayIdx=index;
-  if(!todayEx) todayEx=genRoutine(p,day);
+  const {day:nextDay,index:nextIdx,plan}=getNextDay(p);
+  if(!todayDay){ todayDay=nextDay; todayIdx=nextIdx; }
+  if(!todayEx) todayEx=genRoutine(p,todayDay);
 
   document.getElementById('hoy-content').innerHTML=`
     <div style="margin-bottom:14px">
@@ -859,14 +859,14 @@ function renderHoy() {
     <div class="section-header" style="margin-top:8px"><div class="section-title">Tu plan semanal</div></div>
     <div class="week-plan">
       ${plan.map((d,i)=>`
-        <div class="week-day ${i===index?'today':''}">
+        <div class="week-day ${i===todayIdx?'today':''}">
           <div class="week-num ${d.isFocus?'focus-day':''}">${i+1}</div>
           <div style="flex:1">
             <div class="week-name">${d.name}</div>
             <div style="font-size:11px;color:var(--gray);margin-top:2px">${d.muscles.map(m=>MUSCLE_LBL[m]||m).join(' · ')}</div>
           </div>
           ${d.isFocus?'<span class="week-focus-badge">★ énfasis</span>':''}
-          ${i===index?'<span style="font-size:11px;font-weight:700;color:var(--green-light)">← hoy</span>':''}
+          ${i===todayIdx?'<span style="font-size:11px;font-weight:700;color:var(--green-light)">← hoy</span>':''}
         </div>`).join('')}
     </div>
     ${h.length?`<div class="section-header"><div class="section-title">Última sesión</div></div>${histItem(h[h.length-1],false)}`:''}
