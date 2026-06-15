@@ -302,6 +302,8 @@
       <div class="focus-chip" data-focus="piernas" onclick="toggleFocus(this)"><div class="fc-icon">🦵</div><div><div class="fc-name">Piernas</div><div class="fc-desc">Sentadilla, prensa…</div></div></div>
       <div class="focus-chip" data-focus="pecho" onclick="toggleFocus(this)"><div class="fc-icon">💪</div><div><div class="fc-name">Pecho</div><div class="fc-desc">Press, aperturas…</div></div></div>
       <div class="focus-chip" data-focus="hombros" onclick="toggleFocus(this)"><div class="fc-icon">✈️</div><div><div class="fc-name">Hombros</div><div class="fc-desc">Press, elevaciones…</div></div></div>
+      <div class="focus-chip" data-focus="lumbares" onclick="toggleFocus(this)"><div class="fc-icon">🦸</div><div><div class="fc-name">Lumbares</div><div class="fc-desc">Superman, extensiones…</div></div></div>
+      <div class="focus-chip" data-focus="cintura" onclick="toggleFocus(this)"><div class="fc-icon">📐</div><div><div class="fc-name">Cintura</div><div class="fc-desc">Planchas, oblicuos…</div></div></div>
     </div>
     <button class="btn btn-green btn-full" onclick="nextWizard(5)">Siguiente →</button>
   </div>
@@ -387,6 +389,8 @@
         <div class="focus-chip" data-focus="piernas" onclick="this.classList.toggle('selected')"><div class="fc-icon">🦵</div><div><div class="fc-name">Piernas</div></div></div>
         <div class="focus-chip" data-focus="pecho" onclick="this.classList.toggle('selected')"><div class="fc-icon">💪</div><div><div class="fc-name">Pecho</div></div></div>
         <div class="focus-chip" data-focus="hombros" onclick="this.classList.toggle('selected')"><div class="fc-icon">✈️</div><div><div class="fc-name">Hombros</div></div></div>
+        <div class="focus-chip" data-focus="lumbares" onclick="this.classList.toggle('selected')"><div class="fc-icon">🦸</div><div><div class="fc-name">Lumbares</div></div></div>
+        <div class="focus-chip" data-focus="cintura" onclick="this.classList.toggle('selected')"><div class="fc-icon">📐</div><div><div class="fc-name">Cintura</div></div></div>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
@@ -557,39 +561,63 @@ const EX = {
     {id:'cv4',name:'Elíptica ritmo suave',icon:'〰️',c:0},
     {id:'cv5',name:'Bicicleta estática ritmo suave',icon:'🚴',c:0},
   ],
+  lumbares:[
+    {id:'lu1',name:'Superman',icon:'🦸',c:0},
+    {id:'lu2',name:'Bird dog',icon:'🐦',c:0},
+    {id:'lu3',name:'Hiperextensiones en banco',icon:'🦾',c:0},
+    {id:'lu4',name:'Hiperextensión a 45°',icon:'📐',c:0},
+    {id:'lu5',name:'Good morning con barra',icon:'🌅',c:1,grip:'Prono ancho (barra en espalda alta)'},
+    {id:'lu6',name:'Peso muerto rumano',icon:'🇷🇴',c:1,grip:'Prono (barra) o neutro (mancuernas)'},
+    {id:'lu7',name:'Reverse hyperextension',icon:'🔄',c:0},
+    {id:'lu8',name:'Cat-cow (movilidad lumbar)',icon:'🐱',c:0},
+    {id:'lu9',name:'Extensión lumbar en máquina',icon:'🤖',c:0},
+    {id:'lu10',name:'Puente en suelo (glúteo-lumbar)',icon:'🌉',c:0},
+  ],
+  cintura:[
+    {id:'ci1',name:'Plancha lateral',icon:'📐',c:0},
+    {id:'ci2',name:'Russian twist',icon:'🔄',c:0},
+    {id:'ci3',name:'Crunch oblicuo',icon:'↗️',c:0},
+    {id:'ci4',name:'Bicicleta abdominal',icon:'🚴',c:0},
+    {id:'ci5',name:'Wood chop en polea',icon:'🪵',c:0,grip:'Neutro (asa) — rotación diagonal'},
+    {id:'ci6',name:'Side bend con mancuerna',icon:'↔️',c:0},
+    {id:'ci7',name:'Side plank con levantamiento de cadera',icon:'🏋️',c:0},
+    {id:'ci8',name:'Pallof press',icon:'🛡️',c:0,grip:'Neutro (asa) — antirotación lateral'},
+    {id:'ci9',name:'Windshield wipers',icon:'🔃',c:0},
+    {id:'ci10',name:'Rotación de tronco con disco',icon:'💿',c:0},
+  ],
 };
 
 // ─── PLANES SEMANALES ─────────────────────────
 const PLANS = {
   2:[
     {name:'Tren superior',muscles:['pecho','espalda','hombros','biceps','triceps']},
-    {name:'Tren inferior + Core',muscles:['piernas','gluteos','core']},
+    {name:'Tren inferior + Core',muscles:['piernas','gluteos','core','lumbares','cintura']},
   ],
   3:[
     {name:'Empuje',muscles:['pecho','hombros','triceps']},
-    {name:'Tirón',muscles:['espalda','biceps']},
-    {name:'Piernas y Glúteos',muscles:['piernas','gluteos','core']},
+    {name:'Tirón + Lumbares',muscles:['espalda','biceps','lumbares']},
+    {name:'Piernas, Glúteos y Cintura',muscles:['piernas','gluteos','core','cintura']},
   ],
   4:[
     {name:'Pecho y Tríceps',muscles:['pecho','triceps','core']},
-    {name:'Espalda y Bíceps',muscles:['espalda','biceps']},
+    {name:'Espalda, Bíceps y Lumbares',muscles:['espalda','biceps','lumbares']},
     {name:'Piernas y Glúteos',muscles:['piernas','gluteos']},
-    {name:'Hombros y Core',muscles:['hombros','core','cardio']},
+    {name:'Hombros, Cintura y Cardio',muscles:['hombros','core','cintura','cardio']},
   ],
   5:[
     {name:'Pecho y Tríceps',muscles:['pecho','triceps']},
-    {name:'Espalda y Bíceps',muscles:['espalda','biceps']},
+    {name:'Espalda, Bíceps y Lumbares',muscles:['espalda','biceps','lumbares']},
     {name:'Piernas y Glúteos',muscles:['piernas','gluteos']},
-    {name:'Hombros y Core',muscles:['hombros','core']},
+    {name:'Hombros y Cintura',muscles:['hombros','core','cintura']},
     {name:'Full Body + Cardio',muscles:['pecho','espalda','piernas','core','cardio']},
   ],
   6:[
     {name:'Empuje',muscles:['pecho','hombros','triceps']},
-    {name:'Tirón',muscles:['espalda','biceps']},
+    {name:'Tirón + Lumbares',muscles:['espalda','biceps','lumbares']},
     {name:'Piernas y Glúteos',muscles:['piernas','gluteos']},
     {name:'Empuje (variante)',muscles:['pecho','hombros','triceps']},
     {name:'Tirón (variante)',muscles:['espalda','biceps']},
-    {name:'Piernas + Core',muscles:['piernas','gluteos','core']},
+    {name:'Piernas + Core y Cintura',muscles:['piernas','gluteos','core','cintura']},
   ],
 };
 
@@ -604,7 +632,7 @@ const BIG = ['pecho','espalda','piernas'];
 const COLORS = ['#10B981','#3B82F6','#8B5CF6','#EF4444','#F59E0B','#EC4899','#06B6D4','#84CC16'];
 const GOAL_LBL = {muscle:'💪 Ganar músculo',lose:'🔥 Perder peso',tone:'✨ Tonificar',endurance:'🏃 Resistencia'};
 const LEVEL_LBL = {beginner:'🌱 Principiante',intermediate:'⚡ Intermedio',advanced:'🏆 Avanzado'};
-const MUSCLE_LBL = {pecho:'Pecho',espalda:'Espalda',hombros:'Hombros',biceps:'Bíceps',triceps:'Tríceps',piernas:'Piernas',gluteos:'Glúteos',core:'Core',cardio:'Cardio'};
+const MUSCLE_LBL = {pecho:'Pecho',espalda:'Espalda',hombros:'Hombros',biceps:'Bíceps',triceps:'Tríceps',piernas:'Piernas',gluteos:'Glúteos',core:'Core',cardio:'Cardio',lumbares:'Lumbares',cintura:'Cintura'};
 
 // ─── STATE ────────────────────────────────────
 let profiles = JSON.parse(localStorage.getItem('gt2_profiles')||'[]');
@@ -1210,6 +1238,8 @@ const EX_TIPS = {
   gluteos:'Empuja con los talones, no con los dedos. Aprieta el glúteo en la contracción máxima y aguanta 1-2 segundos antes de bajar. Esto duplica la activación muscular.',
   core:'Exhala en el esfuerzo para activar mejor el core. Evita tirar del cuello en los crunchs. Mantén la zona lumbar pegada al suelo en los ejercicios tumbados.',
   cardio:'Para quema de grasa: frecuencia cardíaca entre 60-75% del máximo (220 - tu edad). Para HIIT: alterna 30s al máximo con 30-60s de recuperación activa.',
+  lumbares:'Mantén la columna neutra — no hiperextiendas en exceso. Contrae el abdomen ligeramente para proteger la zona lumbar. Realiza los movimientos lentos y controlados, especialmente en la fase excéntrica.',
+  cintura:'Expira durante el giro o la contracción lateral. Evita tirar del cuello ni balancear el torso con inercia. La antirotación (Pallof press) es tan importante como la rotación activa para fortalecer los oblicuos.',
 };
 
 let libFilter='all', libExId=null, libDTab='info';
@@ -1249,6 +1279,8 @@ function bodyDiagram(muscles){
   <rect x="53" y="90" width="18" height="47" rx="9" fill="${f('piernas')}" stroke="${s('piernas')}" stroke-width="${w('piernas')}"/>
   <rect x="30" y="139" width="15" height="32" rx="7" fill="${bg}" stroke="${brd}" stroke-width="1.2"/>
   <rect x="55" y="139" width="15" height="32" rx="7" fill="${bg}" stroke="${brd}" stroke-width="1.2"/>
+  ${has('lumbares')?`<rect x="33" y="66" width="34" height="12" rx="4" fill="rgba(239,68,68,0.6)" stroke="#ef4444" stroke-width="2" stroke-dasharray="3,2"/>`:''}
+  ${has('cintura')?`<ellipse cx="28" cy="64" rx="8" ry="12" fill="rgba(239,68,68,0.5)" stroke="#ef4444" stroke-width="1.5"/><ellipse cx="72" cy="64" rx="8" ry="12" fill="rgba(239,68,68,0.5)" stroke="#ef4444" stroke-width="1.5"/>`:''}
   ${has('cardio')?`<rect x="2" y="2" width="96" height="186" rx="10" fill="none" stroke="rgba(16,185,129,0.5)" stroke-width="2.5" stroke-dasharray="5,4"/>`:''}
   </svg>`;
 }
@@ -1261,6 +1293,7 @@ function renderEjercicios(){
     {k:'hombros',i:'✈️',l:'Hombros'},{k:'biceps',i:'💪',l:'Bíceps'},
     {k:'triceps',i:'⬇️',l:'Tríceps'},{k:'piernas',i:'🦵',l:'Piernas'},
     {k:'gluteos',i:'🍑',l:'Glúteos'},{k:'core',i:'🎯',l:'Core'},{k:'cardio',i:'🏃',l:'Cardio'},
+    {k:'lumbares',i:'🦸',l:'Lumbares'},{k:'cintura',i:'📐',l:'Cintura'},
   ];
   const allEx=Object.entries(EX).flatMap(([m,exs])=>exs.map(e=>({...e,muscle:m})));
   const filtered=libFilter==='all'?allEx:libFilter==='favs'?allEx.filter(e=>favs.includes(e.id)):allEx.filter(e=>e.muscle===libFilter);
