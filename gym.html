@@ -832,9 +832,9 @@ function renderHoy() {
     </div>
     <div class="today-hero">
       <div class="today-label">🤖 Tu entrenadora recomienda hoy</div>
-      <div class="today-title">${day.name}</div>
+      <div class="today-title">${todayDay.name}</div>
       <div class="today-subtitle">${GOAL_LBL[p.goal]} · ${LEVEL_LBL[p.level]}</div>
-      <div class="muscle-tags">${day.muscles.map(m=>`<span class="muscle-tag">${MUSCLE_LBL[m]||m}</span>`).join('')}</div>
+      <div class="muscle-tags">${todayDay.muscles.map(m=>`<span class="muscle-tag">${MUSCLE_LBL[m]||m}</span>`).join('')}</div>
       <div class="ex-preview">
         ${todayEx.slice(0,5).map(ex=>`
           <div class="ex-row">
