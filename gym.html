@@ -640,11 +640,12 @@ let curId = localStorage.getItem('gt2_cur')||null;
 let curSession = JSON.parse(localStorage.getItem('gt2_session')||'null');
 let timerIv = null, timerSec = 0;
 let wiz = {name:'',color:COLORS[0],goal:'muscle',level:'intermediate',days:4,focus:[]};
-let todayEx = null, todayDay = null, todayIdx = 0;
+let todayEx = null, todayDay = null, todayIdx = parseInt(localStorage.getItem('gt2_dayIdx')||'0');
 let npColor = COLORS[1];
 
 function save() { localStorage.setItem('gt2_profiles',JSON.stringify(profiles)); }
 function saveCur() { localStorage.setItem('gt2_cur',curId); }
+function saveDayIdx(i){ todayIdx=i; localStorage.setItem('gt2_dayIdx',i); }
 function saveSess() { localStorage.setItem('gt2_session',JSON.stringify(curSession)); }
 function getHist(id) { return JSON.parse(localStorage.getItem('gt2_h_'+id)||'[]'); }
 function setHist(id,h) { localStorage.setItem('gt2_h_'+id,JSON.stringify(h)); }
@@ -726,7 +727,7 @@ function renderSwitcher() {
 function switchP(id) {
   curId=id; saveCur(); curSession=null; saveSess();
   document.getElementById('session-badge').style.display='none';
-  todayEx=null; renderSwitcher(); showTab('hoy');
+  todayEx=null; todayDay=null; const {index:ni}=getNextDay(curP()||profiles[0]); saveDayIdx(ni); renderSwitcher(); showTab('hoy');
 }
 function showTab(t) {
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
@@ -816,8 +817,8 @@ function renderHoy() {
   const h=getHist(p.id);
   const week=h.filter(s=>(Date.now()-new Date(s.date))/86400000<=7).length;
   const totalSets=h.reduce((a,s)=>a+s.exercises.reduce((b,e)=>b+e.sets.filter(x=>x.done).length,0),0);
-  const {day:nextDay,index:nextIdx,plan}=getNextDay(p);
-  if(!todayDay){ todayDay=nextDay; todayIdx=nextIdx; }
+  const {plan}=getNextDay(p);
+  if(!todayDay){ todayDay=plan[todayIdx]||plan[0]; }
   if(!todayEx) todayEx=genRoutine(p,todayDay);
 
   document.getElementById('hoy-content').innerHTML=`
@@ -893,8 +894,8 @@ function openPickDay(){
 function pickDay(i){
   const p=curP();
   const plan=buildFocusPlan(p.days,p.focus||[]);
-  todayDay=plan[i]; todayIdx=i;
-  todayEx=genRoutine(p,todayDay);
+  saveDayIdx(i);
+  todayDay=plan[i]; todayEx=genRoutine(p,todayDay);
   closeModal('modal-pickday');
   renderHoy();
 }
@@ -968,7 +969,9 @@ function updW(ei,si,v){ curSession.exercises[ei].sets[si].weight=parseFloat(v)||
 function finishSess(){
   curSession.duration=Math.round((Date.now()-curSession.startTime)/60000);
   const h=getHist(curSession.profileId); h.push(curSession); setHist(curSession.profileId,h);
-  curSession=null; saveSess(); todayEx=null;
+  curSession=null; saveSess(); todayEx=null; todayDay=null;
+  const p2=curP(); const plan2=buildFocusPlan(p2.days,p2.focus||[]);
+  saveDayIdx((todayIdx+1)%plan2.length);
   document.getElementById('session-badge').style.display='none';
   stopTimer(); alert2('¡Sesión completada! 🎉'); showTab('hoy');
 }
