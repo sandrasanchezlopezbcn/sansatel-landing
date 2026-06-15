@@ -17,7 +17,7 @@
   }
 
   .page {
-    max-width: 780px;
+    max-width: 820px;
     margin: 0 auto;
     background: white;
     border-radius: 16px;
@@ -58,12 +58,7 @@
     font-weight: 700;
   }
 
-  .header h1 {
-    font-size: 30px;
-    font-weight: 800;
-    margin-bottom: 6px;
-  }
-
+  .header h1 { font-size: 30px; font-weight: 800; margin-bottom: 6px; }
   .header h1 span { color: #F59E0B; }
   .header-sub { font-size: 15px; opacity: 0.8; margin-top: 4px; }
 
@@ -77,21 +72,21 @@
   .number-item {
     flex: 1;
     text-align: center;
-    padding: 0 12px;
+    padding: 0 10px;
     border-right: 1px solid rgba(255,255,255,0.1);
   }
 
   .number-item:last-child { border-right: none; }
 
   .number-value {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 800;
     color: #F59E0B;
     display: block;
   }
 
   .number-label {
-    font-size: 11px;
+    font-size: 10px;
     color: rgba(255,255,255,0.5);
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -100,7 +95,6 @@
   }
 
   .content { padding: 40px; }
-
   .section { margin-bottom: 28px; }
 
   .section-title {
@@ -114,11 +108,11 @@
     border-bottom: 2px solid #ede9fe;
   }
 
-  /* OPCIONES GRID */
+  /* OPCIONS 3 COLUMNES */
   .opcions-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
     margin-bottom: 28px;
   }
 
@@ -135,7 +129,7 @@
 
   .opcio-header {
     background: #f5f3ff;
-    padding: 14px 18px;
+    padding: 12px 16px;
     border-bottom: 1px solid #ede9fe;
   }
 
@@ -144,45 +138,51 @@
     color: white;
   }
 
+  .opcio-operadora {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+    margin-bottom: 2px;
+  }
+
   .opcio-nom {
     font-size: 13px;
     font-weight: 700;
     margin-bottom: 2px;
   }
 
-  .opcio-sub {
-    font-size: 11px;
-    opacity: 0.7;
-  }
+  .opcio-sub { font-size: 11px; opacity: 0.65; }
 
-  .opcio-body { padding: 18px; }
+  .opcio-body { padding: 16px; }
 
   .opcio-preu {
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 800;
     color: #7C3AED;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
 
   .opcio-preu-label {
-    font-size: 12px;
+    font-size: 11px;
     color: #64748b;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
 
   .opcio-estalvi {
     background: #f0fdf4;
     border: 1px solid #bbf7d0;
     border-radius: 8px;
-    padding: 10px 14px;
-    margin-bottom: 14px;
+    padding: 8px 12px;
+    margin-bottom: 12px;
   }
 
   .estalvi-row {
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
-    margin-bottom: 4px;
+    font-size: 11px;
+    margin-bottom: 3px;
   }
 
   .estalvi-row:last-child { margin-bottom: 0; }
@@ -191,7 +191,7 @@
 
   .opcio-serveis {
     list-style: none;
-    font-size: 12px;
+    font-size: 11px;
     color: #475569;
     line-height: 1.8;
   }
@@ -212,28 +212,25 @@
     font-weight: 700;
     color: #dc2626;
     margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
   }
 
   .perma-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 10px;
   }
 
   .perma-item {
     background: white;
     border: 1px solid #fca5a5;
     border-radius: 8px;
-    padding: 12px;
-    font-size: 12px;
+    padding: 10px 12px;
+    font-size: 11px;
     line-height: 1.6;
     color: #7f1d1d;
   }
 
-  .perma-item strong { color: #dc2626; display: block; margin-bottom: 4px; }
+  .perma-item strong { color: #dc2626; display: block; margin-bottom: 3px; }
 
   /* COMPARATIVA */
   .compare-table {
@@ -241,28 +238,28 @@
     border-collapse: collapse;
     border-radius: 10px;
     overflow: hidden;
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .compare-table thead tr { background: #7C3AED; color: white; }
 
   .compare-table th {
-    padding: 12px 14px;
+    padding: 11px 12px;
     text-align: left;
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
   }
 
   .compare-table th:nth-child(2) { background: #6d28d9; }
   .compare-table th:nth-child(3) { background: #5b21b6; }
+  .compare-table th:nth-child(4) { background: #4c1d95; }
   .compare-table th:last-child { background: #F59E0B; color: #1a1a2e; }
 
   .compare-table td {
-    padding: 11px 14px;
+    padding: 10px 12px;
     border-bottom: 1px solid #e2e8f0;
-    font-size: 13px;
   }
 
   .compare-table tbody tr:nth-child(even) { background: #faf5ff; }
@@ -271,6 +268,15 @@
   .check { color: #16a34a; font-weight: 700; }
   .cross { color: #dc2626; font-weight: 700; }
   .bold { font-weight: 700; color: #7C3AED; }
+  .bold-green { font-weight: 700; color: #16a34a; }
+
+  .iva-nota {
+    font-size: 11px;
+    color: #94a3b8;
+    text-align: right;
+    margin-top: 8px;
+    font-style: italic;
+  }
 
   .next-step {
     background: #1e1b4b;
@@ -324,25 +330,29 @@
       <span class="date-badge">Juny 2026</span>
     </div>
     <h1>Construccions <span>Cañellas</span></h1>
-    <div class="header-sub">Marc · Proposta telecomunicacions · Yoigo Business</div>
+    <div class="header-sub">Marc · 3 opcions de telecomunicacions comparades · Preus sense IVA</div>
   </div>
 
   <!-- NÚMEROS CLAVE -->
   <div class="numbers-bar">
     <div class="number-item">
-      <span class="number-value">96€</span>
+      <span class="number-value">79,34€</span>
       <span class="number-label">Paga ara (Orange)</span>
     </div>
     <div class="number-item">
       <span class="number-value">36€</span>
-      <span class="number-label">Opció 80GB</span>
+      <span class="number-label">Yoigo 80GB</span>
     </div>
     <div class="number-item">
       <span class="number-value">41€</span>
-      <span class="number-label">Opció Il·limitada</span>
+      <span class="number-label">Yoigo Il·limitada</span>
     </div>
     <div class="number-item">
-      <span class="number-value">fins 60€</span>
+      <span class="number-value">37,19€</span>
+      <span class="number-label">O2 60+150GB</span>
+    </div>
+    <div class="number-item">
+      <span class="number-value">fins 43€</span>
       <span class="number-label">Estalvi mensual</span>
     </div>
   </div>
@@ -351,31 +361,32 @@
 
     <!-- OPCIONS -->
     <div class="section">
-      <div class="section-title">Les teves opcions amb Yoigo</div>
+      <div class="section-title">Les teves 3 opcions</div>
       <div class="opcions-grid">
 
-        <!-- OPCIÓ 1 -->
+        <!-- OPCIÓ 1 — Yoigo 80GB -->
         <div class="opcio-card">
           <div class="opcio-header">
-            <div class="opcio-nom">Opció 1 · Digital Pro 80GB</div>
-            <div class="opcio-sub">600Mb + 2 línies de 80GB</div>
+            <div class="opcio-operadora">Yoigo Business</div>
+            <div class="opcio-nom">Digital Pro 80GB</div>
+            <div class="opcio-sub">600Mb + 2 línies 80GB</div>
           </div>
           <div class="opcio-body">
-            <div class="opcio-preu">36€<span style="font-size:14px;color:#94a3b8;">/mes</span></div>
-            <div class="opcio-preu-label">Preu amb portabilitat des d'Orange (-8€ indefinit)</div>
+            <div class="opcio-preu">36€<span style="font-size:13px;color:#94a3b8;">/mes</span></div>
+            <div class="opcio-preu-label">Sense IVA · porta des d'Orange (-8€ indef.)</div>
             <div class="opcio-estalvi">
               <div class="estalvi-row">
-                <span class="estalvi-label">Estalvi mensual</span>
-                <span class="estalvi-valor">60€</span>
+                <span class="estalvi-label">Estalvi/mes</span>
+                <span class="estalvi-valor">43,34€</span>
               </div>
               <div class="estalvi-row">
                 <span class="estalvi-label">Estalvi anual</span>
-                <span class="estalvi-valor">720€</span>
+                <span class="estalvi-valor">520€</span>
               </div>
             </div>
             <ul class="opcio-serveis">
               <li>Fibra 600Mb</li>
-              <li>2 línies mòbils 80GB</li>
+              <li>2 línies 80GB compartides</li>
               <li>Trucades il·limitades</li>
               <li>Ciberseguretat inclosa</li>
               <li>Presència web inclosa</li>
@@ -383,31 +394,62 @@
           </div>
         </div>
 
-        <!-- OPCIÓ 2 -->
+        <!-- OPCIÓ 2 — Yoigo GB∞ -->
         <div class="opcio-card recomanada">
           <div class="opcio-header">
-            <div class="opcio-nom">Opció 2 · Digital Pro GB∞</div>
+            <div class="opcio-operadora">Yoigo Business</div>
+            <div class="opcio-nom">Digital Pro GB∞</div>
             <div class="opcio-sub">600Mb + 2 línies il·limitades</div>
           </div>
           <div class="opcio-body">
-            <div class="opcio-preu" style="color:#4F46E5;">41€<span style="font-size:14px;color:#94a3b8;">/mes</span></div>
-            <div class="opcio-preu-label">Preu amb portabilitat des d'Orange (-13€)</div>
+            <div class="opcio-preu" style="color:#4F46E5;">41€<span style="font-size:13px;color:#94a3b8;">/mes</span></div>
+            <div class="opcio-preu-label">Sense IVA · porta des d'Orange (-13€)</div>
             <div class="opcio-estalvi">
               <div class="estalvi-row">
-                <span class="estalvi-label">Estalvi mensual</span>
-                <span class="estalvi-valor">55€</span>
+                <span class="estalvi-label">Estalvi/mes</span>
+                <span class="estalvi-valor">38,34€</span>
               </div>
               <div class="estalvi-row">
                 <span class="estalvi-label">Estalvi anual</span>
-                <span class="estalvi-valor">660€</span>
+                <span class="estalvi-valor">460€</span>
               </div>
             </div>
             <ul class="opcio-serveis">
               <li>Fibra 600Mb</li>
-              <li>2 línies mòbils GB∞</li>
+              <li>2 línies GB il·limitades</li>
               <li>Trucades il·limitades</li>
               <li>Ciberseguretat inclosa</li>
               <li>Presència web inclosa</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- OPCIÓ 3 — O2 -->
+        <div class="opcio-card">
+          <div class="opcio-header">
+            <div class="opcio-operadora">O2 Business</div>
+            <div class="opcio-nom">Fibra + 60GB + 150GB</div>
+            <div class="opcio-sub">600Mb + 1 línia 60GB + 1 línia 150GB</div>
+          </div>
+          <div class="opcio-body">
+            <div class="opcio-preu" style="color:#0ea5e9;">37,19€<span style="font-size:13px;color:#94a3b8;">/mes</span></div>
+            <div class="opcio-preu-label">Sense IVA · preu tancat sense permanència addicional</div>
+            <div class="opcio-estalvi">
+              <div class="estalvi-row">
+                <span class="estalvi-label">Estalvi/mes</span>
+                <span class="estalvi-valor">42,15€</span>
+              </div>
+              <div class="estalvi-row">
+                <span class="estalvi-label">Estalvi anual</span>
+                <span class="estalvi-valor">505€</span>
+              </div>
+            </div>
+            <ul class="opcio-serveis">
+              <li>Fibra 600Mb</li>
+              <li>1 línia 60GB</li>
+              <li>1 línia 150GB</li>
+              <li>Trucades il·limitades</li>
+              <li>Sense permanència addicional</li>
             </ul>
           </div>
         </div>
@@ -417,30 +459,30 @@
 
     <!-- PERMANÈNCIA -->
     <div class="perma-box">
-      <div class="perma-title">⚠️ Permanent important — Llegeix abans de decidir</div>
+      <div class="perma-title">⚠️ Important — Permanència i condicions</div>
       <div class="perma-grid">
         <div class="perma-item">
-          <strong>Permanència 12 mesos</strong>
-          Vinculada al router (cost d'instal·lació 200€). Als 12 mesos: renoves, canvies o et vas sense penalització.
+          <strong>Yoigo — Permanència 12 mesos</strong>
+          Vinculada al router (cost d'instal·lació 200€). Als 12 mesos: renoves, canvies o marxes sense penalització. El preu pot variar en la renovació.
         </div>
         <div class="perma-item">
-          <strong>Canvi de preu als 12 mesos</strong>
-          El preu promocional és durant el primer any. Un cop finalitzat, Yoigo pot revisar les condicions. Es negocia de nou.
+          <strong>O2 — Condicions flexibles</strong>
+          Sense permanència addicional vinculada al dispositiu. Més flexibilitat si la situació de l'empresa canvia.
         </div>
         <div class="perma-item">
-          <strong>Línies sense router</strong>
-          Les línies mòbils sense router no tenen permanència associada.
+          <strong>Portabilitat Yoigo des d'Orange</strong>
+          El descompte s'aplica per venir d'Orange. Yoigo gestiona tota la portabilitat sense interrupcions.
         </div>
         <div class="perma-item">
-          <strong>Portabilitat des d'Orange</strong>
-          El descompte (-8€ o -13€) s'aplica per venir d'Orange. Yoigo cobreix les gestions de portabilitat.
+          <strong>Tots els preus sense IVA</strong>
+          Els preus mostrats no inclouen el 21% d'IVA. Orange actual: 79,34€ sense IVA (96€ amb IVA).
         </div>
       </div>
     </div>
 
     <!-- COMPARATIVA -->
     <div class="section">
-      <div class="section-title">Comparativa de serveis</div>
+      <div class="section-title">Comparativa completa</div>
       <table class="compare-table">
         <thead>
           <tr>
@@ -448,65 +490,82 @@
             <th>Orange ara</th>
             <th>Yoigo 80GB</th>
             <th>Yoigo GB∞</th>
+            <th>O2</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Fibra</td>
-            <td>600Mb / 1Gb</td>
+            <td>600Mb/1Gb</td>
+            <td class="bold">600Mb</td>
             <td class="bold">600Mb</td>
             <td class="bold">600Mb</td>
           </tr>
           <tr>
-            <td>Dades mòbils</td>
+            <td>Dades línia 1</td>
             <td>—</td>
             <td class="bold">80GB</td>
-            <td class="bold">Il·limitades</td>
+            <td class="bold">Il·limitada</td>
+            <td class="bold">60GB</td>
+          </tr>
+          <tr>
+            <td>Dades línia 2</td>
+            <td>—</td>
+            <td class="bold">80GB</td>
+            <td class="bold">Il·limitada</td>
+            <td class="bold">150GB</td>
           </tr>
           <tr>
             <td>Trucades nacionals</td>
             <td><span class="check">✓</span></td>
-            <td><span class="check">✓ Il·limitades</span></td>
-            <td><span class="check">✓ Il·limitades</span></td>
+            <td><span class="check">✓ Il·lim.</span></td>
+            <td><span class="check">✓ Il·lim.</span></td>
+            <td><span class="check">✓ Il·lim.</span></td>
           </tr>
           <tr>
             <td>Ciberseguretat</td>
             <td><span class="cross">✗</span></td>
-            <td><span class="check">✓ Inclosa</span></td>
-            <td><span class="check">✓ Inclosa</span></td>
-          </tr>
-          <tr>
-            <td>Presència web</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
             <td><span class="cross">✗</span></td>
-            <td><span class="check">✓ Inclosa</span></td>
-            <td><span class="check">✓ Inclosa</span></td>
           </tr>
           <tr>
-            <td><strong>Preu/mes</strong></td>
-            <td><strong>96€</strong></td>
+            <td>Permanència</td>
+            <td>—</td>
+            <td>12 mesos</td>
+            <td>12 mesos</td>
+            <td class="bold" style="color:#16a34a;">Sense</td>
+          </tr>
+          <tr>
+            <td><strong>Preu/mes s/IVA</strong></td>
+            <td><strong>79,34€</strong></td>
             <td class="bold">36€</td>
             <td class="bold">41€</td>
+            <td class="bold">37,19€</td>
           </tr>
           <tr>
             <td><strong>Estalvi mensual</strong></td>
             <td>—</td>
-            <td class="bold" style="color:#16a34a;">60€</td>
-            <td class="bold" style="color:#16a34a;">55€</td>
+            <td class="bold-green">43,34€</td>
+            <td class="bold-green">38,34€</td>
+            <td class="bold-green">42,15€</td>
           </tr>
           <tr>
             <td><strong>Estalvi anual</strong></td>
             <td>—</td>
-            <td class="bold" style="color:#16a34a;">720€</td>
-            <td class="bold" style="color:#16a34a;">660€</td>
+            <td class="bold-green">520€</td>
+            <td class="bold-green">460€</td>
+            <td class="bold-green">505€</td>
           </tr>
         </tbody>
       </table>
+      <div class="iva-nota">* Tots els preus sense IVA (21%). Orange actual: 96€ IVA inclòs = 79,34€ sense IVA.</div>
     </div>
 
     <!-- NEXT STEP -->
     <div class="next-step">
       <p>Proper pas</p>
-      <blockquote>Pel mateix servei i més — pagues fins a 60€ menys al mes.<br>Quin t'encaixa millor?</blockquote>
+      <blockquote>Les 3 opcions t'estalvien més de 460€ l'any.<br>Quina s'adapta millor a com treballeu?</blockquote>
     </div>
 
   </div>
