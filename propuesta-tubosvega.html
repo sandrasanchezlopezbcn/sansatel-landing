@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta Tubos Vega — Sandra Sánchez</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f8f9fa;
+    color: #1a1a2e;
+    padding: 40px 20px;
+  }
+
+  .page {
+    max-width: 820px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.08);
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #E2007A, #b3005f);
+    padding: 40px;
+    color: white;
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+
+  .badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .header h1 {
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .header .subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    opacity: 0.9;
+  }
+
+  .header .client {
+    margin-top: 20px;
+    font-size: 14px;
+    opacity: 0.85;
+    line-height: 1.6;
+  }
+
+  /* BODY */
+  .body { padding: 40px; }
+
+  .section { margin-bottom: 36px; }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #E2007A;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .card {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .card h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: #1a1a2e;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card ul { list-style: none; }
+
+  .card li {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+    color: #444;
+  }
+
+  .card li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #E2007A;
+    font-weight: 700;
+  }
+
+  .card li strong { color: #1a1a2e; }
+
+  /* PRECIO */
+  .price-box {
+    background: linear-gradient(135deg, #1a1a2e, #2d2d4a);
+    border-radius: 16px;
+    padding: 32px;
+    color: white;
+    text-align: center;
+  }
+
+  .price-box .label {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+
+  .price-box .amount {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .price-box .amount span {
+    font-size: 20px;
+    font-weight: 500;
+    opacity: 0.8;
+  }
+
+  .price-box .note {
+    font-size: 13px;
+    opacity: 0.7;
+    margin-top: 8px;
+  }
+
+  .price-detail {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .price-detail .item { text-align: center; }
+  .price-detail .item .v { font-size: 22px; font-weight: 700; }
+  .price-detail .item .k { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+
+  .discount-tag {
+    display: inline-block;
+    background: #E2007A;
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 20px;
+    margin-top: 18px;
+  }
+
+  /* HIGHLIGHT */
+  .highlight {
+    background: #fff5fa;
+    border-left: 4px solid #E2007A;
+    border-radius: 0 10px 10px 0;
+    padding: 20px 24px;
+    margin-top: 24px;
+  }
+
+  .highlight p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #444;
+  }
+
+  .highlight strong { color: #1a1a2e; }
+
+  /* FOOTER */
+  .footer {
+    background: #1a1a2e;
+    padding: 28px 40px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer .name { font-size: 16px; font-weight: 700; }
+  .footer .role { font-size: 13px; opacity: 0.7; margin-top: 2px; }
+  .footer .contact { font-size: 14px; text-align: right; line-height: 1.6; }
+
+  .vat-note {
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    margin-top: 20px;
+    font-style: italic;
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .page { box-shadow: none; border-radius: 0; max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">
+      <div class="badge">Propuesta comercial</div>
+      <div class="badge">Junio 2026</div>
+    </div>
+    <h1>Solución integral de telecomunicaciones</h1>
+    <div class="subtitle">Fibra · Centralita · Movilidad — todo en un único proveedor</div>
+    <div class="client">
+      <strong>Tubos Vega, S.L.</strong> · CIF B81004699<br>
+      A la atención de Patricia de la Cruz<br>
+      San Martín de la Vega (Madrid)
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- SERVICIOS -->
+    <div class="section">
+      <div class="section-title">Qué incluye la propuesta</div>
+      <div class="grid">
+
+        <div class="card">
+          <h3>📞 Telefonía fija + Centralita</h3>
+          <ul>
+            <li><strong>Centralita virtual</strong> con 3 puestos fijos</li>
+            <li>Llamadas <strong>ilimitadas</strong> a fijos y móviles nacionales</li>
+            <li><strong>1.500 min</strong> internacionales Zona 1 (uso compartido)</li>
+            <li>200 min / 200 SMS / 200 MB en roaming Zonas 2, 3 y 6</li>
+            <li>3 terminales de sobremesa <strong>Adoc NEO 3850W 4G</strong> incluidos</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>📶 Telefonía móvil</h3>
+          <ul>
+            <li><strong>4 líneas móviles</strong></li>
+            <li>Llamadas <strong>ilimitadas</strong> nacional + roaming Zona 1</li>
+            <li>Datos <strong>ilimitados</strong> nacional + 65 GB roaming Z1</li>
+            <li><strong>500 min</strong> internacionales Zona 1</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>🌐 Conectividad</h3>
+          <ul>
+            <li><strong>Fibra 1 Gb</strong></li>
+            <li>Integrada con la centralita: si necesitáis movilidad, las líneas siguen operativas</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>🎁 Descuento aplicado</h3>
+          <ul>
+            <li><strong>35% de descuento</strong> mantenido durante toda la vigencia del contrato</li>
+            <li>Sin sorpresas a mitad de contrato: el precio no sube al renovar</li>
+            <li>Permanencia 36 meses</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PRECIO -->
+    <div class="section">
+      <div class="section-title">Resumen económico</div>
+      <div class="price-box">
+        <div class="label">Cuota mensual (todo incluido)</div>
+        <div class="amount">125,94 € <span>/ mes sin IVA</span></div>
+        <div class="note">Durante 36 meses · descuento del 35% ya aplicado</div>
+        <div class="discount-tag">35% descuento garantizado todo el contrato</div>
+        <div class="price-detail">
+          <div class="item">
+            <div class="v">134,25 €</div>
+            <div class="k">Terminales (pago único) sin IVA</div>
+          </div>
+          <div class="item">
+            <div class="v">4 + 3</div>
+            <div class="k">Líneas móviles + puestos fijos</div>
+          </div>
+          <div class="item">
+            <div class="v">1 Gb</div>
+            <div class="k">Fibra</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VALOR -->
+    <div class="highlight">
+      <p><strong>Por qué esta propuesta y no solo un precio:</strong> trabajo como consultora, no como comercial de una sola operadora. Eso significa que la solución se ajusta a lo que <strong>realmente usáis</strong>. Si vais a reducir servicios, lo recalculamos juntos antes de firmar — pagáis por lo que necesitáis, ni una línea de más.</p>
+    </div>
+
+    <div class="vat-note">Todos los precios indicados son sin IVA (21%). Propuesta válida según oferta vigente de junio 2026.</div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>
+      <div class="name">Sandra Sánchez</div>
+      <div class="role">Asesora premium en telecomunicaciones</div>
+    </div>
+    <div class="contact">
+      660 619 034<br>
+      sandra@onext-it.com
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
