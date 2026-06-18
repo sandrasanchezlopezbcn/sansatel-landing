@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encuentra tu Flow! — 27 de junio, Barcelona</title>
+<meta name="description" content="Descubre cómo la neurociencia, el subconsciente y el cuerpo influyen en la realidad que construyes cada día. Evento presencial en Barcelona con Alex Novell y Augusto 'Tuto' Marolla.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A1628;
+    --bg2: #0D1F3C;
+    --bg3: #112040;
+    --blue: #1D4ED8;
+    --blue-light: #3B82F6;
+    --amber: #D97706;
+    --amber-light: #F59E0B;
+    --green: #10B981;
+    --green-light: #34D399;
+    --purple: #8B5CF6;
+    --purple-light: #A78BFA;
+    --white: #F1F5F9;
+    --gray: #7B8FAE;
+    --gray2: #4E6080;
+    --border: rgba(30,58,138,0.25);
+    --card-bg: rgba(11,25,50,0.9);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(10,22,40,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--purple-light); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: var(--amber);
+    color: var(--bg);
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .nav-cta:hover { background: var(--amber-light); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 40px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #0D1F3C 0%, #0A1628 40%, #110D28 70%, #0A1628 100%);
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+    pointer-events: none;
+  }
+  .hero-glow-1 {
+    top: -200px;
+    right: -100px;
+    background: var(--purple);
+  }
+  .hero-glow-2 {
+    bottom: -200px;
+    left: -100px;
+    background: var(--amber);
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero-date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(139,92,246,0.12);
+    border: 1px solid rgba(139,92,246,0.3);
+    border-radius: 100px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--purple-light);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 32px;
+    animation: fadeDown 0.6s ease;
+  }
+
+  .hero-date-badge .pulse {
+    width: 8px;
+    height: 8px;
+    background: var(--purple-light);
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.5); }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(40px, 5.5vw, 72px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 24px;
+    color: var(--white);
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  .hero-title .accent { color: var(--amber); }
+  .hero-title .accent-purple {
+    background: linear-gradient(135deg, var(--purple-light), var(--amber-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(17px, 2vw, 20px);
+    color: var(--gray);
+    line-height: 1.7;
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .hero-speakers {
+    margin-top: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+
+  .speaker-avatars {
+    display: flex;
+  }
+
+  .speaker-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), var(--amber));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border: 3px solid var(--bg);
+    margin-left: -10px;
+    position: relative;
+  }
+  .speaker-avatar:first-child { margin-left: 0; }
+
+  .speaker-text {
+    font-size: 14px;
+    color: var(--gray);
+    text-align: left;
+  }
+  .speaker-text strong {
+    color: var(--white);
+    display: block;
+    font-weight: 600;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* BUTTONS */
+  .btn-primary {
+    background: var(--amber);
+    color: #0A1628;
+    padding: 16px 32px;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-primary:hover { background: var(--amber-light); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(217,119,6,0.3); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    padding: 16px 32px;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.05); }
+
+  /* SECTIONS */
+  section {
+    padding: 90px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-full {
+    max-width: none;
+    padding: 90px 40px;
+  }
+
+  .section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(139,92,246,0.08);
+    border: 1px solid rgba(139,92,246,0.2);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--purple-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(28px, 3vw, 42px);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .section-subtitle {
+    font-size: 16px;
+    color: var(--gray);
+    line-height: 1.7;
+    max-width: 620px;
+    margin-bottom: 48px;
+  }
+
+  .text-center { text-align: center; }
+  .mx-auto { margin-left: auto; margin-right: auto; }
+
+  /* PROBLEM SECTION */
+  .problem-section {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 50%, var(--bg) 100%);
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .problem-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .problem-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    transition: all 0.2s;
+  }
+  .problem-item:hover {
+    border-color: rgba(139,92,246,0.3);
+    background: rgba(139,92,246,0.05);
+  }
+
+  .problem-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(239,68,68,0.12);
+    border: 1px solid rgba(239,68,68,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .problem-text {
+    font-size: 15px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+  .problem-text strong { color: var(--white); font-weight: 600; }
+
+  .myth-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .myth-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--purple), var(--amber));
+  }
+
+  .myth-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--white);
+  }
+
+  .myth-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .myth-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--gray);
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .myth-strike {
+    text-decoration: line-through;
+    opacity: 0.6;
+  }
+
+  .myth-icon { font-size: 16px; flex-shrink: 0; }
+
+  .myth-footer {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 15px;
+    color: var(--purple-light);
+    font-weight: 600;
+    font-style: italic;
+  }
+
+  /* WHAT YOU'LL LEARN */
+  .learn-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .learn-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .learn-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--amber));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .learn-card:hover {
+    border-color: rgba(139,92,246,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+  .learn-card:hover::after { transform: scaleX(1); }
+
+  .learn-icon {
+    width: 52px;
+    height: 52px;
+    background: rgba(139,92,246,0.12);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(139,92,246,0.2);
+  }
+
+  .learn-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .learn-desc {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  /* BENEFITS / OUTCOMES */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .benefit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    transition: all 0.2s;
+  }
+  .benefit-item:hover {
+    border-color: rgba(16,185,129,0.3);
+    background: rgba(16,185,129,0.05);
+  }
+
+  .benefit-check {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(16,185,129,0.12);
+    border: 1px solid rgba(16,185,129,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+
+  .benefit-text {
+    font-size: 15px;
+    color: var(--white);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  .benefit-text span {
+    display: block;
+    font-size: 13px;
+    color: var(--gray);
+    font-weight: 400;
+    margin-top: 4px;
+  }
+
+  /* SPEAKERS */
+  .speakers-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .speaker-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    text-align: center;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .speaker-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--purple), var(--amber));
+  }
+
+  .speaker-card:hover {
+    border-color: rgba(139,92,246,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+
+  .speaker-card-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), var(--amber));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 16px;
+    border: 3px solid var(--bg3);
+  }
+
+  .speaker-card-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .speaker-card-role {
+    font-size: 13px;
+    color: var(--purple-light);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+  }
+
+  .speaker-card-bio {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  /* STATS BAR */
+  .stats-section {
+    background: linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(245,158,11,0.05) 100%);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px;
+  }
+
+  .stats-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 44px;
+    font-weight: 800;
+    color: var(--white);
+    display: block;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-num .stat-suffix { color: var(--amber); }
+
+  .stat-label {
+    font-size: 14px;
+    color: var(--gray);
+    font-weight: 500;
+  }
+
+  /* EVENT DETAILS */
+  .event-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .event-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--purple), var(--amber), var(--green));
+  }
+
+  .event-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .event-detail {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+  }
+
+  .event-detail-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(139,92,246,0.12);
+    border: 1px solid rgba(139,92,246,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .event-detail-label {
+    font-size: 11px;
+    color: var(--gray2);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .event-detail-value {
+    font-size: 16px;
+    color: var(--white);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  .event-cta-area {
+    text-align: center;
+  }
+
+  .event-cta-area .btn-primary {
+    font-size: 18px;
+    padding: 18px 40px;
+  }
+
+  .event-urgency {
+    margin-top: 16px;
+    font-size: 14px;
+    color: var(--amber);
+    font-weight: 600;
+  }
+
+  /* TESTIMONIALS PLACEHOLDER */
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .testimonial-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .testimonial-stars {
+    color: var(--amber);
+    font-size: 14px;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+  }
+
+  .testimonial-text {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.7;
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .testimonial-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), var(--blue));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  .testimonial-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .testimonial-role {
+    font-size: 11px;
+    color: var(--gray2);
+  }
+
+  /* FAQ */
+  .faq-list {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .faq-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+  .faq-item:hover {
+    border-color: rgba(139,92,246,0.3);
+  }
+
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    text-align: left;
+  }
+
+  .faq-arrow {
+    font-size: 18px;
+    color: var(--purple-light);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+
+  .faq-item.open .faq-arrow {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .faq-answer-inner {
+    padding: 0 24px 20px;
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.7;
+  }
+
+  .faq-item.open .faq-answer {
+    max-height: 300px;
+  }
+
+  /* FINAL CTA */
+  .final-cta-section {
+    text-align: center;
+    padding: 100px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .final-cta-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, var(--bg) 0%, rgba(139,92,246,0.06) 50%, var(--bg) 100%);
+  }
+
+  .final-cta-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .final-cta-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+
+  .final-cta-text {
+    font-size: 17px;
+    color: var(--gray);
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: rgba(0,0,0,0.3);
+    border-top: 1px solid var(--border);
+    padding: 40px;
+    text-align: center;
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .footer-logo span { color: var(--purple-light); }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+  .footer-links a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--white); }
+
+  .footer-social {
+    display: flex;
+    gap: 12px;
+  }
+
+  .social-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.2s;
+  }
+  .social-btn:hover {
+    background: rgba(139,92,246,0.2);
+    border-color: var(--purple);
+    transform: translateY(-2px);
+  }
+
+  .footer-copy {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 13px;
+    color: var(--gray2);
+  }
+
+  /* REVEAL ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+
+    .hero { padding: 100px 20px 60px; }
+
+    section { padding: 60px 20px; }
+
+    .problem-grid { grid-template-columns: 1fr; gap: 40px; }
+    .learn-grid { grid-template-columns: 1fr; }
+    .benefits-grid { grid-template-columns: 1fr; }
+    .speakers-grid { grid-template-columns: 1fr; }
+    .testimonial-grid { grid-template-columns: 1fr; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .event-details-grid { grid-template-columns: 1fr; }
+    .event-card { padding: 32px 24px; }
+
+    .footer-inner { flex-direction: column; align-items: center; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+
+  @media (max-width: 500px) {
+    .hero-title { font-size: 32px; }
+    .hero-ctas { flex-direction: column; align-items: center; }
+    .hero-ctas .btn-primary,
+    .hero-ctas .btn-secondary { width: 100%; justify-content: center; }
+    .stats-inner { gap: 24px; }
+    .stat-num { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">San<span>Satel</span></a>
+  <ul class="nav-links">
+    <li><a href="#problema">El problema</a></li>
+    <li><a href="#aprenderas">Programa</a></li>
+    <li><a href="#ponentes">Ponentes</a></li>
+    <li><a href="#evento">Evento</a></li>
+  </ul>
+  <a href="#evento" class="nav-cta">Reservar plaza</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-glow hero-glow-1"></div>
+  <div class="hero-glow hero-glow-2"></div>
+
+  <div class="hero-inner">
+    <div class="hero-date-badge">
+      <span class="pulse"></span>
+      27 junio 2026 &middot; Barcelona
+    </div>
+
+    <h1 class="hero-title">
+      Encuentra tu<br><span class="accent-purple">Flow!</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Descubre como la neurociencia, el subconsciente y el cuerpo influyen en la realidad que construyes cada dia.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#evento" class="btn-primary">Quiero mi plaza</a>
+      <a href="#problema" class="btn-secondary">Saber mas</a>
+    </div>
+
+    <div class="hero-speakers">
+      <div class="speaker-avatars">
+        <div class="speaker-avatar">AN</div>
+        <div class="speaker-avatar">TM</div>
+      </div>
+      <div class="speaker-text">
+        <strong>Alex Novell &amp; Augusto "Tuto" Marolla</strong>
+        Neurociencia, subconsciente y cuerpo
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM SECTION -->
+<div class="section-full problem-section" id="problema">
+  <section>
+    <div class="section-badge reveal">El problema real</div>
+    <h2 class="section-title reveal">La manifestacion no funciona<br>como te la explicaron</h2>
+    <p class="section-subtitle reveal">
+      Durante anos, la manifestacion se ha vendido como magia. Y cuando nada cambia, la frustracion crece.
+    </p>
+
+    <div class="problem-grid">
+      <div>
+        <div class="myth-card reveal">
+          <div class="myth-title">Lo que te han dicho que hagas:</div>
+          <ul class="myth-list">
+            <li class="myth-item">
+              <span class="myth-icon">&#10060;</span>
+              <span class="myth-strike">Visualiza y el universo te lo dara</span>
+            </li>
+            <li class="myth-item">
+              <span class="myth-icon">&#10060;</span>
+              <span class="myth-strike">Repite afirmaciones positivas</span>
+            </li>
+            <li class="myth-item">
+              <span class="myth-icon">&#10060;</span>
+              <span class="myth-strike">Haz un vision board</span>
+            </li>
+            <li class="myth-item">
+              <span class="myth-icon">&#10060;</span>
+              <span class="myth-strike">Vibra alto y todo llegara</span>
+            </li>
+            <li class="myth-item">
+              <span class="myth-icon">&#10060;</span>
+              <span class="myth-strike">Piensa en positivo siempre</span>
+            </li>
+          </ul>
+          <div class="myth-footer">
+            "Supongo que no lo estoy haciendo bien..."
+          </div>
+        </div>
+      </div>
+
+      <ul class="problem-list">
+        <li class="problem-item reveal reveal-delay-1">
+          <div class="problem-icon">&#128260;</div>
+          <p class="problem-text">
+            <strong>Quieres avanzar</strong> pero sigues procrastinando. Tu subconsciente interpreta el cambio como amenaza.
+          </p>
+        </li>
+        <li class="problem-item reveal reveal-delay-2">
+          <div class="problem-icon">&#128176;</div>
+          <p class="problem-text">
+            <strong>Quieres abundancia</strong> pero tomas decisiones desde la escasez. Tus creencias sobre el dinero estan en piloto automatico.
+          </p>
+        </li>
+        <li class="problem-item reveal reveal-delay-3">
+          <div class="problem-icon">&#128257;</div>
+          <p class="problem-text">
+            <strong>Quieres cambiar</strong> pero acabas volviendo al mismo lugar. Tu sistema nervioso busca lo conocido, aunque duela.
+          </p>
+        </li>
+        <li class="problem-item reveal reveal-delay-4">
+          <div class="problem-icon">&#129504;</div>
+          <p class="problem-text">
+            <strong>No es culpa tuya.</strong> Tu mente subconsciente participa en la mayoria de decisiones que tomas cada dia. Nadie te explico como funciona realmente.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-section section-full">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <span class="stat-num" data-target="95">95<span class="stat-suffix">%</span></span>
+      <span class="stat-label">Decisiones desde el subconsciente</span>
+    </div>
+    <div class="stat-item reveal reveal-delay-1">
+      <span class="stat-num">1<span class="stat-suffix"> dia</span></span>
+      <span class="stat-label">Experiencia transformadora</span>
+    </div>
+    <div class="stat-item reveal reveal-delay-2">
+      <span class="stat-num">3<span class="stat-suffix"> expertos</span></span>
+      <span class="stat-label">Neurociencia y cuerpo</span>
+    </div>
+    <div class="stat-item reveal reveal-delay-3">
+      <span class="stat-num">BCN<span class="stat-suffix"></span></span>
+      <span class="stat-label">Barcelona, presencial</span>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT YOU'LL LEARN -->
+<section id="aprenderas">
+  <div class="section-badge reveal">Que descubriras</div>
+  <h2 class="section-title reveal">Neurociencia aplicada a tu vida real</h2>
+  <p class="section-subtitle reveal">
+    Todo lo que aprenderas tiene una base cientifica y herramientas que podras aplicar desde el primer dia.
+  </p>
+
+  <div class="learn-grid">
+    <div class="learn-card reveal reveal-delay-1">
+      <div class="learn-icon">&#129504;</div>
+      <div class="learn-title">Mente subconsciente</div>
+      <p class="learn-desc">Como funciona realmente tu subconsciente, por que repite los mismos patrones y como empezar a reprogramarlo con base cientifica.</p>
+    </div>
+
+    <div class="learn-card reveal reveal-delay-2">
+      <div class="learn-icon">&#9889;</div>
+      <div class="learn-title">Energia y direccion</div>
+      <p class="learn-desc">Herramientas practicas para recuperar tu energia vital, dejar de dispersarte y canalizar tu foco hacia lo que realmente importa.</p>
+    </div>
+
+    <div class="learn-card reveal reveal-delay-3">
+      <div class="learn-icon">&#128275;</div>
+      <div class="learn-title">Patrones limitantes</div>
+      <p class="learn-desc">Identifica las creencias y los patrones que llevan anos condicionando tu vida: sobre el dinero, las relaciones, el exito y tu identidad.</p>
+    </div>
+
+    <div class="learn-card reveal reveal-delay-1">
+      <div class="learn-icon">&#128150;</div>
+      <div class="learn-title">Conexion contigo</div>
+      <p class="learn-desc">Reconecta con tu proposito, con lo que de verdad quieres construir y con la version de ti que sabes que existe pero no termina de salir.</p>
+    </div>
+
+    <div class="learn-card reveal reveal-delay-2">
+      <div class="learn-icon">&#129516;</div>
+      <div class="learn-title">Seguridad e identidad</div>
+      <p class="learn-desc">Entiende como tu sistema nervioso interpreta seguridad, identidad y supervivencia, y por que a veces sabotea tus propios objetivos.</p>
+    </div>
+
+    <div class="learn-card reveal reveal-delay-3">
+      <div class="learn-icon">&#127919;</div>
+      <div class="learn-title">Dejar el piloto automatico</div>
+      <p class="learn-desc">Da el primer paso real para dejar de vivir en modo automatico y empezar a tomar decisiones conscientes y alineadas con quien eres.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<div class="section-full problem-section">
+  <section>
+    <div class="text-center">
+      <div class="section-badge reveal">Lo que te llevas</div>
+      <h2 class="section-title reveal">Saldras de esta experiencia con:</h2>
+      <p class="section-subtitle reveal mx-auto">
+        No es teoria. Es una experiencia vivencial donde trabajaras contigo, con tu cuerpo y con tu mente.
+      </p>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit-item reveal reveal-delay-1">
+        <div class="benefit-check">&#10003;</div>
+        <div class="benefit-text">
+          Claridad sobre tu mente subconsciente
+          <span>Entenderas como funciona y por que tomas las decisiones que tomas.</span>
+        </div>
+      </div>
+
+      <div class="benefit-item reveal reveal-delay-2">
+        <div class="benefit-check">&#10003;</div>
+        <div class="benefit-text">
+          Herramientas practicas
+          <span>Ejercicios y tecnicas para recuperar energia y direccion en tu dia a dia.</span>
+        </div>
+      </div>
+
+      <div class="benefit-item reveal reveal-delay-3">
+        <div class="benefit-check">&#10003;</div>
+        <div class="benefit-text">
+          Comprension profunda de tus patrones
+          <span>Detecta las creencias que han condicionado tu relacion con el dinero, el exito y las relaciones.</span>
+        </div>
+      </div>
+
+      <div class="benefit-item reveal reveal-delay-4">
+        <div class="benefit-check">&#10003;</div>
+        <div class="benefit-text">
+          Conexion con tu proposito
+          <span>Reconecta con lo que de verdad quieres construir en tu vida.</span>
+        </div>
+      </div>
+
+      <div class="benefit-item reveal reveal-delay-1">
+        <div class="benefit-check">&#10003;</div>
+        <div class="benefit-text">
+          Primer paso fuera del piloto automatico
+          <span>Sal de la inercia con un cambio real, no con mas teoria.</span>
+        </div>
+      </div>
+
+      <div class="benefit-item reveal reveal-delay-2">
+        <div class="benefit-check">&#10003;</div>
+        <div class="benefit-text">
+          Comunidad de personas conscientes
+          <span>Conecta con personas que estan en el mismo camino de transformacion.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- SPEAKERS -->
+<section id="ponentes">
+  <div class="text-center">
+    <div class="section-badge reveal">Tus guias</div>
+    <h2 class="section-title reveal">Quienes facilitan esta experiencia</h2>
+    <p class="section-subtitle reveal mx-auto">
+      Dos expertos que combinan neurociencia, trabajo corporal y subconsciente para crear experiencias de transformacion real.
+    </p>
+  </div>
+
+  <div class="speakers-grid">
+    <div class="speaker-card reveal reveal-delay-1">
+      <div class="speaker-card-avatar">AN</div>
+      <div class="speaker-card-name">Alex Novell</div>
+      <div class="speaker-card-role">Neurociencia y subconsciente</div>
+      <p class="speaker-card-bio">
+        Experto en neurociencia aplicada al desarrollo personal. Ayuda a las personas a entender como su mente subconsciente condiciona sus decisiones y como reprogramar patrones limitantes con base cientifica.
+      </p>
+    </div>
+
+    <div class="speaker-card reveal reveal-delay-2">
+      <div class="speaker-card-avatar">TM</div>
+      <div class="speaker-card-name">Augusto "Tuto" Marolla</div>
+      <div class="speaker-card-role">Cuerpo y transformacion</div>
+      <p class="speaker-card-bio">
+        Especialista en el trabajo con el cuerpo como vehiculo de transformacion. Integra tecnicas somaticas y de consciencia corporal para liberar bloqueos y reconectar con tu poder interior.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<div class="section-full problem-section">
+  <section>
+    <div class="text-center">
+      <div class="section-badge reveal">Experiencias reales</div>
+      <h2 class="section-title reveal">Lo que dicen quienes ya lo vivieron</h2>
+    </div>
+
+    <div class="testimonial-grid" style="margin-top: 40px;">
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"Ahora tengo muchas herramientas para despertar la confianza necesaria en aquello que quiero que suceda en mi vida."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">&#10024;</div>
+          <div>
+            <div class="testimonial-name">Asistente del evento</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"Creia que ya vivia de forma consciente, hasta que vi patrones que seguian boicoteando mi vida. A partir de ahi, todo empezo a cambiar, incluso mi negocio."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">&#10024;</div>
+          <div>
+            <div class="testimonial-name">Asistente del evento</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- EVENT DETAILS -->
+<section id="evento">
+  <div class="text-center">
+    <div class="section-badge reveal">Reserva tu plaza</div>
+    <h2 class="section-title reveal">Detalles del evento</h2>
+    <p class="section-subtitle reveal mx-auto">
+      Un dia completo de inmersion donde la neurociencia, el subconsciente y el cuerpo se encuentran.
+    </p>
+  </div>
+
+  <div class="event-card reveal">
+    <div class="event-details-grid">
+      <div class="event-detail">
+        <div class="event-detail-icon">&#128197;</div>
+        <div>
+          <div class="event-detail-label">Fecha</div>
+          <div class="event-detail-value">27 de junio de 2026</div>
+        </div>
+      </div>
+
+      <div class="event-detail">
+        <div class="event-detail-icon">&#128205;</div>
+        <div>
+          <div class="event-detail-label">Lugar</div>
+          <div class="event-detail-value">Barcelona (presencial)</div>
+        </div>
+      </div>
+
+      <div class="event-detail">
+        <div class="event-detail-icon">&#128100;</div>
+        <div>
+          <div class="event-detail-label">Ponentes</div>
+          <div class="event-detail-value">Alex Novell &amp; Tuto Marolla</div>
+        </div>
+      </div>
+
+      <div class="event-detail">
+        <div class="event-detail-icon">&#127775;</div>
+        <div>
+          <div class="event-detail-label">Formato</div>
+          <div class="event-detail-value">Experiencia vivencial</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="event-cta-area">
+      <a href="https://wa.me/34660619034?text=Hola%20Sandra%2C%20quiero%20reservar%20mi%20plaza%20para%20Encuentra%20tu%20Flow%20del%2027%20de%20junio" class="btn-primary">Reservar mi plaza ahora</a>
+      <div class="event-urgency">Plazas limitadas &middot; Evento presencial</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<div class="section-full problem-section">
+  <section>
+    <div class="text-center">
+      <div class="section-badge reveal">Preguntas frecuentes</div>
+      <h2 class="section-title reveal">Resuelve tus dudas</h2>
+    </div>
+
+    <div class="faq-list" style="margin-top: 40px;">
+      <div class="faq-item reveal reveal-delay-1">
+        <button class="faq-question">
+          <span>&#191;Necesito experiencia previa en neurociencia o desarrollo personal?</span>
+          <span class="faq-arrow">&#9660;</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            No. Esta experiencia esta disenada para cualquier persona que quiera entender como funciona su mente y dejar de repetir patrones. No necesitas conocimientos previos, solo ganas de descubrirte.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal reveal-delay-2">
+        <button class="faq-question">
+          <span>&#191;Es solo teoria o hay practica?</span>
+          <span class="faq-arrow">&#9660;</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Es una experiencia vivencial. Hay conceptos de neurociencia explicados de forma accesible, pero sobre todo ejercicios practicos, trabajo corporal y dinamicas que podras aplicar desde el mismo dia.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal reveal-delay-3">
+        <button class="faq-question">
+          <span>&#191;Que tiene que ver el dinero con el subconsciente?</span>
+          <span class="faq-arrow">&#9660;</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Tu relacion con el dinero no es racional: esta condicionada por creencias que absorbiste en la infancia. El miedo a gastar, la sensacion de que nunca es suficiente o la dificultad para cobrar lo que vales son patrones subconscientes que se pueden identificar y transformar.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal reveal-delay-4">
+        <button class="faq-question">
+          <span>&#191;Como reservo mi plaza?</span>
+          <span class="faq-arrow">&#9660;</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Haz clic en "Reservar mi plaza" y te contactaremos por WhatsApp para confirmar tu asistencia y darte todos los detalles. Las plazas son limitadas para garantizar una experiencia de calidad.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FINAL CTA -->
+<div class="final-cta-section">
+  <div class="final-cta-bg"></div>
+  <div class="final-cta-inner">
+    <div class="section-badge reveal">27 de junio &middot; Barcelona</div>
+    <h2 class="final-cta-title reveal">
+      Deja de vivir desde el piloto automatico
+    </h2>
+    <p class="final-cta-text reveal">
+      No tienes que imaginarlo. Otras personas ya lo han vivido y su relacion con el dinero, sus decisiones y su energia cambiaron por completo. Tu siguiente paso empieza aqui.
+    </p>
+    <a href="https://wa.me/34660619034?text=Hola%20Sandra%2C%20quiero%20reservar%20mi%20plaza%20para%20Encuentra%20tu%20Flow%20del%2027%20de%20junio" class="btn-primary reveal">Quiero mi plaza</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">San<span>Satel</span></a>
+    <ul class="footer-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="index.html#servicios">Servicios</a></li>
+      <li><a href="index.html#contacto">Contacto</a></li>
+    </ul>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/sansatel_asesoras/" target="_blank" class="social-btn">&#128247;</a>
+      <a href="mailto:contacto@sansatel.com" class="social-btn">&#9993;</a>
+      <a href="https://www.sansatel.com" target="_blank" class="social-btn">&#127760;</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    &copy; 2026 SanSatel Energy &middot; Encuentra tu Flow!
+  </div>
+</footer>
+
+<script>
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+</script>
+
+</body>
+</html>
