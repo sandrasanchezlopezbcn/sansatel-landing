@@ -3,27 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Encuentra tu Flow! — 27 de junio, Barcelona</title>
-<meta name="description" content="Descubre cómo la neurociencia, el subconsciente y el cuerpo influyen en la realidad que construyes cada día. Evento presencial en Barcelona con Alex Novell y Augusto 'Tuto' Marolla.">
+<title>San Inspira — Reprograma tu relacion con el dinero</title>
+<meta name="description" content="Programa de Sandra Sanchez para transformar tu relacion con el dinero. Descubre las creencias subconscientes que te limitan y aprende a descentrar el dinero de tu vida.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0A1628;
-    --bg2: #0D1F3C;
-    --bg3: #112040;
-    --blue: #1D4ED8;
-    --blue-light: #3B82F6;
-    --amber: #D97706;
-    --amber-light: #F59E0B;
-    --green: #10B981;
-    --green-light: #34D399;
+    --bg: #0C0A1A;
+    --bg2: #130F2A;
+    --bg3: #1A1436;
     --purple: #8B5CF6;
     --purple-light: #A78BFA;
-    --white: #F1F5F9;
-    --gray: #7B8FAE;
-    --gray2: #4E6080;
-    --border: rgba(30,58,138,0.25);
-    --card-bg: rgba(11,25,50,0.9);
+    --purple-deep: #6D28D9;
+    --gold: #D4A017;
+    --gold-light: #F0C940;
+    --white: #F1F0F7;
+    --gray: #8B85A8;
+    --gray2: #5E587A;
+    --border: rgba(139,92,246,0.15);
+    --card-bg: rgba(19,15,42,0.9);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -49,10 +46,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(10,22,40,0.85);
+    background: rgba(12,10,26,0.88);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
-    transition: all 0.3s;
   }
 
   .nav-logo {
@@ -79,7 +75,7 @@
   .nav-links a:hover { color: var(--white); }
 
   .nav-cta {
-    background: var(--amber);
+    background: var(--gold);
     color: var(--bg);
     padding: 10px 22px;
     border-radius: 100px;
@@ -87,11 +83,8 @@
     font-weight: 700;
     text-decoration: none;
     transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
   }
-  .nav-cta:hover { background: var(--amber-light); transform: translateY(-1px); }
+  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
 
   /* HERO */
   .hero {
@@ -107,65 +100,44 @@
   .hero-bg {
     position: absolute;
     inset: 0;
-    background: linear-gradient(160deg, #0D1F3C 0%, #0A1628 40%, #110D28 70%, #0A1628 100%);
+    background: linear-gradient(160deg, #130F2A 0%, #0C0A1A 40%, #1A0A2E 70%, #0C0A1A 100%);
   }
 
   .hero-glow {
     position: absolute;
-    width: 600px;
-    height: 600px;
+    width: 500px;
+    height: 500px;
     border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.15;
+    filter: blur(140px);
+    opacity: 0.12;
     pointer-events: none;
   }
-  .hero-glow-1 {
-    top: -200px;
-    right: -100px;
-    background: var(--purple);
-  }
-  .hero-glow-2 {
-    bottom: -200px;
-    left: -100px;
-    background: var(--amber);
-  }
+  .hero-glow-1 { top: -150px; right: -80px; background: var(--purple); }
+  .hero-glow-2 { bottom: -200px; left: -100px; background: var(--gold); }
 
   .hero-inner {
     position: relative;
     z-index: 1;
-    max-width: 800px;
+    max-width: 780px;
     width: 100%;
     text-align: center;
   }
 
-  .hero-date-badge {
+  .hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: rgba(139,92,246,0.12);
-    border: 1px solid rgba(139,92,246,0.3);
+    background: rgba(139,92,246,0.1);
+    border: 1px solid rgba(139,92,246,0.25);
     border-radius: 100px;
     padding: 8px 20px;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--purple-light);
     text-transform: uppercase;
     letter-spacing: 1.5px;
     margin-bottom: 32px;
     animation: fadeDown 0.6s ease;
-  }
-
-  .hero-date-badge .pulse {
-    width: 8px;
-    height: 8px;
-    background: var(--purple-light);
-    border-radius: 50%;
-    animation: pulse 2s ease infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.5); }
   }
 
   @keyframes fadeDown {
@@ -175,27 +147,25 @@
 
   .hero-title {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(40px, 5.5vw, 72px);
+    font-size: clamp(36px, 5vw, 64px);
     font-weight: 800;
-    line-height: 1.05;
+    line-height: 1.08;
     margin-bottom: 24px;
-    color: var(--white);
     animation: fadeUp 0.7s 0.1s ease both;
   }
-  .hero-title .accent { color: var(--amber); }
-  .hero-title .accent-purple {
-    background: linear-gradient(135deg, var(--purple-light), var(--amber-light));
+  .hero-title .accent {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .hero-subtitle {
-    font-size: clamp(17px, 2vw, 20px);
+    font-size: clamp(16px, 1.8vw, 19px);
     color: var(--gray);
-    line-height: 1.7;
+    line-height: 1.75;
     margin-bottom: 40px;
-    max-width: 600px;
+    max-width: 580px;
     margin-left: auto;
     margin-right: auto;
     animation: fadeUp 0.7s 0.2s ease both;
@@ -209,40 +179,35 @@
     animation: fadeUp 0.7s 0.3s ease both;
   }
 
-  .hero-speakers {
+  .hero-author {
     margin-top: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 16px;
+    gap: 14px;
     animation: fadeUp 0.7s 0.4s ease both;
   }
 
-  .speaker-avatars {
-    display: flex;
-  }
-
-  .speaker-avatar {
-    width: 44px;
-    height: 44px;
+  .hero-author-avatar {
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--purple), var(--amber));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    border: 3px solid var(--bg);
-    margin-left: -10px;
-    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--purple);
+    background: var(--bg2);
   }
-  .speaker-avatar:first-child { margin-left: 0; }
+  .hero-author-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
-  .speaker-text {
+  .hero-author-text {
+    text-align: left;
     font-size: 14px;
     color: var(--gray);
-    text-align: left;
   }
-  .speaker-text strong {
+  .hero-author-text strong {
     color: var(--white);
     display: block;
     font-weight: 600;
@@ -255,8 +220,8 @@
 
   /* BUTTONS */
   .btn-primary {
-    background: var(--amber);
-    color: #0A1628;
+    background: var(--gold);
+    color: var(--bg);
     padding: 16px 32px;
     border-radius: 100px;
     font-size: 16px;
@@ -270,7 +235,7 @@
     cursor: pointer;
     font-family: 'Inter', sans-serif;
   }
-  .btn-primary:hover { background: var(--amber-light); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(217,119,6,0.3); }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(212,160,23,0.25); }
 
   .btn-secondary {
     background: transparent;
@@ -283,10 +248,10 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.15);
     transition: all 0.2s;
   }
-  .btn-secondary:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.05); }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.05); }
 
   /* SECTIONS */
   section {
@@ -318,7 +283,7 @@
 
   .section-title {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(28px, 3vw, 42px);
+    font-size: clamp(26px, 3vw, 40px);
     font-weight: 700;
     color: var(--white);
     margin-bottom: 12px;
@@ -329,68 +294,68 @@
     font-size: 16px;
     color: var(--gray);
     line-height: 1.7;
-    max-width: 620px;
+    max-width: 600px;
     margin-bottom: 48px;
   }
 
   .text-center { text-align: center; }
   .mx-auto { margin-left: auto; margin-right: auto; }
 
-  /* PROBLEM SECTION */
-  .problem-section {
+  /* PROBLEM */
+  .alt-bg {
     background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 50%, var(--bg) 100%);
   }
 
   .problem-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
+    gap: 48px;
+    align-items: start;
   }
 
-  .problem-list {
+  .pattern-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
   }
 
-  .problem-item {
+  .pattern-item {
     background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.06);
     border-radius: 14px;
-    padding: 18px 20px;
+    padding: 20px;
     display: flex;
     align-items: flex-start;
     gap: 14px;
-    transition: all 0.2s;
+    transition: all 0.25s;
   }
-  .problem-item:hover {
-    border-color: rgba(139,92,246,0.3);
-    background: rgba(139,92,246,0.05);
+  .pattern-item:hover {
+    border-color: rgba(139,92,246,0.25);
+    background: rgba(139,92,246,0.04);
   }
 
-  .problem-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: rgba(239,68,68,0.12);
-    border: 1px solid rgba(239,68,68,0.2);
+  .pattern-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 20px;
     flex-shrink: 0;
   }
+  .pattern-icon.red { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); }
+  .pattern-icon.purple { background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.2); }
 
-  .problem-text {
+  .pattern-text {
     font-size: 15px;
     color: var(--gray);
     line-height: 1.6;
   }
-  .problem-text strong { color: var(--white); font-weight: 600; }
+  .pattern-text strong { color: var(--white); font-weight: 600; }
 
-  .myth-card {
+  .question-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: 20px;
@@ -398,67 +363,64 @@
     position: relative;
     overflow: hidden;
   }
-
-  .myth-card::before {
+  .question-card::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--purple), var(--amber));
+    background: linear-gradient(90deg, var(--purple), var(--gold));
   }
 
-  .myth-title {
+  .question-card-title {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
     margin-bottom: 20px;
-    color: var(--white);
+    line-height: 1.35;
   }
+  .question-card-title .accent { color: var(--gold); }
 
-  .myth-list {
+  .question-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
   }
 
-  .myth-item {
+  .question-item {
     display: flex;
     align-items: center;
     gap: 12px;
     font-size: 14px;
     color: var(--gray);
-    padding: 10px 14px;
+    padding: 12px 14px;
     background: rgba(255,255,255,0.03);
     border-radius: 10px;
     border: 1px solid rgba(255,255,255,0.05);
+    line-height: 1.5;
   }
 
-  .myth-strike {
-    text-decoration: line-through;
-    opacity: 0.6;
-  }
+  .question-item .q-icon { font-size: 16px; flex-shrink: 0; }
 
-  .myth-icon { font-size: 16px; flex-shrink: 0; }
-
-  .myth-footer {
-    margin-top: 24px;
-    padding-top: 20px;
+  .question-footer {
+    margin-top: 20px;
+    padding-top: 16px;
     border-top: 1px solid rgba(255,255,255,0.06);
     font-size: 15px;
     color: var(--purple-light);
     font-weight: 600;
     font-style: italic;
+    line-height: 1.5;
   }
 
-  /* WHAT YOU'LL LEARN */
-  .learn-grid {
+  /* PROGRAM MODULES */
+  .modules-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
   }
 
-  .learn-card {
+  .module-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: 20px;
@@ -467,38 +429,46 @@
     position: relative;
     overflow: hidden;
   }
-
-  .learn-card::after {
+  .module-card::after {
     content: '';
     position: absolute;
     bottom: 0; left: 0; right: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--purple), var(--amber));
+    background: linear-gradient(90deg, var(--purple), var(--gold));
     transform: scaleX(0);
     transition: transform 0.3s;
   }
-
-  .learn-card:hover {
-    border-color: rgba(139,92,246,0.4);
+  .module-card:hover {
+    border-color: rgba(139,92,246,0.35);
     transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   }
-  .learn-card:hover::after { transform: scaleX(1); }
+  .module-card:hover::after { transform: scaleX(1); }
 
-  .learn-icon {
-    width: 52px;
-    height: 52px;
-    background: rgba(139,92,246,0.12);
+  .module-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+  }
+
+  .module-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(139,92,246,0.1);
     border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    margin-bottom: 16px;
+    font-size: 22px;
+    margin-bottom: 14px;
     border: 1px solid rgba(139,92,246,0.2);
   }
 
-  .learn-title {
+  .module-title {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 17px;
     font-weight: 700;
@@ -506,249 +476,67 @@
     margin-bottom: 10px;
   }
 
-  .learn-desc {
+  .module-desc {
     font-size: 14px;
     color: var(--gray);
     line-height: 1.6;
   }
 
-  /* BENEFITS / OUTCOMES */
-  .benefits-grid {
+  /* TRANSFORMATION */
+  .transform-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-
-  .benefit-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 24px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    transition: all 0.2s;
-  }
-  .benefit-item:hover {
-    border-color: rgba(16,185,129,0.3);
-    background: rgba(16,185,129,0.05);
-  }
-
-  .benefit-check {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    background: rgba(16,185,129,0.12);
-    border: 1px solid rgba(16,185,129,0.25);
-    display: flex;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 32px;
     align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-size: 18px;
   }
 
-  .benefit-text {
-    font-size: 15px;
-    color: var(--white);
-    font-weight: 500;
+  .transform-col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .transform-item {
+    padding: 16px 20px;
+    border-radius: 12px;
+    font-size: 14px;
     line-height: 1.5;
   }
-  .benefit-text span {
-    display: block;
-    font-size: 13px;
+  .transform-before {
+    background: rgba(239,68,68,0.06);
+    border: 1px solid rgba(239,68,68,0.15);
     color: var(--gray);
-    font-weight: 400;
-    margin-top: 4px;
+  }
+  .transform-after {
+    background: rgba(16,185,129,0.06);
+    border: 1px solid rgba(16,185,129,0.15);
+    color: var(--white);
   }
 
-  /* SPEAKERS */
-  .speakers-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-
-  .speaker-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 32px;
-    text-align: center;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .speaker-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--purple), var(--amber));
-  }
-
-  .speaker-card:hover {
-    border-color: rgba(139,92,246,0.4);
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-  }
-
-  .speaker-card-avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--purple), var(--amber));
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .transform-arrow {
     font-size: 32px;
-    margin: 0 auto 16px;
-    border: 3px solid var(--bg3);
-  }
-
-  .speaker-card-name {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 4px;
-  }
-
-  .speaker-card-role {
-    font-size: 13px;
     color: var(--purple-light);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 14px;
-  }
-
-  .speaker-card-bio {
-    font-size: 14px;
-    color: var(--gray);
-    line-height: 1.6;
-  }
-
-  /* STATS BAR */
-  .stats-section {
-    background: linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(245,158,11,0.05) 100%);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 60px 40px;
-  }
-
-  .stats-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
     text-align: center;
   }
 
-  .stat-num {
+  .transform-label {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 44px;
-    font-weight: 800;
-    color: var(--white);
-    display: block;
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-  .stat-num .stat-suffix { color: var(--amber); }
-
-  .stat-label {
     font-size: 14px;
-    color: var(--gray);
-    font-weight: 500;
-  }
-
-  /* EVENT DETAILS */
-  .event-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 48px;
-    position: relative;
-    overflow: hidden;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-
-  .event-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--purple), var(--amber), var(--green));
-  }
-
-  .event-details-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-bottom: 32px;
-  }
-
-  .event-detail {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 16px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 14px;
-  }
-
-  .event-detail-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    background: rgba(139,92,246,0.12);
-    border: 1px solid rgba(139,92,246,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    flex-shrink: 0;
-  }
-
-  .event-detail-label {
-    font-size: 11px;
-    color: var(--gray2);
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
   }
+  .label-before { color: rgba(239,68,68,0.7); }
+  .label-after { color: rgba(16,185,129,0.8); }
 
-  .event-detail-value {
-    font-size: 16px;
-    color: var(--white);
-    font-weight: 600;
-    margin-top: 2px;
-  }
-
-  .event-cta-area {
-    text-align: center;
-  }
-
-  .event-cta-area .btn-primary {
-    font-size: 18px;
-    padding: 18px 40px;
-  }
-
-  .event-urgency {
-    margin-top: 16px;
-    font-size: 14px;
-    color: var(--amber);
-    font-weight: 600;
-  }
-
-  /* TESTIMONIALS PLACEHOLDER */
+  /* TESTIMONIALS */
   .testimonial-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
@@ -757,50 +545,110 @@
   .testimonial-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
+    border-radius: 18px;
+    padding: 28px;
+    position: relative;
   }
 
-  .testimonial-stars {
-    color: var(--amber);
-    font-size: 14px;
+  .testimonial-quote {
+    font-size: 32px;
+    color: var(--gold);
+    line-height: 1;
     margin-bottom: 12px;
-    letter-spacing: 2px;
+    font-family: 'Space Grotesk', sans-serif;
   }
 
   .testimonial-text {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--gray);
-    line-height: 1.7;
+    line-height: 1.75;
     font-style: italic;
-    margin-bottom: 16px;
   }
 
-  .testimonial-author {
+  /* FOR WHO */
+  .for-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .for-item {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 22px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    transition: all 0.2s;
+  }
+  .for-item:hover {
+    border-color: rgba(139,92,246,0.3);
+    background: rgba(139,92,246,0.04);
   }
 
-  .testimonial-avatar {
+  .for-icon {
     width: 36px;
     height: 36px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--purple), var(--blue));
+    border-radius: 10px;
+    background: rgba(212,160,23,0.1);
+    border: 1px solid rgba(212,160,23,0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    flex-shrink: 0;
+    font-size: 16px;
   }
 
-  .testimonial-name {
-    font-size: 13px;
-    font-weight: 600;
+  .for-text {
+    font-size: 15px;
     color: var(--white);
+    font-weight: 500;
+    line-height: 1.5;
   }
-  .testimonial-role {
-    font-size: 11px;
-    color: var(--gray2);
+  .for-text span {
+    display: block;
+    font-size: 13px;
+    color: var(--gray);
+    font-weight: 400;
+    margin-top: 4px;
+  }
+
+  /* CTA SECTION */
+  .cta-section {
+    text-align: center;
+    padding: 100px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, var(--bg) 0%, rgba(139,92,246,0.05) 50%, var(--bg) 100%);
+  }
+
+  .cta-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .cta-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(26px, 3vw, 40px);
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+
+  .cta-text {
+    font-size: 17px;
+    color: var(--gray);
+    line-height: 1.7;
+    margin-bottom: 36px;
   }
 
   /* FAQ */
@@ -819,9 +667,7 @@
     overflow: hidden;
     transition: all 0.2s;
   }
-  .faq-item:hover {
-    border-color: rgba(139,92,246,0.3);
-  }
+  .faq-item:hover { border-color: rgba(139,92,246,0.3); }
 
   .faq-question {
     width: 100%;
@@ -841,69 +687,25 @@
   }
 
   .faq-arrow {
-    font-size: 18px;
+    font-size: 16px;
     color: var(--purple-light);
     transition: transform 0.3s;
     flex-shrink: 0;
   }
-
-  .faq-item.open .faq-arrow {
-    transform: rotate(180deg);
-  }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
 
   .faq-answer {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
   }
-
   .faq-answer-inner {
     padding: 0 24px 20px;
     font-size: 14px;
     color: var(--gray);
     line-height: 1.7;
   }
-
-  .faq-item.open .faq-answer {
-    max-height: 300px;
-  }
-
-  /* FINAL CTA */
-  .final-cta-section {
-    text-align: center;
-    padding: 100px 40px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .final-cta-bg {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, var(--bg) 0%, rgba(139,92,246,0.06) 50%, var(--bg) 100%);
-  }
-
-  .final-cta-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-
-  .final-cta-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(28px, 3.5vw, 44px);
-    font-weight: 800;
-    color: var(--white);
-    margin-bottom: 16px;
-    line-height: 1.15;
-  }
-
-  .final-cta-text {
-    font-size: 17px;
-    color: var(--gray);
-    line-height: 1.7;
-    margin-bottom: 36px;
-  }
+  .faq-item.open .faq-answer { max-height: 300px; }
 
   /* FOOTER */
   footer {
@@ -945,30 +747,6 @@
   }
   .footer-links a:hover { color: var(--white); }
 
-  .footer-social {
-    display: flex;
-    gap: 12px;
-  }
-
-  .social-btn {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: 16px;
-    transition: all 0.2s;
-  }
-  .social-btn:hover {
-    background: rgba(139,92,246,0.2);
-    border-color: var(--purple);
-    transform: translateY(-2px);
-  }
-
   .footer-copy {
     width: 100%;
     text-align: center;
@@ -979,16 +757,13 @@
     color: var(--gray2);
   }
 
-  /* REVEAL ANIMATIONS */
+  /* REVEAL */
   .reveal {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
   .reveal-delay-1 { transition-delay: 0.1s; }
   .reveal-delay-2 { transition-delay: 0.2s; }
   .reveal-delay-3 { transition-delay: 0.3s; }
@@ -999,31 +774,23 @@
   @media (max-width: 900px) {
     nav { padding: 14px 20px; }
     .nav-links { display: none; }
-
     .hero { padding: 100px 20px 60px; }
-
     section { padding: 60px 20px; }
-
-    .problem-grid { grid-template-columns: 1fr; gap: 40px; }
-    .learn-grid { grid-template-columns: 1fr; }
-    .benefits-grid { grid-template-columns: 1fr; }
-    .speakers-grid { grid-template-columns: 1fr; }
+    .problem-grid { grid-template-columns: 1fr; gap: 32px; }
+    .modules-grid { grid-template-columns: 1fr; }
+    .transform-grid { grid-template-columns: 1fr; }
+    .transform-arrow { transform: rotate(90deg); }
+    .for-grid { grid-template-columns: 1fr; }
     .testimonial-grid { grid-template-columns: 1fr; }
-    .stats-inner { grid-template-columns: repeat(2, 1fr); }
-    .event-details-grid { grid-template-columns: 1fr; }
-    .event-card { padding: 32px 24px; }
-
     .footer-inner { flex-direction: column; align-items: center; text-align: center; }
     .footer-links { flex-wrap: wrap; justify-content: center; }
   }
 
   @media (max-width: 500px) {
-    .hero-title { font-size: 32px; }
+    .hero-title { font-size: 30px; }
     .hero-ctas { flex-direction: column; align-items: center; }
     .hero-ctas .btn-primary,
     .hero-ctas .btn-secondary { width: 100%; justify-content: center; }
-    .stats-inner { gap: 24px; }
-    .stat-num { font-size: 36px; }
   }
 </style>
 </head>
@@ -1031,14 +798,13 @@
 
 <!-- NAV -->
 <nav>
-  <a href="index.html" class="nav-logo">San<span>Satel</span></a>
+  <a href="#" class="nav-logo">San<span>Inspira</span></a>
   <ul class="nav-links">
     <li><a href="#problema">El problema</a></li>
-    <li><a href="#aprenderas">Programa</a></li>
-    <li><a href="#ponentes">Ponentes</a></li>
-    <li><a href="#evento">Evento</a></li>
+    <li><a href="#programa">Programa</a></li>
+    <li><a href="#para-ti">Para ti</a></li>
   </ul>
-  <a href="#evento" class="nav-cta">Reservar plaza</a>
+  <a href="https://wa.me/34660619034?text=Hola%20Sandra%2C%20quiero%20informacion%20sobre%20el%20programa%20de%20dinero%20y%20subconsciente" class="nav-cta">Quiero saber mas</a>
 </nav>
 
 <!-- HERO -->
@@ -1048,462 +814,354 @@
   <div class="hero-glow hero-glow-2"></div>
 
   <div class="hero-inner">
-    <div class="hero-date-badge">
-      <span class="pulse"></span>
-      27 junio 2026 &middot; Barcelona
-    </div>
+    <div class="hero-badge">San Inspira &middot; Programa</div>
 
     <h1 class="hero-title">
-      Encuentra tu<br><span class="accent-purple">Flow!</span>
+      Reprograma tu relacion<br>con el <span class="accent">dinero</span>
     </h1>
 
     <p class="hero-subtitle">
-      Descubre como la neurociencia, el subconsciente y el cuerpo influyen en la realidad que construyes cada dia.
+      Nos da miedo gastar, nos sentimos culpables por querer mas, y tomamos decisiones desde la escasez. Pero el problema no es el dinero. El problema es lo que tu subconsciente cree sobre el.
     </p>
 
     <div class="hero-ctas">
-      <a href="#evento" class="btn-primary">Quiero mi plaza</a>
-      <a href="#problema" class="btn-secondary">Saber mas</a>
+      <a href="https://wa.me/34660619034?text=Hola%20Sandra%2C%20quiero%20informacion%20sobre%20el%20programa%20de%20dinero%20y%20subconsciente" class="btn-primary">Quiero informacion</a>
+      <a href="#problema" class="btn-secondary">Descubre el problema</a>
     </div>
 
-    <div class="hero-speakers">
-      <div class="speaker-avatars">
-        <div class="speaker-avatar">AN</div>
-        <div class="speaker-avatar">TM</div>
+    <div class="hero-author">
+      <div class="hero-author-avatar">
+        <img src="assets/profile.jpg" alt="Sandra Sanchez" onerror="this.parentElement.style.background='linear-gradient(135deg,#8B5CF6,#D4A017)';this.parentElement.innerHTML='SS'">
       </div>
-      <div class="speaker-text">
-        <strong>Alex Novell &amp; Augusto "Tuto" Marolla</strong>
-        Neurociencia, subconsciente y cuerpo
+      <div class="hero-author-text">
+        <strong>Sandra Sanchez</strong>
+        Creadora de San Inspira
       </div>
     </div>
   </div>
 </div>
 
-<!-- PROBLEM SECTION -->
-<div class="section-full problem-section" id="problema">
+<!-- PROBLEM -->
+<div class="section-full alt-bg" id="problema">
   <section>
-    <div class="section-badge reveal">El problema real</div>
-    <h2 class="section-title reveal">La manifestacion no funciona<br>como te la explicaron</h2>
+    <div class="section-badge reveal">El verdadero problema</div>
+    <h2 class="section-title reveal">No es el dinero. Es lo que crees sobre el.</h2>
     <p class="section-subtitle reveal">
-      Durante anos, la manifestacion se ha vendido como magia. Y cuando nada cambia, la frustracion crece.
+      Tu mente subconsciente participa en la mayoria de tus decisiones. Y muchas de tus creencias sobre el dinero las absorbiste sin darte cuenta.
     </p>
 
     <div class="problem-grid">
-      <div>
-        <div class="myth-card reveal">
-          <div class="myth-title">Lo que te han dicho que hagas:</div>
-          <ul class="myth-list">
-            <li class="myth-item">
-              <span class="myth-icon">&#10060;</span>
-              <span class="myth-strike">Visualiza y el universo te lo dara</span>
-            </li>
-            <li class="myth-item">
-              <span class="myth-icon">&#10060;</span>
-              <span class="myth-strike">Repite afirmaciones positivas</span>
-            </li>
-            <li class="myth-item">
-              <span class="myth-icon">&#10060;</span>
-              <span class="myth-strike">Haz un vision board</span>
-            </li>
-            <li class="myth-item">
-              <span class="myth-icon">&#10060;</span>
-              <span class="myth-strike">Vibra alto y todo llegara</span>
-            </li>
-            <li class="myth-item">
-              <span class="myth-icon">&#10060;</span>
-              <span class="myth-strike">Piensa en positivo siempre</span>
-            </li>
-          </ul>
-          <div class="myth-footer">
-            "Supongo que no lo estoy haciendo bien..."
-          </div>
-        </div>
-      </div>
-
-      <ul class="problem-list">
-        <li class="problem-item reveal reveal-delay-1">
-          <div class="problem-icon">&#128260;</div>
-          <p class="problem-text">
-            <strong>Quieres avanzar</strong> pero sigues procrastinando. Tu subconsciente interpreta el cambio como amenaza.
+      <ul class="pattern-list">
+        <li class="pattern-item reveal reveal-delay-1">
+          <div class="pattern-icon red">&#128176;</div>
+          <p class="pattern-text">
+            <strong>Te da miedo gastar</strong> aunque tengas dinero. Sientes culpa cada vez que compras algo para ti, como si no te lo merecieras.
           </p>
         </li>
-        <li class="problem-item reveal reveal-delay-2">
-          <div class="problem-icon">&#128176;</div>
-          <p class="problem-text">
-            <strong>Quieres abundancia</strong> pero tomas decisiones desde la escasez. Tus creencias sobre el dinero estan en piloto automatico.
+        <li class="pattern-item reveal reveal-delay-2">
+          <div class="pattern-icon red">&#128274;</div>
+          <p class="pattern-text">
+            <strong>Quieres abundancia</strong> pero tomas decisiones desde la escasez. Ahorras por miedo, no por estrategia. Dices que no a oportunidades "por si acaso".
           </p>
         </li>
-        <li class="problem-item reveal reveal-delay-3">
-          <div class="problem-icon">&#128257;</div>
-          <p class="problem-text">
-            <strong>Quieres cambiar</strong> pero acabas volviendo al mismo lugar. Tu sistema nervioso busca lo conocido, aunque duela.
+        <li class="pattern-item reveal reveal-delay-3">
+          <div class="pattern-icon red">&#128260;</div>
+          <p class="pattern-text">
+            <strong>Ganas dinero y lo pierdes.</strong> O llegas a un techo que no puedes superar. El patron se repite una y otra vez, como un tope invisible.
           </p>
         </li>
-        <li class="problem-item reveal reveal-delay-4">
-          <div class="problem-icon">&#129504;</div>
-          <p class="problem-text">
-            <strong>No es culpa tuya.</strong> Tu mente subconsciente participa en la mayoria de decisiones que tomas cada dia. Nadie te explico como funciona realmente.
+        <li class="pattern-item reveal reveal-delay-4">
+          <div class="pattern-icon red">&#128556;</div>
+          <p class="pattern-text">
+            <strong>Te cuesta cobrar lo que vales,</strong> pedir un aumento o poner precios justos. En el fondo sientes que no mereces ese dinero.
           </p>
         </li>
       </ul>
+
+      <div class="question-card reveal">
+        <div class="question-card-title">
+          Y si no es el dinero... <span class="accent">&#191;en que creencia tienes puesta tu subconsciente?</span>
+        </div>
+        <ul class="question-list">
+          <li class="question-item">
+            <span class="q-icon">&#128172;</span>
+            "El dinero es sucio" / "Los ricos son malas personas"
+          </li>
+          <li class="question-item">
+            <span class="q-icon">&#128172;</span>
+            "Hay que trabajar muy duro para ganar dinero"
+          </li>
+          <li class="question-item">
+            <span class="q-icon">&#128172;</span>
+            "No soy el tipo de persona que tiene dinero"
+          </li>
+          <li class="question-item">
+            <span class="q-icon">&#128172;</span>
+            "Si tengo mucho, alguien tendra menos"
+          </li>
+          <li class="question-item">
+            <span class="q-icon">&#128172;</span>
+            "Mejor no arriesgar, podria perderlo todo"
+          </li>
+        </ul>
+        <div class="question-footer">
+          Estas creencias no son tuyas. Las aprendiste. Y se pueden reprogramar.
+        </div>
+      </div>
     </div>
   </section>
 </div>
 
-<!-- STATS BAR -->
-<div class="stats-section section-full">
-  <div class="stats-inner">
-    <div class="stat-item reveal">
-      <span class="stat-num" data-target="95">95<span class="stat-suffix">%</span></span>
-      <span class="stat-label">Decisiones desde el subconsciente</span>
-    </div>
-    <div class="stat-item reveal reveal-delay-1">
-      <span class="stat-num">1<span class="stat-suffix"> dia</span></span>
-      <span class="stat-label">Experiencia transformadora</span>
-    </div>
-    <div class="stat-item reveal reveal-delay-2">
-      <span class="stat-num">3<span class="stat-suffix"> expertos</span></span>
-      <span class="stat-label">Neurociencia y cuerpo</span>
-    </div>
-    <div class="stat-item reveal reveal-delay-3">
-      <span class="stat-num">BCN<span class="stat-suffix"></span></span>
-      <span class="stat-label">Barcelona, presencial</span>
-    </div>
-  </div>
-</div>
-
-<!-- WHAT YOU'LL LEARN -->
-<section id="aprenderas">
-  <div class="section-badge reveal">Que descubriras</div>
-  <h2 class="section-title reveal">Neurociencia aplicada a tu vida real</h2>
+<!-- PROGRAM -->
+<section id="programa">
+  <div class="section-badge reveal">El programa</div>
+  <h2 class="section-title reveal">Que vas a descubrir</h2>
   <p class="section-subtitle reveal">
-    Todo lo que aprenderas tiene una base cientifica y herramientas que podras aplicar desde el primer dia.
+    Un programa para entender la raiz de tu relacion con el dinero y transformarla desde el subconsciente.
   </p>
 
-  <div class="learn-grid">
-    <div class="learn-card reveal reveal-delay-1">
-      <div class="learn-icon">&#129504;</div>
-      <div class="learn-title">Mente subconsciente</div>
-      <p class="learn-desc">Como funciona realmente tu subconsciente, por que repite los mismos patrones y como empezar a reprogramarlo con base cientifica.</p>
+  <div class="modules-grid">
+    <div class="module-card reveal reveal-delay-1">
+      <div class="module-num">Modulo 1</div>
+      <div class="module-icon">&#129504;</div>
+      <div class="module-title">Tu mente y el dinero</div>
+      <p class="module-desc">Como tu subconsciente absorbe creencias sobre el dinero en la infancia y por que las sigue ejecutando en modo automatico.</p>
     </div>
 
-    <div class="learn-card reveal reveal-delay-2">
-      <div class="learn-icon">&#9889;</div>
-      <div class="learn-title">Energia y direccion</div>
-      <p class="learn-desc">Herramientas practicas para recuperar tu energia vital, dejar de dispersarte y canalizar tu foco hacia lo que realmente importa.</p>
+    <div class="module-card reveal reveal-delay-2">
+      <div class="module-num">Modulo 2</div>
+      <div class="module-icon">&#128270;</div>
+      <div class="module-title">Identifica tus patrones</div>
+      <p class="module-desc">Detecta las creencias limitantes que controlan tus decisiones financieras: el miedo a gastar, el techo de ingresos, la culpa por querer mas.</p>
     </div>
 
-    <div class="learn-card reveal reveal-delay-3">
-      <div class="learn-icon">&#128275;</div>
-      <div class="learn-title">Patrones limitantes</div>
-      <p class="learn-desc">Identifica las creencias y los patrones que llevan anos condicionando tu vida: sobre el dinero, las relaciones, el exito y tu identidad.</p>
+    <div class="module-card reveal reveal-delay-3">
+      <div class="module-num">Modulo 3</div>
+      <div class="module-icon">&#128275;</div>
+      <div class="module-title">Descentra el dinero</div>
+      <p class="module-desc">Aprende a separar tu valor personal del dinero. Cuando dejas de centrarlo todo en el, paradojicamente, fluye mejor.</p>
     </div>
 
-    <div class="learn-card reveal reveal-delay-1">
-      <div class="learn-icon">&#128150;</div>
-      <div class="learn-title">Conexion contigo</div>
-      <p class="learn-desc">Reconecta con tu proposito, con lo que de verdad quieres construir y con la version de ti que sabes que existe pero no termina de salir.</p>
+    <div class="module-card reveal reveal-delay-1">
+      <div class="module-num">Modulo 4</div>
+      <div class="module-icon">&#9889;</div>
+      <div class="module-title">Reprograma tu sistema</div>
+      <p class="module-desc">Herramientas practicas de neurociencia para crear nuevas vias neuronales y dejar de operar desde la escasez y el miedo.</p>
     </div>
 
-    <div class="learn-card reveal reveal-delay-2">
-      <div class="learn-icon">&#129516;</div>
-      <div class="learn-title">Seguridad e identidad</div>
-      <p class="learn-desc">Entiende como tu sistema nervioso interpreta seguridad, identidad y supervivencia, y por que a veces sabotea tus propios objetivos.</p>
+    <div class="module-card reveal reveal-delay-2">
+      <div class="module-num">Modulo 5</div>
+      <div class="module-icon">&#127919;</div>
+      <div class="module-title">Decisiones desde la abundancia</div>
+      <p class="module-desc">Como tomar decisiones financieras desde la seguridad y no desde el miedo. Gastar, invertir y cobrar sin culpa.</p>
     </div>
 
-    <div class="learn-card reveal reveal-delay-3">
-      <div class="learn-icon">&#127919;</div>
-      <div class="learn-title">Dejar el piloto automatico</div>
-      <p class="learn-desc">Da el primer paso real para dejar de vivir en modo automatico y empezar a tomar decisiones conscientes y alineadas con quien eres.</p>
+    <div class="module-card reveal reveal-delay-3">
+      <div class="module-num">Modulo 6</div>
+      <div class="module-icon">&#128150;</div>
+      <div class="module-title">Tu nueva relacion con el dinero</div>
+      <p class="module-desc">Integra todo lo aprendido y construye una relacion sana, consciente y libre con el dinero. Sin miedo, sin culpa, sin limites invisibles.</p>
     </div>
   </div>
 </section>
 
-<!-- BENEFITS -->
-<div class="section-full problem-section">
+<!-- BEFORE / AFTER -->
+<div class="section-full alt-bg">
   <section>
     <div class="text-center">
-      <div class="section-badge reveal">Lo que te llevas</div>
-      <h2 class="section-title reveal">Saldras de esta experiencia con:</h2>
-      <p class="section-subtitle reveal mx-auto">
-        No es teoria. Es una experiencia vivencial donde trabajaras contigo, con tu cuerpo y con tu mente.
-      </p>
+      <div class="section-badge reveal">La transformacion</div>
+      <h2 class="section-title reveal">De donde vienes y a donde vas</h2>
     </div>
 
-    <div class="benefits-grid">
-      <div class="benefit-item reveal reveal-delay-1">
-        <div class="benefit-check">&#10003;</div>
-        <div class="benefit-text">
-          Claridad sobre tu mente subconsciente
-          <span>Entenderas como funciona y por que tomas las decisiones que tomas.</span>
-        </div>
+    <div class="transform-grid" style="margin-top: 48px;">
+      <div class="transform-col reveal">
+        <div class="transform-label label-before">Antes</div>
+        <div class="transform-before">Te da miedo gastar aunque tengas dinero</div>
+        <div class="transform-before">Tomas decisiones desde la escasez</div>
+        <div class="transform-before">Sientes culpa por querer mas</div>
+        <div class="transform-before">No te atreves a cobrar lo que vales</div>
+        <div class="transform-before">El dinero te genera ansiedad</div>
       </div>
 
-      <div class="benefit-item reveal reveal-delay-2">
-        <div class="benefit-check">&#10003;</div>
-        <div class="benefit-text">
-          Herramientas practicas
-          <span>Ejercicios y tecnicas para recuperar energia y direccion en tu dia a dia.</span>
-        </div>
-      </div>
+      <div class="transform-arrow reveal">&#10132;</div>
 
-      <div class="benefit-item reveal reveal-delay-3">
-        <div class="benefit-check">&#10003;</div>
-        <div class="benefit-text">
-          Comprension profunda de tus patrones
-          <span>Detecta las creencias que han condicionado tu relacion con el dinero, el exito y las relaciones.</span>
-        </div>
-      </div>
-
-      <div class="benefit-item reveal reveal-delay-4">
-        <div class="benefit-check">&#10003;</div>
-        <div class="benefit-text">
-          Conexion con tu proposito
-          <span>Reconecta con lo que de verdad quieres construir en tu vida.</span>
-        </div>
-      </div>
-
-      <div class="benefit-item reveal reveal-delay-1">
-        <div class="benefit-check">&#10003;</div>
-        <div class="benefit-text">
-          Primer paso fuera del piloto automatico
-          <span>Sal de la inercia con un cambio real, no con mas teoria.</span>
-        </div>
-      </div>
-
-      <div class="benefit-item reveal reveal-delay-2">
-        <div class="benefit-check">&#10003;</div>
-        <div class="benefit-text">
-          Comunidad de personas conscientes
-          <span>Conecta con personas que estan en el mismo camino de transformacion.</span>
-        </div>
+      <div class="transform-col reveal reveal-delay-2">
+        <div class="transform-label label-after">Despues</div>
+        <div class="transform-after">Gastas con consciencia, sin culpa</div>
+        <div class="transform-after">Decides desde la seguridad y la claridad</div>
+        <div class="transform-after">Te permites desear y recibir abundancia</div>
+        <div class="transform-after">Cobras tu valor real sin disculparte</div>
+        <div class="transform-after">El dinero fluye porque tu fluyes</div>
       </div>
     </div>
   </section>
 </div>
-
-<!-- SPEAKERS -->
-<section id="ponentes">
-  <div class="text-center">
-    <div class="section-badge reveal">Tus guias</div>
-    <h2 class="section-title reveal">Quienes facilitan esta experiencia</h2>
-    <p class="section-subtitle reveal mx-auto">
-      Dos expertos que combinan neurociencia, trabajo corporal y subconsciente para crear experiencias de transformacion real.
-    </p>
-  </div>
-
-  <div class="speakers-grid">
-    <div class="speaker-card reveal reveal-delay-1">
-      <div class="speaker-card-avatar">AN</div>
-      <div class="speaker-card-name">Alex Novell</div>
-      <div class="speaker-card-role">Neurociencia y subconsciente</div>
-      <p class="speaker-card-bio">
-        Experto en neurociencia aplicada al desarrollo personal. Ayuda a las personas a entender como su mente subconsciente condiciona sus decisiones y como reprogramar patrones limitantes con base cientifica.
-      </p>
-    </div>
-
-    <div class="speaker-card reveal reveal-delay-2">
-      <div class="speaker-card-avatar">TM</div>
-      <div class="speaker-card-name">Augusto "Tuto" Marolla</div>
-      <div class="speaker-card-role">Cuerpo y transformacion</div>
-      <p class="speaker-card-bio">
-        Especialista en el trabajo con el cuerpo como vehiculo de transformacion. Integra tecnicas somaticas y de consciencia corporal para liberar bloqueos y reconectar con tu poder interior.
-      </p>
-    </div>
-  </div>
-</section>
 
 <!-- TESTIMONIALS -->
-<div class="section-full problem-section">
-  <section>
-    <div class="text-center">
-      <div class="section-badge reveal">Experiencias reales</div>
-      <h2 class="section-title reveal">Lo que dicen quienes ya lo vivieron</h2>
-    </div>
-
-    <div class="testimonial-grid" style="margin-top: 40px;">
-      <div class="testimonial-card reveal reveal-delay-1">
-        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testimonial-text">"Ahora tengo muchas herramientas para despertar la confianza necesaria en aquello que quiero que suceda en mi vida."</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">&#10024;</div>
-          <div>
-            <div class="testimonial-name">Asistente del evento</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testimonial-card reveal reveal-delay-2">
-        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testimonial-text">"Creia que ya vivia de forma consciente, hasta que vi patrones que seguian boicoteando mi vida. A partir de ahi, todo empezo a cambiar, incluso mi negocio."</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">&#10024;</div>
-          <div>
-            <div class="testimonial-name">Asistente del evento</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- EVENT DETAILS -->
-<section id="evento">
+<section>
   <div class="text-center">
-    <div class="section-badge reveal">Reserva tu plaza</div>
-    <h2 class="section-title reveal">Detalles del evento</h2>
-    <p class="section-subtitle reveal mx-auto">
-      Un dia completo de inmersion donde la neurociencia, el subconsciente y el cuerpo se encuentran.
-    </p>
+    <div class="section-badge reveal">Experiencias reales</div>
+    <h2 class="section-title reveal">Lo que dicen quienes ya lo vivieron</h2>
   </div>
 
-  <div class="event-card reveal">
-    <div class="event-details-grid">
-      <div class="event-detail">
-        <div class="event-detail-icon">&#128197;</div>
-        <div>
-          <div class="event-detail-label">Fecha</div>
-          <div class="event-detail-value">27 de junio de 2026</div>
-        </div>
-      </div>
-
-      <div class="event-detail">
-        <div class="event-detail-icon">&#128205;</div>
-        <div>
-          <div class="event-detail-label">Lugar</div>
-          <div class="event-detail-value">Barcelona (presencial)</div>
-        </div>
-      </div>
-
-      <div class="event-detail">
-        <div class="event-detail-icon">&#128100;</div>
-        <div>
-          <div class="event-detail-label">Ponentes</div>
-          <div class="event-detail-value">Alex Novell &amp; Tuto Marolla</div>
-        </div>
-      </div>
-
-      <div class="event-detail">
-        <div class="event-detail-icon">&#127775;</div>
-        <div>
-          <div class="event-detail-label">Formato</div>
-          <div class="event-detail-value">Experiencia vivencial</div>
-        </div>
-      </div>
+  <div class="testimonial-grid" style="margin-top: 40px;">
+    <div class="testimonial-card reveal reveal-delay-1">
+      <div class="testimonial-quote">&#8220;</div>
+      <p class="testimonial-text">Ahora tengo muchas herramientas para despertar la confianza necesaria en aquello que quiero que suceda en mi vida.</p>
     </div>
 
-    <div class="event-cta-area">
-      <a href="https://wa.me/34660619034?text=Hola%20Sandra%2C%20quiero%20reservar%20mi%20plaza%20para%20Encuentra%20tu%20Flow%20del%2027%20de%20junio" class="btn-primary">Reservar mi plaza ahora</a>
-      <div class="event-urgency">Plazas limitadas &middot; Evento presencial</div>
+    <div class="testimonial-card reveal reveal-delay-2">
+      <div class="testimonial-quote">&#8220;</div>
+      <p class="testimonial-text">Creia que ya vivia de forma consciente, hasta que vi patrones que seguian boicoteando mi vida. A partir de ahi, todo empezo a cambiar, incluso mi negocio.</p>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
-<div class="section-full problem-section">
+<!-- FOR WHO -->
+<div class="section-full alt-bg" id="para-ti">
   <section>
     <div class="text-center">
-      <div class="section-badge reveal">Preguntas frecuentes</div>
-      <h2 class="section-title reveal">Resuelve tus dudas</h2>
+      <div class="section-badge reveal">Para quien es</div>
+      <h2 class="section-title reveal">Este programa es para ti si...</h2>
     </div>
 
-    <div class="faq-list" style="margin-top: 40px;">
-      <div class="faq-item reveal reveal-delay-1">
-        <button class="faq-question">
-          <span>&#191;Necesito experiencia previa en neurociencia o desarrollo personal?</span>
-          <span class="faq-arrow">&#9660;</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">
-            No. Esta experiencia esta disenada para cualquier persona que quiera entender como funciona su mente y dejar de repetir patrones. No necesitas conocimientos previos, solo ganas de descubrirte.
-          </div>
+    <div class="for-grid" style="margin-top: 40px;">
+      <div class="for-item reveal reveal-delay-1">
+        <div class="for-icon">&#128176;</div>
+        <div class="for-text">
+          Te da miedo gastar
+          <span>Aunque tengas dinero suficiente, sientes ansiedad cada vez que sale de tu cuenta.</span>
         </div>
       </div>
 
-      <div class="faq-item reveal reveal-delay-2">
-        <button class="faq-question">
-          <span>&#191;Es solo teoria o hay practica?</span>
-          <span class="faq-arrow">&#9660;</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">
-            Es una experiencia vivencial. Hay conceptos de neurociencia explicados de forma accesible, pero sobre todo ejercicios practicos, trabajo corporal y dinamicas que podras aplicar desde el mismo dia.
-          </div>
+      <div class="for-item reveal reveal-delay-2">
+        <div class="for-icon">&#128260;</div>
+        <div class="for-text">
+          Repites patrones con el dinero
+          <span>Ganas y pierdes, llegas a un techo, o siempre acabas en el mismo punto.</span>
         </div>
       </div>
 
-      <div class="faq-item reveal reveal-delay-3">
-        <button class="faq-question">
-          <span>&#191;Que tiene que ver el dinero con el subconsciente?</span>
-          <span class="faq-arrow">&#9660;</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">
-            Tu relacion con el dinero no es racional: esta condicionada por creencias que absorbiste en la infancia. El miedo a gastar, la sensacion de que nunca es suficiente o la dificultad para cobrar lo que vales son patrones subconscientes que se pueden identificar y transformar.
-          </div>
+      <div class="for-item reveal reveal-delay-3">
+        <div class="for-icon">&#128566;</div>
+        <div class="for-text">
+          Sientes culpa por querer mas
+          <span>Como si desear abundancia fuera algo malo o egoista.</span>
         </div>
       </div>
 
-      <div class="faq-item reveal reveal-delay-4">
-        <button class="faq-question">
-          <span>&#191;Como reservo mi plaza?</span>
-          <span class="faq-arrow">&#9660;</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">
-            Haz clic en "Reservar mi plaza" y te contactaremos por WhatsApp para confirmar tu asistencia y darte todos los detalles. Las plazas son limitadas para garantizar una experiencia de calidad.
-          </div>
+      <div class="for-item reveal reveal-delay-4">
+        <div class="for-icon">&#129300;</div>
+        <div class="for-text">
+          Sabes que algo te frena pero no sabes que
+          <span>Has intentado cambiar, pero vuelves al mismo sitio. La respuesta esta en el subconsciente.</span>
+        </div>
+      </div>
+
+      <div class="for-item reveal reveal-delay-1">
+        <div class="for-icon">&#128170;</div>
+        <div class="for-text">
+          Quieres cobrar lo que vales
+          <span>Pero te cuesta poner precios, pedir un aumento o valorar tu trabajo.</span>
+        </div>
+      </div>
+
+      <div class="for-item reveal reveal-delay-2">
+        <div class="for-icon">&#127793;</div>
+        <div class="for-text">
+          Estas lista para un cambio real
+          <span>No mas frases bonitas. Quieres entender por que y herramientas que funcionen.</span>
         </div>
       </div>
     </div>
   </section>
 </div>
 
+<!-- FAQ -->
+<section>
+  <div class="text-center">
+    <div class="section-badge reveal">Preguntas frecuentes</div>
+    <h2 class="section-title reveal">Resuelve tus dudas</h2>
+  </div>
+
+  <div class="faq-list" style="margin-top: 40px;">
+    <div class="faq-item reveal reveal-delay-1">
+      <button class="faq-question">
+        <span>&#191;Necesito saber de neurociencia o psicologia?</span>
+        <span class="faq-arrow">&#9660;</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">No. Todo esta explicado de forma sencilla y practica. No necesitas ningun conocimiento previo, solo la intencion de entenderte mejor.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal reveal-delay-2">
+      <button class="faq-question">
+        <span>&#191;Esto es como la "ley de la atraccion"?</span>
+        <span class="faq-arrow">&#9660;</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">No. Este programa no va de visualizar ni de "vibrar alto". Va de entender como tu mente subconsciente crea patrones automaticos con el dinero y como transformarlos con herramientas reales basadas en neurociencia.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal reveal-delay-3">
+      <button class="faq-question">
+        <span>&#191;Que pasa si no tengo problemas "graves" con el dinero?</span>
+        <span class="faq-arrow">&#9660;</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">No hace falta estar en crisis. Si sientes que el dinero te genera tension, culpa, miedo o limitaciones aunque tu situacion sea "normal", este programa es para ti. Los patrones subconscientes afectan a todos, no solo a quien tiene deudas.</div>
+      </div>
+    </div>
+
+    <div class="faq-item reveal reveal-delay-4">
+      <button class="faq-question">
+        <span>&#191;Como me apunto?</span>
+        <span class="faq-arrow">&#9660;</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Haz clic en "Quiero informacion" y te escribo por WhatsApp con todos los detalles del programa, fechas y precios.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FINAL CTA -->
-<div class="final-cta-section">
-  <div class="final-cta-bg"></div>
-  <div class="final-cta-inner">
-    <div class="section-badge reveal">27 de junio &middot; Barcelona</div>
-    <h2 class="final-cta-title reveal">
-      Deja de vivir desde el piloto automatico
+<div class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="cta-inner">
+    <div class="section-badge reveal">San Inspira</div>
+    <h2 class="cta-title reveal">
+      Tu relacion con el dinero puede cambiar
     </h2>
-    <p class="final-cta-text reveal">
-      No tienes que imaginarlo. Otras personas ya lo han vivido y su relacion con el dinero, sus decisiones y su energia cambiaron por completo. Tu siguiente paso empieza aqui.
+    <p class="cta-text reveal">
+      No es magia. No es pensar en positivo. Es entender que pasa dentro de ti y darle la vuelta. El primer paso es decidir que ya no quieres seguir en piloto automatico.
     </p>
-    <a href="https://wa.me/34660619034?text=Hola%20Sandra%2C%20quiero%20reservar%20mi%20plaza%20para%20Encuentra%20tu%20Flow%20del%2027%20de%20junio" class="btn-primary reveal">Quiero mi plaza</a>
+    <a href="https://wa.me/34660619034?text=Hola%20Sandra%2C%20quiero%20informacion%20sobre%20el%20programa%20de%20dinero%20y%20subconsciente" class="btn-primary reveal">Quiero informacion</a>
   </div>
 </div>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <a href="index.html" class="footer-logo">San<span>Satel</span></a>
+    <a href="#" class="footer-logo">San<span>Inspira</span></a>
     <ul class="footer-links">
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="index.html#servicios">Servicios</a></li>
-      <li><a href="index.html#contacto">Contacto</a></li>
+      <li><a href="#problema">El problema</a></li>
+      <li><a href="#programa">Programa</a></li>
+      <li><a href="#para-ti">Para ti</a></li>
     </ul>
-    <div class="footer-social">
-      <a href="https://www.instagram.com/sansatel_asesoras/" target="_blank" class="social-btn">&#128247;</a>
-      <a href="mailto:contacto@sansatel.com" class="social-btn">&#9993;</a>
-      <a href="https://www.sansatel.com" target="_blank" class="social-btn">&#127760;</a>
-    </div>
   </div>
   <div class="footer-copy">
-    &copy; 2026 SanSatel Energy &middot; Encuentra tu Flow!
+    &copy; 2026 San Inspira &middot; Sandra Sanchez
   </div>
 </footer>
 
 <script>
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
-
-  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
   document.querySelectorAll('.faq-question').forEach(btn => {
     btn.addEventListener('click', () => {
