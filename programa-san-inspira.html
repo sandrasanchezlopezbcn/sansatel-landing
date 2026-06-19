@@ -659,6 +659,174 @@
     font-style: italic;
   }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  /* DASHBOARD */
+  .dashboard {
+    max-width: 800px; margin: 0 auto; padding: 0 40px 40px;
+  }
+  .dashboard-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 20px; padding: 32px; position: relative; overflow: hidden;
+  }
+  .dashboard-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--purple), var(--gold), var(--green));
+  }
+  .dashboard-title {
+    font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700;
+    margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+  }
+  .dashboard-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;
+  }
+  .dash-stat {
+    padding: 18px; border-radius: 14px; text-align: center;
+    background: rgba(155,127,202,0.06); border: 1px solid rgba(155,127,202,0.12);
+  }
+  .dash-stat-num {
+    font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 800;
+    background: linear-gradient(135deg, var(--purple-light), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .dash-stat-label { font-size: 12px; color: var(--gray); margin-top: 4px; font-weight: 500; }
+  .dash-patterns { margin-top: 16px; }
+  .dash-patterns-title {
+    font-size: 13px; font-weight: 700; color: var(--gray); text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 10px;
+  }
+  .dash-pattern-bar {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+  }
+  .dash-pattern-name { font-size: 12px; color: var(--gray); width: 90px; flex-shrink: 0; font-weight: 600; }
+  .dash-pattern-track {
+    flex: 1; height: 8px; background: rgba(155,127,202,0.1);
+    border-radius: 4px; overflow: hidden;
+  }
+  .dash-pattern-fill {
+    height: 100%; border-radius: 4px; transition: width 0.8s ease;
+    background: linear-gradient(90deg, var(--purple), var(--gold));
+  }
+  .dash-pattern-count { font-size: 11px; color: var(--gray2); width: 20px; text-align: right; }
+  .dash-recommendation {
+    margin-top: 20px; padding: 16px; border-radius: 12px;
+    background: rgba(91,168,138,0.08); border: 1px solid rgba(91,168,138,0.2);
+  }
+  .dash-recommendation-title {
+    font-size: 13px; font-weight: 700; color: var(--green); margin-bottom: 6px;
+  }
+  .dash-recommendation-text { font-size: 13px; color: var(--gray); line-height: 1.6; }
+  .dash-recommendation a { color: var(--purple-light); font-weight: 600; }
+  .dash-empty {
+    text-align: center; padding: 20px; color: var(--gray2); font-size: 14px;
+    font-style: italic;
+  }
+  @media (max-width: 500px) {
+    .dashboard { padding: 0 20px 30px; }
+    .dashboard-grid { grid-template-columns: 1fr; }
+  }
+
+  /* MODULE PROGRESS BARS */
+  .module-progress-bar {
+    width: 100%; height: 6px; background: rgba(155,127,202,0.1);
+    border-radius: 3px; margin-top: 12px; overflow: hidden;
+  }
+  .module-progress-fill {
+    height: 100%; border-radius: 3px; transition: width 0.6s ease;
+    background: linear-gradient(90deg, var(--purple), var(--green));
+  }
+
+  /* CONFETTI */
+  .confetti-container {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 9999; overflow: hidden;
+  }
+  .confetti-piece {
+    position: absolute; width: 10px; height: 10px;
+    animation: confettiFall 3s ease-out forwards;
+  }
+  @keyframes confettiFall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* EXERCISE COMPLETE CELEBRATION */
+  .exercise-complete .exercise-badge {
+    background: rgba(91,168,138,0.25); border-color: var(--green); color: var(--green);
+  }
+
+  /* REPROGRAMMING PHRASE */
+  .reprogram-phrase {
+    margin-top: 14px; padding: 16px 18px; border-radius: 12px;
+    background: linear-gradient(135deg, rgba(91,168,138,0.08), rgba(155,127,202,0.08));
+    border: 1px solid rgba(91,168,138,0.2); display: none;
+  }
+  .reprogram-phrase.show { display: block; animation: fadeIn 0.5s ease; }
+  .reprogram-phrase-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--green); margin-bottom: 8px;
+  }
+  .reprogram-phrase-text {
+    font-size: 15px; font-weight: 600; color: var(--white); line-height: 1.5;
+    font-style: italic;
+  }
+  .reprogram-phrase-instruction {
+    font-size: 12px; color: var(--gray2); margin-top: 8px;
+  }
+
+  /* DIARY SECTION */
+  .diary-section {
+    max-width: 900px; margin: 0 auto; padding: 80px 40px;
+    border-top: 1px solid var(--border);
+  }
+  .diary-header {
+    text-align: center; margin-bottom: 40px;
+  }
+  .diary-title {
+    font-family: 'Space Grotesk', sans-serif; font-size: clamp(24px, 3vw, 34px);
+    font-weight: 700; margin-bottom: 10px;
+  }
+  .diary-subtitle { font-size: 15px; color: var(--gray); max-width: 500px; margin: 0 auto; }
+  .diary-tabs {
+    display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;
+  }
+  .diary-tab {
+    padding: 8px 16px; border-radius: 100px; border: 1px solid var(--border);
+    background: transparent; color: var(--gray); font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif;
+  }
+  .diary-tab:hover { border-color: var(--purple); color: var(--purple-light); }
+  .diary-tab.active {
+    background: var(--purple); color: #fff; border-color: var(--purple);
+  }
+  .diary-entries { display: flex; flex-direction: column; gap: 16px; }
+  .diary-entry {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px; animation: fadeIn 0.3s ease;
+  }
+  .diary-entry-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 10px;
+  }
+  .diary-entry-exercise {
+    font-size: 13px; font-weight: 700; color: var(--purple-light);
+  }
+  .diary-entry-date { font-size: 12px; color: var(--gray2); }
+  .diary-entry-text {
+    font-size: 14px; color: var(--gray); line-height: 1.7;
+    white-space: pre-wrap; word-break: break-word;
+  }
+  .diary-entry-module {
+    display: inline-block; font-size: 11px; padding: 2px 10px; border-radius: 100px;
+    background: rgba(201,149,107,0.15); color: var(--gold); font-weight: 600;
+    margin-top: 10px;
+  }
+  .diary-empty {
+    text-align: center; padding: 40px; color: var(--gray2);
+    font-size: 14px; font-style: italic;
+  }
+  @media (max-width: 900px) {
+    .diary-section { padding: 60px 20px; }
+  }
+
 </style>
 </head>
 <body>
@@ -673,6 +841,7 @@
     <li><a href="#modulo-4">Mod 4</a></li>
     <li><a href="#modulo-5">Mod 5</a></li>
     <li><a href="#modulo-6">Mod 6</a></li>
+    <li><a href="#mi-diario">Mi diario</a></li>
   </ul>
   <a href="https://wa.me/34660619034?text=Hola%2C%20quiero%20informacion%20sobre%20el%20programa%20San%20Inspira" class="nav-cta">Quiero saber mas</a>
 </nav>
@@ -701,6 +870,35 @@
     <a href="#modulo-4" class="index-item"><div class="index-num">4</div>Reprograma tu sistema<span class="index-progress-badge" data-index-mod="4">0/3</span></a>
     <a href="#modulo-5" class="index-item"><div class="index-num">5</div>Decisiones desde la abundancia<span class="index-progress-badge" data-index-mod="5">0/2</span></a>
     <a href="#modulo-6" class="index-item"><div class="index-num">6</div>Tu nueva relacion<span class="index-progress-badge" data-index-mod="6">0/2</span></a>
+    <a href="#mi-diario" class="index-item" style="grid-column: 1/-1; background: rgba(201,149,107,0.08); border-color: rgba(201,149,107,0.2);"><div class="index-num" style="background: rgba(155,127,202,0.2); color: var(--purple-light);">&#128214;</div>Mi diario de transformacion</a>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <div class="dashboard-card reveal">
+    <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
+    <div class="dashboard-grid">
+      <div class="dash-stat">
+        <div class="dash-stat-num" id="dash-exercises">0/13</div>
+        <div class="dash-stat-label">Ejercicios completados</div>
+      </div>
+      <div class="dash-stat">
+        <div class="dash-stat-num" id="dash-words">0</div>
+        <div class="dash-stat-label">Palabras escritas</div>
+      </div>
+    </div>
+    <div class="dash-patterns" id="dash-patterns-section" style="display:none;">
+      <div class="dash-patterns-title">Patrones detectados en tu escritura</div>
+      <div id="dash-patterns-bars"></div>
+    </div>
+    <div class="dash-recommendation" id="dash-recommendation" style="display:none;">
+      <div class="dash-recommendation-title">✨ Recomendacion personalizada</div>
+      <div class="dash-recommendation-text" id="dash-recommendation-text"></div>
+    </div>
+    <div class="dash-empty" id="dash-empty">
+      Empieza a completar ejercicios y escribir para ver tu resumen aqui
+    </div>
   </div>
 </div>
 
@@ -712,7 +910,8 @@
   <div class="module-header">
     <div class="module-label">Modulo 1 <span class="module-progress-badge" data-mod-progress="1">0/2</span></div>
     <h2 class="module-title">Tu mente y el dinero</h2>
-    <div class="module-objective">Objetivo: Entender como tu subconsciente absorbio creencias sobre el dinero y por que sigue ejecutandolas en modo automatico, sin que te des cuenta.</div>
+    <div class="module-objective">Objetivo: Entender como tu subconsciente absorbio creencias sobre el dinero y por que sigue ejecutandolas en modo automatico, sin que te des cuenta.
+    <div class="module-progress-bar"><div class="module-progress-fill" id="mod-bar-1" style="width:0%"></div></div></div>
   </div>
 
   <!-- TEORIA -->
@@ -777,6 +976,7 @@
       <button class="exercise-save-btn" onclick="saveExercise('mod1-ex1')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod1-ex1">Guardado &#10003;</span>
       <div class="analysis-panel" id="analysis-mod1-ex1"></div>
+      <div class="reprogram-phrase" id="reprogram-mod1-ex1"></div>
     </div>
 
     <div class="exercise reveal" data-exercise="mod1-ex2">
@@ -797,6 +997,7 @@
       <button class="exercise-save-btn" onclick="saveExercise('mod1-ex2')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod1-ex2">Guardado &#10003;</span>
       <div class="analysis-panel" id="analysis-mod1-ex2"></div>
+      <div class="reprogram-phrase" id="reprogram-mod1-ex2"></div>
     </div>
   </div>
 
@@ -815,6 +1016,34 @@
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que decisiones tomarias manana si no tuvieras miedo con el dinero?</li>
         <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
       </ul>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <div class="dashboard-card reveal">
+    <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
+    <div class="dashboard-grid">
+      <div class="dash-stat">
+        <div class="dash-stat-num" id="dash-exercises">0/13</div>
+        <div class="dash-stat-label">Ejercicios completados</div>
+      </div>
+      <div class="dash-stat">
+        <div class="dash-stat-num" id="dash-words">0</div>
+        <div class="dash-stat-label">Palabras escritas</div>
+      </div>
+    </div>
+    <div class="dash-patterns" id="dash-patterns-section" style="display:none;">
+      <div class="dash-patterns-title">Patrones detectados en tu escritura</div>
+      <div id="dash-patterns-bars"></div>
+    </div>
+    <div class="dash-recommendation" id="dash-recommendation" style="display:none;">
+      <div class="dash-recommendation-title">✨ Recomendacion personalizada</div>
+      <div class="dash-recommendation-text" id="dash-recommendation-text"></div>
+    </div>
+    <div class="dash-empty" id="dash-empty">
+      Empieza a completar ejercicios y escribir para ver tu resumen aqui
     </div>
   </div>
 </div>
@@ -918,6 +1147,7 @@
       <button class="exercise-save-btn" onclick="saveExercise('mod2-ex1')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod2-ex1">Guardado &#10003;</span>
       <div class="analysis-panel" id="analysis-mod2-ex1"></div>
+      <div class="reprogram-phrase" id="reprogram-mod2-ex1"></div>
     </div>
 
     <div class="exercise reveal" data-exercise="mod2-ex2">
@@ -937,6 +1167,7 @@
       <button class="exercise-save-btn" onclick="saveExercise('mod2-ex2')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod2-ex2">Guardado &#10003;</span>
       <div class="analysis-panel" id="analysis-mod2-ex2"></div>
+      <div class="reprogram-phrase" id="reprogram-mod2-ex2"></div>
     </div>
   </div>
 
@@ -952,6 +1183,34 @@
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> Si un amigo te contara tus patrones con el dinero como si fueran los suyos, &#191;que le dirias?</li>
         <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
       </ul>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <div class="dashboard-card reveal">
+    <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
+    <div class="dashboard-grid">
+      <div class="dash-stat">
+        <div class="dash-stat-num" id="dash-exercises">0/13</div>
+        <div class="dash-stat-label">Ejercicios completados</div>
+      </div>
+      <div class="dash-stat">
+        <div class="dash-stat-num" id="dash-words">0</div>
+        <div class="dash-stat-label">Palabras escritas</div>
+      </div>
+    </div>
+    <div class="dash-patterns" id="dash-patterns-section" style="display:none;">
+      <div class="dash-patterns-title">Patrones detectados en tu escritura</div>
+      <div id="dash-patterns-bars"></div>
+    </div>
+    <div class="dash-recommendation" id="dash-recommendation" style="display:none;">
+      <div class="dash-recommendation-title">✨ Recomendacion personalizada</div>
+      <div class="dash-recommendation-text" id="dash-recommendation-text"></div>
+    </div>
+    <div class="dash-empty" id="dash-empty">
+      Empieza a completar ejercicios y escribir para ver tu resumen aqui
     </div>
   </div>
 </div>
@@ -1008,6 +1267,7 @@
       <button class="exercise-save-btn" onclick="saveExercise('mod3-ex1')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod3-ex1">Guardado &#10003;</span>
       <div class="analysis-panel" id="analysis-mod3-ex1"></div>
+      <div class="reprogram-phrase" id="reprogram-mod3-ex1"></div>
     </div>
 
     <div class="exercise reveal reveal-delay-2" data-exercise="mod3-ex2">
@@ -1027,6 +1287,7 @@
       <button class="exercise-save-btn" onclick="saveExercise('mod3-ex2')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod3-ex2">Guardado &#10003;</span>
       <div class="analysis-panel" id="analysis-mod3-ex2"></div>
+      <div class="reprogram-phrase" id="reprogram-mod3-ex2"></div>
     </div>
   </div>
 
@@ -1042,6 +1303,34 @@
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Hay algo que quieres hacer pero no haces "porque no puedo permitirmelo"? &#191;Es realmente por dinero o por miedo?</li>
         <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
       </ul>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <div class="dashboard-card reveal">
+    <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
+    <div class="dashboard-grid">
+      <div class="dash-stat">
+        <div class="dash-stat-num" id="dash-exercises">0/13</div>
+        <div class="dash-stat-label">Ejercicios completados</div>
+      </div>
+      <div class="dash-stat">
+        <div class="dash-stat-num" id="dash-words">0</div>
+        <div class="dash-stat-label">Palabras escritas</div>
+      </div>
+    </div>
+    <div class="dash-patterns" id="dash-patterns-section" style="display:none;">
+      <div class="dash-patterns-title">Patrones detectados en tu escritura</div>
+      <div id="dash-patterns-bars"></div>
+    </div>
+    <div class="dash-recommendation" id="dash-recommendation" style="display:none;">
+      <div class="dash-recommendation-title">✨ Recomendacion personalizada</div>
+      <div class="dash-recommendation-text" id="dash-recommendation-text"></div>
+    </div>
+    <div class="dash-empty" id="dash-empty">
+      Empieza a completar ejercicios y escribir para ver tu resumen aqui
     </div>
   </div>
 </div>
@@ -1107,6 +1396,7 @@
       <button class="exercise-save-btn" onclick="saveExercise('mod4-ex1')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod4-ex1">Guardado &#10003;</span>
       <div class="analysis-panel" id="analysis-mod4-ex1"></div>
+      <div class="reprogram-phrase" id="reprogram-mod4-ex1"></div>
     </div>
 
     <div class="exercise reveal reveal-delay-2" data-exercise="mod4-ex2">
@@ -1126,6 +1416,7 @@
       <button class="exercise-save-btn" onclick="saveExercise('mod4-ex2')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod4-ex2">Guardado &#10003;</span>
       <div class="analysis-panel" id="analysis-mod4-ex2"></div>
+      <div class="reprogram-phrase" id="reprogram-mod4-ex2"></div>
     </div>
 
     <div class="exercise reveal" data-exercise="mod4-ex3">
@@ -1146,6 +1437,7 @@
       <button class="exercise-save-btn" onclick="saveExercise('mod4-ex3')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod4-ex3">Guardado &#10003;</span>
       <div class="analysis-panel" id="analysis-mod4-ex3"></div>
+      <div class="reprogram-phrase" id="reprogram-mod4-ex3"></div>
     </div>
   </div>
 
@@ -1161,6 +1453,34 @@
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que version de ti aparece en la visualizacion? Describela con detalle.</li>
         <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
       </ul>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <div class="dashboard-card reveal">
+    <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
+    <div class="dashboard-grid">
+      <div class="dash-stat">
+        <div class="dash-stat-num" id="dash-exercises">0/13</div>
+        <div class="dash-stat-label">Ejercicios completados</div>
+      </div>
+      <div class="dash-stat">
+        <div class="dash-stat-num" id="dash-words">0</div>
+        <div class="dash-stat-label">Palabras escritas</div>
+      </div>
+    </div>
+    <div class="dash-patterns" id="dash-patterns-section" style="display:none;">
+      <div class="dash-patterns-title">Patrones detectados en tu escritura</div>
+      <div id="dash-patterns-bars"></div>
+    </div>
+    <div class="dash-recommendation" id="dash-recommendation" style="display:none;">
+      <div class="dash-recommendation-title">✨ Recomendacion personalizada</div>
+      <div class="dash-recommendation-text" id="dash-recommendation-text"></div>
+    </div>
+    <div class="dash-empty" id="dash-empty">
+      Empieza a completar ejercicios y escribir para ver tu resumen aqui
     </div>
   </div>
 </div>
@@ -1227,6 +1547,7 @@
       <button class="exercise-save-btn" onclick="saveExercise('mod5-ex1')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod5-ex1">Guardado &#10003;</span>
       <div class="analysis-panel" id="analysis-mod5-ex1"></div>
+      <div class="reprogram-phrase" id="reprogram-mod5-ex1"></div>
     </div>
 
     <div class="exercise reveal" data-exercise="mod5-ex2">
@@ -1247,6 +1568,7 @@
       <button class="exercise-save-btn" onclick="saveExercise('mod5-ex2')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod5-ex2">Guardado &#10003;</span>
       <div class="analysis-panel" id="analysis-mod5-ex2"></div>
+      <div class="reprogram-phrase" id="reprogram-mod5-ex2"></div>
     </div>
   </div>
 
@@ -1262,6 +1584,34 @@
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Cuando fue la ultima vez que tomaste una decision financiera desde la calma total? &#191;Que decidiste?</li>
         <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
       </ul>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <div class="dashboard-card reveal">
+    <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
+    <div class="dashboard-grid">
+      <div class="dash-stat">
+        <div class="dash-stat-num" id="dash-exercises">0/13</div>
+        <div class="dash-stat-label">Ejercicios completados</div>
+      </div>
+      <div class="dash-stat">
+        <div class="dash-stat-num" id="dash-words">0</div>
+        <div class="dash-stat-label">Palabras escritas</div>
+      </div>
+    </div>
+    <div class="dash-patterns" id="dash-patterns-section" style="display:none;">
+      <div class="dash-patterns-title">Patrones detectados en tu escritura</div>
+      <div id="dash-patterns-bars"></div>
+    </div>
+    <div class="dash-recommendation" id="dash-recommendation" style="display:none;">
+      <div class="dash-recommendation-title">✨ Recomendacion personalizada</div>
+      <div class="dash-recommendation-text" id="dash-recommendation-text"></div>
+    </div>
+    <div class="dash-empty" id="dash-empty">
+      Empieza a completar ejercicios y escribir para ver tu resumen aqui
     </div>
   </div>
 </div>
@@ -1324,6 +1674,7 @@
       <button class="exercise-save-btn" onclick="saveExercise('mod6-ex1')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod6-ex1">Guardado &#10003;</span>
       <div class="analysis-panel" id="analysis-mod6-ex1"></div>
+      <div class="reprogram-phrase" id="reprogram-mod6-ex1"></div>
     </div>
 
     <div class="exercise reveal" data-exercise="mod6-ex2">
@@ -1344,6 +1695,7 @@
       <button class="exercise-save-btn" onclick="saveExercise('mod6-ex2')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod6-ex2">Guardado &#10003;</span>
       <div class="analysis-panel" id="analysis-mod6-ex2"></div>
+      <div class="reprogram-phrase" id="reprogram-mod6-ex2"></div>
     </div>
   </div>
 
@@ -1365,12 +1717,62 @@
   </div>
 </div>
 
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <div class="dashboard-card reveal">
+    <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
+    <div class="dashboard-grid">
+      <div class="dash-stat">
+        <div class="dash-stat-num" id="dash-exercises">0/13</div>
+        <div class="dash-stat-label">Ejercicios completados</div>
+      </div>
+      <div class="dash-stat">
+        <div class="dash-stat-num" id="dash-words">0</div>
+        <div class="dash-stat-label">Palabras escritas</div>
+      </div>
+    </div>
+    <div class="dash-patterns" id="dash-patterns-section" style="display:none;">
+      <div class="dash-patterns-title">Patrones detectados en tu escritura</div>
+      <div id="dash-patterns-bars"></div>
+    </div>
+    <div class="dash-recommendation" id="dash-recommendation" style="display:none;">
+      <div class="dash-recommendation-title">✨ Recomendacion personalizada</div>
+      <div class="dash-recommendation-text" id="dash-recommendation-text"></div>
+    </div>
+    <div class="dash-empty" id="dash-empty">
+      Empieza a completar ejercicios y escribir para ver tu resumen aqui
+    </div>
+  </div>
+</div>
+
 
 <!-- FINAL CTA -->
 <div class="final-cta">
   <h2 class="final-cta-title">Este es tu programa</h2>
   <p class="final-cta-text">6 modulos, 13 ejercicios, un diario de reflexion y un plan de 90 dias. Todo lo que necesitas para transformar tu relacion con el dinero desde la raiz.</p>
   <a href="https://wa.me/34660619034?text=Hola%2C%20quiero%20informacion%20sobre%20el%20programa%20San%20Inspira" class="btn-primary">Quiero saber mas</a>
+</div>
+
+
+<!-- MI DIARIO -->
+<div class="diary-section" id="mi-diario">
+  <div class="diary-header reveal">
+    <div class="page-badge">Tu evolucion</div>
+    <h2 class="diary-title">Mi diario de transformacion</h2>
+    <p class="diary-subtitle">Todo lo que has escrito en el programa, organizado para que puedas ver tu evolucion.</p>
+  </div>
+  <div class="diary-tabs" id="diary-tabs">
+    <button class="diary-tab active" onclick="filterDiary('all')">Todo</button>
+    <button class="diary-tab" onclick="filterDiary(1)">Modulo 1</button>
+    <button class="diary-tab" onclick="filterDiary(2)">Modulo 2</button>
+    <button class="diary-tab" onclick="filterDiary(3)">Modulo 3</button>
+    <button class="diary-tab" onclick="filterDiary(4)">Modulo 4</button>
+    <button class="diary-tab" onclick="filterDiary(5)">Modulo 5</button>
+    <button class="diary-tab" onclick="filterDiary(6)">Modulo 6</button>
+  </div>
+  <div class="diary-entries" id="diary-entries">
+    <div class="diary-empty">Aun no has escrito nada. Completa ejercicios para ver tu diario aqui.</div>
+  </div>
 </div>
 
 <!-- FOOTER -->
@@ -1419,6 +1821,8 @@ function loadProgress() {
     if (data['ref-' + i]) ta.value = data['ref-' + i];
   });
   updateProgress();
+  updateDashboard();
+  renderDiary();
 }
 
 const patterns = [
@@ -1456,6 +1860,8 @@ function analyzeText(text, exerciseId) {
     panel.innerHTML = '<div class="analysis-header">\ud83d\udca1 Tu reflexion:</div><div class="analysis-motivational">Escribir lo que sientes es el primer paso para cambiar. Tu subconsciente esta empezando a hacer consciente lo que antes era automatico. Sigue escribiendo \u2014 cada palabra te acerca a tu nueva relacion con el dinero.</div>';
   }
   panel.classList.add('show');
+  const detectedNames = found.map(p => p.name);
+  showReprogramPhrase(exerciseId, detectedNames);
 }
 
 function saveExercise(id) {
@@ -1527,6 +1933,8 @@ document.querySelectorAll('.reflection-textarea').forEach((ta, i) => {
     const data = JSON.parse(localStorage.getItem('sanInspira') || '{}');
     data['ref-' + i] = ta.value;
     localStorage.setItem('sanInspira', JSON.stringify(data));
+    updateDashboard();
+    renderDiary();
   });
 });
 
@@ -1550,7 +1958,275 @@ function resetProgress() {
   }
 }
 
+
+
+// Exercise names for diary
+const exerciseNames = {
+  'mod1-ex1': 'Arqueologia financiera',
+  'mod1-ex2': 'El termostato financiero',
+  'mod2-ex1': 'Test Money Script',
+  'mod2-ex2': 'Mapa de sabotaje',
+  'mod3-ex1': 'Carta al dinero',
+  'mod3-ex2': 'Inventario de valor',
+  'mod4-ex1': 'Tapping EFT',
+  'mod4-ex2': 'Reencuadre neuronal',
+  'mod4-ex3': 'Meditacion guiada',
+  'mod5-ex1': 'Check-in corporal',
+  'mod5-ex2': 'Expansion gradual',
+  'mod6-ex1': 'Manifiesto financiero',
+  'mod6-ex2': 'Plan 90 dias'
+};
+
+// Reprogramming phrases based on detected patterns
+const reprogramPhrases = {
+  'Miedo / Ansiedad': [
+    'El dinero es seguro en mis manos. Yo se cuidar de mi y de mis recursos.',
+    'Merezco sentirme tranquila con el dinero. La abundancia es mi estado natural.',
+    'Suelto el miedo y confio en mi capacidad de generar ingresos.'
+  ],
+  'Culpa': [
+    'Merezco recibir abundancia. Cuidar de mi no es egoismo, es responsabilidad.',
+    'Cada euro que recibo es un reflejo del valor que aporto al mundo.',
+    'Me permito prosperar sin culpa. Mi abundancia no le quita nada a nadie.'
+  ],
+  'Escasez': [
+    'Hay suficiente para mi y para todos. El dinero fluye hacia mi con facilidad.',
+    'Soy una persona que atrae abundancia. Siempre hay mas en camino.',
+    'Elijo ver la abundancia que ya existe en mi vida y abrirme a recibir mas.'
+  ],
+  'Control / Rigidez': [
+    'Puedo soltar el control y confiar en que estare bien. El dinero fluye mejor cuando no lo aprieto.',
+    'Me permito disfrutar de lo que tengo. Gastar con consciencia es diferente a gastar con miedo.',
+    'Mi seguridad no depende de controlar cada centimo. Yo soy mi mayor recurso.'
+  ],
+  'Comparacion': [
+    'Mi camino financiero es unico. No necesito la aprobacion de nadie para sentirme valiosa.',
+    'Mi valor no se mide en euros. Soy suficiente exactamente como soy ahora.',
+    'Celebro el exito de otros porque se que hay espacio para el mio tambien.'
+  ],
+  'Sabotaje': [
+    'Me permito tener exito y mantenerlo. No necesito volver a mi zona comoda.',
+    'Merezco que las cosas me vayan bien de forma sostenida. Este es mi nuevo nivel.',
+    'Elijo romper el ciclo hoy. Soy capaz de sostener la abundancia que llega.'
+  ]
+};
+
+// Get reprogramming phrase for a pattern
+function getReprogramPhrase(patternName) {
+  const phrases = reprogramPhrases[patternName];
+  if (!phrases) return null;
+  return phrases[Math.floor(Math.random() * phrases.length)];
+}
+
+// Show reprogramming phrase after analysis
+function showReprogramPhrase(exerciseId, detectedPatterns) {
+  const panel = document.getElementById('reprogram-' + exerciseId);
+  if (!panel || detectedPatterns.length === 0) return;
+  const mainPattern = detectedPatterns[0];
+  const phrase = getReprogramPhrase(mainPattern);
+  if (!phrase) return;
+  panel.innerHTML = '<div class="reprogram-phrase-label">Tu frase de reprogramacion</div>' +
+    '<div class="reprogram-phrase-text">"' + phrase + '"</div>' +
+    '<div class="reprogram-phrase-instruction">Repite esta frase en voz alta 3 veces, sintiendo cada palabra. Hazlo cada manana durante 21 dias.</div>';
+  panel.classList.add('show');
+  const detectedNames = found.map(p => p.name);
+  showReprogramPhrase(exerciseId, detectedNames);
+}
+
+// Confetti celebration
+function launchConfetti() {
+  const container = document.createElement('div');
+  container.className = 'confetti-container';
+  document.body.appendChild(container);
+  const colors = ['#B8A9D4', '#9B7FCA', '#C9956B', '#E0B08A', '#5BA88A', '#FFD700', '#FF6B9D'];
+  for (let i = 0; i < 50; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + '%';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDelay = Math.random() * 0.5 + 's';
+    piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+    const shapes = ['circle', 'square', 'triangle'];
+    const shape = shapes[Math.floor(Math.random() * shapes.length)];
+    if (shape === 'circle') piece.style.borderRadius = '50%';
+    if (shape === 'triangle') {
+      piece.style.width = '0'; piece.style.height = '0';
+      piece.style.borderLeft = '5px solid transparent';
+      piece.style.borderRight = '5px solid transparent';
+      piece.style.borderBottom = '10px solid ' + colors[Math.floor(Math.random() * colors.length)];
+      piece.style.background = 'none';
+    }
+    container.appendChild(piece);
+  }
+  setTimeout(() => container.remove(), 4000);
+}
+
+// Track completed modules for confetti
+const celebratedModules = new Set();
+
+// Update dashboard
+function updateDashboard() {
+  const data = JSON.parse(localStorage.getItem('sanInspira') || '{}');
+  let completed = 0;
+  let totalWords = 0;
+  const patternCounts = {};
+
+  Object.keys(exerciseConfig).forEach(id => {
+    if (data[id] && data[id].done) completed++;
+    if (data[id] && data[id].text) {
+      totalWords += data[id].text.trim().split(/\s+/).filter(w => w.length > 0).length;
+      // Count patterns in this text
+      const lower = data[id].text.toLowerCase();
+      patterns.forEach(p => {
+        const matches = p.keys.filter(k => lower.includes(k)).length;
+        if (matches > 0) patternCounts[p.name] = (patternCounts[p.name] || 0) + matches;
+      });
+    }
+  });
+
+  // Also count reflection words
+  Object.keys(data).forEach(key => {
+    if (key.startsWith('ref-') && data[key]) {
+      totalWords += data[key].trim().split(/\s+/).filter(w => w.length > 0).length;
+    }
+  });
+
+  const dashEx = document.getElementById('dash-exercises');
+  const dashWords = document.getElementById('dash-words');
+  const dashEmpty = document.getElementById('dash-empty');
+  const dashPatternsSection = document.getElementById('dash-patterns-section');
+  const dashPatternsBars = document.getElementById('dash-patterns-bars');
+  const dashRec = document.getElementById('dash-recommendation');
+  const dashRecText = document.getElementById('dash-recommendation-text');
+
+  if (dashEx) dashEx.textContent = completed + '/13';
+  if (dashWords) dashWords.textContent = totalWords;
+
+  if (completed > 0 || totalWords > 0) {
+    if (dashEmpty) dashEmpty.style.display = 'none';
+  }
+
+  // Pattern bars
+  const patternNames = Object.keys(patternCounts);
+  if (patternNames.length > 0 && dashPatternsSection && dashPatternsBars) {
+    dashPatternsSection.style.display = 'block';
+    const maxCount = Math.max(...Object.values(patternCounts));
+    dashPatternsBars.innerHTML = patternNames
+      .sort((a,b) => patternCounts[b] - patternCounts[a])
+      .map(name => {
+        const pct = Math.round((patternCounts[name] / maxCount) * 100);
+        return '<div class="dash-pattern-bar">' +
+          '<div class="dash-pattern-name">' + name.split(' / ')[0] + '</div>' +
+          '<div class="dash-pattern-track"><div class="dash-pattern-fill" style="width:' + pct + '%"></div></div>' +
+          '<div class="dash-pattern-count">' + patternCounts[name] + '</div></div>';
+      }).join('');
+
+    // Recommendation based on top pattern
+    const topPattern = patternNames.sort((a,b) => patternCounts[b] - patternCounts[a])[0];
+    if (dashRec && dashRecText) {
+      dashRec.style.display = 'block';
+      const recommendations = {
+        'Miedo / Ansiedad': 'Tu patron mas frecuente es el <strong>miedo</strong>. Te recomendamos especialmente el <a href="#modulo-5">Modulo 5</a> (regulacion del sistema nervioso) y la <a href="#modulo-4">meditacion del Modulo 4</a>.',
+        'Culpa': 'La <strong>culpa</strong> aparece mucho en tu escritura. Trabaja el <a href="#modulo-4">Tapping del Modulo 4</a> enfocado en "merezco recibir" y el <a href="#modulo-3">Inventario de valor</a>.',
+        'Escasez': 'Tu mente repite patrones de <strong>escasez</strong>. La <a href="#modulo-4">visualizacion del Modulo 4</a> y la <a href="#modulo-5">expansion gradual del Modulo 5</a> son clave para ti.',
+        'Control / Rigidez': 'Detectamos mucho <strong>control</strong> en tu relacion con el dinero. El <a href="#modulo-5">ejercicio de expansion gradual</a> te ayudara a soltar la rigidez poco a poco.',
+        'Comparacion': 'Te <strong>comparas</strong> con otros economicamente. Relee tu <a href="#modulo-3">Inventario de valor</a> y recuerda: tu camino es unico.',
+        'Sabotaje': 'Reconoces patrones de <strong>sabotaje</strong>. Eso es un gran paso. Revisa tu <a href="#modulo-2">Mapa de sabotaje</a> y usa el <a href="#modulo-4">Tapping</a> para soltar la creencia que lo causa.'
+      };
+      dashRecText.innerHTML = recommendations[topPattern] || '';
+    }
+  }
+
+  // Module progress bars
+  const modCounts = {1:{t:2,d:0},2:{t:2,d:0},3:{t:2,d:0},4:{t:3,d:0},5:{t:2,d:0},6:{t:2,d:0}};
+  Object.keys(exerciseConfig).forEach(id => {
+    if (data[id] && data[id].done) modCounts[exerciseConfig[id].mod].d++;
+  });
+  for (let m = 1; m <= 6; m++) {
+    const bar = document.getElementById('mod-bar-' + m);
+    if (bar) {
+      const pct = Math.round((modCounts[m].d / modCounts[m].t) * 100);
+      bar.style.width = pct + '%';
+    }
+    // Confetti when module completed
+    if (modCounts[m].d === modCounts[m].t && !celebratedModules.has(m)) {
+      celebratedModules.add(m);
+      if (completed > 0) launchConfetti();
+    }
+  }
+}
+
+// Diary
+let currentDiaryFilter = 'all';
+
+function filterDiary(mod) {
+  currentDiaryFilter = mod;
+  document.querySelectorAll('.diary-tab').forEach(tab => tab.classList.remove('active'));
+  event.target.classList.add('active');
+  renderDiary();
+}
+
+function renderDiary() {
+  const data = JSON.parse(localStorage.getItem('sanInspira') || '{}');
+  const container = document.getElementById('diary-entries');
+  if (!container) return;
+
+  const entries = [];
+
+  // Collect exercise entries
+  Object.keys(exerciseConfig).forEach(id => {
+    if (data[id] && data[id].text && data[id].text.trim().length > 0) {
+      entries.push({
+        id: id,
+        name: exerciseNames[id] || id,
+        mod: exerciseConfig[id].mod,
+        text: data[id].text,
+        date: data[id].date || 'Sin fecha'
+      });
+    }
+  });
+
+  // Collect reflection entries
+  document.querySelectorAll('.reflection-textarea').forEach((ta, i) => {
+    const key = 'ref-' + i;
+    if (data[key] && data[key].trim().length > 0) {
+      entries.push({
+        id: key,
+        name: 'Reflexion',
+        mod: Math.ceil((i + 1) / 3) || 1,
+        text: data[key],
+        date: ''
+      });
+    }
+  });
+
+  // Filter
+  const filtered = currentDiaryFilter === 'all' ? entries : entries.filter(e => e.mod === currentDiaryFilter);
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="diary-empty">Aun no hay entradas' + (currentDiaryFilter !== 'all' ? ' en este modulo' : '') + '. Escribe en los ejercicios para ver tu diario.</div>';
+    return;
+  }
+
+  // Sort by date descending
+  filtered.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+  container.innerHTML = filtered.map(entry => {
+    const dateStr = entry.date ? new Date(entry.date + 'T00:00:00').toLocaleDateString('es-ES', {day:'numeric',month:'long',year:'numeric'}) : '';
+    return '<div class="diary-entry">' +
+      '<div class="diary-entry-header">' +
+        '<div class="diary-entry-exercise">' + entry.name + '</div>' +
+        (dateStr ? '<div class="diary-entry-date">' + dateStr + '</div>' : '') +
+      '</div>' +
+      '<div class="diary-entry-text">' + entry.text.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>' +
+      '<div class="diary-entry-module">Modulo ' + entry.mod + '</div>' +
+    '</div>';
+  }).join('');
+}
+
 loadProgress();
+updateDashboard();
+renderDiary();
 </script>
 
 </body>
