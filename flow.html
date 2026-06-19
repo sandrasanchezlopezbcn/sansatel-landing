@@ -757,6 +757,240 @@
     color: var(--gray2);
   }
 
+  /* QUIZ */
+  .quiz-container {
+    max-width: 640px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .quiz-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--purple), var(--gold));
+  }
+
+  .quiz-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(155,127,202,0.15);
+    border-radius: 3px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .quiz-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--purple), var(--gold));
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+
+  .quiz-step-indicator {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .quiz-question-wrapper {
+    position: relative;
+    min-height: 320px;
+  }
+
+  .quiz-question-slide {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    pointer-events: none;
+  }
+  .quiz-question-slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    position: relative;
+    pointer-events: auto;
+  }
+
+  .quiz-question-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+  }
+
+  .quiz-option {
+    background: rgba(155,127,202,0.06);
+    border: 2px solid rgba(155,127,202,0.12);
+    border-radius: 12px;
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-size: 15px;
+    color: var(--gray);
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .quiz-option:hover {
+    border-color: rgba(155,127,202,0.35);
+    background: rgba(155,127,202,0.1);
+  }
+  .quiz-option.selected {
+    border-color: var(--gold);
+    background: rgba(201,149,107,0.1);
+    color: var(--white);
+  }
+
+  .quiz-option-letter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: rgba(155,127,202,0.12);
+    border: 1px solid rgba(155,127,202,0.2);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--purple-light);
+    flex-shrink: 0;
+    transition: all 0.25s;
+  }
+  .quiz-option.selected .quiz-option-letter {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #fff;
+  }
+
+  .quiz-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    gap: 12px;
+  }
+
+  .quiz-btn {
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    font-family: 'Inter', sans-serif;
+  }
+  .quiz-btn-prev {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--gray);
+  }
+  .quiz-btn-prev:hover {
+    border-color: rgba(155,127,202,0.4);
+    color: var(--white);
+  }
+  .quiz-btn-next {
+    background: var(--gold);
+    color: #fff;
+    margin-left: auto;
+  }
+  .quiz-btn-next:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+  }
+  .quiz-btn-next:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .quiz-btn-next:disabled:hover {
+    background: var(--gold);
+    transform: none;
+  }
+
+  .quiz-result {
+    display: none;
+    text-align: center;
+  }
+  .quiz-result.active {
+    display: block;
+  }
+
+  .quiz-result-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+
+  .quiz-result-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .quiz-result-desc {
+    font-size: 15px;
+    color: var(--gray);
+    line-height: 1.7;
+    margin-bottom: 28px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .quiz-result-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .quiz-btn-restart {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--gray);
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .quiz-btn-restart:hover {
+    border-color: rgba(155,127,202,0.4);
+    color: var(--white);
+  }
+
+  /* PULSE ANIMATION FOR PRIMARY BUTTONS */
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(201,149,107,0.4); }
+    70% { box-shadow: 0 0 0 12px rgba(201,149,107,0); }
+  }
+  .btn-primary { animation: pulse 2s infinite; }
+  .btn-primary:hover { animation: none; }
+
   /* REVEAL */
   .reveal {
     opacity: 0;
@@ -784,6 +1018,8 @@
     .testimonial-grid { grid-template-columns: 1fr; }
     .footer-inner { flex-direction: column; align-items: center; text-align: center; }
     .footer-links { flex-wrap: wrap; justify-content: center; }
+    .quiz-container { padding: 24px; }
+    .quiz-question-wrapper { min-height: 340px; }
   }
 
   @media (max-width: 500px) {
@@ -803,6 +1039,7 @@
     <li><a href="#problema">El problema</a></li>
     <li><a href="#programa">Programa</a></li>
     <li><a href="#para-ti">Para ti</a></li>
+    <li><a href="#quiz">Test</a></li>
   </ul>
   <a href="https://wa.me/34660619034?text=Hola%2C%20quiero%20informacion%20sobre%20el%20programa%20de%20dinero%20y%20subconsciente" class="nav-cta">Quiero saber mas</a>
 </nav>
@@ -842,7 +1079,7 @@
 </div>
 
 <!-- PROBLEM -->
-<div class="section-full alt-bg" id="problema">
+<div class="section-full alt-bg problem reveal" id="problema">
   <section>
     <div class="section-badge reveal">El verdadero problema</div>
     <h2 class="section-title reveal">No es el dinero. Es lo que crees sobre el.</h2>
@@ -913,7 +1150,7 @@
 </div>
 
 <!-- PROGRAM -->
-<section id="programa">
+<section id="programa" class="program reveal">
   <div class="section-badge reveal">El programa</div>
   <h2 class="section-title reveal">Que vas a descubrir</h2>
   <p class="section-subtitle reveal">
@@ -942,14 +1179,14 @@
       <p class="module-desc">Aprende a separar tu valor personal del dinero. Cuando dejas de centrarlo todo en el, paradojicamente, fluye mejor.</p>
     </div>
 
-    <div class="module-card reveal reveal-delay-1">
+    <div class="module-card reveal reveal-delay-4">
       <div class="module-num">Modulo 4</div>
       <div class="module-icon">&#9889;</div>
       <div class="module-title">Reprograma tu sistema</div>
       <p class="module-desc">Herramientas practicas de neurociencia para crear nuevas vias neuronales y dejar de operar desde la escasez y el miedo.</p>
     </div>
 
-    <div class="module-card reveal reveal-delay-2">
+    <div class="module-card reveal reveal-delay-5">
       <div class="module-num">Modulo 5</div>
       <div class="module-icon">&#127919;</div>
       <div class="module-title">Decisiones desde la abundancia</div>
@@ -966,7 +1203,7 @@
 </section>
 
 <!-- BEFORE / AFTER -->
-<div class="section-full alt-bg">
+<div class="section-full alt-bg transform reveal">
   <section>
     <div class="text-center">
       <div class="section-badge reveal">La transformacion</div>
@@ -998,7 +1235,7 @@
 </div>
 
 <!-- TESTIMONIALS -->
-<section>
+<section class="testimonials reveal">
   <div class="text-center">
     <div class="section-badge reveal">Experiencias reales</div>
     <h2 class="section-title reveal">Lo que dicen quienes ya lo vivieron</h2>
@@ -1018,7 +1255,7 @@
 </section>
 
 <!-- FOR WHO -->
-<div class="section-full alt-bg" id="para-ti">
+<div class="section-full alt-bg for-who reveal" id="para-ti">
   <section>
     <div class="text-center">
       <div class="section-badge reveal">Para quien es</div>
@@ -1077,8 +1314,157 @@
   </section>
 </div>
 
+<!-- QUIZ -->
+<section id="quiz" class="quiz-section reveal">
+  <div class="text-center">
+    <div class="section-badge">Test gratuito</div>
+    <h2 class="section-title">Descubre tu relacion con el dinero</h2>
+    <p class="section-subtitle mx-auto" style="text-align:center;">Responde 5 preguntas y descubre que perfil define tu relacion actual con el dinero.</p>
+  </div>
+
+  <div class="quiz-container" style="margin-top: 40px;">
+    <div class="quiz-progress-bar">
+      <div class="quiz-progress-fill" id="quizProgressFill" style="width: 20%;"></div>
+    </div>
+    <div class="quiz-step-indicator" id="quizStepIndicator">Paso 1 de 5</div>
+
+    <div class="quiz-question-wrapper" id="quizQuestionWrapper">
+      <!-- Question 1 -->
+      <div class="quiz-question-slide active" data-question="0">
+        <div class="quiz-question-text">Cuando recibes un gasto inesperado, tu primera reaccion es...</div>
+        <ul class="quiz-options">
+          <li class="quiz-option" data-value="a" onclick="selectOption(this)">
+            <span class="quiz-option-letter">A</span>
+            <span>Panico y ansiedad: "No puedo con esto"</span>
+          </li>
+          <li class="quiz-option" data-value="b" onclick="selectOption(this)">
+            <span class="quiz-option-letter">B</span>
+            <span>Revisar tu presupuesto tranquilamente</span>
+          </li>
+          <li class="quiz-option" data-value="c" onclick="selectOption(this)">
+            <span class="quiz-option-letter">C</span>
+            <span>Ignorarlo y ya lo veras despues</span>
+          </li>
+          <li class="quiz-option" data-value="d" onclick="selectOption(this)">
+            <span class="quiz-option-letter">D</span>
+            <span>Sentir culpa, como si fuera tu culpa</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="quiz-question-slide" data-question="1">
+        <div class="quiz-question-text">Al mirar tu cuenta bancaria sientes...</div>
+        <ul class="quiz-options">
+          <li class="quiz-option" data-value="a" onclick="selectOption(this)">
+            <span class="quiz-option-letter">A</span>
+            <span>Miedo a ver el numero</span>
+          </li>
+          <li class="quiz-option" data-value="b" onclick="selectOption(this)">
+            <span class="quiz-option-letter">B</span>
+            <span>Tranquilidad, es solo informacion</span>
+          </li>
+          <li class="quiz-option" data-value="c" onclick="selectOption(this)">
+            <span class="quiz-option-letter">C</span>
+            <span>Ansiedad por si no alcanza</span>
+          </li>
+          <li class="quiz-option" data-value="d" onclick="selectOption(this)">
+            <span class="quiz-option-letter">D</span>
+            <span>Indiferencia, prefieres no mirar</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="quiz-question-slide" data-question="2">
+        <div class="quiz-question-text">Cuando quieres comprar algo que deseas...</div>
+        <ul class="quiz-options">
+          <li class="quiz-option" data-value="a" onclick="selectOption(this)">
+            <span class="quiz-option-letter">A</span>
+            <span>Te sientes culpable por desearlo</span>
+          </li>
+          <li class="quiz-option" data-value="b" onclick="selectOption(this)">
+            <span class="quiz-option-letter">B</span>
+            <span>Evaluas si te lo puedes permitir con calma</span>
+          </li>
+          <li class="quiz-option" data-value="c" onclick="selectOption(this)">
+            <span class="quiz-option-letter">C</span>
+            <span>Compras impulsivamente para no pensar</span>
+          </li>
+          <li class="quiz-option" data-value="d" onclick="selectOption(this)">
+            <span class="quiz-option-letter">D</span>
+            <span>Nunca te das ese permiso</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Question 4 -->
+      <div class="quiz-question-slide" data-question="3">
+        <div class="quiz-question-text">Para ti el dinero es...</div>
+        <ul class="quiz-options">
+          <li class="quiz-option" data-value="a" onclick="selectOption(this)">
+            <span class="quiz-option-letter">A</span>
+            <span>Una fuente de estres constante</span>
+          </li>
+          <li class="quiz-option" data-value="b" onclick="selectOption(this)">
+            <span class="quiz-option-letter">B</span>
+            <span>Una herramienta que puedes gestionar</span>
+          </li>
+          <li class="quiz-option" data-value="c" onclick="selectOption(this)">
+            <span class="quiz-option-letter">C</span>
+            <span>Algo de lo que no se habla</span>
+          </li>
+          <li class="quiz-option" data-value="d" onclick="selectOption(this)">
+            <span class="quiz-option-letter">D</span>
+            <span>Lo que define tu valor como persona</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Question 5 -->
+      <div class="quiz-question-slide" data-question="4">
+        <div class="quiz-question-text">Si manana duplicaran tu sueldo...</div>
+        <ul class="quiz-options">
+          <li class="quiz-option" data-value="a" onclick="selectOption(this)">
+            <span class="quiz-option-letter">A</span>
+            <span>Seguirias con miedo a gastar</span>
+          </li>
+          <li class="quiz-option" data-value="b" onclick="selectOption(this)">
+            <span class="quiz-option-letter">B</span>
+            <span>Invertirias y disfrutarias con equilibrio</span>
+          </li>
+          <li class="quiz-option" data-value="c" onclick="selectOption(this)">
+            <span class="quiz-option-letter">C</span>
+            <span>Lo gastarias rapido, para eso se gana</span>
+          </li>
+          <li class="quiz-option" data-value="d" onclick="selectOption(this)">
+            <span class="quiz-option-letter">D</span>
+            <span>No cambiaria nada en como te sientes</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quiz-nav" id="quizNav">
+      <button class="quiz-btn quiz-btn-prev" id="quizPrev" onclick="quizPrevQuestion()" style="display:none;">Anterior</button>
+      <button class="quiz-btn quiz-btn-next" id="quizNext" onclick="quizNextQuestion()" disabled>Siguiente</button>
+    </div>
+
+    <!-- Result -->
+    <div class="quiz-result" id="quizResult">
+      <div class="quiz-result-icon" id="quizResultIcon"></div>
+      <div class="quiz-result-title" id="quizResultTitle"></div>
+      <p class="quiz-result-desc" id="quizResultDesc"></p>
+      <div class="quiz-result-actions">
+        <a href="#" class="btn-primary" id="quizResultCTA" target="_blank">Quiero informacion personalizada</a>
+        <button class="quiz-btn-restart" onclick="quizRestart()">Repetir test</button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FAQ -->
-<section>
+<section class="faq reveal">
   <div class="text-center">
     <div class="section-badge reveal">Preguntas frecuentes</div>
     <h2 class="section-title reveal">Resuelve tus dudas</h2>
@@ -1128,7 +1514,7 @@
 </section>
 
 <!-- FINAL CTA -->
-<div class="cta-section">
+<div class="cta-section final-cta reveal">
   <div class="cta-bg"></div>
   <div class="cta-inner">
     <div class="section-badge reveal">San Inspira</div>
@@ -1158,11 +1544,13 @@
 </footer>
 
 <script>
+  // REVEAL OBSERVER
   const ro = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
+  // FAQ ACCORDION
   document.querySelectorAll('.faq-question').forEach(btn => {
     btn.addEventListener('click', () => {
       const item = btn.parentElement;
@@ -1171,6 +1559,128 @@
       if (!wasOpen) item.classList.add('open');
     });
   });
+
+  // PARALLAX GLOW
+  (function() {
+    const glows = document.querySelectorAll('.hero-glow');
+    if (!glows.length) return;
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        requestAnimationFrame(function() {
+          const scrollY = window.scrollY;
+          glows.forEach(function(glow, i) {
+            const speed = (i === 0) ? 0.08 : -0.06;
+            glow.style.transform = 'translateY(' + (scrollY * speed) + 'px)';
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  })();
+
+  // QUIZ LOGIC
+  var quizAnswers = [];
+  var quizCurrent = 0;
+  var quizTotal = 5;
+
+  function selectOption(el) {
+    var slide = el.closest('.quiz-question-slide');
+    slide.querySelectorAll('.quiz-option').forEach(function(opt) {
+      opt.classList.remove('selected');
+    });
+    el.classList.add('selected');
+    quizAnswers[quizCurrent] = el.getAttribute('data-value');
+    document.getElementById('quizNext').disabled = false;
+  }
+
+  function quizNextQuestion() {
+    if (!quizAnswers[quizCurrent]) return;
+
+    if (quizCurrent === quizTotal - 1) {
+      showQuizResult();
+      return;
+    }
+
+    var slides = document.querySelectorAll('.quiz-question-slide');
+    slides[quizCurrent].classList.remove('active');
+    quizCurrent++;
+    slides[quizCurrent].classList.add('active');
+    updateQuizUI();
+  }
+
+  function quizPrevQuestion() {
+    if (quizCurrent === 0) return;
+    var slides = document.querySelectorAll('.quiz-question-slide');
+    slides[quizCurrent].classList.remove('active');
+    quizCurrent--;
+    slides[quizCurrent].classList.add('active');
+    updateQuizUI();
+  }
+
+  function updateQuizUI() {
+    document.getElementById('quizStepIndicator').textContent = 'Paso ' + (quizCurrent + 1) + ' de ' + quizTotal;
+    document.getElementById('quizProgressFill').style.width = ((quizCurrent + 1) / quizTotal * 100) + '%';
+    document.getElementById('quizPrev').style.display = quizCurrent === 0 ? 'none' : 'inline-flex';
+    document.getElementById('quizNext').disabled = !quizAnswers[quizCurrent];
+    document.getElementById('quizNext').textContent = quizCurrent === quizTotal - 1 ? 'Ver resultado' : 'Siguiente';
+  }
+
+  function showQuizResult() {
+    var scores = { evitador: 0, controlador: 0, consciente: 0 };
+    quizAnswers.forEach(function(ans) {
+      if (ans === 'a' || ans === 'd') scores.evitador++;
+      else if (ans === 'c') scores.controlador++;
+      else if (ans === 'b') scores.consciente++;
+    });
+
+    var profile, icon, title, desc;
+    if (scores.consciente >= scores.evitador && scores.consciente >= scores.controlador) {
+      profile = 'El Consciente';
+      icon = '✨';
+      title = 'El Consciente';
+      desc = 'Tienes buena base pero aun hay creencias que te limitan. Estas listo/a para el siguiente nivel. El programa te ayudara a identificar y reprogramar esas ultimas barreras invisibles.';
+    } else if (scores.evitador >= scores.controlador) {
+      profile = 'El Evitador';
+      icon = '😶‍🌫️';
+      title = 'El Evitador';
+      desc = 'Evitas relacionarte con el dinero por miedo o culpa. Tu subconsciente asocia el dinero con dolor. El programa te ayudara a cambiar esa asociacion y crear una relacion sana con el dinero.';
+    } else {
+      profile = 'El Controlador';
+      icon = '🎭';
+      title = 'El Controlador';
+      desc = 'Intentas controlar el dinero con rigidez o lo gastas impulsivamente. Tu relacion con el dinero es reactiva. El programa te ayudara a encontrar equilibrio y tomar decisiones desde la calma.';
+    }
+
+    document.getElementById('quizResultIcon').textContent = icon;
+    document.getElementById('quizResultTitle').textContent = 'Tu perfil: ' + title;
+    document.getElementById('quizResultDesc').textContent = desc;
+    document.getElementById('quizResultCTA').href = 'https://wa.me/34660619034?text=Hola%2C%20he%20hecho%20el%20test%20y%20mi%20perfil%20es%20' + encodeURIComponent(profile) + '%2C%20quiero%20informacion%20sobre%20el%20programa';
+
+    document.getElementById('quizQuestionWrapper').style.display = 'none';
+    document.getElementById('quizNav').style.display = 'none';
+    document.getElementById('quizStepIndicator').style.display = 'none';
+    document.getElementById('quizProgressFill').parentElement.style.display = 'none';
+    document.getElementById('quizResult').classList.add('active');
+  }
+
+  function quizRestart() {
+    quizAnswers = [];
+    quizCurrent = 0;
+    document.querySelectorAll('.quiz-question-slide').forEach(function(slide, i) {
+      slide.classList.toggle('active', i === 0);
+      slide.querySelectorAll('.quiz-option').forEach(function(opt) {
+        opt.classList.remove('selected');
+      });
+    });
+    document.getElementById('quizQuestionWrapper').style.display = '';
+    document.getElementById('quizNav').style.display = '';
+    document.getElementById('quizStepIndicator').style.display = '';
+    document.getElementById('quizProgressFill').parentElement.style.display = '';
+    document.getElementById('quizResult').classList.remove('active');
+    updateQuizUI();
+  }
 </script>
 
 </body>
