@@ -531,6 +531,101 @@
     .index-grid { grid-template-columns: 1fr; }
     .page-title { font-size: 28px; }
   }
+
+  /* INTERACTIVE ELEMENTS */
+  .global-progress { position: fixed; top: 57px; left: 0; right: 0; height: 4px; background: rgba(155,127,202,0.15); z-index: 99; }
+  .global-progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--purple), var(--gold)); transition: width 0.5s ease; border-radius: 0 2px 2px 0; }
+
+  textarea.exercise-textarea {
+    width: 100%; padding: 14px; border-radius: 12px;
+    border: 1px solid var(--border); background: rgba(255,255,255,0.6);
+    color: var(--white); font-family: 'Inter', sans-serif; font-size: 14px;
+    resize: vertical; transition: all 0.2s; margin-top: 12px; line-height: 1.6;
+  }
+  textarea.exercise-textarea:focus {
+    outline: none; border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(155,127,202,0.3);
+  }
+  textarea.reflection-textarea {
+    width: 100%; padding: 10px 14px; border-radius: 10px;
+    border: 1px solid var(--border); background: rgba(255,255,255,0.5);
+    color: var(--white); font-family: 'Inter', sans-serif; font-size: 13px;
+    resize: vertical; margin-top: 8px; line-height: 1.5;
+    transition: all 0.2s;
+  }
+  textarea.reflection-textarea:focus {
+    outline: none; border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(155,127,202,0.2);
+  }
+
+  .exercise-save-btn {
+    background: var(--green); color: #fff; border: none;
+    padding: 10px 24px; border-radius: 100px; font-weight: 600;
+    cursor: pointer; font-family: 'Inter', sans-serif; font-size: 14px;
+    margin-top: 16px; transition: all 0.2s; display: inline-block;
+  }
+  .exercise-save-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  .save-feedback {
+    display: inline-block; margin-left: 12px; color: var(--green);
+    font-weight: 600; font-size: 13px; opacity: 0; transition: opacity 0.3s;
+  }
+  .save-feedback.show { opacity: 1; }
+
+  .exercise-complete { border-color: var(--green) !important; position: relative; }
+  .exercise-complete::after {
+    content: '\2713'; position: absolute; top: 16px; right: 16px;
+    background: var(--green); color: #fff; width: 28px; height: 28px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: bold; animation: checkmark 0.4s ease;
+  }
+  @keyframes checkmark { 0% { transform: scale(0); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+
+  .step-checkbox {
+    width: 20px; height: 20px; border-radius: 6px; border: 2px solid var(--border);
+    appearance: none; -webkit-appearance: none; cursor: pointer;
+    flex-shrink: 0; margin-right: 8px; position: relative; background: rgba(255,255,255,0.5);
+    transition: all 0.2s; vertical-align: middle;
+  }
+  .step-checkbox:checked { background: var(--green); border-color: var(--green); }
+  .step-checkbox:checked::after {
+    content: '\2713'; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%); color: #fff; font-size: 12px; font-weight: bold;
+  }
+  .step-checkbox:checked + .step-num + div { opacity: 0.5; text-decoration: line-through; }
+
+  .money-test-group { margin: 16px 0; }
+  .money-test-group strong { display: block; margin-bottom: 8px; color: var(--purple-light); font-size: 14px; }
+  .money-test-item {
+    display: flex; align-items: center; gap: 10px; padding: 8px 12px;
+    border-radius: 8px; cursor: pointer; font-size: 14px; color: var(--white);
+    transition: background 0.2s; margin: 4px 0;
+  }
+  .money-test-item:hover { background: rgba(155,127,202,0.08); }
+  .money-test-item input[type="checkbox"] {
+    width: 18px; height: 18px; border-radius: 4px; border: 2px solid var(--border);
+    appearance: none; -webkit-appearance: none; cursor: pointer; flex-shrink: 0;
+    background: rgba(255,255,255,0.5); transition: all 0.2s;
+  }
+  .money-test-item input[type="checkbox"]:checked { background: var(--purple); border-color: var(--purple); }
+  .money-test-result {
+    margin-top: 16px; padding: 16px; border-radius: 12px;
+    background: rgba(155,127,202,0.1); border: 1px solid rgba(155,127,202,0.25);
+  }
+  .money-test-result strong { color: var(--purple-light); }
+  .money-test-result p { margin-top: 8px; color: var(--gray); font-size: 14px; line-height: 1.6; }
+
+  .index-progress-badge, .module-progress-badge {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    padding: 2px 8px; border-radius: 100px; margin-left: 8px;
+    background: rgba(155,127,202,0.15); color: var(--purple-light);
+  }
+  .index-progress-badge.complete, .module-progress-badge.complete {
+    background: var(--green); color: #fff;
+  }
+
+  .exercise-step { display: flex; align-items: flex-start; }
+
 </style>
 </head>
 <body>
@@ -549,6 +644,11 @@
   <a href="https://wa.me/34660619034?text=Hola%2C%20quiero%20informacion%20sobre%20el%20programa%20San%20Inspira" class="nav-cta">Quiero saber mas</a>
 </nav>
 
+<!-- GLOBAL PROGRESS -->
+<div class="global-progress">
+  <div class="global-progress-fill" id="globalProgressFill"></div>
+</div>
+
 <!-- HEADER -->
 <div class="page-header">
   <div class="page-header-bg"></div>
@@ -562,12 +662,12 @@
 <!-- MODULE INDEX -->
 <div class="module-index">
   <div class="index-grid">
-    <a href="#modulo-1" class="index-item"><div class="index-num">1</div>Tu mente y el dinero</a>
-    <a href="#modulo-2" class="index-item"><div class="index-num">2</div>Identifica tus patrones</a>
-    <a href="#modulo-3" class="index-item"><div class="index-num">3</div>Descentra el dinero</a>
-    <a href="#modulo-4" class="index-item"><div class="index-num">4</div>Reprograma tu sistema</a>
-    <a href="#modulo-5" class="index-item"><div class="index-num">5</div>Decisiones desde la abundancia</a>
-    <a href="#modulo-6" class="index-item"><div class="index-num">6</div>Tu nueva relacion</a>
+    <a href="#modulo-1" class="index-item"><div class="index-num">1</div>Tu mente y el dinero<span class="index-progress-badge" data-index-mod="1">0/2</span></a>
+    <a href="#modulo-2" class="index-item"><div class="index-num">2</div>Identifica tus patrones<span class="index-progress-badge" data-index-mod="2">0/2</span></a>
+    <a href="#modulo-3" class="index-item"><div class="index-num">3</div>Descentra el dinero<span class="index-progress-badge" data-index-mod="3">0/2</span></a>
+    <a href="#modulo-4" class="index-item"><div class="index-num">4</div>Reprograma tu sistema<span class="index-progress-badge" data-index-mod="4">0/3</span></a>
+    <a href="#modulo-5" class="index-item"><div class="index-num">5</div>Decisiones desde la abundancia<span class="index-progress-badge" data-index-mod="5">0/2</span></a>
+    <a href="#modulo-6" class="index-item"><div class="index-num">6</div>Tu nueva relacion<span class="index-progress-badge" data-index-mod="6">0/2</span></a>
   </div>
 </div>
 
@@ -575,9 +675,9 @@
 <!-- ═══════════════════════════════════════ -->
 <!-- MODULO 1 -->
 <!-- ═══════════════════════════════════════ -->
-<div class="module" id="modulo-1">
+<div class="module reveal" id="modulo-1">
   <div class="module-header">
-    <div class="module-label">Modulo 1</div>
+    <div class="module-label">Modulo 1 <span class="module-progress-badge" data-mod-progress="1">0/2</span></div>
     <h2 class="module-title">Tu mente y el dinero</h2>
     <div class="module-objective">Objetivo: Entender como tu subconsciente absorbio creencias sobre el dinero y por que sigue ejecutandolas en modo automatico, sin que te des cuenta.</div>
   </div>
@@ -626,7 +726,7 @@
   <div class="content-section">
     <div class="content-label">Ejercicios practicos</div>
 
-    <div class="exercise">
+    <div class="exercise reveal" data-exercise="mod1-ex1">
       <div class="exercise-badge">Ejercicio 1</div>
       <div class="exercise-title">Arqueologia financiera: tu primera memoria del dinero</div>
       <div class="exercise-desc">Este ejercicio te ayudara a descubrir los primeros programas que tu subconsciente grabo sobre el dinero. Necesitaras un cuaderno y 30 minutos de tranquilidad.</div>
@@ -637,21 +737,28 @@
         <li class="exercise-step"><div class="step-num"></div><div><strong>Ahora escribe las 5 frases sobre el dinero</strong> que mas escuchabas en tu casa. Pueden ser directas ("no hay dinero") o indirectas ("los ricos no son felices").</div></li>
         <li class="exercise-step"><div class="step-num"></div><div><strong>Para cada frase, preguntate:</strong> &#191;Sigo creyendo esto? &#191;Tomo decisiones basadas en esta creencia? &#191;Me sirve o me limita?</div></li>
       </ol>
+      <div class="exercise-interactive">
+        <textarea class="exercise-textarea" rows="6" placeholder="Escribe aqui tus memorias financieras de la infancia, las frases que escuchabas y tus reflexiones sobre cada una..."></textarea>
+      </div>
       <div class="exercise-duration">Duracion: 30 minutos</div>
+      <button class="exercise-save-btn" onclick="saveExercise('mod1-ex1')">Guardar respuesta</button>
+      <span class="save-feedback" id="feedback-mod1-ex1">Guardado &#10003;</span>
     </div>
 
-    <div class="exercise">
+    <div class="exercise reveal" data-exercise="mod1-ex2">
       <div class="exercise-badge">Ejercicio 2</div>
       <div class="exercise-title">El termostato financiero: descubre tu numero</div>
       <div class="exercise-desc">Todos tenemos un "techo invisible" de ingresos. Este ejercicio te ayuda a identificar el tuyo.</div>
       <ol class="exercise-steps">
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe cuanto ganas actualmente al mes.</strong> Sin juzgar si es mucho o poco.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Ahora escribe la cifra que te gustaria ganar.</strong> La primera que te venga a la mente, sin pensarlo demasiado.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Observa tu cuerpo.</strong> Al pensar en esa cifra, &#191;que sientes? &#191;Hay emocion, incomodidad, ansiedad, culpa, incredulidad? Escribe lo que notes.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Multiplica esa cifra por 3.</strong> Imagina que ganas eso al mes. &#191;Que te dice tu mente? Escribe los pensamientos automaticos que aparecen ("eso es imposible", "no me lo merezco", "seria demasiado").</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Esos pensamientos automaticos son tus programas subconscientes.</strong> Guardalos. Los vamos a trabajar en el modulo 4.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Escribe cuanto ganas actualmente al mes.</strong> Sin juzgar si es mucho o poco.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Ahora escribe la cifra que te gustaria ganar.</strong> La primera que te venga a la mente, sin pensarlo demasiado.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Observa tu cuerpo.</strong> Al pensar en esa cifra, &#191;que sientes? &#191;Hay emocion, incomodidad, ansiedad, culpa, incredulidad? Escribe lo que notes.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Multiplica esa cifra por 3.</strong> Imagina que ganas eso al mes. &#191;Que te dice tu mente? Escribe los pensamientos automaticos que aparecen ("eso es imposible", "no me lo merezco", "seria demasiado").</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Esos pensamientos automaticos son tus programas subconscientes.</strong> Guardalos. Los vamos a trabajar en el modulo 4.</div></li>
       </ol>
       <div class="exercise-duration">Duracion: 20 minutos</div>
+      <button class="exercise-save-btn" onclick="saveExercise('mod1-ex2')">Guardar respuesta</button>
+      <span class="save-feedback" id="feedback-mod1-ex2">Guardado &#10003;</span>
     </div>
   </div>
 
@@ -662,9 +769,13 @@
       <div class="reflection-title">Para tu diario de reflexion:</div>
       <ul class="reflection-list">
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que papel tenia el dinero en tu familia? &#191;Era un tema tabu, una fuente de conflicto o algo de lo que se hablaba con naturalidad?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que emociones sientes cuando piensas en tu cuenta bancaria? &#191;Ansiedad, tranquilidad, culpa, miedo?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> Si el dinero pudiera hablar, &#191;que te diria? Y tu, &#191;que le dirias a el?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que decisiones tomarias manana si no tuvieras miedo con el dinero?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
       </ul>
     </div>
   </div>
@@ -674,9 +785,9 @@
 <!-- ═══════════════════════════════════════ -->
 <!-- MODULO 2 -->
 <!-- ═══════════════════════════════════════ -->
-<div class="module" id="modulo-2">
+<div class="module reveal" id="modulo-2">
   <div class="module-header">
-    <div class="module-label">Modulo 2</div>
+    <div class="module-label">Modulo 2 <span class="module-progress-badge" data-mod-progress="2">0/2</span></div>
     <h2 class="module-title">Identifica tus patrones</h2>
     <div class="module-objective">Objetivo: Poner nombre a las creencias y patrones automaticos que controlan tu relacion con el dinero, para que dejen de operar en la sombra.</div>
   </div>
@@ -722,7 +833,7 @@
   <div class="content-section">
     <div class="content-label">Ejercicios practicos</div>
 
-    <div class="exercise">
+    <div class="exercise reveal" data-exercise="mod2-ex1">
       <div class="exercise-badge">Ejercicio 3</div>
       <div class="exercise-title">Test: &#191;Cual es tu Money Script dominante?</div>
       <div class="exercise-desc">Responde con honestidad. No hay respuestas correctas ni incorrectas. Marca las frases con las que te identificas:</div>
@@ -733,20 +844,53 @@
         <li class="exercise-step"><div class="step-num"></div><div><strong>Lista D (Hipervigilancia):</strong> "Reviso mis cuentas constantemente con ansiedad" / "Me cuesta mucho gastar, incluso en cosas necesarias" / "Siento que el dinero se puede acabar en cualquier momento" / "Cada gasto me genera estres"</div></li>
         <li class="exercise-step"><div class="step-num"></div><div><strong>La lista donde hayas marcado mas frases es tu guion dominante.</strong> Escribe en tu diario: "Mi money script dominante es ______ y las frases que mas me resuenan son ______. Esto me afecta en mi vida porque ______."</div></li>
       </ol>
+      <div class="exercise-interactive">
+        <div class="money-test">
+          <div class="money-test-group">
+            <strong>Grupo A — Evitacion</strong>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="evitacion"> "El dinero es la raiz de todos los males"</label>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="evitacion"> "No merezco tener dinero"</label>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="evitacion"> "Las personas ricas son corruptas"</label>
+          </div>
+          <div class="money-test-group">
+            <strong>Grupo B — Adoracion</strong>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="adoracion"> "El dinero resolveria todos mis problemas"</label>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="adoracion"> "Nunca tendre suficiente dinero"</label>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="adoracion"> "Mas dinero me haria mas feliz"</label>
+          </div>
+          <div class="money-test-group">
+            <strong>Grupo C — Estatus</strong>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="estatus"> "Mi valor depende de cuanto gano"</label>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="estatus"> "Debo tener lo mejor para ser respetado"</label>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="estatus"> "El exito se mide en dinero"</label>
+          </div>
+          <div class="money-test-group">
+            <strong>Grupo D — Vigilancia</strong>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="vigilancia"> "Debo ahorrar cada centimo"</label>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="vigilancia"> "Gastar dinero me genera ansiedad"</label>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="vigilancia"> "Siempre hay que prepararse para lo peor"</label>
+          </div>
+          <div class="money-test-result" id="money-test-result" style="display:none;"></div>
+        </div>
+      </div>
       <div class="exercise-duration">Duracion: 15 minutos</div>
+      <button class="exercise-save-btn" onclick="saveExercise('mod2-ex1')">Guardar respuesta</button>
+      <span class="save-feedback" id="feedback-mod2-ex1">Guardado &#10003;</span>
     </div>
 
-    <div class="exercise">
+    <div class="exercise reveal" data-exercise="mod2-ex2">
       <div class="exercise-badge">Ejercicio 4</div>
       <div class="exercise-title">Mapa de sabotaje: tu patron en papel</div>
       <div class="exercise-desc">Dibuja tu ciclo de autosabotaje financiero para hacerlo visible y consciente.</div>
       <ol class="exercise-steps">
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Piensa en la ultima vez que te fue bien economicamente</strong> (un buen mes, un ingreso extra, una oportunidad). Escribe que paso.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Ahora escribe que paso despues.</strong> &#191;Lo mantuviste? &#191;Gastaste de mas? &#191;Aparecio un "imprevisto"? &#191;Rechazaste la siguiente oportunidad?</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Dibuja un circulo en una hoja</strong> y escribe las 4 fases de TU ciclo personal: &#191;que quieres? &#8594; &#191;que haces para conseguirlo? &#8594; &#191;como lo saboteas? &#8594; &#191;donde acabas?</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Observa el circulo.</strong> &#191;Cuantas veces has repetido este ciclo? Dale un nombre a tu patron (ej: "el techo de cristal", "el que gasta para olvidar", "la que no se atreve").</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Piensa en la ultima vez que te fue bien economicamente</strong> (un buen mes, un ingreso extra, una oportunidad). Escribe que paso.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Ahora escribe que paso despues.</strong> &#191;Lo mantuviste? &#191;Gastaste de mas? &#191;Aparecio un "imprevisto"? &#191;Rechazaste la siguiente oportunidad?</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Dibuja un circulo en una hoja</strong> y escribe las 4 fases de TU ciclo personal: &#191;que quieres? &#8594; &#191;que haces para conseguirlo? &#8594; &#191;como lo saboteas? &#8594; &#191;donde acabas?</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Observa el circulo.</strong> &#191;Cuantas veces has repetido este ciclo? Dale un nombre a tu patron (ej: "el techo de cristal", "el que gasta para olvidar", "la que no se atreve").</div></li>
       </ol>
       <div class="exercise-duration">Duracion: 25 minutos</div>
+      <button class="exercise-save-btn" onclick="saveExercise('mod2-ex2')">Guardar respuesta</button>
+      <span class="save-feedback" id="feedback-mod2-ex2">Guardado &#10003;</span>
     </div>
   </div>
 
@@ -756,8 +900,11 @@
       <div class="reflection-title">Para tu diario de reflexion:</div>
       <ul class="reflection-list">
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Cuando fue la ultima vez que saboteaste algo bueno que te pasaba con el dinero? &#191;Que hiciste exactamente?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Hay alguna cantidad de dinero que te de miedo superar? &#191;Cual es y por que crees que te frena?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> Si un amigo te contara tus patrones con el dinero como si fueran los suyos, &#191;que le dirias?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
       </ul>
     </div>
   </div>
@@ -767,9 +914,9 @@
 <!-- ═══════════════════════════════════════ -->
 <!-- MODULO 3 -->
 <!-- ═══════════════════════════════════════ -->
-<div class="module" id="modulo-3">
+<div class="module reveal" id="modulo-3">
   <div class="module-header">
-    <div class="module-label">Modulo 3</div>
+    <div class="module-label">Modulo 3 <span class="module-progress-badge" data-mod-progress="3">0/2</span></div>
     <h2 class="module-title">Descentra el dinero</h2>
     <div class="module-objective">Objetivo: Aprender a separar tu valor como persona del dinero que tienes o ganas, para que deje de ser el centro de tu ansiedad y tus decisiones.</div>
   </div>
@@ -798,7 +945,7 @@
   <div class="content-section">
     <div class="content-label">Ejercicios practicos</div>
 
-    <div class="exercise">
+    <div class="exercise reveal reveal-delay-1" data-exercise="mod3-ex1">
       <div class="exercise-badge">Ejercicio 5</div>
       <div class="exercise-title">Carta al dinero</div>
       <div class="exercise-desc">Un ejercicio de escritura terapeutica para sacar a la luz tu relacion emocional con el dinero. Puede ser muy revelador — dejate sorprender por lo que sale.</div>
@@ -808,10 +955,15 @@
         <li class="exercise-step"><div class="step-num"></div><div><strong>Lee ambas cartas en voz alta.</strong> Observa que emociones aparecen. &#191;Hay tristeza? &#191;Rabia? &#191;Miedo? &#191;Alivio? Escribe lo que sientes al leerlas.</div></li>
         <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe una nueva declaracion de relacion:</strong> "A partir de ahora, mi relacion con el dinero es ______. El dinero en mi vida sirve para ______. Yo valgo independientemente de ______."</div></li>
       </ol>
+      <div class="exercise-interactive">
+        <textarea class="exercise-textarea" rows="6" placeholder="Escribe aqui tu carta al dinero, su respuesta, y tu nueva declaracion de relacion..."></textarea>
+      </div>
       <div class="exercise-duration">Duracion: 30-40 minutos</div>
+      <button class="exercise-save-btn" onclick="saveExercise('mod3-ex1')">Guardar respuesta</button>
+      <span class="save-feedback" id="feedback-mod3-ex1">Guardado &#10003;</span>
     </div>
 
-    <div class="exercise">
+    <div class="exercise reveal reveal-delay-2" data-exercise="mod3-ex2">
       <div class="exercise-badge">Ejercicio 6</div>
       <div class="exercise-title">Inventario de valor: lo que vales sin dinero</div>
       <div class="exercise-desc">Para romper la fusion identidad = dinero, necesitas reconectar con tu valor real.</div>
@@ -821,7 +973,12 @@
         <li class="exercise-step"><div class="step-num"></div><div><strong>Ahora completa:</strong> "Si manana desapareciera todo mi dinero, seguiria siendo ______, seguiria teniendo ______, y seguiria siendo capaz de ______."</div></li>
         <li class="exercise-step"><div class="step-num"></div><div><strong>Pon esta frase en un sitio visible</strong> (tu movil, tu espejo, tu escritorio) y leela cada manana durante 21 dias.</div></li>
       </ol>
+      <div class="exercise-interactive">
+        <textarea class="exercise-textarea" rows="6" placeholder="Escribe aqui tus 10 cualidades valiosas, tus 5 momentos de abundancia, y tu frase de identidad..."></textarea>
+      </div>
       <div class="exercise-duration">Duracion: 20 minutos</div>
+      <button class="exercise-save-btn" onclick="saveExercise('mod3-ex2')">Guardar respuesta</button>
+      <span class="save-feedback" id="feedback-mod3-ex2">Guardado &#10003;</span>
     </div>
   </div>
 
@@ -831,8 +988,11 @@
       <div class="reflection-title">Para tu diario de reflexion:</div>
       <ul class="reflection-list">
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Cuantas decisiones tomas al dia pensando en el dinero? &#191;Serian diferentes si el dinero no fuera un factor?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que harias esta semana si supieras que el dinero no se va a acabar?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Hay algo que quieres hacer pero no haces "porque no puedo permitirmelo"? &#191;Es realmente por dinero o por miedo?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
       </ul>
     </div>
   </div>
@@ -842,9 +1002,9 @@
 <!-- ═══════════════════════════════════════ -->
 <!-- MODULO 4 -->
 <!-- ═══════════════════════════════════════ -->
-<div class="module" id="modulo-4">
+<div class="module reveal" id="modulo-4">
   <div class="module-header">
-    <div class="module-label">Modulo 4</div>
+    <div class="module-label">Modulo 4 <span class="module-progress-badge" data-mod-progress="4">0/3</span></div>
     <h2 class="module-title">Reprograma tu sistema</h2>
     <div class="module-objective">Objetivo: Aplicar herramientas practicas de neurociencia para debilitar los patrones viejos y crear nuevas vias neuronales que te apoyen con el dinero.</div>
   </div>
@@ -880,22 +1040,24 @@
   <div class="content-section">
     <div class="content-label">Ejercicios practicos</div>
 
-    <div class="exercise">
+    <div class="exercise reveal reveal-delay-1" data-exercise="mod4-ex1">
       <div class="exercise-badge">Ejercicio 7</div>
       <div class="exercise-title">Tapping para soltar una creencia limitante sobre el dinero</div>
       <div class="exercise-desc">Una secuencia de Tapping especifica para trabajar creencias de escasez. Hazlo en un lugar tranquilo.</div>
       <ol class="exercise-steps">
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Elige una creencia limitante</strong> de las que descubriste en los modulos anteriores. Por ejemplo: "No merezco ganar mas dinero".</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Puntua la intensidad del 0 al 10.</strong> &#191;Cuanto te crees esa frase ahora mismo? Anotalo.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Toca el punto karate (canto lateral de la mano)</strong> y repite 3 veces: "Aunque creo que no merezco ganar mas dinero, me acepto completa y profundamente tal como soy."</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Ahora toca cada punto</strong> (ceja, lateral del ojo, debajo del ojo, debajo de la nariz, menton, clavicula, debajo del brazo, coronilla) mientras repites frases como: "Este miedo a ganar mas... esta creencia de que no merezco... la aprendi de pequena... pero ya no me sirve... elijo soltarla..."</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Haz 2-3 rondas.</strong> Despues, respira hondo y vuelve a puntuar la intensidad. Si bajo, el Tapping esta funcionando. Repite hasta que baje a 3 o menos.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Ronda positiva:</strong> Ahora toca los mismos puntos diciendo: "Elijo creer que merezco abundancia... estoy abierta a recibir... el dinero es bienvenido en mi vida... me permito ganar mas..."</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Elige una creencia limitante</strong> de las que descubriste en los modulos anteriores. Por ejemplo: "No merezco ganar mas dinero".</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Puntua la intensidad del 0 al 10.</strong> &#191;Cuanto te crees esa frase ahora mismo? Anotalo.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Toca el punto karate (canto lateral de la mano)</strong> y repite 3 veces: "Aunque creo que no merezco ganar mas dinero, me acepto completa y profundamente tal como soy."</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Ahora toca cada punto</strong> (ceja, lateral del ojo, debajo del ojo, debajo de la nariz, menton, clavicula, debajo del brazo, coronilla) mientras repites frases como: "Este miedo a ganar mas... esta creencia de que no merezco... la aprendi de pequena... pero ya no me sirve... elijo soltarla..."</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Haz 2-3 rondas.</strong> Despues, respira hondo y vuelve a puntuar la intensidad. Si bajo, el Tapping esta funcionando. Repite hasta que baje a 3 o menos.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Ronda positiva:</strong> Ahora toca los mismos puntos diciendo: "Elijo creer que merezco abundancia... estoy abierta a recibir... el dinero es bienvenido en mi vida... me permito ganar mas..."</div></li>
       </ol>
       <div class="exercise-duration">Duracion: 15-20 minutos</div>
+      <button class="exercise-save-btn" onclick="saveExercise('mod4-ex1')">Guardar respuesta</button>
+      <span class="save-feedback" id="feedback-mod4-ex1">Guardado &#10003;</span>
     </div>
 
-    <div class="exercise">
+    <div class="exercise reveal reveal-delay-2" data-exercise="mod4-ex2">
       <div class="exercise-badge">Ejercicio 8</div>
       <div class="exercise-title">Reencuadre neuronal: de la creencia vieja a la nueva</div>
       <div class="exercise-desc">Tecnica de PNL (Programacion Neurolinguistica) para sustituir creencias limitantes por creencias que te sirvan.</div>
@@ -908,18 +1070,20 @@
       <div class="exercise-duration">Duracion: 15 minutos (+ 5 min diarios durante 21 dias)</div>
     </div>
 
-    <div class="exercise">
+    <div class="exercise reveal" data-exercise="mod4-ex3">
       <div class="exercise-badge">Ejercicio 9</div>
       <div class="exercise-title">Meditacion guiada: visualizacion de tu yo abundante</div>
       <div class="exercise-desc">Esta visualizacion usa la neurociencia a tu favor: cuando tu cerebro imagina algo con suficiente detalle y emocion, activa las mismas regiones que si lo estuvieras viviendo realmente, creando nuevas vias neuronales.</div>
       <ol class="exercise-steps">
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Sientate comoda, cierra los ojos y haz 10 respiraciones profundas.</strong> Con cada exhalacion, suelta tension del cuerpo.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Imagina tu vida dentro de un ano.</strong> Has transformado tu relacion con el dinero. &#191;Donde estas? &#191;Como te levantas por la manana? &#191;Que sientes al mirar tu cuenta? &#191;Como gastas? &#191;Como cobras?</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Hazlo lo mas vivido posible:</strong> colores, sonidos, olores, sensaciones en el cuerpo. &#191;Que ropa llevas? &#191;Que comes? &#191;Con quien estas? &#191;Que expresion tiene tu cara?</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Siente la emocion de esa version de ti:</strong> la tranquilidad, la confianza, la libertad. Quédate ahi 5 minutos. Deja que tu cuerpo memorice esas sensaciones.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Antes de abrir los ojos, di internamente:</strong> "Esto ya esta en camino. Mi subconsciente sabe como llegar aqui." Abre los ojos lentamente.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Sientate comoda, cierra los ojos y haz 10 respiraciones profundas.</strong> Con cada exhalacion, suelta tension del cuerpo.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Imagina tu vida dentro de un ano.</strong> Has transformado tu relacion con el dinero. &#191;Donde estas? &#191;Como te levantas por la manana? &#191;Que sientes al mirar tu cuenta? &#191;Como gastas? &#191;Como cobras?</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Hazlo lo mas vivido posible:</strong> colores, sonidos, olores, sensaciones en el cuerpo. &#191;Que ropa llevas? &#191;Que comes? &#191;Con quien estas? &#191;Que expresion tiene tu cara?</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Siente la emocion de esa version de ti:</strong> la tranquilidad, la confianza, la libertad. Quédate ahi 5 minutos. Deja que tu cuerpo memorice esas sensaciones.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Antes de abrir los ojos, di internamente:</strong> "Esto ya esta en camino. Mi subconsciente sabe como llegar aqui." Abre los ojos lentamente.</div></li>
       </ol>
       <div class="exercise-duration">Duracion: 15 minutos. Repetir minimo 3 veces por semana.</div>
+      <button class="exercise-save-btn" onclick="saveExercise('mod4-ex3')">Guardar respuesta</button>
+      <span class="save-feedback" id="feedback-mod4-ex3">Guardado &#10003;</span>
     </div>
   </div>
 
@@ -929,8 +1093,11 @@
       <div class="reflection-title">Para tu diario de reflexion:</div>
       <ul class="reflection-list">
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que creencia sobre el dinero te gustaria soltar hoy? &#191;Que pondrias en su lugar?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Como te sientes despues de hacer el Tapping? &#191;Ha cambiado algo en tu cuerpo o en tu mente?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que version de ti aparece en la visualizacion? Describela con detalle.</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
       </ul>
     </div>
   </div>
@@ -940,9 +1107,9 @@
 <!-- ═══════════════════════════════════════ -->
 <!-- MODULO 5 -->
 <!-- ═══════════════════════════════════════ -->
-<div class="module" id="modulo-5">
+<div class="module reveal" id="modulo-5">
   <div class="module-header">
-    <div class="module-label">Modulo 5</div>
+    <div class="module-label">Modulo 5 <span class="module-progress-badge" data-mod-progress="5">0/2</span></div>
     <h2 class="module-title">Decisiones desde la abundancia</h2>
     <div class="module-objective">Objetivo: Entender como tu sistema nervioso influye en tus decisiones financieras y aprender a tomar decisiones desde la seguridad, no desde el miedo.</div>
   </div>
@@ -980,32 +1147,36 @@
   <div class="content-section">
     <div class="content-label">Ejercicios practicos</div>
 
-    <div class="exercise">
+    <div class="exercise reveal" data-exercise="mod5-ex1">
       <div class="exercise-badge">Ejercicio 10</div>
       <div class="exercise-title">Check-in corporal antes de decidir</div>
       <div class="exercise-desc">Una practica para hacer ANTES de cualquier decision financiera importante (gastar, cobrar, invertir, negociar).</div>
       <ol class="exercise-steps">
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Para.</strong> Antes de tomar la decision, detente 60 segundos. No hagas nada todavia.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Escanea tu cuerpo:</strong> &#191;Donde sientes tension? &#191;Estomago apretado? &#191;Mandibula tensa? &#191;Corazon acelerado? &#191;Pecho cerrado? Identifica las sensaciones sin juzgarlas.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Identifica tu estado:</strong> &#191;Estoy en verde (tranquila, clara)? &#191;Rojo (ansiosa, con prisa)? &#191;Gris (paralizada, desconectada)?</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Si no estas en verde, regularte primero:</strong> 5 respiraciones profundas (inhala 4 segundos, aguanta 4, exhala 6). Pon las manos sobre el pecho. Siente tus pies en el suelo.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Solo cuando estes en verde, toma la decision.</strong> Preguntate: "&#191;Estoy decidiendo desde el miedo o desde la claridad?" Si es desde el miedo, espera. Si es desde la claridad, adelante.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Para.</strong> Antes de tomar la decision, detente 60 segundos. No hagas nada todavia.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Escanea tu cuerpo:</strong> &#191;Donde sientes tension? &#191;Estomago apretado? &#191;Mandibula tensa? &#191;Corazon acelerado? &#191;Pecho cerrado? Identifica las sensaciones sin juzgarlas.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Identifica tu estado:</strong> &#191;Estoy en verde (tranquila, clara)? &#191;Rojo (ansiosa, con prisa)? &#191;Gris (paralizada, desconectada)?</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Si no estas en verde, regularte primero:</strong> 5 respiraciones profundas (inhala 4 segundos, aguanta 4, exhala 6). Pon las manos sobre el pecho. Siente tus pies en el suelo.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Solo cuando estes en verde, toma la decision.</strong> Preguntate: "&#191;Estoy decidiendo desde el miedo o desde la claridad?" Si es desde el miedo, espera. Si es desde la claridad, adelante.</div></li>
       </ol>
       <div class="exercise-duration">Duracion: 3-5 minutos. Hacer SIEMPRE antes de decisiones financieras.</div>
+      <button class="exercise-save-btn" onclick="saveExercise('mod5-ex1')">Guardar respuesta</button>
+      <span class="save-feedback" id="feedback-mod5-ex1">Guardado &#10003;</span>
     </div>
 
-    <div class="exercise">
+    <div class="exercise reveal" data-exercise="mod5-ex2">
       <div class="exercise-badge">Ejercicio 11</div>
       <div class="exercise-title">Expansion gradual: ampliar tu ventana de tolerancia</div>
       <div class="exercise-desc">Un ejercicio semanal para acostumbrar a tu sistema nervioso a cantidades mayores de dinero.</div>
       <ol class="exercise-steps">
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Semana 1: Escribe un cheque a ti misma</strong> por la cantidad que te gustaria ganar al mes. Ponlo donde lo veas cada dia. Observa lo que sientes al verlo: &#191;incomodidad? &#191;incredulidad? Solo observa.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Semana 2: Gasta 10 euros en ti sin culpa.</strong> Algo solo para ti. Paga sin justificarte ante nadie. Observa las sensaciones y pensamientos que aparecen.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Semana 3: Sube el precio de algo que ofreces</strong> (un servicio, un producto, una hora de tu tiempo) un 10-20%. Observa tu reaccion interna al comunicarlo.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Semana 4: Dona dinero.</strong> La cantidad que te incomode ligeramente (no que te duela, que te incomode). Dar dinero rompe la creencia de escasez.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Cada semana, escribe en tu diario</strong> lo que sentiste y como reacciono tu cuerpo. Poco a poco, tu ventana se amplia.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Semana 1: Escribe un cheque a ti misma</strong> por la cantidad que te gustaria ganar al mes. Ponlo donde lo veas cada dia. Observa lo que sientes al verlo: &#191;incomodidad? &#191;incredulidad? Solo observa.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Semana 2: Gasta 10 euros en ti sin culpa.</strong> Algo solo para ti. Paga sin justificarte ante nadie. Observa las sensaciones y pensamientos que aparecen.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Semana 3: Sube el precio de algo que ofreces</strong> (un servicio, un producto, una hora de tu tiempo) un 10-20%. Observa tu reaccion interna al comunicarlo.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Semana 4: Dona dinero.</strong> La cantidad que te incomode ligeramente (no que te duela, que te incomode). Dar dinero rompe la creencia de escasez.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Cada semana, escribe en tu diario</strong> lo que sentiste y como reacciono tu cuerpo. Poco a poco, tu ventana se amplia.</div></li>
       </ol>
       <div class="exercise-duration">Duracion: 4 semanas (una accion por semana)</div>
+      <button class="exercise-save-btn" onclick="saveExercise('mod5-ex2')">Guardar respuesta</button>
+      <span class="save-feedback" id="feedback-mod5-ex2">Guardado &#10003;</span>
     </div>
   </div>
 
@@ -1015,8 +1186,11 @@
       <div class="reflection-title">Para tu diario de reflexion:</div>
       <ul class="reflection-list">
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;En que estado (verde/rojo/gris) sueles estar cuando tomas decisiones sobre dinero?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Cual es tu "ventana de tolerancia" actual? &#191;Cual te gustaria que fuera?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Cuando fue la ultima vez que tomaste una decision financiera desde la calma total? &#191;Que decidiste?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
       </ul>
     </div>
   </div>
@@ -1026,9 +1200,9 @@
 <!-- ═══════════════════════════════════════ -->
 <!-- MODULO 6 -->
 <!-- ═══════════════════════════════════════ -->
-<div class="module" id="modulo-6">
+<div class="module reveal" id="modulo-6">
   <div class="module-header">
-    <div class="module-label">Modulo 6</div>
+    <div class="module-label">Modulo 6 <span class="module-progress-badge" data-mod-progress="6">0/2</span></div>
     <h2 class="module-title">Tu nueva relacion con el dinero</h2>
     <div class="module-objective">Objetivo: Integrar todo lo aprendido en un plan de accion concreto y construir una relacion sana, consciente y libre con el dinero para el resto de tu vida.</div>
   </div>
@@ -1063,7 +1237,7 @@
   <div class="content-section">
     <div class="content-label">Ejercicios practicos</div>
 
-    <div class="exercise">
+    <div class="exercise reveal" data-exercise="mod6-ex1">
       <div class="exercise-badge">Ejercicio 12</div>
       <div class="exercise-title">Tu manifiesto financiero personal</div>
       <div class="exercise-desc">El ejercicio final: crear un documento que defina tu nueva relacion con el dinero. No es una lista de deseos — es una declaracion de quien eres ahora.</div>
@@ -1073,21 +1247,28 @@
         <li class="exercise-step"><div class="step-num"></div><div><strong>Completa tu manifiesto:</strong><br>"Yo, [tu nombre], declaro que mi relacion con el dinero ha cambiado. Ya no creo que ______. Ahora se que ______. Merezco ______ y me permito ______. El dinero en mi vida es ______ y yo soy ______ independientemente de cuanto tenga. A partir de hoy, mis decisiones financieras se basan en ______, no en ______."</div></li>
         <li class="exercise-step"><div class="step-num"></div><div><strong>Firma y pon la fecha.</strong> Guardalo. Leelo cada semana durante los proximos 90 dias.</div></li>
       </ol>
+      <div class="exercise-interactive">
+        <textarea class="exercise-textarea" rows="6" placeholder="Escribe aqui tu manifiesto financiero personal..."></textarea>
+      </div>
       <div class="exercise-duration">Duracion: 30 minutos</div>
+      <button class="exercise-save-btn" onclick="saveExercise('mod6-ex1')">Guardar respuesta</button>
+      <span class="save-feedback" id="feedback-mod6-ex1">Guardado &#10003;</span>
     </div>
 
-    <div class="exercise">
+    <div class="exercise reveal" data-exercise="mod6-ex2">
       <div class="exercise-badge">Ejercicio 13</div>
       <div class="exercise-title">Plan de mantenimiento de 90 dias</div>
       <div class="exercise-desc">Tu rutina diaria y semanal para consolidar todo lo que has aprendido.</div>
       <ol class="exercise-steps">
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Cada manana (5 min):</strong> Lee tu manifiesto financiero + haz la visualizacion del modulo 4 (tu yo abundante). Antes de arrancar el dia, conecta con tu nueva identidad financiera.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Cada vez que tomes una decision financiera:</strong> Haz el check-in corporal del modulo 5. Verde = decide. Rojo/gris = regularte primero.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Cada semana (15 min):</strong> Escribe en tu diario: &#191;Que decision financiera tome esta semana desde la consciencia? &#191;Donde note que aparecio una creencia vieja? &#191;Como la gestione?</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Cada mes:</strong> Haz una sesion de Tapping con la creencia que mas te haya costado ese mes. Repasa tu manifiesto y ajustalo si has evolucionado.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>A los 90 dias:</strong> Relee tu diario desde el dia 1. Observa cuanto has cambiado. Celebralo. Y decide si quieres seguir profundizando.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Cada manana (5 min):</strong> Lee tu manifiesto financiero + haz la visualizacion del modulo 4 (tu yo abundante). Antes de arrancar el dia, conecta con tu nueva identidad financiera.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Cada vez que tomes una decision financiera:</strong> Haz el check-in corporal del modulo 5. Verde = decide. Rojo/gris = regularte primero.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Cada semana (15 min):</strong> Escribe en tu diario: &#191;Que decision financiera tome esta semana desde la consciencia? &#191;Donde note que aparecio una creencia vieja? &#191;Como la gestione?</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Cada mes:</strong> Haz una sesion de Tapping con la creencia que mas te haya costado ese mes. Repasa tu manifiesto y ajustalo si has evolucionado.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>A los 90 dias:</strong> Relee tu diario desde el dia 1. Observa cuanto has cambiado. Celebralo. Y decide si quieres seguir profundizando.</div></li>
       </ol>
       <div class="exercise-duration">Compromiso: 5 min/dia + 15 min/semana durante 90 dias</div>
+      <button class="exercise-save-btn" onclick="saveExercise('mod6-ex2')">Guardar respuesta</button>
+      <span class="save-feedback" id="feedback-mod6-ex2">Guardado &#10003;</span>
     </div>
   </div>
 
@@ -1097,9 +1278,13 @@
       <div class="reflection-title">Reflexion final:</div>
       <ul class="reflection-list">
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que es lo que mas ha cambiado en ti desde que empezaste este programa?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que le dirias ahora a la version de ti que empezo con miedo?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Cual es la primera decision financiera que vas a tomar desde tu nueva identidad?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
         <li class="reflection-item"><span class="reflection-icon">&#9998;</span> Escribe una frase que resuma tu nueva relacion con el dinero. Solo una.</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
       </ul>
     </div>
   </div>
@@ -1115,14 +1300,137 @@
 
 <!-- FOOTER -->
 <footer>
-  &copy; 2026 <a href="flow.html">San Inspira</a>
+  &copy; 2026 <a href="flow.html">San Inspira</a> &middot; <a href="#" onclick="resetProgress(); return false;" style="text-decoration:underline;">Reiniciar progreso</a>
 </footer>
 
 <script>
-  const ro = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+// Scroll reveal
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+// Exercise config
+const exerciseConfig = {
+  'mod1-ex1': { type: 'textarea', mod: 1 },
+  'mod1-ex2': { type: 'steps', mod: 1 },
+  'mod2-ex1': { type: 'test', mod: 2 },
+  'mod2-ex2': { type: 'steps', mod: 2 },
+  'mod3-ex1': { type: 'textarea', mod: 3 },
+  'mod3-ex2': { type: 'textarea', mod: 3 },
+  'mod4-ex1': { type: 'steps', mod: 4 },
+  'mod4-ex2': { type: 'steps', mod: 4 },
+  'mod4-ex3': { type: 'steps', mod: 4 },
+  'mod5-ex1': { type: 'steps', mod: 5 },
+  'mod5-ex2': { type: 'steps', mod: 5 },
+  'mod6-ex1': { type: 'textarea', mod: 6 },
+  'mod6-ex2': { type: 'steps', mod: 6 }
+};
+
+function loadProgress() {
+  const data = JSON.parse(localStorage.getItem('sanInspira') || '{}');
+  document.querySelectorAll('.exercise[data-exercise]').forEach(ex => {
+    const id = ex.dataset.exercise;
+    if (!data[id]) return;
+    const ta = ex.querySelector('.exercise-textarea');
+    if (ta && data[id].text) ta.value = data[id].text;
+    const checks = ex.querySelectorAll('.step-checkbox');
+    if (data[id].steps) checks.forEach((cb, i) => { cb.checked = !!data[id].steps[i]; });
+    const testChecks = ex.querySelectorAll('input[name="money-test"]');
+    if (data[id].testAnswers) testChecks.forEach((cb, i) => { cb.checked = !!data[id].testAnswers[i]; });
+    if (data[id].done) ex.classList.add('exercise-complete');
+  });
+  document.querySelectorAll('.reflection-textarea').forEach((ta, i) => {
+    if (data['ref-' + i]) ta.value = data['ref-' + i];
+  });
+  updateProgress();
+}
+
+function saveExercise(id) {
+  const data = JSON.parse(localStorage.getItem('sanInspira') || '{}');
+  const ex = document.querySelector('[data-exercise="' + id + '"]');
+  if (!ex) return;
+  data[id] = data[id] || {};
+  data[id].date = new Date().toISOString().split('T')[0];
+  const ta = ex.querySelector('.exercise-textarea');
+  if (ta) { data[id].text = ta.value; data[id].done = ta.value.trim().length > 10; }
+  const checks = ex.querySelectorAll('.step-checkbox');
+  if (checks.length > 0) {
+    data[id].steps = Array.from(checks).map(cb => cb.checked);
+    data[id].done = Array.from(checks).every(cb => cb.checked);
+  }
+  const testChecks = ex.querySelectorAll('input[name="money-test"]');
+  if (testChecks.length > 0) {
+    data[id].testAnswers = Array.from(testChecks).map(cb => cb.checked);
+    data[id].done = Array.from(testChecks).some(cb => cb.checked);
+    showMoneyTestResult();
+  }
+  if (data[id].done) ex.classList.add('exercise-complete');
+  localStorage.setItem('sanInspira', JSON.stringify(data));
+  const fb = document.getElementById('feedback-' + id);
+  if (fb) { fb.classList.add('show'); setTimeout(() => fb.classList.remove('show'), 2000); }
+  updateProgress();
+}
+
+function showMoneyTestResult() {
+  const checks = document.querySelectorAll('input[name="money-test"]:checked');
+  const scores = { evitacion: 0, adoracion: 0, estatus: 0, vigilancia: 0 };
+  checks.forEach(cb => { scores[cb.value]++; });
+  const max = Math.max(...Object.values(scores));
+  if (max === 0) return;
+  const dominant = Object.keys(scores).find(k => scores[k] === max);
+  const labels = { evitacion:'Evitacion del dinero', adoracion:'Adoracion del dinero', estatus:'Estatus vinculado al dinero', vigilancia:'Vigilancia financiera' };
+  const descs = {
+    evitacion: 'Tiendes a creer que el dinero es malo o que no lo mereces. Esto te lleva a evitar temas financieros o a sabotear oportunidades de abundancia.',
+    adoracion: 'Crees que el dinero resolveria todos tus problemas. Esta creencia genera ansiedad constante por no tener suficiente.',
+    estatus: 'Asocias tu valor personal con tu situacion economica. Esto puede llevarte a gastar mas de lo necesario para proyectar una imagen.',
+    vigilancia: 'Eres muy cuidadoso/a con el dinero, lo cual es positivo, pero el exceso de vigilancia puede generar ansiedad y rigidez financiera.'
+  };
+  const result = document.getElementById('money-test-result');
+  if (result) { result.style.display = 'block'; result.innerHTML = '<strong>Tu Money Script dominante: ' + labels[dominant] + '</strong><p>' + descs[dominant] + '</p>'; }
+}
+
+function updateProgress() {
+  const data = JSON.parse(localStorage.getItem('sanInspira') || '{}');
+  let completed = 0;
+  const modCounts = {1:{t:2,d:0},2:{t:2,d:0},3:{t:2,d:0},4:{t:3,d:0},5:{t:2,d:0},6:{t:2,d:0}};
+  Object.keys(exerciseConfig).forEach(id => {
+    if (data[id] && data[id].done) { completed++; modCounts[exerciseConfig[id].mod].d++; }
+  });
+  const pct = Math.round((completed / 13) * 100);
+  const fill = document.getElementById('globalProgressFill');
+  if (fill) fill.style.width = pct + '%';
+  for (let m = 1; m <= 6; m++) {
+    const badge = document.querySelector('[data-index-mod="' + m + '"]');
+    if (badge) { badge.textContent = modCounts[m].d + '/' + modCounts[m].t; if (modCounts[m].d === modCounts[m].t) badge.classList.add('complete'); }
+    const modBadge = document.querySelector('[data-mod-progress="' + m + '"]');
+    if (modBadge) { modBadge.textContent = modCounts[m].d + '/' + modCounts[m].t; if (modCounts[m].d === modCounts[m].t) modBadge.classList.add('complete'); }
+  }
+}
+
+document.querySelectorAll('.reflection-textarea').forEach((ta, i) => {
+  ta.addEventListener('blur', () => {
+    const data = JSON.parse(localStorage.getItem('sanInspira') || '{}');
+    data['ref-' + i] = ta.value;
+    localStorage.setItem('sanInspira', JSON.stringify(data));
+  });
+});
+
+document.querySelectorAll('.step-checkbox').forEach(cb => {
+  cb.addEventListener('change', () => {
+    const ex = cb.closest('[data-exercise]');
+    if (ex) saveExercise(ex.dataset.exercise);
+  });
+});
+
+function resetProgress() {
+  if (confirm('Estas seguro/a? Se borrara todo tu progreso y respuestas guardadas.')) {
+    localStorage.removeItem('sanInspira');
+    location.reload();
+  }
+}
+
+loadProgress();
 </script>
 
 </body>
