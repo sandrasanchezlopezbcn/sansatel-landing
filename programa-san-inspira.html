@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>San Inspira — Programa completo: Reprograma tu relacion con el dinero</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0C0A1A;
+    --bg2: #130F2A;
+    --bg3: #1A1436;
+    --purple: #8B5CF6;
+    --purple-light: #A78BFA;
+    --gold: #D4A017;
+    --gold-light: #F0C940;
+    --green: #10B981;
+    --white: #F1F0F7;
+    --gray: #8B85A8;
+    --gray2: #5E587A;
+    --border: rgba(139,92,246,0.15);
+    --card-bg: rgba(19,15,42,0.9);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(12,10,26,0.88);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--purple-light); }
+
+  .nav-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--bg);
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* HEADER */
+  .page-header {
+    padding: 120px 40px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #130F2A 0%, #0C0A1A 40%, #1A0A2E 70%, #0C0A1A 100%);
+  }
+
+  .page-header-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 750px;
+    margin: 0 auto;
+  }
+
+  .page-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(139,92,246,0.1);
+    border: 1px solid rgba(139,92,246,0.25);
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--purple-light);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 24px;
+  }
+
+  .page-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(32px, 4.5vw, 52px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .page-title .accent {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .page-subtitle {
+    font-size: 17px;
+    color: var(--gray);
+    line-height: 1.7;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  /* MODULE INDEX */
+  .module-index {
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .index-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .index-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .index-item:hover {
+    border-color: rgba(139,92,246,0.4);
+    background: rgba(139,92,246,0.06);
+    transform: translateY(-2px);
+  }
+  .index-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: rgba(212,160,23,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* MODULE */
+  .module {
+    padding: 80px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border);
+  }
+
+  .module-header {
+    margin-bottom: 40px;
+  }
+
+  .module-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .module-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .module-objective {
+    font-size: 16px;
+    color: var(--purple-light);
+    font-weight: 500;
+    font-style: italic;
+    padding: 14px 18px;
+    background: rgba(139,92,246,0.06);
+    border-left: 3px solid var(--purple);
+    border-radius: 0 10px 10px 0;
+    margin-top: 16px;
+  }
+
+  /* CONTENT BLOCKS */
+  .content-section {
+    margin-bottom: 40px;
+  }
+
+  .content-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .content-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(212,160,23,0.2);
+  }
+
+  .theory-block {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 16px;
+  }
+
+  .theory-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .theory-text {
+    font-size: 15px;
+    color: var(--gray);
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+  .theory-text:last-child { margin-bottom: 0; }
+
+  .theory-text strong { color: var(--white); font-weight: 600; }
+
+  .theory-highlight {
+    background: rgba(139,92,246,0.06);
+    border: 1px solid rgba(139,92,246,0.15);
+    border-radius: 10px;
+    padding: 16px 18px;
+    font-size: 14px;
+    color: var(--purple-light);
+    line-height: 1.6;
+    margin-top: 12px;
+    font-weight: 500;
+  }
+
+  .key-concept {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+  .key-concept:last-child { margin-bottom: 0; }
+
+  .concept-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(139,92,246,0.1);
+    border: 1px solid rgba(139,92,246,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .concept-text {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+  .concept-text strong { color: var(--white); }
+
+  /* EXERCISES */
+  .exercise {
+    background: var(--card-bg);
+    border: 1px solid rgba(16,185,129,0.15);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .exercise::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--green), var(--purple));
+  }
+
+  .exercise-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.2);
+    border-radius: 100px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .exercise-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .exercise-desc {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .exercise-steps {
+    list-style: none;
+    counter-reset: step;
+  }
+
+  .exercise-step {
+    counter-increment: step;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+  .exercise-step:last-child { border-bottom: none; }
+
+  .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--green);
+    flex-shrink: 0;
+  }
+  .step-num::before { content: counter(step); }
+
+  .exercise-step strong { color: var(--white); }
+
+  .exercise-duration {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--gray2);
+    font-weight: 500;
+  }
+
+  /* REFLECTION */
+  .reflection-box {
+    background: rgba(212,160,23,0.05);
+    border: 1px solid rgba(212,160,23,0.15);
+    border-radius: 14px;
+    padding: 24px;
+  }
+
+  .reflection-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+
+  .reflection-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .reflection-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+
+  .reflection-icon {
+    color: var(--gold);
+    font-size: 14px;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  /* BUTTONS */
+  .btn-primary {
+    background: var(--gold);
+    color: var(--bg);
+    padding: 16px 32px;
+    border-radius: 100px;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  /* CTA */
+  .final-cta {
+    text-align: center;
+    padding: 80px 40px;
+    border-top: 1px solid var(--border);
+  }
+
+  .final-cta-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 800;
+    margin-bottom: 14px;
+  }
+
+  .final-cta-text {
+    font-size: 16px;
+    color: var(--gray);
+    line-height: 1.7;
+    max-width: 550px;
+    margin: 0 auto 32px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: rgba(0,0,0,0.3);
+    border-top: 1px solid var(--border);
+    padding: 30px 40px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--gray2);
+  }
+  footer a { color: var(--purple-light); text-decoration: none; }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .page-header { padding: 100px 20px 50px; }
+    .module-index { padding: 30px 20px; }
+    .index-grid { grid-template-columns: 1fr 1fr; }
+    .module { padding: 60px 20px; }
+  }
+
+  @media (max-width: 500px) {
+    .index-grid { grid-template-columns: 1fr; }
+    .page-title { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="flow.html" class="nav-logo">San<span>Inspira</span></a>
+  <ul class="nav-links">
+    <li><a href="#modulo-1">Mod 1</a></li>
+    <li><a href="#modulo-2">Mod 2</a></li>
+    <li><a href="#modulo-3">Mod 3</a></li>
+    <li><a href="#modulo-4">Mod 4</a></li>
+    <li><a href="#modulo-5">Mod 5</a></li>
+    <li><a href="#modulo-6">Mod 6</a></li>
+  </ul>
+  <a href="https://wa.me/34660619034?text=Hola%20Sandra%2C%20quiero%20informacion%20sobre%20el%20programa%20San%20Inspira" class="nav-cta">Quiero saber mas</a>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="page-header-bg"></div>
+  <div class="page-header-inner">
+    <div class="page-badge">Programa completo &middot; 6 modulos</div>
+    <h1 class="page-title">Reprograma tu relacion<br>con el <span class="accent">dinero</span></h1>
+    <p class="page-subtitle">El programa de San Inspira para entender que pasa en tu subconsciente con el dinero y transformarlo con herramientas reales basadas en neurociencia.</p>
+  </div>
+</div>
+
+<!-- MODULE INDEX -->
+<div class="module-index">
+  <div class="index-grid">
+    <a href="#modulo-1" class="index-item"><div class="index-num">1</div>Tu mente y el dinero</a>
+    <a href="#modulo-2" class="index-item"><div class="index-num">2</div>Identifica tus patrones</a>
+    <a href="#modulo-3" class="index-item"><div class="index-num">3</div>Descentra el dinero</a>
+    <a href="#modulo-4" class="index-item"><div class="index-num">4</div>Reprograma tu sistema</a>
+    <a href="#modulo-5" class="index-item"><div class="index-num">5</div>Decisiones desde la abundancia</a>
+    <a href="#modulo-6" class="index-item"><div class="index-num">6</div>Tu nueva relacion</a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- MODULO 1 -->
+<!-- ═══════════════════════════════════════ -->
+<div class="module" id="modulo-1">
+  <div class="module-header">
+    <div class="module-label">Modulo 1</div>
+    <h2 class="module-title">Tu mente y el dinero</h2>
+    <div class="module-objective">Objetivo: Entender como tu subconsciente absorbio creencias sobre el dinero y por que sigue ejecutandolas en modo automatico, sin que te des cuenta.</div>
+  </div>
+
+  <!-- TEORIA -->
+  <div class="content-section">
+    <div class="content-label">Contenido teorico</div>
+
+    <div class="theory-block">
+      <div class="theory-title">Como se programa tu subconsciente (de 0 a 7 anos)</div>
+      <p class="theory-text">Entre los 0 y los 7 anos, tu cerebro funciona principalmente en ondas cerebrales theta y alfa. Es un estado similar a la hipnosis: <strong>absorbes todo lo que ves, oyes y sientes sin ningun filtro critico.</strong></p>
+      <p class="theory-text">Esto significa que las frases que escuchabas en casa sobre el dinero ("no nos llega", "el dinero no crece en los arboles", "los ricos son avariciosos") <strong>se grabaron directamente en tu subconsciente</strong> como si fueran verdades absolutas.</p>
+      <p class="theory-text">Tu cerebro consciente (el que piensa, analiza y quiere cambiar) solo controla entre un 5% y un 10% de tus decisiones diarias. <strong>El otro 90-95% lo gestiona tu subconsciente</strong>, ejecutando los programas que instalo durante esos primeros anos.</p>
+      <div class="theory-highlight">Por eso puedes querer abundancia con tu mente consciente y seguir tomando decisiones desde la escasez: tu subconsciente esta ejecutando un programa diferente al que tu crees tener.</div>
+    </div>
+
+    <div class="theory-block">
+      <div class="theory-title">El "money blueprint": tu plano financiero invisible</div>
+      <p class="theory-text">Segun T. Harv Eker (autor de "Los secretos de la mente millonaria"), cada persona tiene un <strong>"money blueprint"</strong> o plano financiero. Es un conjunto de creencias, habitos y emociones sobre el dinero que se formo en la infancia.</p>
+      <p class="theory-text">Este plano funciona como un termostato: <strong>si tu termostato interno esta programado para ganar 2.000 euros al mes, tu subconsciente hara todo lo posible para mantenerte ahi.</strong> Si ganas mas, encontraras formas "accidentales" de perderlo. Si ganas menos, buscaras formas de volver a ese nivel.</p>
+      <p class="theory-text">Tu money blueprint se formo a partir de tres fuentes:</p>
+
+      <div class="key-concept">
+        <div class="concept-icon">&#128483;</div>
+        <div class="concept-text"><strong>Programacion verbal:</strong> Todo lo que escuchaste sobre el dinero. "Hay que trabajar muy duro para ganar dinero", "el dinero es la raiz de todos los males", "nosotros no somos de esos".</div>
+      </div>
+      <div class="key-concept">
+        <div class="concept-icon">&#128065;</div>
+        <div class="concept-text"><strong>Modelado:</strong> Lo que viste hacer a tus padres y tu entorno con el dinero. Como lo gastaban, como reaccionaban cuando no habia, si discutian por el, si lo escondian.</div>
+      </div>
+      <div class="key-concept">
+        <div class="concept-icon">&#128163;</div>
+        <div class="concept-text"><strong>Incidentes especificos:</strong> Experiencias concretas que te marcaron. La vez que te dijeron "eso no nos lo podemos permitir", una crisis economica familiar, o ver a alguien perder todo.</div>
+      </div>
+    </div>
+
+    <div class="theory-block">
+      <div class="theory-title">Neuroplasticidad: la buena noticia</div>
+      <p class="theory-text">La neurociencia ha demostrado que <strong>el cerebro es plastico</strong>, es decir, puede cambiar a cualquier edad. Las vias neuronales que soportan tus creencias sobre el dinero se fortalecieron con la repeticion, pero tambien <strong>se pueden debilitar y reemplazar por otras nuevas.</strong></p>
+      <p class="theory-text">Cada vez que repites un pensamiento o comportamiento, la via neuronal se hace mas fuerte (como un camino en el bosque que se despeja con el uso). Pero si dejas de usar ese camino y creas uno nuevo, <strong>el viejo se va debilitando y el nuevo se convierte en tu nueva ruta por defecto.</strong></p>
+      <p class="theory-text">Esto es exactamente lo que vamos a hacer en este programa: <strong>identificar las vias neuronales viejas y crear nuevas que te sirvan.</strong></p>
+    </div>
+  </div>
+
+  <!-- EJERCICIOS -->
+  <div class="content-section">
+    <div class="content-label">Ejercicios practicos</div>
+
+    <div class="exercise">
+      <div class="exercise-badge">Ejercicio 1</div>
+      <div class="exercise-title">Arqueologia financiera: tu primera memoria del dinero</div>
+      <div class="exercise-desc">Este ejercicio te ayudara a descubrir los primeros programas que tu subconsciente grabo sobre el dinero. Necesitaras un cuaderno y 30 minutos de tranquilidad.</div>
+      <ol class="exercise-steps">
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Cierra los ojos y respira profundamente 5 veces.</strong> Deja que tu cuerpo se relaje. No fuerces nada.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Viaja a tu infancia.</strong> Recuerda tu casa, tu familia, la mesa donde comiais. Intenta recordar la primera vez que escuchaste hablar de dinero. &#191;Que se decia? &#191;Quien lo decia? &#191;Que tono de voz tenia?</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe todo lo que recuerdes</strong> sin juzgar ni filtrar. Frases textuales, emociones, imagenes, sensaciones fisicas. Por ejemplo: "Recuerdo a mi madre diciendo que no llegabamos a fin de mes. Sentia miedo en el estomago."</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Ahora escribe las 5 frases sobre el dinero</strong> que mas escuchabas en tu casa. Pueden ser directas ("no hay dinero") o indirectas ("los ricos no son felices").</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Para cada frase, preguntate:</strong> &#191;Sigo creyendo esto? &#191;Tomo decisiones basadas en esta creencia? &#191;Me sirve o me limita?</div></li>
+      </ol>
+      <div class="exercise-duration">Duracion: 30 minutos</div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-badge">Ejercicio 2</div>
+      <div class="exercise-title">El termostato financiero: descubre tu numero</div>
+      <div class="exercise-desc">Todos tenemos un "techo invisible" de ingresos. Este ejercicio te ayuda a identificar el tuyo.</div>
+      <ol class="exercise-steps">
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe cuanto ganas actualmente al mes.</strong> Sin juzgar si es mucho o poco.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Ahora escribe la cifra que te gustaria ganar.</strong> La primera que te venga a la mente, sin pensarlo demasiado.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Observa tu cuerpo.</strong> Al pensar en esa cifra, &#191;que sientes? &#191;Hay emocion, incomodidad, ansiedad, culpa, incredulidad? Escribe lo que notes.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Multiplica esa cifra por 3.</strong> Imagina que ganas eso al mes. &#191;Que te dice tu mente? Escribe los pensamientos automaticos que aparecen ("eso es imposible", "no me lo merezco", "seria demasiado").</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Esos pensamientos automaticos son tus programas subconscientes.</strong> Guardalos. Los vamos a trabajar en el modulo 4.</div></li>
+      </ol>
+      <div class="exercise-duration">Duracion: 20 minutos</div>
+    </div>
+  </div>
+
+  <!-- REFLEXION -->
+  <div class="content-section">
+    <div class="content-label">Preguntas de reflexion</div>
+    <div class="reflection-box">
+      <div class="reflection-title">Para tu diario de reflexion:</div>
+      <ul class="reflection-list">
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que papel tenia el dinero en tu familia? &#191;Era un tema tabu, una fuente de conflicto o algo de lo que se hablaba con naturalidad?</li>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que emociones sientes cuando piensas en tu cuenta bancaria? &#191;Ansiedad, tranquilidad, culpa, miedo?</li>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> Si el dinero pudiera hablar, &#191;que te diria? Y tu, &#191;que le dirias a el?</li>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que decisiones tomarias manana si no tuvieras miedo con el dinero?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- MODULO 2 -->
+<!-- ═══════════════════════════════════════ -->
+<div class="module" id="modulo-2">
+  <div class="module-header">
+    <div class="module-label">Modulo 2</div>
+    <h2 class="module-title">Identifica tus patrones</h2>
+    <div class="module-objective">Objetivo: Poner nombre a las creencias y patrones automaticos que controlan tu relacion con el dinero, para que dejen de operar en la sombra.</div>
+  </div>
+
+  <div class="content-section">
+    <div class="content-label">Contenido teorico</div>
+
+    <div class="theory-block">
+      <div class="theory-title">Los 4 "Money Scripts" (guiones del dinero)</div>
+      <p class="theory-text">El psicologo financiero Dr. Brad Klontz identifico 4 tipos de creencias subconscientes sobre el dinero que la mayoria de personas tenemos. <strong>No son buenos ni malos, pero cuando son extremos, nos sabotean:</strong></p>
+
+      <div class="key-concept">
+        <div class="concept-icon">&#128528;</div>
+        <div class="concept-text"><strong>Evitacion del dinero:</strong> "El dinero es malo", "no merezco tener dinero", "el dinero corrompe". Personas que rechazan el dinero, cobran menos de lo que valen, regalan su trabajo o se sienten culpables al recibir. Suelen autosabotearse cuando les va bien.</div>
+      </div>
+      <div class="key-concept">
+        <div class="concept-icon">&#128176;</div>
+        <div class="concept-text"><strong>Adoracion del dinero:</strong> "El dinero resolvera todos mis problemas", "nunca tengo suficiente", "mas dinero = mas felicidad". Personas que buscan dinero compulsivamente pero nunca sienten que tienen bastante. Compras impulsivas, deudas, o acumulacion por miedo.</div>
+      </div>
+      <div class="key-concept">
+        <div class="concept-icon">&#128274;</div>
+        <div class="concept-text"><strong>Estatus del dinero:</strong> "Mi valor como persona depende de cuanto tengo", "si no gano X no soy exitoso/a". Personas que comparan su patrimonio con el de los demas, gastan para aparentar o sienten verguenza por su nivel economico.</div>
+      </div>
+      <div class="key-concept">
+        <div class="concept-icon">&#128737;</div>
+        <div class="concept-text"><strong>Hipervigilancia:</strong> "Hay que vigilar cada centimo", "no te puedes fiar", "cualquier gasto innecesario es un riesgo". Personas que controlan cada euro con ansiedad, les cuesta disfrutar del dinero y viven con un miedo constante a que se acabe.</div>
+      </div>
+
+      <div class="theory-highlight">La mayoria de personas tenemos una combinacion de 2 o 3 de estos guiones. Identificar cual domina tu vida es el primer paso para dejar de obedecerlo ciegamente.</div>
+    </div>
+
+    <div class="theory-block">
+      <div class="theory-title">Patrones que se repiten: el ciclo del autosabotaje</div>
+      <p class="theory-text">El autosabotaje financiero no es casualidad. Funciona con un patron predecible:</p>
+      <p class="theory-text"><strong>1. Deseo consciente:</strong> "Quiero ganar mas / ahorrar / invertir"</p>
+      <p class="theory-text"><strong>2. Activacion subconsciente:</strong> Tu subconsciente detecta que estas saliendo de tu "zona de termostato" y activa la alarma interna.</p>
+      <p class="theory-text"><strong>3. Sabotaje:</strong> Gastas de mas, procrastinas la oportunidad, te enfermas antes de una reunion importante, peleas con tu pareja por dinero "sin motivo".</p>
+      <p class="theory-text"><strong>4. Vuelta al punto de partida:</strong> Vuelves a tu nivel "seguro" y te preguntas: "&#191;Por que siempre me pasa lo mismo?"</p>
+      <p class="theory-text"><strong>El subconsciente no sabotea para hacerte dano.</strong> Lo hace porque su funcion es mantenerte en lo conocido. Lo conocido = seguro. Aunque lo conocido sea la escasez.</p>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="content-label">Ejercicios practicos</div>
+
+    <div class="exercise">
+      <div class="exercise-badge">Ejercicio 3</div>
+      <div class="exercise-title">Test: &#191;Cual es tu Money Script dominante?</div>
+      <div class="exercise-desc">Responde con honestidad. No hay respuestas correctas ni incorrectas. Marca las frases con las que te identificas:</div>
+      <ol class="exercise-steps">
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Lista A (Evitacion):</strong> "No merezco ganar mas de lo que gano" / "Me siento culpable cuando gasto en mi" / "Cobrar por mi trabajo me incomoda" / "Si tuviera mucho dinero, me convertiria en mala persona"</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Lista B (Adoracion):</strong> "Si tuviera mas dinero mis problemas desaparecerian" / "Nunca siento que tengo suficiente" / "Compro cosas para sentirme mejor" / "El dinero es lo mas importante"</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Lista C (Estatus):</strong> "Me comparo economicamente con los demas" / "Me averguenza no ganar mas" / "Gasto para que los demas vean que me va bien" / "Mi valor depende de mi exito economico"</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Lista D (Hipervigilancia):</strong> "Reviso mis cuentas constantemente con ansiedad" / "Me cuesta mucho gastar, incluso en cosas necesarias" / "Siento que el dinero se puede acabar en cualquier momento" / "Cada gasto me genera estres"</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>La lista donde hayas marcado mas frases es tu guion dominante.</strong> Escribe en tu diario: "Mi money script dominante es ______ y las frases que mas me resuenan son ______. Esto me afecta en mi vida porque ______."</div></li>
+      </ol>
+      <div class="exercise-duration">Duracion: 15 minutos</div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-badge">Ejercicio 4</div>
+      <div class="exercise-title">Mapa de sabotaje: tu patron en papel</div>
+      <div class="exercise-desc">Dibuja tu ciclo de autosabotaje financiero para hacerlo visible y consciente.</div>
+      <ol class="exercise-steps">
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Piensa en la ultima vez que te fue bien economicamente</strong> (un buen mes, un ingreso extra, una oportunidad). Escribe que paso.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Ahora escribe que paso despues.</strong> &#191;Lo mantuviste? &#191;Gastaste de mas? &#191;Aparecio un "imprevisto"? &#191;Rechazaste la siguiente oportunidad?</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Dibuja un circulo en una hoja</strong> y escribe las 4 fases de TU ciclo personal: &#191;que quieres? &#8594; &#191;que haces para conseguirlo? &#8594; &#191;como lo saboteas? &#8594; &#191;donde acabas?</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Observa el circulo.</strong> &#191;Cuantas veces has repetido este ciclo? Dale un nombre a tu patron (ej: "el techo de cristal", "el que gasta para olvidar", "la que no se atreve").</div></li>
+      </ol>
+      <div class="exercise-duration">Duracion: 25 minutos</div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="content-label">Preguntas de reflexion</div>
+    <div class="reflection-box">
+      <div class="reflection-title">Para tu diario de reflexion:</div>
+      <ul class="reflection-list">
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Cuando fue la ultima vez que saboteaste algo bueno que te pasaba con el dinero? &#191;Que hiciste exactamente?</li>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Hay alguna cantidad de dinero que te de miedo superar? &#191;Cual es y por que crees que te frena?</li>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> Si un amigo te contara tus patrones con el dinero como si fueran los suyos, &#191;que le dirias?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- MODULO 3 -->
+<!-- ═══════════════════════════════════════ -->
+<div class="module" id="modulo-3">
+  <div class="module-header">
+    <div class="module-label">Modulo 3</div>
+    <h2 class="module-title">Descentra el dinero</h2>
+    <div class="module-objective">Objetivo: Aprender a separar tu valor como persona del dinero que tienes o ganas, para que deje de ser el centro de tu ansiedad y tus decisiones.</div>
+  </div>
+
+  <div class="content-section">
+    <div class="content-label">Contenido teorico</div>
+
+    <div class="theory-block">
+      <div class="theory-title">El dinero no es el problema. Tu relacion con el si.</div>
+      <p class="theory-text">El dinero es una herramienta. No tiene personalidad, no juzga y no decide por ti. Pero <strong>cuando le das el poder de definir tu valor, tu seguridad y tu identidad, se convierte en el centro de todo</strong> — y desde ahi no puedes tomar buenas decisiones.</p>
+      <p class="theory-text">Descentrar el dinero no significa que no te importe o que no quieras tener mas. Significa que <strong>tu bienestar, tu identidad y tus decisiones no dependen exclusivamente de el.</strong></p>
+      <p class="theory-text">Cuando el dinero esta en el centro, cada decision financiera activa el sistema de amenaza del cerebro (amigdala). Gastas con miedo, ahorras con ansiedad, y cobras con culpa. Cuando lo descentras, <strong>activas el cortex prefrontal</strong> — la parte del cerebro que toma decisiones racionales, creativas y a largo plazo.</p>
+    </div>
+
+    <div class="theory-block">
+      <div class="theory-title">La identidad financiera vs. tu identidad real</div>
+      <p class="theory-text">Muchas personas han fusionado su identidad con su situacion economica:</p>
+      <p class="theory-text">"Soy pobre" (en vez de "ahora tengo pocos ingresos")</p>
+      <p class="theory-text">"No soy de los que ganan mucho" (en vez de "hasta ahora no he ganado mucho")</p>
+      <p class="theory-text">"No me puedo permitir eso" (en vez de "elijo no gastar en eso ahora")</p>
+      <p class="theory-text"><strong>El lenguaje que usas sobre el dinero refuerza las vias neuronales.</strong> Cada vez que dices "soy pobre", tu cerebro busca evidencias de que es verdad y descarta las que lo contradicen. Es lo que en neurociencia se llama <strong>sesgo de confirmacion.</strong></p>
+      <div class="theory-highlight">Tu situacion financiera es temporal y cambiante. Tu identidad no tiene que estar atada a ella. Separar ambas cosas es el paso mas liberador que puedes dar.</div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="content-label">Ejercicios practicos</div>
+
+    <div class="exercise">
+      <div class="exercise-badge">Ejercicio 5</div>
+      <div class="exercise-title">Carta al dinero</div>
+      <div class="exercise-desc">Un ejercicio de escritura terapeutica para sacar a la luz tu relacion emocional con el dinero. Puede ser muy revelador — dejate sorprender por lo que sale.</div>
+      <ol class="exercise-steps">
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe una carta al dinero como si fuera una persona.</strong> Empieza con "Querido dinero..." y cuentale todo: como te sientes con el, que te ha hecho sentir, que le reprochas, que le agradeces, que necesitas de el.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Ahora escribe la respuesta.</strong> Imagina que el dinero te contesta. &#191;Que te diria? &#191;Se sentiria bienvenido en tu vida o rechazado? &#191;Te diria que confias en el o que le temes?</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Lee ambas cartas en voz alta.</strong> Observa que emociones aparecen. &#191;Hay tristeza? &#191;Rabia? &#191;Miedo? &#191;Alivio? Escribe lo que sientes al leerlas.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe una nueva declaracion de relacion:</strong> "A partir de ahora, mi relacion con el dinero es ______. El dinero en mi vida sirve para ______. Yo valgo independientemente de ______."</div></li>
+      </ol>
+      <div class="exercise-duration">Duracion: 30-40 minutos</div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-badge">Ejercicio 6</div>
+      <div class="exercise-title">Inventario de valor: lo que vales sin dinero</div>
+      <div class="exercise-desc">Para romper la fusion identidad = dinero, necesitas reconectar con tu valor real.</div>
+      <ol class="exercise-steps">
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe 10 cosas que te hacen valiosa como persona</strong> que no tengan nada que ver con el dinero ni con el trabajo. (Tu forma de escuchar, tu creatividad, tu humor, tu empatia...)</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe 5 momentos de tu vida donde te sentiste abundante sin dinero.</strong> Puede ser una comida con amigos, un paseo, una conversacion, un logro personal.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Ahora completa:</strong> "Si manana desapareciera todo mi dinero, seguiria siendo ______, seguiria teniendo ______, y seguiria siendo capaz de ______."</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Pon esta frase en un sitio visible</strong> (tu movil, tu espejo, tu escritorio) y leela cada manana durante 21 dias.</div></li>
+      </ol>
+      <div class="exercise-duration">Duracion: 20 minutos</div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="content-label">Preguntas de reflexion</div>
+    <div class="reflection-box">
+      <div class="reflection-title">Para tu diario de reflexion:</div>
+      <ul class="reflection-list">
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Cuantas decisiones tomas al dia pensando en el dinero? &#191;Serian diferentes si el dinero no fuera un factor?</li>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que harias esta semana si supieras que el dinero no se va a acabar?</li>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Hay algo que quieres hacer pero no haces "porque no puedo permitirmelo"? &#191;Es realmente por dinero o por miedo?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- MODULO 4 -->
+<!-- ═══════════════════════════════════════ -->
+<div class="module" id="modulo-4">
+  <div class="module-header">
+    <div class="module-label">Modulo 4</div>
+    <h2 class="module-title">Reprograma tu sistema</h2>
+    <div class="module-objective">Objetivo: Aplicar herramientas practicas de neurociencia para debilitar los patrones viejos y crear nuevas vias neuronales que te apoyen con el dinero.</div>
+  </div>
+
+  <div class="content-section">
+    <div class="content-label">Contenido teorico</div>
+
+    <div class="theory-block">
+      <div class="theory-title">Como se reprograma una creencia</div>
+      <p class="theory-text">Una creencia no es mas que una <strong>via neuronal que se ha reforzado con la repeticion.</strong> Cada vez que piensas "no me puedo permitir eso", esa via se hace mas fuerte y automatica.</p>
+      <p class="theory-text">Para cambiar una creencia necesitas tres cosas:</p>
+      <div class="key-concept">
+        <div class="concept-icon">1</div>
+        <div class="concept-text"><strong>Consciencia:</strong> Darte cuenta de que la creencia esta ahi (ya lo has hecho en los modulos 1 y 2).</div>
+      </div>
+      <div class="key-concept">
+        <div class="concept-icon">2</div>
+        <div class="concept-text"><strong>Interrupcion:</strong> Romper el patron automatico en el momento en que se activa. El cerebro necesita una "senal de stop" para dejar de ejecutar el programa viejo.</div>
+      </div>
+      <div class="key-concept">
+        <div class="concept-icon">3</div>
+        <div class="concept-text"><strong>Repeticion de lo nuevo:</strong> Instalar la nueva creencia con repeticion, emocion y experiencias. No basta con pensarlo — tu cerebro necesita sentirlo y vivirlo.</div>
+      </div>
+    </div>
+
+    <div class="theory-block">
+      <div class="theory-title">EFT / Tapping: liberar la carga emocional</div>
+      <p class="theory-text">El EFT (Emotional Freedom Techniques) o Tapping es una tecnica que combina la estimulacion de puntos de acupresion con frases habladas. <strong>Funciona enviando una senal de calma al sistema nervioso mientras piensas en la creencia limitante</strong>, lo que reduce la carga emocional asociada.</p>
+      <p class="theory-text">Estudios clinicos han demostrado que el Tapping <strong>reduce los niveles de cortisol (hormona del estres) hasta un 43% en una sola sesion.</strong> Cuando tu cuerpo deja de asociar "dinero" con "estres", empiezas a tomar decisiones desde otro lugar.</p>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="content-label">Ejercicios practicos</div>
+
+    <div class="exercise">
+      <div class="exercise-badge">Ejercicio 7</div>
+      <div class="exercise-title">Tapping para soltar una creencia limitante sobre el dinero</div>
+      <div class="exercise-desc">Una secuencia de Tapping especifica para trabajar creencias de escasez. Hazlo en un lugar tranquilo.</div>
+      <ol class="exercise-steps">
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Elige una creencia limitante</strong> de las que descubriste en los modulos anteriores. Por ejemplo: "No merezco ganar mas dinero".</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Puntua la intensidad del 0 al 10.</strong> &#191;Cuanto te crees esa frase ahora mismo? Anotalo.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Toca el punto karate (canto lateral de la mano)</strong> y repite 3 veces: "Aunque creo que no merezco ganar mas dinero, me acepto completa y profundamente tal como soy."</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Ahora toca cada punto</strong> (ceja, lateral del ojo, debajo del ojo, debajo de la nariz, menton, clavicula, debajo del brazo, coronilla) mientras repites frases como: "Este miedo a ganar mas... esta creencia de que no merezco... la aprendi de pequena... pero ya no me sirve... elijo soltarla..."</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Haz 2-3 rondas.</strong> Despues, respira hondo y vuelve a puntuar la intensidad. Si bajo, el Tapping esta funcionando. Repite hasta que baje a 3 o menos.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Ronda positiva:</strong> Ahora toca los mismos puntos diciendo: "Elijo creer que merezco abundancia... estoy abierta a recibir... el dinero es bienvenido en mi vida... me permito ganar mas..."</div></li>
+      </ol>
+      <div class="exercise-duration">Duracion: 15-20 minutos</div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-badge">Ejercicio 8</div>
+      <div class="exercise-title">Reencuadre neuronal: de la creencia vieja a la nueva</div>
+      <div class="exercise-desc">Tecnica de PNL (Programacion Neurolinguistica) para sustituir creencias limitantes por creencias que te sirvan.</div>
+      <ol class="exercise-steps">
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe tu creencia limitante en el lado izquierdo de una hoja.</strong> Ej: "Hay que sufrir mucho para ganar dinero."</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>En el lado derecho, escribe una creencia nueva que sea creible para ti.</strong> No tiene que ser lo opuesto extremo. Ej: "Puedo ganar dinero haciendo cosas que disfruto" (en vez de "el dinero viene facil" que tu cerebro rechazaria).</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Busca 3 pruebas reales de que la nueva creencia es posible.</strong> Personas que conoces, ejemplos que hayas visto, momentos de tu propia vida donde ganaste dinero sin sufrir.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Cada manana durante 21 dias, lee la creencia nueva en voz alta</strong> y visualiza durante 2 minutos una escena donde esa creencia es tu realidad. Siente las emociones de esa escena.</div></li>
+      </ol>
+      <div class="exercise-duration">Duracion: 15 minutos (+ 5 min diarios durante 21 dias)</div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-badge">Ejercicio 9</div>
+      <div class="exercise-title">Meditacion guiada: visualizacion de tu yo abundante</div>
+      <div class="exercise-desc">Esta visualizacion usa la neurociencia a tu favor: cuando tu cerebro imagina algo con suficiente detalle y emocion, activa las mismas regiones que si lo estuvieras viviendo realmente, creando nuevas vias neuronales.</div>
+      <ol class="exercise-steps">
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Sientate comoda, cierra los ojos y haz 10 respiraciones profundas.</strong> Con cada exhalacion, suelta tension del cuerpo.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Imagina tu vida dentro de un ano.</strong> Has transformado tu relacion con el dinero. &#191;Donde estas? &#191;Como te levantas por la manana? &#191;Que sientes al mirar tu cuenta? &#191;Como gastas? &#191;Como cobras?</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Hazlo lo mas vivido posible:</strong> colores, sonidos, olores, sensaciones en el cuerpo. &#191;Que ropa llevas? &#191;Que comes? &#191;Con quien estas? &#191;Que expresion tiene tu cara?</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Siente la emocion de esa version de ti:</strong> la tranquilidad, la confianza, la libertad. Quédate ahi 5 minutos. Deja que tu cuerpo memorice esas sensaciones.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Antes de abrir los ojos, di internamente:</strong> "Esto ya esta en camino. Mi subconsciente sabe como llegar aqui." Abre los ojos lentamente.</div></li>
+      </ol>
+      <div class="exercise-duration">Duracion: 15 minutos. Repetir minimo 3 veces por semana.</div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="content-label">Preguntas de reflexion</div>
+    <div class="reflection-box">
+      <div class="reflection-title">Para tu diario de reflexion:</div>
+      <ul class="reflection-list">
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que creencia sobre el dinero te gustaria soltar hoy? &#191;Que pondrias en su lugar?</li>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Como te sientes despues de hacer el Tapping? &#191;Ha cambiado algo en tu cuerpo o en tu mente?</li>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que version de ti aparece en la visualizacion? Describela con detalle.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- MODULO 5 -->
+<!-- ═══════════════════════════════════════ -->
+<div class="module" id="modulo-5">
+  <div class="module-header">
+    <div class="module-label">Modulo 5</div>
+    <h2 class="module-title">Decisiones desde la abundancia</h2>
+    <div class="module-objective">Objetivo: Entender como tu sistema nervioso influye en tus decisiones financieras y aprender a tomar decisiones desde la seguridad, no desde el miedo.</div>
+  </div>
+
+  <div class="content-section">
+    <div class="content-label">Contenido teorico</div>
+
+    <div class="theory-block">
+      <div class="theory-title">Tu sistema nervioso y el dinero</div>
+      <p class="theory-text">Tu sistema nervioso autonomo tiene tres estados principales que afectan directamente a como te relacionas con el dinero:</p>
+      <div class="key-concept">
+        <div class="concept-icon">&#128994;</div>
+        <div class="concept-text"><strong>Ventral vagal (seguridad y conexion):</strong> Te sientes segura, tranquila, conectada. Desde aqui tomas decisiones racionales, creativas y a largo plazo. Es el estado ideal para negociar, cobrar, invertir y gastar con consciencia.</div>
+      </div>
+      <div class="key-concept">
+        <div class="concept-icon">&#128308;</div>
+        <div class="concept-text"><strong>Simpatico (lucha o huida):</strong> Sientes ansiedad, urgencia, presion. Tu corazon se acelera. Desde aqui gastas impulsivamente, aceptas precios bajos por tu trabajo "por si acaso", o evitas mirar tus cuentas. El dinero se convierte en amenaza.</div>
+      </div>
+      <div class="key-concept">
+        <div class="concept-icon">&#9899;</div>
+        <div class="concept-text"><strong>Dorsal vagal (congelacion):</strong> Te sientes paralizada, desconectada, "no puedo con esto". Desde aqui ignoras facturas, postergas decisiones financieras, te desconectas de tu realidad economica. Ni luchas ni huyes: te congelas.</div>
+      </div>
+      <p class="theory-text" style="margin-top:16px"><strong>La mayoria de personas toman decisiones financieras desde el estado simpatico</strong> (lucha/huida) porque su sistema nervioso asocia "dinero" con "peligro". El objetivo es aprender a regularte para volver al estado ventral vagal antes de tomar cualquier decision financiera importante.</p>
+    </div>
+
+    <div class="theory-block">
+      <div class="theory-title">La ventana de tolerancia financiera</div>
+      <p class="theory-text">Tu "ventana de tolerancia" es el rango de dinero dentro del cual te sientes segura. <strong>Fuera de esa ventana, tu sistema nervioso se desregula:</strong></p>
+      <p class="theory-text">&#8593; Si ganas mucho mas de lo habitual: ansiedad, culpa, gasto compulsivo para "volver a la normalidad".</p>
+      <p class="theory-text">&#8595; Si ganas mucho menos de lo habitual: panico, paralisis, decisiones impulsivas desde el miedo.</p>
+      <p class="theory-text"><strong>Ampliar tu ventana de tolerancia financiera</strong> es un proceso gradual que se logra exponiendote poco a poco a cantidades mayores mientras mantienes tu sistema nervioso regulado.</p>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="content-label">Ejercicios practicos</div>
+
+    <div class="exercise">
+      <div class="exercise-badge">Ejercicio 10</div>
+      <div class="exercise-title">Check-in corporal antes de decidir</div>
+      <div class="exercise-desc">Una practica para hacer ANTES de cualquier decision financiera importante (gastar, cobrar, invertir, negociar).</div>
+      <ol class="exercise-steps">
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Para.</strong> Antes de tomar la decision, detente 60 segundos. No hagas nada todavia.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Escanea tu cuerpo:</strong> &#191;Donde sientes tension? &#191;Estomago apretado? &#191;Mandibula tensa? &#191;Corazon acelerado? &#191;Pecho cerrado? Identifica las sensaciones sin juzgarlas.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Identifica tu estado:</strong> &#191;Estoy en verde (tranquila, clara)? &#191;Rojo (ansiosa, con prisa)? &#191;Gris (paralizada, desconectada)?</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Si no estas en verde, regularte primero:</strong> 5 respiraciones profundas (inhala 4 segundos, aguanta 4, exhala 6). Pon las manos sobre el pecho. Siente tus pies en el suelo.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Solo cuando estes en verde, toma la decision.</strong> Preguntate: "&#191;Estoy decidiendo desde el miedo o desde la claridad?" Si es desde el miedo, espera. Si es desde la claridad, adelante.</div></li>
+      </ol>
+      <div class="exercise-duration">Duracion: 3-5 minutos. Hacer SIEMPRE antes de decisiones financieras.</div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-badge">Ejercicio 11</div>
+      <div class="exercise-title">Expansion gradual: ampliar tu ventana de tolerancia</div>
+      <div class="exercise-desc">Un ejercicio semanal para acostumbrar a tu sistema nervioso a cantidades mayores de dinero.</div>
+      <ol class="exercise-steps">
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Semana 1: Escribe un cheque a ti misma</strong> por la cantidad que te gustaria ganar al mes. Ponlo donde lo veas cada dia. Observa lo que sientes al verlo: &#191;incomodidad? &#191;incredulidad? Solo observa.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Semana 2: Gasta 10 euros en ti sin culpa.</strong> Algo solo para ti. Paga sin justificarte ante nadie. Observa las sensaciones y pensamientos que aparecen.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Semana 3: Sube el precio de algo que ofreces</strong> (un servicio, un producto, una hora de tu tiempo) un 10-20%. Observa tu reaccion interna al comunicarlo.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Semana 4: Dona dinero.</strong> La cantidad que te incomode ligeramente (no que te duela, que te incomode). Dar dinero rompe la creencia de escasez.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Cada semana, escribe en tu diario</strong> lo que sentiste y como reacciono tu cuerpo. Poco a poco, tu ventana se amplia.</div></li>
+      </ol>
+      <div class="exercise-duration">Duracion: 4 semanas (una accion por semana)</div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="content-label">Preguntas de reflexion</div>
+    <div class="reflection-box">
+      <div class="reflection-title">Para tu diario de reflexion:</div>
+      <ul class="reflection-list">
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;En que estado (verde/rojo/gris) sueles estar cuando tomas decisiones sobre dinero?</li>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Cual es tu "ventana de tolerancia" actual? &#191;Cual te gustaria que fuera?</li>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Cuando fue la ultima vez que tomaste una decision financiera desde la calma total? &#191;Que decidiste?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- MODULO 6 -->
+<!-- ═══════════════════════════════════════ -->
+<div class="module" id="modulo-6">
+  <div class="module-header">
+    <div class="module-label">Modulo 6</div>
+    <h2 class="module-title">Tu nueva relacion con el dinero</h2>
+    <div class="module-objective">Objetivo: Integrar todo lo aprendido en un plan de accion concreto y construir una relacion sana, consciente y libre con el dinero para el resto de tu vida.</div>
+  </div>
+
+  <div class="content-section">
+    <div class="content-label">Contenido teorico</div>
+
+    <div class="theory-block">
+      <div class="theory-title">De la comprension a la accion: los 3 pilares de tu nueva relacion</div>
+      <p class="theory-text">Ahora que entiendes como funciona tu subconsciente con el dinero, es momento de construir algo nuevo. Una relacion sana con el dinero se sostiene sobre tres pilares:</p>
+      <div class="key-concept">
+        <div class="concept-icon">&#128161;</div>
+        <div class="concept-text"><strong>Consciencia:</strong> Saber que creencias tienes, de donde vienen y cuando se activan. Ya no operas en piloto automatico. Cuando aparece una creencia limitante, la reconoces y eliges no obedecerla.</div>
+      </div>
+      <div class="key-concept">
+        <div class="concept-icon">&#128150;</div>
+        <div class="concept-text"><strong>Regulacion:</strong> Saber regularte emocionalmente antes de tomar decisiones financieras. Usar tu cuerpo como brujula: si tu sistema nervioso esta en alerta, esperas. Si esta en calma, decides.</div>
+      </div>
+      <div class="key-concept">
+        <div class="concept-icon">&#127919;</div>
+        <div class="concept-text"><strong>Alineacion:</strong> Que tus decisiones financieras esten alineadas con tus valores reales, no con tus miedos. Gastas en lo que te importa. Cobras lo que vales. Inviertes en tu crecimiento.</div>
+      </div>
+    </div>
+
+    <div class="theory-block">
+      <div class="theory-title">La regla de los 90 dias: consolidar el cambio</div>
+      <p class="theory-text">La neurociencia dice que para que una nueva via neuronal se consolide como habito, necesitas <strong>entre 60 y 90 dias de practica consistente.</strong> No tiene que ser perfecto — tiene que ser constante.</p>
+      <p class="theory-text">Los proximos 90 dias son tu periodo de consolidacion. Las herramientas que has aprendido en este programa no funcionan si las haces una vez. <strong>Funcionan cuando se convierten en tu nueva forma de relacionarte con el dinero en el dia a dia.</strong></p>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="content-label">Ejercicios practicos</div>
+
+    <div class="exercise">
+      <div class="exercise-badge">Ejercicio 12</div>
+      <div class="exercise-title">Tu manifiesto financiero personal</div>
+      <div class="exercise-desc">El ejercicio final: crear un documento que defina tu nueva relacion con el dinero. No es una lista de deseos — es una declaracion de quien eres ahora.</div>
+      <ol class="exercise-steps">
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe tus 3 creencias viejas principales</strong> (las que descubriste en el programa) y tachalas. Ya no son tuyas.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe tus 3 creencias nuevas</strong> (las que creaste en el modulo 4). Estas son las que ahora guian tu vida.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Completa tu manifiesto:</strong><br>"Yo, [tu nombre], declaro que mi relacion con el dinero ha cambiado. Ya no creo que ______. Ahora se que ______. Merezco ______ y me permito ______. El dinero en mi vida es ______ y yo soy ______ independientemente de cuanto tenga. A partir de hoy, mis decisiones financieras se basan en ______, no en ______."</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Firma y pon la fecha.</strong> Guardalo. Leelo cada semana durante los proximos 90 dias.</div></li>
+      </ol>
+      <div class="exercise-duration">Duracion: 30 minutos</div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-badge">Ejercicio 13</div>
+      <div class="exercise-title">Plan de mantenimiento de 90 dias</div>
+      <div class="exercise-desc">Tu rutina diaria y semanal para consolidar todo lo que has aprendido.</div>
+      <ol class="exercise-steps">
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Cada manana (5 min):</strong> Lee tu manifiesto financiero + haz la visualizacion del modulo 4 (tu yo abundante). Antes de arrancar el dia, conecta con tu nueva identidad financiera.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Cada vez que tomes una decision financiera:</strong> Haz el check-in corporal del modulo 5. Verde = decide. Rojo/gris = regularte primero.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Cada semana (15 min):</strong> Escribe en tu diario: &#191;Que decision financiera tome esta semana desde la consciencia? &#191;Donde note que aparecio una creencia vieja? &#191;Como la gestione?</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Cada mes:</strong> Haz una sesion de Tapping con la creencia que mas te haya costado ese mes. Repasa tu manifiesto y ajustalo si has evolucionado.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>A los 90 dias:</strong> Relee tu diario desde el dia 1. Observa cuanto has cambiado. Celebralo. Y decide si quieres seguir profundizando.</div></li>
+      </ol>
+      <div class="exercise-duration">Compromiso: 5 min/dia + 15 min/semana durante 90 dias</div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="content-label">Preguntas de reflexion</div>
+    <div class="reflection-box">
+      <div class="reflection-title">Reflexion final:</div>
+      <ul class="reflection-list">
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que es lo que mas ha cambiado en ti desde que empezaste este programa?</li>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que le dirias ahora a la version de ti que empezo con miedo?</li>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Cual es la primera decision financiera que vas a tomar desde tu nueva identidad?</li>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> Escribe una frase que resuma tu nueva relacion con el dinero. Solo una.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- FINAL CTA -->
+<div class="final-cta">
+  <h2 class="final-cta-title">Este es tu programa</h2>
+  <p class="final-cta-text">6 modulos, 13 ejercicios, un diario de reflexion y un plan de 90 dias. Todo lo que necesitas para transformar tu relacion con el dinero desde la raiz.</p>
+  <a href="https://wa.me/34660619034?text=Hola%20Sandra%2C%20quiero%20informacion%20sobre%20el%20programa%20San%20Inspira" class="btn-primary">Quiero saber mas</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  &copy; 2026 <a href="flow.html">San Inspira</a> &middot; Sandra Sanchez
+</footer>
+
+<script>
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+</script>
+
+</body>
+</html>
