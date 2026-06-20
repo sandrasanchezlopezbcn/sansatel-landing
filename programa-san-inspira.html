@@ -2037,13 +2037,22 @@ function updateProgress() {
   }
 }
 
+let reflectionTimer;
 document.querySelectorAll('.reflection-textarea').forEach((ta, i) => {
-  ta.addEventListener('blur', () => {
+  function saveReflection() {
     const data = JSON.parse(localStorage.getItem('sanInspira') || '{}');
     data['ref-' + i] = ta.value;
     localStorage.setItem('sanInspira', JSON.stringify(data));
     updateDashboard();
     renderDiary();
+  }
+  ta.addEventListener('input', () => {
+    clearTimeout(reflectionTimer);
+    reflectionTimer = setTimeout(saveReflection, 500);
+  });
+  ta.addEventListener('blur', () => {
+    clearTimeout(reflectionTimer);
+    saveReflection();
   });
 });
 
@@ -2149,8 +2158,6 @@ function showReprogramPhrase(exerciseId, detectedPatterns) {
     '<div class="reprogram-phrase-text">"' + phrase + '"</div>' +
     '<div class="reprogram-phrase-instruction">Repite esta frase en voz alta 3 veces, sintiendo cada palabra. Hazlo cada mañana durante 21 días.</div>';
   panel.classList.add('show');
-  const detectedNames = found.map(p => p.name);
-  showReprogramPhrase(exerciseId, detectedNames);
 }
 
 // Confetti celebration
