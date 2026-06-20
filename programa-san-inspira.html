@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>San Inspira — Programa completo: Reprograma tu relacion con el dinero</title>
+<title>San Inspira — Programa completo: Reprograma tu relación con el dinero</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -658,6 +658,23 @@
     padding: 14px; font-size: 14px; color: var(--gray); line-height: 1.6;
     font-style: italic;
   }
+  
+  /* AUDIO PLAYER */
+  .exercise-audio {
+    background: linear-gradient(135deg, rgba(155,127,202,0.06), rgba(201,149,107,0.06));
+    border: 1px solid rgba(155,127,202,0.2);
+    border-radius: 14px; padding: 20px; margin-bottom: 20px;
+  }
+  .audio-label {
+    font-family: 'Space Grotesk', sans-serif; font-size: 14px;
+    font-weight: 700; color: var(--purple-light); margin-bottom: 12px;
+  }
+  .exercise-audio audio {
+    width: 100%; border-radius: 8px; margin-bottom: 8px;
+  }
+  .audio-note {
+    font-size: 12px; color: var(--gray2); font-style: italic; line-height: 1.5;
+  }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   /* DASHBOARD */
   .dashboard {
@@ -843,7 +860,7 @@
     <li><a href="#modulo-6">Mod 6</a></li>
     <li><a href="#mi-diario">Mi diario</a></li>
   </ul>
-  <a href="https://wa.me/34660619034?text=Hola%2C%20quiero%20informacion%20sobre%20el%20programa%20San%20Inspira" class="nav-cta">Quiero saber mas</a>
+  <a href="https://wa.me/34660619034?text=Hola%2C%20quiero%20información%20sobre%20el%20programa%20San%20Inspira" class="nav-cta">Quiero saber mas</a>
 </nav>
 
 <!-- GLOBAL PROGRESS -->
@@ -855,8 +872,8 @@
 <div class="page-header">
   <div class="page-header-bg"></div>
   <div class="page-header-inner">
-    <div class="page-badge">Programa completo &middot; 6 modulos</div>
-    <h1 class="page-title">Reprograma tu relacion<br>con el <span class="accent">dinero</span></h1>
+    <div class="page-badge">Programa completo &middot; 6 módulos</div>
+    <h1 class="page-title">Reprograma tu relación<br>con el <span class="accent">dinero</span></h1>
     <p class="page-subtitle">El programa de San Inspira para entender que pasa en tu subconsciente con el dinero y transformarlo con herramientas reales basadas en neurociencia.</p>
   </div>
 </div>
@@ -865,12 +882,12 @@
 <div class="module-index">
   <div class="index-grid">
     <a href="#modulo-1" class="index-item"><div class="index-num">1</div>Tu mente y el dinero<span class="index-progress-badge" data-index-mod="1">0/2</span></a>
-    <a href="#modulo-2" class="index-item"><div class="index-num">2</div>Identifica tus patrones<span class="index-progress-badge" data-index-mod="2">0/2</span></a>
+    <a href="#modulo-2" class="index-item"><div class="index-num">2</div>Identifica tus patrones<span class="index-progress-badge" data-index-mod="2">0/3</span></a>
     <a href="#modulo-3" class="index-item"><div class="index-num">3</div>Descentra el dinero<span class="index-progress-badge" data-index-mod="3">0/2</span></a>
     <a href="#modulo-4" class="index-item"><div class="index-num">4</div>Reprograma tu sistema<span class="index-progress-badge" data-index-mod="4">0/3</span></a>
-    <a href="#modulo-5" class="index-item"><div class="index-num">5</div>Decisiones desde la abundancia<span class="index-progress-badge" data-index-mod="5">0/2</span></a>
-    <a href="#modulo-6" class="index-item"><div class="index-num">6</div>Tu nueva relacion<span class="index-progress-badge" data-index-mod="6">0/2</span></a>
-    <a href="#mi-diario" class="index-item" style="grid-column: 1/-1; background: rgba(201,149,107,0.08); border-color: rgba(201,149,107,0.2);"><div class="index-num" style="background: rgba(155,127,202,0.2); color: var(--purple-light);">&#128214;</div>Mi diario de transformacion</a>
+    <a href="#modulo-5" class="index-item"><div class="index-num">5</div>Decisiónes desde la abundancia<span class="index-progress-badge" data-index-mod="5">0/2</span></a>
+    <a href="#modulo-6" class="index-item"><div class="index-num">6</div>Tu nueva relación<span class="index-progress-badge" data-index-mod="6">0/2</span></a>
+    <a href="#mi-diario" class="index-item" style="grid-column: 1/-1; background: rgba(201,149,107,0.08); border-color: rgba(201,149,107,0.2);"><div class="index-num" style="background: rgba(155,127,202,0.2); color: var(--purple-light);">&#128214;</div>Mi diario de transformación</a>
   </div>
 </div>
 
@@ -880,7 +897,7 @@
     <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
     <div class="dashboard-grid">
       <div class="dash-stat">
-        <div class="dash-stat-num" id="dash-exercises">0/13</div>
+        <div class="dash-stat-num" id="dash-exercises">0/14</div>
         <div class="dash-stat-label">Ejercicios completados</div>
       </div>
       <div class="dash-stat">
@@ -889,11 +906,11 @@
       </div>
     </div>
     <div class="dash-patterns" id="dash-patterns-section" style="display:none;">
-      <div class="dash-patterns-title">Patrones detectados en tu escritura</div>
+      <div class="dash-patterns-title">Patrónes detectados en tu escritura</div>
       <div id="dash-patterns-bars"></div>
     </div>
     <div class="dash-recommendation" id="dash-recommendation" style="display:none;">
-      <div class="dash-recommendation-title">✨ Recomendacion personalizada</div>
+      <div class="dash-recommendation-title">✨ Recomendación personalizada</div>
       <div class="dash-recommendation-text" id="dash-recommendation-text"></div>
     </div>
     <div class="dash-empty" id="dash-empty">
@@ -908,55 +925,55 @@
 <!-- ═══════════════════════════════════════ -->
 <div class="module reveal" id="modulo-1">
   <div class="module-header">
-    <div class="module-label">Modulo 1 <span class="module-progress-badge" data-mod-progress="1">0/2</span></div>
+    <div class="module-label">Módulo 1 <span class="module-progress-badge" data-mod-progress="1">0/2</span></div>
     <h2 class="module-title">Tu mente y el dinero</h2>
-    <div class="module-objective">Objetivo: Entender como tu subconsciente absorbio creencias sobre el dinero y por que sigue ejecutandolas en modo automatico, sin que te des cuenta.
+    <div class="module-objective">Objetivo: Entender como tu subconsciente absorbio creencias sobre el dinero y por qué sigue ejecutandolas en modo automático, sin que te des cuenta.
     <div class="module-progress-bar"><div class="module-progress-fill" id="mod-bar-1" style="width:0%"></div></div></div>
   </div>
 
   <!-- TEORIA -->
   <div class="content-section">
-    <div class="content-label">Contenido teorico</div>
+    <div class="content-label">Contenido teórico</div>
 
     <div class="theory-block">
-      <div class="theory-title">Como se programa tu subconsciente (de 0 a 7 anos)</div>
-      <p class="theory-text">Entre los 0 y los 7 anos, tu cerebro funciona principalmente en ondas cerebrales theta y alfa. Es un estado similar a la hipnosis: <strong>absorbes todo lo que ves, oyes y sientes sin ningun filtro critico.</strong></p>
-      <p class="theory-text">Esto significa que las frases que escuchabas en casa sobre el dinero ("no nos llega", "el dinero no crece en los arboles", "los ricos son avariciosos") <strong>se grabaron directamente en tu subconsciente</strong> como si fueran verdades absolutas.</p>
-      <p class="theory-text">Tu cerebro consciente (el que piensa, analiza y quiere cambiar) solo controla entre un 5% y un 10% de tus decisiones diarias. <strong>El otro 90-95% lo gestiona tu subconsciente</strong>, ejecutando los programas que instalo durante esos primeros anos.</p>
-      <div class="theory-highlight">Por eso puedes querer abundancia con tu mente consciente y seguir tomando decisiones desde la escasez: tu subconsciente esta ejecutando un programa diferente al que tu crees tener.</div>
+      <div class="theory-title">Cómo se programa tu subconsciente (de 0 a 7 años)</div>
+      <p class="theory-text">Entre los 0 y los 7 anos, tu cerebro funcióna principalmente en ondas cerebrales theta y alfa. Es un estado similar a la hipnosis: <strong>absorbes todo lo que ves, oyes y sientes sin ningún filtro critico.</strong></p>
+      <p class="theory-text">Esto significa que las frases que escuchabas en casa sobre el dinero ("no nos llega", "el dinero no crece en los árboles", "los ricos son avariciosos") <strong>se grabaron directamente en tu subconsciente</strong> como si fueran verdades absolutas.</p>
+      <p class="theory-text">Tu cerebro consciente (el que piensa, analiza y quiere cambiar) solo controla entre un 5% y un 10% de tus decisiónes diarias. <strong>El otro 90-95% lo gestiona tu subconsciente</strong>, ejecutando los programas que instalo durante esos primeros años.</p>
+      <div class="theory-highlight">Por eso puedes querer abundancia con tu mente consciente y seguir tomando decisiónes desde la escasez: tu subconsciente está ejecutando un programa diferente al que tu crees tener.</div>
     </div>
 
     <div class="theory-block">
       <div class="theory-title">El "money blueprint": tu plano financiero invisible</div>
-      <p class="theory-text">Segun T. Harv Eker (autor de "Los secretos de la mente millonaria"), cada persona tiene un <strong>"money blueprint"</strong> o plano financiero. Es un conjunto de creencias, habitos y emociones sobre el dinero que se formo en la infancia.</p>
-      <p class="theory-text">Este plano funciona como un termostato: <strong>si tu termostato interno esta programado para ganar 2.000 euros al mes, tu subconsciente hara todo lo posible para mantenerte ahi.</strong> Si ganas mas, encontraras formas "accidentales" de perderlo. Si ganas menos, buscaras formas de volver a ese nivel.</p>
+      <p class="theory-text">Segun T. Harv Eker (autor de "Los secretos de la mente millonaria"), cada persona tiene un <strong>"money blueprint"</strong> o plano financiero. Es un conjunto de creencias, hábitos y emociónes sobre el dinero que se formo en la infancia.</p>
+      <p class="theory-text">Este plano funcióna como un termostato: <strong>si tu termostato interno esta programado para ganar 2.000 euros al mes, tu subconsciente hara todo lo posible para mantenerte ahi.</strong> Si ganas más, encontraras formas "accidentales" de perderlo. Si ganas menos, buscaras formas de volver a ese nivel.</p>
       <p class="theory-text">Tu money blueprint se formo a partir de tres fuentes:</p>
 
       <div class="key-concept">
         <div class="concept-icon">&#128483;</div>
-        <div class="concept-text"><strong>Programacion verbal:</strong> Todo lo que escuchaste sobre el dinero. "Hay que trabajar muy duro para ganar dinero", "el dinero es la raiz de todos los males", "nosotros no somos de esos".</div>
+        <div class="concept-text"><strong>Programación verbal:</strong> Todo lo que escuchaste sobre el dinero. "Hay que trabajar muy duro para ganar dinero", "el dinero es la raíz de todos los males", "nosotros no somos de esos".</div>
       </div>
       <div class="key-concept">
         <div class="concept-icon">&#128065;</div>
-        <div class="concept-text"><strong>Modelado:</strong> Lo que viste hacer a tus padres y tu entorno con el dinero. Como lo gastaban, como reaccionaban cuando no habia, si discutian por el, si lo escondian.</div>
+        <div class="concept-text"><strong>Modelado:</strong> Lo que viste hacer a tus padres y tu entorno con el dinero. Como lo gastaban, como reacciónaban cuando no habia, si discutian por el, si lo escondian.</div>
       </div>
       <div class="key-concept">
         <div class="concept-icon">&#128163;</div>
-        <div class="concept-text"><strong>Incidentes especificos:</strong> Experiencias concretas que te marcaron. La vez que te dijeron "eso no nos lo podemos permitir", una crisis economica familiar, o ver a alguien perder todo.</div>
+        <div class="concept-text"><strong>Incidentes específicos:</strong> Experiencias concretas que te marcaron. La vez que te dijeron "eso no nos lo podemos permitir", una crisis economica familiar, o ver a alguien perder todo.</div>
       </div>
     </div>
 
     <div class="theory-block">
       <div class="theory-title">Neuroplasticidad: la buena noticia</div>
-      <p class="theory-text">La neurociencia ha demostrado que <strong>el cerebro es plastico</strong>, es decir, puede cambiar a cualquier edad. Las vias neuronales que soportan tus creencias sobre el dinero se fortalecieron con la repeticion, pero tambien <strong>se pueden debilitar y reemplazar por otras nuevas.</strong></p>
-      <p class="theory-text">Cada vez que repites un pensamiento o comportamiento, la via neuronal se hace mas fuerte (como un camino en el bosque que se despeja con el uso). Pero si dejas de usar ese camino y creas uno nuevo, <strong>el viejo se va debilitando y el nuevo se convierte en tu nueva ruta por defecto.</strong></p>
-      <p class="theory-text">Esto es exactamente lo que vamos a hacer en este programa: <strong>identificar las vias neuronales viejas y crear nuevas que te sirvan.</strong></p>
+      <p class="theory-text">La neurociencia ha demostrado que <strong>el cerebro es plástico</strong>, es decir, puede cambiar a cualquier edad. Las vías neuronales que soportan tus creencias sobre el dinero se fortalecieron con la repetición, pero también <strong>se pueden debilitar y reemplazar por otras nuevas.</strong></p>
+      <p class="theory-text">Cada vez que repites un pensamiento o comportamiento, la via neuronal se hace más fuerte (como un camino en el bosque que se despeja con el uso). Pero si dejas de usar ese camino y creas uno nuevo, <strong>el viejo se va debilitando y el nuevo se convierte en tu nueva ruta por defecto.</strong></p>
+      <p class="theory-text">Esto es exactamente lo que vamos a hacer en este programa: <strong>identificar las vías neuronales viejas y crear nuevas que te sirvan.</strong></p>
     </div>
   </div>
 
   <!-- EJERCICIOS -->
   <div class="content-section">
-    <div class="content-label">Ejercicios practicos</div>
+    <div class="content-label">Ejercicios prácticos</div>
 
     <div class="exercise reveal" data-exercise="mod1-ex1">
       <div class="exercise-badge">Ejercicio 1</div>
@@ -964,15 +981,15 @@
       <div class="exercise-desc">Este ejercicio te ayudara a descubrir los primeros programas que tu subconsciente grabo sobre el dinero. Necesitaras un cuaderno y 30 minutos de tranquilidad.</div>
       <ol class="exercise-steps">
         <li class="exercise-step"><div class="step-num"></div><div><strong>Cierra los ojos y respira profundamente 5 veces.</strong> Deja que tu cuerpo se relaje. No fuerces nada.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Viaja a tu infancia.</strong> Recuerda tu casa, tu familia, la mesa donde comiais. Intenta recordar la primera vez que escuchaste hablar de dinero. &#191;Que se decia? &#191;Quien lo decia? &#191;Que tono de voz tenia?</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe todo lo que recuerdes</strong> sin juzgar ni filtrar. Frases textuales, emociones, imagenes, sensaciones fisicas. Por ejemplo: "Recuerdo a mi madre diciendo que no llegabamos a fin de mes. Sentia miedo en el estomago."</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Ahora escribe las 5 frases sobre el dinero</strong> que mas escuchabas en tu casa. Pueden ser directas ("no hay dinero") o indirectas ("los ricos no son felices").</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Para cada frase, preguntate:</strong> &#191;Sigo creyendo esto? &#191;Tomo decisiones basadas en esta creencia? &#191;Me sirve o me limita?</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Viaja a tu infancia.</strong> Recuerda tu casa, tu familia, la mesa donde comiais. Intenta recordar la primera vez que escuchaste hablar de dinero. ¿Qué se decía? ¿Quien lo decia? ¿Qué tono de voz tenia?</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe todo lo que recuerdes</strong> sin juzgar ni filtrar. Frases textuales, emociónes, imagenes, sensaciones fisicas. Por ejemplo: "Recuerdo a mi madre diciendo que no llegabamos a fin de mes. Sentia miedo en el estómago."</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Ahora escribe las 5 frases sobre el dinero</strong> que más escuchabas en tu casa. Pueden ser directas ("no hay dinero") o indirectas ("los ricos no son felices").</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Para cada frase, preguntate:</strong> ¿Sigo creyendo esto? ¿Tomo decisiónes basadas en esta creencia? ¿Me sirve o me limita?</div></li>
       </ol>
       <div class="exercise-interactive">
-        <textarea class="exercise-textarea" rows="6" placeholder="Escribe aqui tus memorias financieras de la infancia, las frases que escuchabas y tus reflexiones sobre cada una..."></textarea>
+        <textarea class="exercise-textarea" rows="6" placeholder="Escribe aqui tus memorias financieras de la infancia, las frases que escuchabas y tus reflexiónes sobre cada una..."></textarea>
       </div>
-      <div class="exercise-duration">Duracion: 30 minutos</div>
+      <div class="exercise-duration">Duración: 30 minutos</div>
       <button class="exercise-save-btn" onclick="saveExercise('mod1-ex1')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod1-ex1">Guardado &#10003;</span>
       <div class="analysis-panel" id="analysis-mod1-ex1"></div>
@@ -981,18 +998,18 @@
 
     <div class="exercise reveal" data-exercise="mod1-ex2">
       <div class="exercise-badge">Ejercicio 2</div>
-      <div class="exercise-title">El termostato financiero: descubre tu numero</div>
+      <div class="exercise-title">El termostato financiero: descubre tu número</div>
       <div class="exercise-desc">Todos tenemos un "techo invisible" de ingresos. Este ejercicio te ayuda a identificar el tuyo.</div>
       <ol class="exercise-steps">
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Escribe cuanto ganas actualmente al mes.</strong> Sin juzgar si es mucho o poco.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Escribe cuánto ganas actualmente al mes.</strong> Sin juzgar si es mucho o poco.</div></li>
         <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Ahora escribe la cifra que te gustaria ganar.</strong> La primera que te venga a la mente, sin pensarlo demasiado.</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Observa tu cuerpo.</strong> Al pensar en esa cifra, &#191;que sientes? &#191;Hay emocion, incomodidad, ansiedad, culpa, incredulidad? Escribe lo que notes.</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Multiplica esa cifra por 3.</strong> Imagina que ganas eso al mes. &#191;Que te dice tu mente? Escribe los pensamientos automaticos que aparecen ("eso es imposible", "no me lo merezco", "seria demasiado").</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Esos pensamientos automaticos son tus programas subconscientes.</strong> Guardalos. Los vamos a trabajar en el modulo 4.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Observa tu cuerpo.</strong> Al pensar en esa cifra, ¿qué sientes? ¿Hay emoción, incomodidad, ansiedad, culpa, incredulidad? Escribe lo que notes.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Multiplica esa cifra por 3.</strong> Imagina que ganas eso al mes. ¿Qué te dice tu mente? Escribe los pensamientos automáticos que aparecen ("eso es imposible", "no me lo merezco", "seria demasiado").</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Esos pensamientos automáticos son tus programas subconscientes.</strong> Guárdalos. Los vamos a trabajar en el módulo 4.</div></li>
       </ol>
-      <div class="exercise-duration">Duracion: 20 minutos</div>
+      <div class="exercise-duration">Duración: 20 minutos</div>
             <div class="exercise-interactive" style="margin-top:12px">
-        <textarea class="exercise-textarea" rows="6" placeholder="Cuanto ganas actualmente, cuanto quieres ganar, que sientes al pensarlo, que pensamientos automaticos aparecen..."></textarea>
+        <textarea class="exercise-textarea" rows="6" placeholder="Cuánto ganas actualmente, cuanto quieres ganar, qué sientes al pensarlo, que pensamientos automáticos aparecen..."></textarea>
       </div>
       <button class="exercise-save-btn" onclick="saveExercise('mod1-ex2')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod1-ex2">Guardado &#10003;</span>
@@ -1003,18 +1020,18 @@
 
   <!-- REFLEXION -->
   <div class="content-section">
-    <div class="content-label">Preguntas de reflexion</div>
+    <div class="content-label">Preguntas de reflexión</div>
     <div class="reflection-box">
-      <div class="reflection-title">Para tu diario de reflexion:</div>
+      <div class="reflection-title">Para tu diario de reflexión:</div>
       <ul class="reflection-list">
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que papel tenia el dinero en tu familia? &#191;Era un tema tabu, una fuente de conflicto o algo de lo que se hablaba con naturalidad?</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que emociones sientes cuando piensas en tu cuenta bancaria? &#191;Ansiedad, tranquilidad, culpa, miedo?</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> Si el dinero pudiera hablar, &#191;que te diria? Y tu, &#191;que le dirias a el?</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que decisiones tomarias manana si no tuvieras miedo con el dinero?</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> ¿Qué papel tenia el dinero en tu familia? ¿Era un tema tabú, una fuente de conflicto o algo de lo que se hablaba con naturalidad?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> ¿Qué emociónes sientes cuando piensas en tu cuenta bancaria? ¿Ansiedad, tranquilidad, culpa, miedo?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> Si el dinero pudiera hablar, ¿Qué te diria? Y tu, ¿qué le dirías a el?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> ¿Qué decisiónes tomarías mañana si no tuvieras miedo con el dinero?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
       </ul>
     </div>
   </div>
@@ -1026,7 +1043,7 @@
     <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
     <div class="dashboard-grid">
       <div class="dash-stat">
-        <div class="dash-stat-num" id="dash-exercises">0/13</div>
+        <div class="dash-stat-num" id="dash-exercises">0/14</div>
         <div class="dash-stat-label">Ejercicios completados</div>
       </div>
       <div class="dash-stat">
@@ -1035,11 +1052,11 @@
       </div>
     </div>
     <div class="dash-patterns" id="dash-patterns-section" style="display:none;">
-      <div class="dash-patterns-title">Patrones detectados en tu escritura</div>
+      <div class="dash-patterns-title">Patrónes detectados en tu escritura</div>
       <div id="dash-patterns-bars"></div>
     </div>
     <div class="dash-recommendation" id="dash-recommendation" style="display:none;">
-      <div class="dash-recommendation-title">✨ Recomendacion personalizada</div>
+      <div class="dash-recommendation-title">✨ Recomendación personalizada</div>
       <div class="dash-recommendation-text" id="dash-recommendation-text"></div>
     </div>
     <div class="dash-empty" id="dash-empty">
@@ -1054,95 +1071,146 @@
 <!-- ═══════════════════════════════════════ -->
 <div class="module reveal" id="modulo-2">
   <div class="module-header">
-    <div class="module-label">Modulo 2 <span class="module-progress-badge" data-mod-progress="2">0/2</span></div>
+    <div class="module-label">Módulo 2 <span class="module-progress-badge" data-mod-progress="2">0/3</span></div>
     <h2 class="module-title">Identifica tus patrones</h2>
-    <div class="module-objective">Objetivo: Poner nombre a las creencias y patrones automaticos que controlan tu relacion con el dinero, para que dejen de operar en la sombra.</div>
+    <div class="module-objective">Objetivo: Poner nombre a las creencias y patrones automáticos que controlan tu relación con el dinero, para que dejen de operar en la sombra.</div>
   </div>
 
   <div class="content-section">
-    <div class="content-label">Contenido teorico</div>
+    <div class="content-label">Contenido teórico</div>
 
     <div class="theory-block">
       <div class="theory-title">Los 4 "Money Scripts" (guiones del dinero)</div>
-      <p class="theory-text">El psicologo financiero Dr. Brad Klontz identifico 4 tipos de creencias subconscientes sobre el dinero que la mayoria de personas tenemos. <strong>No son buenos ni malos, pero cuando son extremos, nos sabotean:</strong></p>
+      <p class="theory-text">El psicologo financiero Dr. Brad Klontz identifico 4 tipos de creencias subconscientes sobre el dinero que la mayoría de personas tenemos. <strong>No son buenos ni malos, pero cuando son extremos, nos sabotean:</strong></p>
 
       <div class="key-concept">
         <div class="concept-icon">&#128528;</div>
-        <div class="concept-text"><strong>Evitacion del dinero:</strong> "El dinero es malo", "no merezco tener dinero", "el dinero corrompe". Personas que rechazan el dinero, cobran menos de lo que valen, regalan su trabajo o se sienten culpables al recibir. Suelen autosabotearse cuando les va bien.</div>
+        <div class="concept-text"><strong>Evitación del dinero:</strong> "El dinero es malo", "no merezco tener dinero", "el dinero corrompe". Personas que rechazan el dinero, cobran menos de lo que valen, regalan su trabajo o se sienten culpables al recibir. Suelen autosabotearse cuando les va bien.</div>
       </div>
       <div class="key-concept">
         <div class="concept-icon">&#128176;</div>
-        <div class="concept-text"><strong>Adoracion del dinero:</strong> "El dinero resolvera todos mis problemas", "nunca tengo suficiente", "mas dinero = mas felicidad". Personas que buscan dinero compulsivamente pero nunca sienten que tienen bastante. Compras impulsivas, deudas, o acumulacion por miedo.</div>
+        <div class="concept-text"><strong>Adoración del dinero:</strong> "El dinero resolvera todos mis problemas", "nunca tengo suficiente", "más dinero = más felicidad". Personas que buscan dinero compulsivamente pero nunca sienten que tienen bastante. Compras impulsivas, deudas, o acumulacion por miedo.</div>
       </div>
       <div class="key-concept">
         <div class="concept-icon">&#128274;</div>
-        <div class="concept-text"><strong>Estatus del dinero:</strong> "Mi valor como persona depende de cuanto tengo", "si no gano X no soy exitoso/a". Personas que comparan su patrimonio con el de los demas, gastan para aparentar o sienten verguenza por su nivel economico.</div>
+        <div class="concept-text"><strong>Estatus del dinero:</strong> "Mi valor como persona depende de cuanto tengo", "si no gano X no soy exitoso/a". Personas que comparan su patrimonio con el de los demás, gastan para aparentar o sienten vergüenza por su nivel económico.</div>
       </div>
       <div class="key-concept">
         <div class="concept-icon">&#128737;</div>
-        <div class="concept-text"><strong>Hipervigilancia:</strong> "Hay que vigilar cada centimo", "no te puedes fiar", "cualquier gasto innecesario es un riesgo". Personas que controlan cada euro con ansiedad, les cuesta disfrutar del dinero y viven con un miedo constante a que se acabe.</div>
+        <div class="concept-text"><strong>Hipervigilancia:</strong> "Hay que vigilar cada céntimo", "no te puedes fiar", "cualquier gasto innecesario es un riesgo". Personas que controlan cada euro con ansiedad, les cuesta disfrutar del dinero y viven con un miedo constante a que se acabe.</div>
       </div>
 
-      <div class="theory-highlight">La mayoria de personas tenemos una combinacion de 2 o 3 de estos guiones. Identificar cual domina tu vida es el primer paso para dejar de obedecerlo ciegamente.</div>
+      <div class="theory-highlight">La mayoría de personas tenemos una combinación de 2 o 3 de estos guiones. Identificar cual domina tu vida es el primer paso para dejar de obedecerlo ciegamente.</div>
     </div>
 
     <div class="theory-block">
-      <div class="theory-title">Patrones que se repiten: el ciclo del autosabotaje</div>
-      <p class="theory-text">El autosabotaje financiero no es casualidad. Funciona con un patron predecible:</p>
-      <p class="theory-text"><strong>1. Deseo consciente:</strong> "Quiero ganar mas / ahorrar / invertir"</p>
-      <p class="theory-text"><strong>2. Activacion subconsciente:</strong> Tu subconsciente detecta que estas saliendo de tu "zona de termostato" y activa la alarma interna.</p>
-      <p class="theory-text"><strong>3. Sabotaje:</strong> Gastas de mas, procrastinas la oportunidad, te enfermas antes de una reunion importante, peleas con tu pareja por dinero "sin motivo".</p>
-      <p class="theory-text"><strong>4. Vuelta al punto de partida:</strong> Vuelves a tu nivel "seguro" y te preguntas: "&#191;Por que siempre me pasa lo mismo?"</p>
-      <p class="theory-text"><strong>El subconsciente no sabotea para hacerte dano.</strong> Lo hace porque su funcion es mantenerte en lo conocido. Lo conocido = seguro. Aunque lo conocido sea la escasez.</p>
+      <div class="theory-title">Patrónes que se repiten: el ciclo del autosabotaje</div>
+      <p class="theory-text">El autosabotaje financiero no es casualidad. Funcióna con un patrón predecible:</p>
+      <p class="theory-text"><strong>1. Deseo consciente:</strong> "Quiero ganar más / ahorrar / invertir"</p>
+      <p class="theory-text"><strong>2. Activación subconsciente:</strong> Tu subconsciente detecta que estás saliendo de tu "zona de termostato" y activa la alarma interna.</p>
+      <p class="theory-text"><strong>3. Sabotaje:</strong> Gastas de más, procrastinas la oportunidad, te enfermas antes de una reunion importante, peleas con tu pareja por dinero "sin motivo".</p>
+      <p class="theory-text"><strong>4. Vuelta al punto de partida:</strong> Vuelves a tu nivel "seguro" y te preguntas: "¿Por qué siempre me pasa lo mismo?"</p>
+      <p class="theory-text"><strong>El subconsciente no sabotea para hacerte daño.</strong> Lo hace porque su función es mantenerte en lo conocido. Lo conocido = seguro. Aunque lo conocido sea la escasez.</p>
+    </div>
+
+    <div class="theory-block">
+      <div class="theory-title">El problema del límite superior: por qué no puedes ir "demasiado bien"</div>
+      <p class="theory-text">El psicólogo Gay Hendricks descubrió que cada persona tiene un <strong>"límite superior"</strong> — un nivel máximo de éxito, felicidad o dinero que puede tolerar antes de que su subconsciente active mecanismos para volver al nivel conocido.</p>
+      <p class="theory-text">¿Te suena esto? <strong>Tu negocio va bien → de repente pierdes una operación → vuelves al nivel que tu subconsciente considera "seguro".</strong> No es mala suerte. Es tu termostato interno haciendo su trabajo.</p>
+      <p class="theory-text">Los mecanismos de "vuelta al nivel seguro" son sutiles: <strong>preocupación excesiva</strong> que te paraliza, <strong>discusiones</strong> con tu pareja justo cuando las cosas mejoran, <strong>enfermarte</strong> antes de una reunión importante, <strong>procrastinar</strong> oportunidades, o "accidentes" que te cuestan dinero.</p>
+      <div class="theory-highlight">Tu subconsciente no te odia. Te está protegiendo de un territorio desconocido. Pero esa "protección" es la que te mantiene atrapada en el mismo nivel.</div>
+    </div>
+
+    <div class="theory-block">
+      <div class="theory-title">Miedo al éxito vs miedo al fracaso: el enemigo invisible</div>
+      <p class="theory-text">Todo el mundo habla del miedo al fracaso. Pero <strong>el miedo al ÉXITO es mucho más poderoso y completamente invisible.</strong> No lo reconoces porque suena absurdo: "¿Quién tiene miedo de que le vaya bien?"</p>
+      <p class="theory-text">Sin embargo, el éxito implica cosas que tu subconsciente percibe como peligrosas:</p>
+      <div class="key-concept">
+        <div class="concept-icon">👁️</div>
+        <div class="concept-text"><strong>Visibilidad:</strong> "Si me va bien, me verán. Me juzgarán. Me envidiarán. Seré un blanco." Tu subconsciente prefiere quedarse pequeña a ser vista.</div>
+      </div>
+      <div class="key-concept">
+        <div class="concept-icon">⚖️</div>
+        <div class="concept-text"><strong>Responsabilidad:</strong> "Si gano más, tendré que mantenerlo. ¿Y si no puedo? Mejor no subir para no tener que caer." El éxito crea una expectativa que da vértigo.</div>
+      </div>
+      <div class="key-concept">
+        <div class="concept-icon">💔</div>
+        <div class="concept-text"><strong>Abandono:</strong> "Si gano más que mi familia, mis amigas, mi pareja... me rechazarán. Seré 'diferente'. Me quedaré sola." Muchas mujeres se autolimitan para no alejarse de su entorno.</div>
+      </div>
+      <div class="key-concept">
+        <div class="concept-icon">🪞</div>
+        <div class="concept-text"><strong>Identidad:</strong> "Si ya no soy la que lucha, la que no llega, la que necesita ayuda... ¿quién soy?" Tu identidad actual está construida alrededor de la escasez. Soltar eso da miedo.</div>
+      </div>
+    </div>
+
+    <div class="theory-block">
+      <div class="theory-title">La ganancia secundaria: qué GANAS al quedarte donde estás</div>
+      <p class="theory-text">Esta es la pregunta más incómoda del programa, pero también la más transformadora: <strong>¿Qué ganas al no ganar más?</strong></p>
+      <p class="theory-text">Tu subconsciente no mantiene un patrón si no obtiene algo a cambio. Estas son las "ganancias" más comunes de quedarte en la escasez:</p>
+      <p class="theory-text">→ <strong>Comodidad:</strong> No tener que cambiar, no tener que aprender cosas nuevas, no salir de tu zona conocida.</p>
+      <p class="theory-text">→ <strong>Protección:</strong> Si no tienes mucho, nadie te lo puede quitar. No te expones a la pérdida.</p>
+      <p class="theory-text">→ <strong>Pertenencia:</strong> Sigues "encajando" con tu entorno, tu familia, tu grupo. No eres "diferente".</p>
+      <p class="theory-text">→ <strong>No ser juzgada:</strong> Si no destacas, nadie te critica. La mediocridad financiera es "segura" socialmente.</p>
+      <p class="theory-text">→ <strong>Identidad intacta:</strong> Seguir siendo "la que lucha" es familiar. Ser "la que le va bien" es un territorio desconocido.</p>
+      <div class="theory-highlight">Esto no es debilidad ni pereza. Es un mecanismo de protección que tu subconsciente aprendió de niña. Fue útil entonces. Ya no te sirve ahora. Pero hasta que lo hagas consciente, seguirá funcionando en automático.</div>
+    </div>
+
+    <div class="theory-block">
+      <div class="theory-title">Lealtad invisible: cuando ganar más se siente como traición</div>
+      <p class="theory-text">El terapeuta Bert Hellinger descubrió algo fascinante: <strong>tenemos una lealtad inconsciente al nivel financiero de nuestra familia.</strong> Si tus padres lucharon con el dinero, ganar "demasiado" se siente como traicionarles.</p>
+      <p class="theory-text">Tu subconsciente piensa: <strong>"Si me va mejor que a mis padres, los estoy abandonando. Los estoy dejando atrás. Estoy diciendo que su vida no fue suficiente."</strong></p>
+      <p class="theory-text">Este mecanismo explica por qué personas extremadamente capaces e inteligentes se autolimitan financieramente. No es falta de capacidad — <strong>es un amor mal entendido hacia sus orígenes.</strong></p>
+      <p class="theory-text">La verdad es que prosperar no es traicionar a tu familia. Al contrario: <strong>romper el patrón de escasez es el mayor regalo que puedes hacerles</strong>, porque demuestras que otra vida es posible. Pero tu subconsciente necesita escuchar esto muchas veces antes de creérselo.</p>
+      <div class="theory-highlight">Pregúntate: "¿A quién sería 'desleal' si me fuera muy bien?" La respuesta a esa pregunta suele ser la llave que abre todo.</div>
     </div>
   </div>
 
   <div class="content-section">
-    <div class="content-label">Ejercicios practicos</div>
+    <div class="content-label">Ejercicios prácticos</div>
 
     <div class="exercise reveal" data-exercise="mod2-ex1">
       <div class="exercise-badge">Ejercicio 3</div>
-      <div class="exercise-title">Test: &#191;Cual es tu Money Script dominante?</div>
+      <div class="exercise-title">Test: ¿Cuál es tu Money Script dominante?</div>
       <div class="exercise-desc">Responde con honestidad. No hay respuestas correctas ni incorrectas. Marca las frases con las que te identificas:</div>
       <ol class="exercise-steps">
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Lista A (Evitacion):</strong> "No merezco ganar mas de lo que gano" / "Me siento culpable cuando gasto en mi" / "Cobrar por mi trabajo me incomoda" / "Si tuviera mucho dinero, me convertiria en mala persona"</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Lista B (Adoracion):</strong> "Si tuviera mas dinero mis problemas desaparecerian" / "Nunca siento que tengo suficiente" / "Compro cosas para sentirme mejor" / "El dinero es lo mas importante"</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Lista C (Estatus):</strong> "Me comparo economicamente con los demas" / "Me averguenza no ganar mas" / "Gasto para que los demas vean que me va bien" / "Mi valor depende de mi exito economico"</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Lista D (Hipervigilancia):</strong> "Reviso mis cuentas constantemente con ansiedad" / "Me cuesta mucho gastar, incluso en cosas necesarias" / "Siento que el dinero se puede acabar en cualquier momento" / "Cada gasto me genera estres"</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>La lista donde hayas marcado mas frases es tu guion dominante.</strong> Escribe en tu diario: "Mi money script dominante es ______ y las frases que mas me resuenan son ______. Esto me afecta en mi vida porque ______."</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Lista A (Evitación):</strong> "No merezco ganar más de lo que gano" / "Me siento culpable cuando gasto en mi" / "Cobrar por mi trabajo me incomoda" / "Si tuviera mucho dinero, me convertiría en mala persona"</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Lista B (Adoración):</strong> "Si tuviera más dinero mis problemas desaparecerían" / "Nunca siento que tengo suficiente" / "Compro cosas para sentirme mejor" / "El dinero es lo más importante"</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Lista C (Estatus):</strong> "Me comparo económicamente con los demás" / "Me avergüenza no ganar más" / "Gasto para que los demás vean que me va bien" / "Mi valor depende de mi éxito económico"</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Lista D (Hipervigilancia):</strong> "Reviso mis cuentas constantemente con ansiedad" / "Me cuesta mucho gastar, incluso en cosas necesarias" / "Siento que el dinero se puede acabar en cualquier momento" / "Cada gasto me genera estrés"</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>La lista donde hayas marcado más frases es tu guion dominante.</strong> Escribe en tu diario: "Mi money script dominante es ______ y las frases que más me resuenan son ______. Esto me afecta en mi vida porque ______."</div></li>
       </ol>
       <div class="exercise-interactive">
         <div class="money-test">
           <div class="money-test-group">
-            <strong>Grupo A — Evitacion</strong>
-            <label class="money-test-item"><input type="checkbox" name="money-test" value="evitacion"> "El dinero es la raiz de todos los males"</label>
-            <label class="money-test-item"><input type="checkbox" name="money-test" value="evitacion"> "No merezco tener dinero"</label>
-            <label class="money-test-item"><input type="checkbox" name="money-test" value="evitacion"> "Las personas ricas son corruptas"</label>
+            <strong>Grupo A — Evitación</strong>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="evitación"> "El dinero es la raíz de todos los males"</label>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="evitación"> "No merezco tener dinero"</label>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="evitación"> "Las personas ricas son corruptas"</label>
           </div>
           <div class="money-test-group">
-            <strong>Grupo B — Adoracion</strong>
-            <label class="money-test-item"><input type="checkbox" name="money-test" value="adoracion"> "El dinero resolveria todos mis problemas"</label>
-            <label class="money-test-item"><input type="checkbox" name="money-test" value="adoracion"> "Nunca tendre suficiente dinero"</label>
-            <label class="money-test-item"><input type="checkbox" name="money-test" value="adoracion"> "Mas dinero me haria mas feliz"</label>
+            <strong>Grupo B — Adoración</strong>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="adoración"> "El dinero resolvería todos mis problemas"</label>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="adoración"> "Nunca tendré suficiente dinero"</label>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="adoración"> "Más dinero me haría más feliz"</label>
           </div>
           <div class="money-test-group">
             <strong>Grupo C — Estatus</strong>
             <label class="money-test-item"><input type="checkbox" name="money-test" value="estatus"> "Mi valor depende de cuanto gano"</label>
             <label class="money-test-item"><input type="checkbox" name="money-test" value="estatus"> "Debo tener lo mejor para ser respetado"</label>
-            <label class="money-test-item"><input type="checkbox" name="money-test" value="estatus"> "El exito se mide en dinero"</label>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="estatus"> "El éxito se mide en dinero"</label>
           </div>
           <div class="money-test-group">
             <strong>Grupo D — Vigilancia</strong>
-            <label class="money-test-item"><input type="checkbox" name="money-test" value="vigilancia"> "Debo ahorrar cada centimo"</label>
+            <label class="money-test-item"><input type="checkbox" name="money-test" value="vigilancia"> "Debo ahorrar cada céntimo"</label>
             <label class="money-test-item"><input type="checkbox" name="money-test" value="vigilancia"> "Gastar dinero me genera ansiedad"</label>
             <label class="money-test-item"><input type="checkbox" name="money-test" value="vigilancia"> "Siempre hay que prepararse para lo peor"</label>
           </div>
           <div class="money-test-result" id="money-test-result" style="display:none;"></div>
         </div>
       </div>
-      <div class="exercise-duration">Duracion: 15 minutos</div>
+      <div class="exercise-duration">Duración: 15 minutos</div>
             <div class="exercise-interactive" style="margin-top:12px">
-        <textarea class="exercise-textarea" rows="6" placeholder="Mi money script dominante es... Las frases que mas me resuenan son... Esto me afecta en mi vida porque..."></textarea>
+        <textarea class="exercise-textarea" rows="6" placeholder="Mi money script dominante es... Las frases que más me resuenan son... Esto me afecta en mi vida porque..."></textarea>
       </div>
       <button class="exercise-save-btn" onclick="saveExercise('mod2-ex1')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod2-ex1">Guardado &#10003;</span>
@@ -1152,36 +1220,57 @@
 
     <div class="exercise reveal" data-exercise="mod2-ex2">
       <div class="exercise-badge">Ejercicio 4</div>
-      <div class="exercise-title">Mapa de sabotaje: tu patron en papel</div>
+      <div class="exercise-title">Mapa de sabotaje: tu patrón en papel</div>
       <div class="exercise-desc">Dibuja tu ciclo de autosabotaje financiero para hacerlo visible y consciente.</div>
       <ol class="exercise-steps">
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Piensa en la ultima vez que te fue bien economicamente</strong> (un buen mes, un ingreso extra, una oportunidad). Escribe que paso.</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Ahora escribe que paso despues.</strong> &#191;Lo mantuviste? &#191;Gastaste de mas? &#191;Aparecio un "imprevisto"? &#191;Rechazaste la siguiente oportunidad?</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Dibuja un circulo en una hoja</strong> y escribe las 4 fases de TU ciclo personal: &#191;que quieres? &#8594; &#191;que haces para conseguirlo? &#8594; &#191;como lo saboteas? &#8594; &#191;donde acabas?</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Observa el circulo.</strong> &#191;Cuantas veces has repetido este ciclo? Dale un nombre a tu patron (ej: "el techo de cristal", "el que gasta para olvidar", "la que no se atreve").</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Piensa en la última vez que te fue bien económicamente</strong> (un buen mes, un ingreso extra, una oportunidad). Escribe qué pasó.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Ahora escribe qué pasó después.</strong> ¿Lo mantuviste? ¿Gastaste de mas? ¿Apareció un "imprevisto"? ¿Rechazaste la siguiente oportunidad?</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Dibuja un círculo en una hoja</strong> y escribe las 4 fases de TU ciclo personal: ¿qué quieres? &#8594; ¿qué haces para conseguirlo? &#8594; ¿Cómo lo saboteas? &#8594; ¿Dónde acabas?</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Observa el círculo.</strong> ¿Cuántas veces has repetido este ciclo? Dale un nombre a tu patrón (ej: "el techo de cristal", "el que gasta para olvidar", "la que no se atreve").</div></li>
       </ol>
-      <div class="exercise-duration">Duracion: 25 minutos</div>
+      <div class="exercise-duration">Duración: 25 minutos</div>
             <div class="exercise-interactive" style="margin-top:12px">
-        <textarea class="exercise-textarea" rows="6" placeholder="Describe tu ciclo de sabotaje: que quieres, que haces para conseguirlo, como lo saboteas, donde acabas... Dale un nombre a tu patron."></textarea>
+        <textarea class="exercise-textarea" rows="6" placeholder="Describe tu ciclo de sabotaje: qué quieres, qué haces para conseguirlo, como lo saboteas, donde acabas... Dale un nombre a tu patrón."></textarea>
       </div>
       <button class="exercise-save-btn" onclick="saveExercise('mod2-ex2')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod2-ex2">Guardado &#10003;</span>
       <div class="analysis-panel" id="analysis-mod2-ex2"></div>
       <div class="reprogram-phrase" id="reprogram-mod2-ex2"></div>
     </div>
+
+    <div class="exercise reveal" data-exercise="mod2-ex3">
+      <div class="exercise-badge">Ejercicio 5</div>
+      <div class="exercise-title">Encuentra la raíz: ¿por qué realmente te saboteas?</div>
+      <div class="exercise-desc">Este es el ejercicio más profundo del programa. Vas a ir más allá del "qué hago" para descubrir "por qué lo hago". Necesitas honestidad radical contigo misma.</div>
+      <ol class="exercise-steps">
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>¿Qué pasaría si te fuera MUY bien de forma sostenida?</strong> Imagina que tu negocio va genial durante meses, ganas el doble. ¿Qué sientes? ¿Qué miedos aparecen? Escríbelos sin filtro.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>¿Quién de tu entorno se sentiría incómodo si ganaras mucho más?</strong> Tu pareja, tus padres, tus amigas, tus hermanos. ¿Quién podría juzgarte, envidiarte o alejarse? Sé honesta.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>¿Qué GANAS al quedarte donde estás?</strong> ¿Comodidad? ¿No ser juzgada? ¿No tener que cambiar? ¿Seguir encajando? Escribe lo que tu subconsciente obtiene al mantenerte en este nivel.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>¿A quién serías "desleal" si te fuera mejor que a ellos?</strong> ¿Tus padres? ¿Tu familia de origen? ¿Algún grupo al que perteneces? ¿Sientes que ganar más es "traicionar" tus orígenes?</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Completa esta frase 5 veces, cada vez con una respuesta diferente:</strong> "Si me va muy bien de forma sostenida, entonces..." Escribe lo primero que venga, sin pensar.</div></li>
+      </ol>
+      <div class="exercise-duration">Duración: 30 minutos. Hazlo en un lugar tranquilo donde puedas ser completamente honesta.</div>
+      <div class="exercise-interactive" style="margin-top:12px">
+        <textarea class="exercise-textarea" rows="8" placeholder="Si me va muy bien de forma sostenida, entonces... Lo que más miedo me da del éxito es... La persona que se sentiría incómoda es... Lo que gano al quedarme donde estoy es... Si soy honesta, me siento desleal hacia..."></textarea>
+      </div>
+      <button class="exercise-save-btn" onclick="saveExercise('mod2-ex3')">Guardar respuesta</button>
+      <span class="save-feedback" id="feedback-mod2-ex3">Guardado ✓</span>
+      <div class="analysis-panel" id="analysis-mod2-ex3"></div>
+      <div class="reprogram-phrase" id="reprogram-mod2-ex3"></div>
+    </div>
   </div>
 
   <div class="content-section">
-    <div class="content-label">Preguntas de reflexion</div>
+    <div class="content-label">Preguntas de reflexión</div>
     <div class="reflection-box">
-      <div class="reflection-title">Para tu diario de reflexion:</div>
+      <div class="reflection-title">Para tu diario de reflexión:</div>
       <ul class="reflection-list">
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Cuando fue la ultima vez que saboteaste algo bueno que te pasaba con el dinero? &#191;Que hiciste exactamente?</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Hay alguna cantidad de dinero que te de miedo superar? &#191;Cual es y por que crees que te frena?</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> Si un amigo te contara tus patrones con el dinero como si fueran los suyos, &#191;que le dirias?</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> ¿Cuándo fue la última vez que saboteaste algo bueno que te pasaba con el dinero? ¿Qué hiciste exactamente?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> ¿Hay alguna cantidad de dinero que te de miedo superar? ¿Cuál es y por qué crees que te frena?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> Si un amigo te contara tus patrones con el dinero como si fueran los suyos, ¿qué le dirías?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
       </ul>
     </div>
   </div>
@@ -1193,7 +1282,7 @@
     <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
     <div class="dashboard-grid">
       <div class="dash-stat">
-        <div class="dash-stat-num" id="dash-exercises">0/13</div>
+        <div class="dash-stat-num" id="dash-exercises">0/14</div>
         <div class="dash-stat-label">Ejercicios completados</div>
       </div>
       <div class="dash-stat">
@@ -1202,11 +1291,11 @@
       </div>
     </div>
     <div class="dash-patterns" id="dash-patterns-section" style="display:none;">
-      <div class="dash-patterns-title">Patrones detectados en tu escritura</div>
+      <div class="dash-patterns-title">Patrónes detectados en tu escritura</div>
       <div id="dash-patterns-bars"></div>
     </div>
     <div class="dash-recommendation" id="dash-recommendation" style="display:none;">
-      <div class="dash-recommendation-title">✨ Recomendacion personalizada</div>
+      <div class="dash-recommendation-title">✨ Recomendación personalizada</div>
       <div class="dash-recommendation-text" id="dash-recommendation-text"></div>
     </div>
     <div class="dash-empty" id="dash-empty">
@@ -1221,19 +1310,19 @@
 <!-- ═══════════════════════════════════════ -->
 <div class="module reveal" id="modulo-3">
   <div class="module-header">
-    <div class="module-label">Modulo 3 <span class="module-progress-badge" data-mod-progress="3">0/2</span></div>
+    <div class="module-label">Módulo 3 <span class="module-progress-badge" data-mod-progress="3">0/2</span></div>
     <h2 class="module-title">Descentra el dinero</h2>
-    <div class="module-objective">Objetivo: Aprender a separar tu valor como persona del dinero que tienes o ganas, para que deje de ser el centro de tu ansiedad y tus decisiones.</div>
+    <div class="module-objective">Objetivo: Aprender a separar tu valor como persona del dinero que tienes o ganas, para que deje de ser el centro de tu ansiedad y tus decisiónes.</div>
   </div>
 
   <div class="content-section">
-    <div class="content-label">Contenido teorico</div>
+    <div class="content-label">Contenido teórico</div>
 
     <div class="theory-block">
-      <div class="theory-title">El dinero no es el problema. Tu relacion con el si.</div>
-      <p class="theory-text">El dinero es una herramienta. No tiene personalidad, no juzga y no decide por ti. Pero <strong>cuando le das el poder de definir tu valor, tu seguridad y tu identidad, se convierte en el centro de todo</strong> — y desde ahi no puedes tomar buenas decisiones.</p>
-      <p class="theory-text">Descentrar el dinero no significa que no te importe o que no quieras tener mas. Significa que <strong>tu bienestar, tu identidad y tus decisiones no dependen exclusivamente de el.</strong></p>
-      <p class="theory-text">Cuando el dinero esta en el centro, cada decision financiera activa el sistema de amenaza del cerebro (amigdala). Gastas con miedo, ahorras con ansiedad, y cobras con culpa. Cuando lo descentras, <strong>activas el cortex prefrontal</strong> — la parte del cerebro que toma decisiones racionales, creativas y a largo plazo.</p>
+      <div class="theory-title">El dinero no es el problema. Tu relación con el si.</div>
+      <p class="theory-text">El dinero es una herramienta. No tiene personalidad, no juzga y no decide por ti. Pero <strong>cuando le das el poder de definir tu valor, tu seguridad y tu identidad, se convierte en el centro de todo</strong> — y desde ahi no puedes tomar buenas decisiónes.</p>
+      <p class="theory-text">Descentrar el dinero no significa que no te importe o que no quieras tener más. Significa que <strong>tu bienestar, tu identidad y tus decisiónes no dependen exclusivamente de el.</strong></p>
+      <p class="theory-text">Cuando el dinero esta en el centro, cada decisión financiera activa el sistema de amenaza del cerebro (amigdala). Gastas con miedo, ahorras con ansiedad, y cobras con culpa. Cuando lo descentras, <strong>activas el cortex prefrontal</strong> — la parte del cerebro que toma decisiónes racionales, creativas y a largo plazo.</p>
     </div>
 
     <div class="theory-block">
@@ -1242,28 +1331,28 @@
       <p class="theory-text">"Soy pobre" (en vez de "ahora tengo pocos ingresos")</p>
       <p class="theory-text">"No soy de los que ganan mucho" (en vez de "hasta ahora no he ganado mucho")</p>
       <p class="theory-text">"No me puedo permitir eso" (en vez de "elijo no gastar en eso ahora")</p>
-      <p class="theory-text"><strong>El lenguaje que usas sobre el dinero refuerza las vias neuronales.</strong> Cada vez que dices "soy pobre", tu cerebro busca evidencias de que es verdad y descarta las que lo contradicen. Es lo que en neurociencia se llama <strong>sesgo de confirmacion.</strong></p>
-      <div class="theory-highlight">Tu situacion financiera es temporal y cambiante. Tu identidad no tiene que estar atada a ella. Separar ambas cosas es el paso mas liberador que puedes dar.</div>
+      <p class="theory-text"><strong>El lenguaje que usas sobre el dinero refuerza las vías neuronales.</strong> Cada vez que dices "soy pobre", tu cerebro busca evidencias de que es verdad y descarta las que lo contradicen. Es lo que en neurociencia se llama <strong>sesgo de confirmacion.</strong></p>
+      <div class="theory-highlight">Tu situacion financiera es temporal y cambiante. Tu identidad no tiene que estar atada a ella. Separar ambas cosas es el paso más liberador que puedes dar.</div>
     </div>
   </div>
 
   <div class="content-section">
-    <div class="content-label">Ejercicios practicos</div>
+    <div class="content-label">Ejercicios prácticos</div>
 
     <div class="exercise reveal reveal-delay-1" data-exercise="mod3-ex1">
       <div class="exercise-badge">Ejercicio 5</div>
       <div class="exercise-title">Carta al dinero</div>
-      <div class="exercise-desc">Un ejercicio de escritura terapeutica para sacar a la luz tu relacion emocional con el dinero. Puede ser muy revelador — dejate sorprender por lo que sale.</div>
+      <div class="exercise-desc">Un ejercicio de escritura terapeutica para sacar a la luz tu relación emociónal con el dinero. Puede ser muy revelador — dejate sorprender por lo que sale.</div>
       <ol class="exercise-steps">
         <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe una carta al dinero como si fuera una persona.</strong> Empieza con "Querido dinero..." y cuentale todo: como te sientes con el, que te ha hecho sentir, que le reprochas, que le agradeces, que necesitas de el.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Ahora escribe la respuesta.</strong> Imagina que el dinero te contesta. &#191;Que te diria? &#191;Se sentiria bienvenido en tu vida o rechazado? &#191;Te diria que confias en el o que le temes?</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Lee ambas cartas en voz alta.</strong> Observa que emociones aparecen. &#191;Hay tristeza? &#191;Rabia? &#191;Miedo? &#191;Alivio? Escribe lo que sientes al leerlas.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe una nueva declaracion de relacion:</strong> "A partir de ahora, mi relacion con el dinero es ______. El dinero en mi vida sirve para ______. Yo valgo independientemente de ______."</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Ahora escribe la respuesta.</strong> Imagina que el dinero te contesta. ¿Qué te diria? ¿Se sentiria bienvenido en tu vida o rechazado? ¿Te diria que confias en el o que le temes?</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Lee ambas cartas en voz alta.</strong> Observa que emociónes aparecen. ¿Hay tristeza? ¿Rabia? ¿Miedo? ¿Alivio? Escribe lo qué sientes al leerlas.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe una nueva declaración de relación:</strong> "A partir de ahora, mi relación con el dinero es ______. El dinero en mi vida sirve para ______. Yo valgo independientemente de ______."</div></li>
       </ol>
       <div class="exercise-interactive">
-        <textarea class="exercise-textarea" rows="6" placeholder="Escribe aqui tu carta al dinero, su respuesta, y tu nueva declaracion de relacion..."></textarea>
+        <textarea class="exercise-textarea" rows="6" placeholder="Escribe aqui tu carta al dinero, su respuesta, y tu nueva declaración de relación..."></textarea>
       </div>
-      <div class="exercise-duration">Duracion: 30-40 minutos</div>
+      <div class="exercise-duration">Duración: 30-40 minutos</div>
       <button class="exercise-save-btn" onclick="saveExercise('mod3-ex1')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod3-ex1">Guardado &#10003;</span>
       <div class="analysis-panel" id="analysis-mod3-ex1"></div>
@@ -1277,13 +1366,13 @@
       <ol class="exercise-steps">
         <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe 10 cosas que te hacen valiosa como persona</strong> que no tengan nada que ver con el dinero ni con el trabajo. (Tu forma de escuchar, tu creatividad, tu humor, tu empatia...)</div></li>
         <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe 5 momentos de tu vida donde te sentiste abundante sin dinero.</strong> Puede ser una comida con amigos, un paseo, una conversacion, un logro personal.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Ahora completa:</strong> "Si manana desapareciera todo mi dinero, seguiria siendo ______, seguiria teniendo ______, y seguiria siendo capaz de ______."</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Pon esta frase en un sitio visible</strong> (tu movil, tu espejo, tu escritorio) y leela cada manana durante 21 dias.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Ahora completa:</strong> "Si mañana desapareciera todo mi dinero, seguiria siendo ______, seguiria teniendo ______, y seguiria siendo capaz de ______."</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Pon esta frase en un sitio visible</strong> (tu movil, tu espejo, tu escritorio) y leela cada mañana durante 21 días.</div></li>
       </ol>
       <div class="exercise-interactive">
         <textarea class="exercise-textarea" rows="6" placeholder="Escribe aqui tus 10 cualidades valiosas, tus 5 momentos de abundancia, y tu frase de identidad..."></textarea>
       </div>
-      <div class="exercise-duration">Duracion: 20 minutos</div>
+      <div class="exercise-duration">Duración: 20 minutos</div>
       <button class="exercise-save-btn" onclick="saveExercise('mod3-ex2')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod3-ex2">Guardado &#10003;</span>
       <div class="analysis-panel" id="analysis-mod3-ex2"></div>
@@ -1292,16 +1381,16 @@
   </div>
 
   <div class="content-section">
-    <div class="content-label">Preguntas de reflexion</div>
+    <div class="content-label">Preguntas de reflexión</div>
     <div class="reflection-box">
-      <div class="reflection-title">Para tu diario de reflexion:</div>
+      <div class="reflection-title">Para tu diario de reflexión:</div>
       <ul class="reflection-list">
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Cuantas decisiones tomas al dia pensando en el dinero? &#191;Serian diferentes si el dinero no fuera un factor?</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que harias esta semana si supieras que el dinero no se va a acabar?</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Hay algo que quieres hacer pero no haces "porque no puedo permitirmelo"? &#191;Es realmente por dinero o por miedo?</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> ¿Cuántas decisiónes tomas al dia pensando en el dinero? ¿Serian diferentes si el dinero no fuera un factor?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> ¿Qué harías esta semana si supieras que el dinero no se va a acabar?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> ¿Hay algo qué quieres hacer pero no haces "porque no puedo permitirmelo"? ¿Es realmente por dinero o por miedo?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
       </ul>
     </div>
   </div>
@@ -1313,7 +1402,7 @@
     <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
     <div class="dashboard-grid">
       <div class="dash-stat">
-        <div class="dash-stat-num" id="dash-exercises">0/13</div>
+        <div class="dash-stat-num" id="dash-exercises">0/14</div>
         <div class="dash-stat-label">Ejercicios completados</div>
       </div>
       <div class="dash-stat">
@@ -1322,11 +1411,11 @@
       </div>
     </div>
     <div class="dash-patterns" id="dash-patterns-section" style="display:none;">
-      <div class="dash-patterns-title">Patrones detectados en tu escritura</div>
+      <div class="dash-patterns-title">Patrónes detectados en tu escritura</div>
       <div id="dash-patterns-bars"></div>
     </div>
     <div class="dash-recommendation" id="dash-recommendation" style="display:none;">
-      <div class="dash-recommendation-title">✨ Recomendacion personalizada</div>
+      <div class="dash-recommendation-title">✨ Recomendación personalizada</div>
       <div class="dash-recommendation-text" id="dash-recommendation-text"></div>
     </div>
     <div class="dash-empty" id="dash-empty">
@@ -1341,57 +1430,57 @@
 <!-- ═══════════════════════════════════════ -->
 <div class="module reveal" id="modulo-4">
   <div class="module-header">
-    <div class="module-label">Modulo 4 <span class="module-progress-badge" data-mod-progress="4">0/3</span></div>
+    <div class="module-label">Módulo 4 <span class="module-progress-badge" data-mod-progress="4">0/3</span></div>
     <h2 class="module-title">Reprograma tu sistema</h2>
-    <div class="module-objective">Objetivo: Aplicar herramientas practicas de neurociencia para debilitar los patrones viejos y crear nuevas vias neuronales que te apoyen con el dinero.</div>
+    <div class="module-objective">Objetivo: Aplicar herramientas practicas de neurociencia para debilitar los patrones viejos y crear nuevas vías neuronales que te apoyen con el dinero.</div>
   </div>
 
   <div class="content-section">
-    <div class="content-label">Contenido teorico</div>
+    <div class="content-label">Contenido teórico</div>
 
     <div class="theory-block">
       <div class="theory-title">Como se reprograma una creencia</div>
-      <p class="theory-text">Una creencia no es mas que una <strong>via neuronal que se ha reforzado con la repeticion.</strong> Cada vez que piensas "no me puedo permitir eso", esa via se hace mas fuerte y automatica.</p>
+      <p class="theory-text">Una creencia no es más que una <strong>via neuronal que se ha reforzado con la repetición.</strong> Cada vez que piensas "no me puedo permitir eso", esa via se hace más fuerte y automática.</p>
       <p class="theory-text">Para cambiar una creencia necesitas tres cosas:</p>
       <div class="key-concept">
         <div class="concept-icon">1</div>
-        <div class="concept-text"><strong>Consciencia:</strong> Darte cuenta de que la creencia esta ahi (ya lo has hecho en los modulos 1 y 2).</div>
+        <div class="concept-text"><strong>Consciencia:</strong> Darte cuenta de que la creencia esta ahi (ya lo has hecho en los módulos 1 y 2).</div>
       </div>
       <div class="key-concept">
         <div class="concept-icon">2</div>
-        <div class="concept-text"><strong>Interrupcion:</strong> Romper el patron automatico en el momento en que se activa. El cerebro necesita una "senal de stop" para dejar de ejecutar el programa viejo.</div>
+        <div class="concept-text"><strong>Interrupcion:</strong> Romper el patron automático en el momento en que se activa. El cerebro necesita una "senal de stop" para dejar de ejecutar el programa viejo.</div>
       </div>
       <div class="key-concept">
         <div class="concept-icon">3</div>
-        <div class="concept-text"><strong>Repeticion de lo nuevo:</strong> Instalar la nueva creencia con repeticion, emocion y experiencias. No basta con pensarlo — tu cerebro necesita sentirlo y vivirlo.</div>
+        <div class="concept-text"><strong>Repeticion de lo nuevo:</strong> Instalar la nueva creencia con repetición, emoción y experiencias. No basta con pensarlo — tu cerebro necesita sentirlo y vivirlo.</div>
       </div>
     </div>
 
     <div class="theory-block">
-      <div class="theory-title">EFT / Tapping: liberar la carga emocional</div>
-      <p class="theory-text">El EFT (Emotional Freedom Techniques) o Tapping es una tecnica que combina la estimulacion de puntos de acupresion con frases habladas. <strong>Funciona enviando una senal de calma al sistema nervioso mientras piensas en la creencia limitante</strong>, lo que reduce la carga emocional asociada.</p>
-      <p class="theory-text">Estudios clinicos han demostrado que el Tapping <strong>reduce los niveles de cortisol (hormona del estres) hasta un 43% en una sola sesion.</strong> Cuando tu cuerpo deja de asociar "dinero" con "estres", empiezas a tomar decisiones desde otro lugar.</p>
+      <div class="theory-title">EFT / Tapping: liberar la carga emociónal</div>
+      <p class="theory-text">El EFT (Emotional Freedom Techniques) o Tapping es una técnica que combina la estimulacion de puntos de acupresion con frases habladas. <strong>Funcióna enviando una señal de calma al sistema nervioso mientras piensas en la creencia limitante</strong>, lo que reduce la carga emociónal asociada.</p>
+      <p class="theory-text">Estudios clinicos han demostrado que el Tapping <strong>reduce los niveles de cortisol (hormona del estres) hasta un 43% en una sola sesion.</strong> Cuando tu cuerpo deja de asociar "dinero" con "estres", empiezas a tomar decisiónes desde otro lugar.</p>
     </div>
   </div>
 
   <div class="content-section">
-    <div class="content-label">Ejercicios practicos</div>
+    <div class="content-label">Ejercicios prácticos</div>
 
     <div class="exercise reveal reveal-delay-1" data-exercise="mod4-ex1">
       <div class="exercise-badge">Ejercicio 7</div>
       <div class="exercise-title">Tapping para soltar una creencia limitante sobre el dinero</div>
-      <div class="exercise-desc">Una secuencia de Tapping especifica para trabajar creencias de escasez. Hazlo en un lugar tranquilo.</div>
+      <div class="exercise-desc">Una secuencia de Tapping específica para trabajar creencias de escasez. Hazlo en un lugar tranquilo.</div>
       <ol class="exercise-steps">
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Elige una creencia limitante</strong> de las que descubriste en los modulos anteriores. Por ejemplo: "No merezco ganar mas dinero".</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Puntua la intensidad del 0 al 10.</strong> &#191;Cuanto te crees esa frase ahora mismo? Anotalo.</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Toca el punto karate (canto lateral de la mano)</strong> y repite 3 veces: "Aunque creo que no merezco ganar mas dinero, me acepto completa y profundamente tal como soy."</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Ahora toca cada punto</strong> (ceja, lateral del ojo, debajo del ojo, debajo de la nariz, menton, clavicula, debajo del brazo, coronilla) mientras repites frases como: "Este miedo a ganar mas... esta creencia de que no merezco... la aprendi de pequena... pero ya no me sirve... elijo soltarla..."</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Haz 2-3 rondas.</strong> Despues, respira hondo y vuelve a puntuar la intensidad. Si bajo, el Tapping esta funcionando. Repite hasta que baje a 3 o menos.</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Ronda positiva:</strong> Ahora toca los mismos puntos diciendo: "Elijo creer que merezco abundancia... estoy abierta a recibir... el dinero es bienvenido en mi vida... me permito ganar mas..."</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Elige una creencia limitante</strong> de las que descubriste en los módulos anteriores. Por ejemplo: "No merezco ganar más dinero".</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Puntúa la intensidad del 0 al 10.</strong> ¿Cuánto te crees esa frase ahora mismo? Anótalo.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Toca el punto karate (canto lateral de la mano)</strong> y repite 3 veces: "Aunque creo que no merezco ganar más dinero, me acepto completa y profundamente tal como soy."</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Ahora toca cada punto</strong> (ceja, lateral del ojo, debajo del ojo, debajo de la nariz, mentón, clavícula, debajo del brazo, coronilla) mientras repites frases como: "Este miedo a ganar más... esta creencia de que no merezco... la aprendi de pequeña... pero ya no me sirve... elijo soltarla..."</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Haz 2-3 rondas.</strong> Después, respira hondo y vuelve a puntuar la intensidad. Si bajo, el Tapping esta funciónando. Repite hasta que baje a 3 o menos.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Ronda positiva:</strong> Ahora toca los mismos puntos diciendo: "Elijo creer que merezco abundancia... estoy abierta a recibir... el dinero es bienvenido en mi vida... me permito ganar más..."</div></li>
       </ol>
-      <div class="exercise-duration">Duracion: 15-20 minutos</div>
+      <div class="exercise-duration">Duración: 15-20 minutos</div>
             <div class="exercise-interactive" style="margin-top:12px">
-        <textarea class="exercise-textarea" rows="6" placeholder="La creencia que quiero soltar es... Intensidad antes del tapping: X/10. Despues: X/10. Lo que senti durante el ejercicio..."></textarea>
+        <textarea class="exercise-textarea" rows="6" placeholder="La creencia que quiero soltar es... Intensidad antes del tapping: X/10. Después: X/10. Lo que senti durante el ejercicio..."></textarea>
       </div>
       <button class="exercise-save-btn" onclick="saveExercise('mod4-ex1')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod4-ex1">Guardado &#10003;</span>
@@ -1402,14 +1491,14 @@
     <div class="exercise reveal reveal-delay-2" data-exercise="mod4-ex2">
       <div class="exercise-badge">Ejercicio 8</div>
       <div class="exercise-title">Reencuadre neuronal: de la creencia vieja a la nueva</div>
-      <div class="exercise-desc">Tecnica de PNL (Programacion Neurolinguistica) para sustituir creencias limitantes por creencias que te sirvan.</div>
+      <div class="exercise-desc">Técnica de PNL (Programación Neurolingüística) para sustituir creencias limitantes por creencias que te sirvan.</div>
       <ol class="exercise-steps">
         <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Escribe tu creencia limitante en el lado izquierdo de una hoja.</strong> Ej: "Hay que sufrir mucho para ganar dinero."</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>En el lado derecho, escribe una creencia nueva que sea creible para ti.</strong> No tiene que ser lo opuesto extremo. Ej: "Puedo ganar dinero haciendo cosas que disfruto" (en vez de "el dinero viene facil" que tu cerebro rechazaria).</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>En el lado derecho, escribe una creencia nueva que sea creíble para ti.</strong> No tiene que ser lo opuesto extremo. Ej: "Puedo ganar dinero haciendo cosas que disfruto" (en vez de "el dinero viene fácil" que tu cerebro rechazaría).</div></li>
         <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Busca 3 pruebas reales de que la nueva creencia es posible.</strong> Personas que conoces, ejemplos que hayas visto, momentos de tu propia vida donde ganaste dinero sin sufrir.</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Cada manana durante 21 dias, lee la creencia nueva en voz alta</strong> y visualiza durante 2 minutos una escena donde esa creencia es tu realidad. Siente las emociones de esa escena.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Cada mañana durante 21 días, lee la creencia nueva en voz alta</strong> y visualiza durante 2 minutos una escena donde esa creencia es tu realidad. Siente las emociónes de esa escena.</div></li>
       </ol>
-      <div class="exercise-duration">Duracion: 15 minutos (+ 5 min diarios durante 21 dias)</div>
+      <div class="exercise-duration">Duración: 15 minutos (+ 5 min diarios durante 21 días)</div>
       <div class="exercise-interactive" style="margin-top:12px">
         <textarea class="exercise-textarea" rows="6" placeholder="Creencia vieja: ... Creencia nueva: ... Mis 3 pruebas de que la nueva es posible: 1) ... 2) ... 3) ..."></textarea>
       </div>
@@ -1421,18 +1510,26 @@
 
     <div class="exercise reveal" data-exercise="mod4-ex3">
       <div class="exercise-badge">Ejercicio 9</div>
-      <div class="exercise-title">Meditacion guiada: visualizacion de tu yo abundante</div>
-      <div class="exercise-desc">Esta visualizacion usa la neurociencia a tu favor: cuando tu cerebro imagina algo con suficiente detalle y emocion, activa las mismas regiones que si lo estuvieras viviendo realmente, creando nuevas vias neuronales.</div>
+      <div class="exercise-title">Meditación guiada: visualización de tu yo abundante</div>
+      <div class="exercise-desc">Esta visualización usa la neurociencia a tu favor: cuando tu cerebro imagina algo con suficiente detalle y emoción, activa las mismas regiones que si lo estuvieras viviendo realmente, creando nuevas vías neuronales.</div>
+      <div class="exercise-audio">
+        <div class="audio-label">🎧 Meditación guiada (audio)</div>
+        <audio controls preload="none" id="meditation-audio">
+          <source src="audio/meditación-guiada.mp3" type="audio/mpeg">
+          Tu navegador no soporta audio HTML5.
+        </audio>
+        <p class="audio-note">Próximamente: audio guiado con música relajante. Por ahora, sigue los pasos escritos debajo.</p>
+      </div>
       <ol class="exercise-steps">
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Sientate comoda, cierra los ojos y haz 10 respiraciones profundas.</strong> Con cada exhalacion, suelta tension del cuerpo.</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Imagina tu vida dentro de un ano.</strong> Has transformado tu relacion con el dinero. &#191;Donde estas? &#191;Como te levantas por la manana? &#191;Que sientes al mirar tu cuenta? &#191;Como gastas? &#191;Como cobras?</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Hazlo lo mas vivido posible:</strong> colores, sonidos, olores, sensaciones en el cuerpo. &#191;Que ropa llevas? &#191;Que comes? &#191;Con quien estas? &#191;Que expresion tiene tu cara?</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Siente la emocion de esa version de ti:</strong> la tranquilidad, la confianza, la libertad. Quédate ahi 5 minutos. Deja que tu cuerpo memorice esas sensaciones.</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Antes de abrir los ojos, di internamente:</strong> "Esto ya esta en camino. Mi subconsciente sabe como llegar aqui." Abre los ojos lentamente.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Siéntate cómoda, cierra los ojos y haz 10 respiraciones profundas.</strong> Con cada exhalación, suelta tensión del cuerpo.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Imagina tu vida dentro de un año.</strong> Has transformado tu relación con el dinero. ¿Dónde estás? ¿Cómo te levantas por la mañana? ¿Qué sientes al mirar tu cuenta? ¿Cómo gastas? ¿Cómo cobras?</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Hazlo lo más vívido posible:</strong> colores, sonidos, olores, sensaciones en el cuerpo. ¿Qué ropa llevas? ¿Qué comes? ¿Con quién estás? ¿Qué expresión tiene tu cara?</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Siente la emoción de esa versión de ti:</strong> la tranquilidad, la confianza, la libertad. Quédate ahi 5 minutos. Deja que tu cuerpo memorice esas sensaciones.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Antes de abrir los ojos, di internamente:</strong> "Esto ya está en camino. Mi subconsciente sabe cómo llegar aquí." Abre los ojos lentamente.</div></li>
       </ol>
-      <div class="exercise-duration">Duracion: 15 minutos. Repetir minimo 3 veces por semana.</div>
+      <div class="exercise-duration">Duración: 15 minutos. Repetir mínimo 3 veces por semana.</div>
             <div class="exercise-interactive" style="margin-top:12px">
-        <textarea class="exercise-textarea" rows="6" placeholder="En mi visualizacion vi... senti en el cuerpo... la emocion que mas destaco fue... Al abrir los ojos pense..."></textarea>
+        <textarea class="exercise-textarea" rows="6" placeholder="En mi visualización vi... senti en el cuerpo... la emoción que más destaco fue... Al abrir los ojos pense..."></textarea>
       </div>
       <button class="exercise-save-btn" onclick="saveExercise('mod4-ex3')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod4-ex3">Guardado &#10003;</span>
@@ -1442,16 +1539,16 @@
   </div>
 
   <div class="content-section">
-    <div class="content-label">Preguntas de reflexion</div>
+    <div class="content-label">Preguntas de reflexión</div>
     <div class="reflection-box">
-      <div class="reflection-title">Para tu diario de reflexion:</div>
+      <div class="reflection-title">Para tu diario de reflexión:</div>
       <ul class="reflection-list">
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que creencia sobre el dinero te gustaria soltar hoy? &#191;Que pondrias en su lugar?</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Como te sientes despues de hacer el Tapping? &#191;Ha cambiado algo en tu cuerpo o en tu mente?</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que version de ti aparece en la visualizacion? Describela con detalle.</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> ¿Qué creencia sobre el dinero te gustaria soltar hoy? ¿Qué pondrias en su lugar?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> ¿Cómo te sientes después de hacer el Tapping? ¿Ha cambiado algo en tu cuerpo o en tu mente?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> ¿Qué versión de ti aparece en la visualización? Describela con detalle.</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
       </ul>
     </div>
   </div>
@@ -1463,7 +1560,7 @@
     <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
     <div class="dashboard-grid">
       <div class="dash-stat">
-        <div class="dash-stat-num" id="dash-exercises">0/13</div>
+        <div class="dash-stat-num" id="dash-exercises">0/14</div>
         <div class="dash-stat-label">Ejercicios completados</div>
       </div>
       <div class="dash-stat">
@@ -1472,11 +1569,11 @@
       </div>
     </div>
     <div class="dash-patterns" id="dash-patterns-section" style="display:none;">
-      <div class="dash-patterns-title">Patrones detectados en tu escritura</div>
+      <div class="dash-patterns-title">Patrónes detectados en tu escritura</div>
       <div id="dash-patterns-bars"></div>
     </div>
     <div class="dash-recommendation" id="dash-recommendation" style="display:none;">
-      <div class="dash-recommendation-title">✨ Recomendacion personalizada</div>
+      <div class="dash-recommendation-title">✨ Recomendación personalizada</div>
       <div class="dash-recommendation-text" id="dash-recommendation-text"></div>
     </div>
     <div class="dash-empty" id="dash-empty">
@@ -1491,58 +1588,58 @@
 <!-- ═══════════════════════════════════════ -->
 <div class="module reveal" id="modulo-5">
   <div class="module-header">
-    <div class="module-label">Modulo 5 <span class="module-progress-badge" data-mod-progress="5">0/2</span></div>
-    <h2 class="module-title">Decisiones desde la abundancia</h2>
-    <div class="module-objective">Objetivo: Entender como tu sistema nervioso influye en tus decisiones financieras y aprender a tomar decisiones desde la seguridad, no desde el miedo.</div>
+    <div class="module-label">Módulo 5 <span class="module-progress-badge" data-mod-progress="5">0/2</span></div>
+    <h2 class="module-title">Decisiónes desde la abundancia</h2>
+    <div class="module-objective">Objetivo: Entender como tu sistema nervioso influye en tus decisiónes financieras y aprender a tomar decisiónes desde la seguridad, no desde el miedo.</div>
   </div>
 
   <div class="content-section">
-    <div class="content-label">Contenido teorico</div>
+    <div class="content-label">Contenido teórico</div>
 
     <div class="theory-block">
       <div class="theory-title">Tu sistema nervioso y el dinero</div>
-      <p class="theory-text">Tu sistema nervioso autonomo tiene tres estados principales que afectan directamente a como te relacionas con el dinero:</p>
+      <p class="theory-text">Tu sistema nervioso autonomo tiene tres estados principales que afectan directamente a como te relaciónas con el dinero:</p>
       <div class="key-concept">
         <div class="concept-icon">&#128994;</div>
-        <div class="concept-text"><strong>Ventral vagal (seguridad y conexion):</strong> Te sientes segura, tranquila, conectada. Desde aqui tomas decisiones racionales, creativas y a largo plazo. Es el estado ideal para negociar, cobrar, invertir y gastar con consciencia.</div>
+        <div class="concept-text"><strong>Ventral vagal (seguridad y conexion):</strong> Te sientes segura, tranquila, conectada. Desde aqui tomas decisiónes racionales, creativas y a largo plazo. Es el estado ideal para negociar, cobrar, invertir y gastar con consciencia.</div>
       </div>
       <div class="key-concept">
         <div class="concept-icon">&#128308;</div>
-        <div class="concept-text"><strong>Simpatico (lucha o huida):</strong> Sientes ansiedad, urgencia, presion. Tu corazon se acelera. Desde aqui gastas impulsivamente, aceptas precios bajos por tu trabajo "por si acaso", o evitas mirar tus cuentas. El dinero se convierte en amenaza.</div>
+        <div class="concept-text"><strong>Simpatico (lucha o huida):</strong> Sientes ansiedad, urgencia, presion. Tu corazón se acelera. Desde aqui gastas impulsivamente, aceptas precios bajos por tu trabajo "por si acaso", o evitas mirar tus cuentas. El dinero se convierte en amenaza.</div>
       </div>
       <div class="key-concept">
         <div class="concept-icon">&#9899;</div>
-        <div class="concept-text"><strong>Dorsal vagal (congelacion):</strong> Te sientes paralizada, desconectada, "no puedo con esto". Desde aqui ignoras facturas, postergas decisiones financieras, te desconectas de tu realidad economica. Ni luchas ni huyes: te congelas.</div>
+        <div class="concept-text"><strong>Dorsal vagal (congelacion):</strong> Te sientes paralizada, desconectada, "no puedo con esto". Desde aqui ignoras facturas, postergas decisiónes financieras, te desconectas de tu realidad economica. Ni luchas ni huyes: te congelas.</div>
       </div>
-      <p class="theory-text" style="margin-top:16px"><strong>La mayoria de personas toman decisiones financieras desde el estado simpatico</strong> (lucha/huida) porque su sistema nervioso asocia "dinero" con "peligro". El objetivo es aprender a regularte para volver al estado ventral vagal antes de tomar cualquier decision financiera importante.</p>
+      <p class="theory-text" style="margin-top:16px"><strong>La mayoría de personas toman decisiónes financieras desde el estado simpatico</strong> (lucha/huida) porque su sistema nervioso asocia "dinero" con "peligro". El objetivo es aprender a regularte para volver al estado ventral vagal antes de tomar cualquier decisión financiera importante.</p>
     </div>
 
     <div class="theory-block">
       <div class="theory-title">La ventana de tolerancia financiera</div>
       <p class="theory-text">Tu "ventana de tolerancia" es el rango de dinero dentro del cual te sientes segura. <strong>Fuera de esa ventana, tu sistema nervioso se desregula:</strong></p>
-      <p class="theory-text">&#8593; Si ganas mucho mas de lo habitual: ansiedad, culpa, gasto compulsivo para "volver a la normalidad".</p>
-      <p class="theory-text">&#8595; Si ganas mucho menos de lo habitual: panico, paralisis, decisiones impulsivas desde el miedo.</p>
+      <p class="theory-text">&#8593; Si ganas mucho más de lo habitual: ansiedad, culpa, gasto compulsivo para "volver a la normalidad".</p>
+      <p class="theory-text">&#8595; Si ganas mucho menos de lo habitual: panico, paralisis, decisiónes impulsivas desde el miedo.</p>
       <p class="theory-text"><strong>Ampliar tu ventana de tolerancia financiera</strong> es un proceso gradual que se logra exponiendote poco a poco a cantidades mayores mientras mantienes tu sistema nervioso regulado.</p>
     </div>
   </div>
 
   <div class="content-section">
-    <div class="content-label">Ejercicios practicos</div>
+    <div class="content-label">Ejercicios prácticos</div>
 
     <div class="exercise reveal" data-exercise="mod5-ex1">
       <div class="exercise-badge">Ejercicio 10</div>
       <div class="exercise-title">Check-in corporal antes de decidir</div>
-      <div class="exercise-desc">Una practica para hacer ANTES de cualquier decision financiera importante (gastar, cobrar, invertir, negociar).</div>
+      <div class="exercise-desc">Una practica para hacer ANTES de cualquier decisión financiera importante (gastar, cobrar, invertir, negociar).</div>
       <ol class="exercise-steps">
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Para.</strong> Antes de tomar la decision, detente 60 segundos. No hagas nada todavia.</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Escanea tu cuerpo:</strong> &#191;Donde sientes tension? &#191;Estomago apretado? &#191;Mandibula tensa? &#191;Corazon acelerado? &#191;Pecho cerrado? Identifica las sensaciones sin juzgarlas.</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Identifica tu estado:</strong> &#191;Estoy en verde (tranquila, clara)? &#191;Rojo (ansiosa, con prisa)? &#191;Gris (paralizada, desconectada)?</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Si no estas en verde, regularte primero:</strong> 5 respiraciones profundas (inhala 4 segundos, aguanta 4, exhala 6). Pon las manos sobre el pecho. Siente tus pies en el suelo.</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Solo cuando estes en verde, toma la decision.</strong> Preguntate: "&#191;Estoy decidiendo desde el miedo o desde la claridad?" Si es desde el miedo, espera. Si es desde la claridad, adelante.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Para.</strong> Antes de tomar la decisión, detente 60 segundos. No hagas nada todavia.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Escanea tu cuerpo:</strong> ¿Dónde sientes tensión? ¿Estómago apretado? ¿Mandíbula tensa? ¿Corazón acelerado? ¿Pecho cerrado? Identifica las sensaciones sin juzgarlas.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Identifica tu estado:</strong> ¿Estoy en verde (tranquila, clara)? ¿Rojo (ansiosa, con prisa)? ¿Gris (paralizada, desconectada)?</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Si no estás en verde, regularte primero:</strong> 5 respiraciones profundas (inhala 4 segundos, aguanta 4, exhala 6). Pon las manos sobre el pecho. Siente tus pies en el suelo.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Solo cuando estes en verde, toma la decisión.</strong> Preguntate: "¿Estoy decidiendo desde el miedo o desde la claridad?" Si es desde el miedo, espera. Si es desde la claridad, adelante.</div></li>
       </ol>
-      <div class="exercise-duration">Duracion: 3-5 minutos. Hacer SIEMPRE antes de decisiones financieras.</div>
+      <div class="exercise-duration">Duración: 3-5 minutos. Hacer SIEMPRE antes de decisiónes financieras.</div>
             <div class="exercise-interactive" style="margin-top:12px">
-        <textarea class="exercise-textarea" rows="6" placeholder="Mi estado era (verde/rojo/gris)... Lo que sentia en el cuerpo... La decision que tome... Fue desde el miedo o la claridad..."></textarea>
+        <textarea class="exercise-textarea" rows="6" placeholder="Mi estado era (verde/rojo/gris)... Lo que sentia en el cuerpo... La decisión que tome... Fue desde el miedo o la claridad..."></textarea>
       </div>
       <button class="exercise-save-btn" onclick="saveExercise('mod5-ex1')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod5-ex1">Guardado &#10003;</span>
@@ -1552,16 +1649,16 @@
 
     <div class="exercise reveal" data-exercise="mod5-ex2">
       <div class="exercise-badge">Ejercicio 11</div>
-      <div class="exercise-title">Expansion gradual: ampliar tu ventana de tolerancia</div>
+      <div class="exercise-title">Expansión gradual: ampliar tu ventana de tolerancia</div>
       <div class="exercise-desc">Un ejercicio semanal para acostumbrar a tu sistema nervioso a cantidades mayores de dinero.</div>
       <ol class="exercise-steps">
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Semana 1: Escribe un cheque a ti misma</strong> por la cantidad que te gustaria ganar al mes. Ponlo donde lo veas cada dia. Observa lo que sientes al verlo: &#191;incomodidad? &#191;incredulidad? Solo observa.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Semana 1: Escribe un cheque a ti misma</strong> por la cantidad que te gustaria ganar al mes. Ponlo donde lo veas cada día. Observa lo qué sientes al verlo: ¿incomodidad? ¿incredulidad? Solo observa.</div></li>
         <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Semana 2: Gasta 10 euros en ti sin culpa.</strong> Algo solo para ti. Paga sin justificarte ante nadie. Observa las sensaciones y pensamientos que aparecen.</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Semana 3: Sube el precio de algo que ofreces</strong> (un servicio, un producto, una hora de tu tiempo) un 10-20%. Observa tu reaccion interna al comunicarlo.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Semana 3: Sube el precio de algo que ofreces</strong> (un servicio, un producto, una hora de tu tiempo) un 10-20%. Observa tu reacción interna al comunicarlo.</div></li>
         <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Semana 4: Dona dinero.</strong> La cantidad que te incomode ligeramente (no que te duela, que te incomode). Dar dinero rompe la creencia de escasez.</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Cada semana, escribe en tu diario</strong> lo que sentiste y como reacciono tu cuerpo. Poco a poco, tu ventana se amplia.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Cada semana, escribe en tu diario</strong> lo que sentiste y como reaccióno tu cuerpo. Poco a poco, tu ventana se amplia.</div></li>
       </ol>
-      <div class="exercise-duration">Duracion: 4 semanas (una accion por semana)</div>
+      <div class="exercise-duration">Duración: 4 semanas (una acción por semana)</div>
             <div class="exercise-interactive" style="margin-top:12px">
         <textarea class="exercise-textarea" rows="6" placeholder="Semana 1: hice... senti... Semana 2: hice... senti... Semana 3: hice... senti... Semana 4: hice... senti..."></textarea>
       </div>
@@ -1573,16 +1670,16 @@
   </div>
 
   <div class="content-section">
-    <div class="content-label">Preguntas de reflexion</div>
+    <div class="content-label">Preguntas de reflexión</div>
     <div class="reflection-box">
-      <div class="reflection-title">Para tu diario de reflexion:</div>
+      <div class="reflection-title">Para tu diario de reflexión:</div>
       <ul class="reflection-list">
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;En que estado (verde/rojo/gris) sueles estar cuando tomas decisiones sobre dinero?</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Cual es tu "ventana de tolerancia" actual? &#191;Cual te gustaria que fuera?</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Cuando fue la ultima vez que tomaste una decision financiera desde la calma total? &#191;Que decidiste?</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> ¿En que estado (verde/rojo/gris) sueles estar cuando tomas decisiónes sobre dinero?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> ¿Cuál es tu "ventana de tolerancia" actual? ¿Cuál te gustaria que fuera?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> ¿Cuándo fue la última vez que tomaste una decisión financiera desde la calma total? ¿Qué decidiste?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
       </ul>
     </div>
   </div>
@@ -1594,7 +1691,7 @@
     <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
     <div class="dashboard-grid">
       <div class="dash-stat">
-        <div class="dash-stat-num" id="dash-exercises">0/13</div>
+        <div class="dash-stat-num" id="dash-exercises">0/14</div>
         <div class="dash-stat-label">Ejercicios completados</div>
       </div>
       <div class="dash-stat">
@@ -1603,11 +1700,11 @@
       </div>
     </div>
     <div class="dash-patterns" id="dash-patterns-section" style="display:none;">
-      <div class="dash-patterns-title">Patrones detectados en tu escritura</div>
+      <div class="dash-patterns-title">Patrónes detectados en tu escritura</div>
       <div id="dash-patterns-bars"></div>
     </div>
     <div class="dash-recommendation" id="dash-recommendation" style="display:none;">
-      <div class="dash-recommendation-title">✨ Recomendacion personalizada</div>
+      <div class="dash-recommendation-title">✨ Recomendación personalizada</div>
       <div class="dash-recommendation-text" id="dash-recommendation-text"></div>
     </div>
     <div class="dash-empty" id="dash-empty">
@@ -1622,55 +1719,55 @@
 <!-- ═══════════════════════════════════════ -->
 <div class="module reveal" id="modulo-6">
   <div class="module-header">
-    <div class="module-label">Modulo 6 <span class="module-progress-badge" data-mod-progress="6">0/2</span></div>
-    <h2 class="module-title">Tu nueva relacion con el dinero</h2>
-    <div class="module-objective">Objetivo: Integrar todo lo aprendido en un plan de accion concreto y construir una relacion sana, consciente y libre con el dinero para el resto de tu vida.</div>
+    <div class="module-label">Módulo 6 <span class="module-progress-badge" data-mod-progress="6">0/2</span></div>
+    <h2 class="module-title">Tu nueva relación con el dinero</h2>
+    <div class="module-objective">Objetivo: Integrar todo lo aprendido en un plan de acción concreto y construir una relación sana, consciente y libre con el dinero para el resto de tu vida.</div>
   </div>
 
   <div class="content-section">
-    <div class="content-label">Contenido teorico</div>
+    <div class="content-label">Contenido teórico</div>
 
     <div class="theory-block">
-      <div class="theory-title">De la comprension a la accion: los 3 pilares de tu nueva relacion</div>
-      <p class="theory-text">Ahora que entiendes como funciona tu subconsciente con el dinero, es momento de construir algo nuevo. Una relacion sana con el dinero se sostiene sobre tres pilares:</p>
+      <div class="theory-title">De la comprension a la acción: los 3 pilares de tu nueva relación</div>
+      <p class="theory-text">Ahora que entiendes como funcióna tu subconsciente con el dinero, es momento de construir algo nuevo. Una relación sana con el dinero se sostiene sobre tres pilares:</p>
       <div class="key-concept">
         <div class="concept-icon">&#128161;</div>
-        <div class="concept-text"><strong>Consciencia:</strong> Saber que creencias tienes, de donde vienen y cuando se activan. Ya no operas en piloto automatico. Cuando aparece una creencia limitante, la reconoces y eliges no obedecerla.</div>
+        <div class="concept-text"><strong>Consciencia:</strong> Saber qué creencias tienes, de donde vienen y cuando se activan. Ya no operas en piloto automático. Cuando aparece una creencia limitante, la reconoces y eliges no obedecerla.</div>
       </div>
       <div class="key-concept">
         <div class="concept-icon">&#128150;</div>
-        <div class="concept-text"><strong>Regulacion:</strong> Saber regularte emocionalmente antes de tomar decisiones financieras. Usar tu cuerpo como brujula: si tu sistema nervioso esta en alerta, esperas. Si esta en calma, decides.</div>
+        <div class="concept-text"><strong>Regulación:</strong> Saber regularte emociónalmente antes de tomar decisiónes financieras. Usar tu cuerpo como brújula: si tu sistema nervioso esta en alerta, esperas. Si esta en calma, decides.</div>
       </div>
       <div class="key-concept">
         <div class="concept-icon">&#127919;</div>
-        <div class="concept-text"><strong>Alineacion:</strong> Que tus decisiones financieras esten alineadas con tus valores reales, no con tus miedos. Gastas en lo que te importa. Cobras lo que vales. Inviertes en tu crecimiento.</div>
+        <div class="concept-text"><strong>Alineacion:</strong> Que tus decisiónes financieras esten alineadas con tus valores reales, no con tus miedos. Gastas en lo que te importa. Cobras lo que vales. Inviertes en tu crecimiento.</div>
       </div>
     </div>
 
     <div class="theory-block">
-      <div class="theory-title">La regla de los 90 dias: consolidar el cambio</div>
-      <p class="theory-text">La neurociencia dice que para que una nueva via neuronal se consolide como habito, necesitas <strong>entre 60 y 90 dias de practica consistente.</strong> No tiene que ser perfecto — tiene que ser constante.</p>
-      <p class="theory-text">Los proximos 90 dias son tu periodo de consolidacion. Las herramientas que has aprendido en este programa no funcionan si las haces una vez. <strong>Funcionan cuando se convierten en tu nueva forma de relacionarte con el dinero en el dia a dia.</strong></p>
+      <div class="theory-title">La regla de los 90 días: consolidar el cambio</div>
+      <p class="theory-text">La neurociencia dice que para que una nueva via neuronal se consolide como habito, necesitas <strong>entre 60 y 90 días de practica consistente.</strong> No tiene que ser perfecto — tiene que ser constante.</p>
+      <p class="theory-text">Los proximos 90 días son tu periodo de consolidacion. Las herramientas que has aprendido en este programa no funciónan si las haces una vez. <strong>Funciónan cuando se convierten en tu nueva forma de relaciónarte con el dinero en el dia a dia.</strong></p>
     </div>
   </div>
 
   <div class="content-section">
-    <div class="content-label">Ejercicios practicos</div>
+    <div class="content-label">Ejercicios prácticos</div>
 
     <div class="exercise reveal" data-exercise="mod6-ex1">
       <div class="exercise-badge">Ejercicio 12</div>
       <div class="exercise-title">Tu manifiesto financiero personal</div>
-      <div class="exercise-desc">El ejercicio final: crear un documento que defina tu nueva relacion con el dinero. No es una lista de deseos — es una declaracion de quien eres ahora.</div>
+      <div class="exercise-desc">El ejercicio final: crear un documento que defina tu nueva relación con el dinero. No es una lista de deseos — es una declaración de quien eres ahora.</div>
       <ol class="exercise-steps">
         <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe tus 3 creencias viejas principales</strong> (las que descubriste en el programa) y tachalas. Ya no son tuyas.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe tus 3 creencias nuevas</strong> (las que creaste en el modulo 4). Estas son las que ahora guian tu vida.</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Completa tu manifiesto:</strong><br>"Yo, [tu nombre], declaro que mi relacion con el dinero ha cambiado. Ya no creo que ______. Ahora se que ______. Merezco ______ y me permito ______. El dinero en mi vida es ______ y yo soy ______ independientemente de cuanto tenga. A partir de hoy, mis decisiones financieras se basan en ______, no en ______."</div></li>
-        <li class="exercise-step"><div class="step-num"></div><div><strong>Firma y pon la fecha.</strong> Guardalo. Leelo cada semana durante los proximos 90 dias.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Escribe tus 3 creencias nuevas</strong> (las que creaste en el módulo 4). Estas son las que ahora guian tu vida.</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Completa tu manifiesto:</strong><br>"Yo, [tu nombre], declaro que mi relación con el dinero ha cambiado. Ya no creo que ______. Ahora se que ______. Merezco ______ y me permito ______. El dinero en mi vida es ______ y yo soy ______ independientemente de cuanto tenga. A partir de hoy, mis decisiónes financieras se basan en ______, no en ______."</div></li>
+        <li class="exercise-step"><div class="step-num"></div><div><strong>Firma y pon la fecha.</strong> Guardalo. Léelo cada semana durante los proximos 90 días.</div></li>
       </ol>
       <div class="exercise-interactive">
         <textarea class="exercise-textarea" rows="6" placeholder="Escribe aqui tu manifiesto financiero personal..."></textarea>
       </div>
-      <div class="exercise-duration">Duracion: 30 minutos</div>
+      <div class="exercise-duration">Duración: 30 minutos</div>
       <button class="exercise-save-btn" onclick="saveExercise('mod6-ex1')">Guardar respuesta</button>
       <span class="save-feedback" id="feedback-mod6-ex1">Guardado &#10003;</span>
       <div class="analysis-panel" id="analysis-mod6-ex1"></div>
@@ -1679,16 +1776,16 @@
 
     <div class="exercise reveal" data-exercise="mod6-ex2">
       <div class="exercise-badge">Ejercicio 13</div>
-      <div class="exercise-title">Plan de mantenimiento de 90 dias</div>
+      <div class="exercise-title">Plan de mantenimiento de 90 días</div>
       <div class="exercise-desc">Tu rutina diaria y semanal para consolidar todo lo que has aprendido.</div>
       <ol class="exercise-steps">
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Cada manana (5 min):</strong> Lee tu manifiesto financiero + haz la visualizacion del modulo 4 (tu yo abundante). Antes de arrancar el dia, conecta con tu nueva identidad financiera.</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Cada vez que tomes una decision financiera:</strong> Haz el check-in corporal del modulo 5. Verde = decide. Rojo/gris = regularte primero.</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Cada semana (15 min):</strong> Escribe en tu diario: &#191;Que decision financiera tome esta semana desde la consciencia? &#191;Donde note que aparecio una creencia vieja? &#191;Como la gestione?</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Cada mes:</strong> Haz una sesion de Tapping con la creencia que mas te haya costado ese mes. Repasa tu manifiesto y ajustalo si has evolucionado.</div></li>
-        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>A los 90 dias:</strong> Relee tu diario desde el dia 1. Observa cuanto has cambiado. Celebralo. Y decide si quieres seguir profundizando.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Cada mañana (5 min):</strong> Lee tu manifiesto financiero + haz la visualización del módulo 4 (tu yo abundante). Antes de arrancar el dia, conecta con tu nueva identidad financiera.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Cada vez que tomes una decisión financiera:</strong> Haz el check-in corporal del módulo 5. Verde = decide. Rojo/gris = regularte primero.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Cada semana (15 min):</strong> Escribe en tu diario: ¿Qué decisión financiera tome esta semana desde la consciencia? ¿Dónde note que aparecio una creencia vieja? ¿Cómo la gestione?</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>Cada mes:</strong> Haz una sesion de Tapping con la creencia que más te haya costado ese mes. Repasa tu manifiesto y ajustalo si has evoluciónado.</div></li>
+        <li class="exercise-step"><input type="checkbox" class="step-checkbox"><div class="step-num"></div><div><strong>A los 90 días:</strong> Relee tu diario desde el dia 1. Observa cuanto has cambiado. Celébralo. Y decide si quieres seguir profundizando.</div></li>
       </ol>
-      <div class="exercise-duration">Compromiso: 5 min/dia + 15 min/semana durante 90 dias</div>
+      <div class="exercise-duration">Compromiso: 5 min/dia + 15 min/semana durante 90 días</div>
             <div class="exercise-interactive" style="margin-top:12px">
         <textarea class="exercise-textarea" rows="6" placeholder="Esta semana decidi desde la consciencia... Donde note una creencia vieja... Como la gestione..."></textarea>
       </div>
@@ -1700,18 +1797,18 @@
   </div>
 
   <div class="content-section">
-    <div class="content-label">Preguntas de reflexion</div>
+    <div class="content-label">Preguntas de reflexión</div>
     <div class="reflection-box">
-      <div class="reflection-title">Reflexion final:</div>
+      <div class="reflection-title">Reflexión final:</div>
       <ul class="reflection-list">
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que es lo que mas ha cambiado en ti desde que empezaste este programa?</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Que le dirias ahora a la version de ti que empezo con miedo?</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> &#191;Cual es la primera decision financiera que vas a tomar desde tu nueva identidad?</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
-        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> Escribe una frase que resuma tu nueva relacion con el dinero. Solo una.</li>
-        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexion..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> ¿Qué es lo que más ha cambiado en ti desde que empezaste este programa?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> ¿Qué le dirías ahora a la versión de ti que empezo con miedo?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> ¿Cuál es la primera decisión financiera que vas a tomar desde tu nueva identidad?</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
+        <li class="reflection-item"><span class="reflection-icon">&#9998;</span> Escribe una frase que resuma tu nueva relación con el dinero. Solo una.</li>
+        <textarea class="reflection-textarea" rows="3" placeholder="Escribe tu reflexión..."></textarea>
       </ul>
     </div>
   </div>
@@ -1723,7 +1820,7 @@
     <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
     <div class="dashboard-grid">
       <div class="dash-stat">
-        <div class="dash-stat-num" id="dash-exercises">0/13</div>
+        <div class="dash-stat-num" id="dash-exercises">0/14</div>
         <div class="dash-stat-label">Ejercicios completados</div>
       </div>
       <div class="dash-stat">
@@ -1732,11 +1829,11 @@
       </div>
     </div>
     <div class="dash-patterns" id="dash-patterns-section" style="display:none;">
-      <div class="dash-patterns-title">Patrones detectados en tu escritura</div>
+      <div class="dash-patterns-title">Patrónes detectados en tu escritura</div>
       <div id="dash-patterns-bars"></div>
     </div>
     <div class="dash-recommendation" id="dash-recommendation" style="display:none;">
-      <div class="dash-recommendation-title">✨ Recomendacion personalizada</div>
+      <div class="dash-recommendation-title">✨ Recomendación personalizada</div>
       <div class="dash-recommendation-text" id="dash-recommendation-text"></div>
     </div>
     <div class="dash-empty" id="dash-empty">
@@ -1749,26 +1846,26 @@
 <!-- FINAL CTA -->
 <div class="final-cta">
   <h2 class="final-cta-title">Este es tu programa</h2>
-  <p class="final-cta-text">6 modulos, 13 ejercicios, un diario de reflexion y un plan de 90 dias. Todo lo que necesitas para transformar tu relacion con el dinero desde la raiz.</p>
-  <a href="https://wa.me/34660619034?text=Hola%2C%20quiero%20informacion%20sobre%20el%20programa%20San%20Inspira" class="btn-primary">Quiero saber mas</a>
+  <p class="final-cta-text">6 módulos, 13 ejercicios, un diario de reflexión y un plan de 90 días. Todo lo que necesitas para transformar tu relación con el dinero desde la raíz.</p>
+  <a href="https://wa.me/34660619034?text=Hola%2C%20quiero%20información%20sobre%20el%20programa%20San%20Inspira" class="btn-primary">Quiero saber mas</a>
 </div>
 
 
 <!-- MI DIARIO -->
 <div class="diary-section" id="mi-diario">
   <div class="diary-header reveal">
-    <div class="page-badge">Tu evolucion</div>
-    <h2 class="diary-title">Mi diario de transformacion</h2>
-    <p class="diary-subtitle">Todo lo que has escrito en el programa, organizado para que puedas ver tu evolucion.</p>
+    <div class="page-badge">Tu evolución</div>
+    <h2 class="diary-title">Mi diario de transformación</h2>
+    <p class="diary-subtitle">Todo lo que has escrito en el programa, organizado para que puedas ver tu evolución.</p>
   </div>
   <div class="diary-tabs" id="diary-tabs">
     <button class="diary-tab active" onclick="filterDiary('all')">Todo</button>
-    <button class="diary-tab" onclick="filterDiary(1)">Modulo 1</button>
-    <button class="diary-tab" onclick="filterDiary(2)">Modulo 2</button>
-    <button class="diary-tab" onclick="filterDiary(3)">Modulo 3</button>
-    <button class="diary-tab" onclick="filterDiary(4)">Modulo 4</button>
-    <button class="diary-tab" onclick="filterDiary(5)">Modulo 5</button>
-    <button class="diary-tab" onclick="filterDiary(6)">Modulo 6</button>
+    <button class="diary-tab" onclick="filterDiary(1)">Módulo 1</button>
+    <button class="diary-tab" onclick="filterDiary(2)">Módulo 2</button>
+    <button class="diary-tab" onclick="filterDiary(3)">Módulo 3</button>
+    <button class="diary-tab" onclick="filterDiary(4)">Módulo 4</button>
+    <button class="diary-tab" onclick="filterDiary(5)">Módulo 5</button>
+    <button class="diary-tab" onclick="filterDiary(6)">Módulo 6</button>
   </div>
   <div class="diary-entries" id="diary-entries">
     <div class="diary-empty">Aun no has escrito nada. Completa ejercicios para ver tu diario aqui.</div>
@@ -1793,6 +1890,7 @@ const exerciseConfig = {
   'mod1-ex2': { type: 'both', mod: 1 },
   'mod2-ex1': { type: 'both', mod: 2 },
   'mod2-ex2': { type: 'both', mod: 2 },
+  'mod2-ex3': { type: 'both', mod: 2 },
   'mod3-ex1': { type: 'textarea', mod: 3 },
   'mod3-ex2': { type: 'textarea', mod: 3 },
   'mod4-ex1': { type: 'both', mod: 4 },
@@ -1827,20 +1925,26 @@ function loadProgress() {
 
 const patterns = [
   { name: 'Miedo / Ansiedad', keys: ['miedo','ansiedad','angustia','panico','nerviosa','nervioso','susto','terror','temo','asusta','preocup'],
-    text: 'Detectamos miedo en tu relacion con el dinero. Tu sistema nervioso aprendio a asociar dinero con peligro. El modulo 5 (regulacion del sistema nervioso) te ayudara especialmente.',
-    link: '#modulo-5', linkText: 'Ir al modulo 5' },
-  { name: 'Culpa', keys: ['culpa','culpable','no merezco','no deberia','egoista','verguenza','malo','mala persona'],
-    text: 'La culpa con el dinero suele venir de una creencia de "no merezco". Revisa el ejercicio de Tapping (modulo 4) enfocandolo en esta culpa.',
-    link: '#modulo-4', linkText: 'Ir al modulo 4' },
+    text: 'Detectamos miedo en tu relación con el dinero. Tu sistema nervioso aprendio a asociar dinero con peligro. El módulo 5 (regulación del sistema nervioso) te ayudara especialmente.',
+    link: '#modulo-5', linkText: 'Ir al módulo 5' },
+  { name: 'Culpa', keys: ['culpa','culpable','no merezco','no deberia','egoista','vergüenza','malo','mala persona'],
+    text: 'La culpa con el dinero suele venir de una creencia de "no merezco". Revisa el ejercicio de Tapping (módulo 4) enfocandolo en esta culpa.',
+    link: '#modulo-4', linkText: 'Ir al módulo 4' },
   { name: 'Escasez', keys: ['no alcanza','no llega','falta','poco','escasez','pobreza','pobre','nunca suficiente','no hay'],
-    text: 'Tu lenguaje refleja mentalidad de escasez. Tu subconsciente cree que nunca hay suficiente. Practica la visualizacion del modulo 4 enfocada en abundancia.',
-    link: '#modulo-4', linkText: 'Ejercicio de visualizacion' },
-  { name: 'Control / Rigidez', keys: ['controlar','control','ahorrar todo','no gastar','revisar cuentas','rigida','rigido','obsesion','cada centimo'],
-    text: 'Detectamos un patron de hipervigilancia financiera. Gastar te genera estres. El ejercicio de expansion gradual (modulo 5) es clave para ti.',
-    link: '#modulo-5', linkText: 'Ejercicio de expansion' },
-  { name: 'Comparacion', keys: ['otros','los demas','envidia','comparar','comparo','averguenz','imagen','aparentar'],
-    text: 'Te comparas con otros economicamente. Tu valor no depende de tu cuenta bancaria. Relee el Inventario de valor (ejercicio 6).',
+    text: 'Tu lenguaje refleja mentalidad de escasez. Tu subconsciente cree que nunca hay suficiente. Practica la visualización del módulo 4 enfocada en abundancia.',
+    link: '#modulo-4', linkText: 'Ejercicio de visualización' },
+  { name: 'Control / Rigidez', keys: ['controlar','control','ahorrar todo','no gastar','revisar cuentas','rigida','rigido','obsesion','cada céntimo'],
+    text: 'Detectamos un patrón de hipervigilancia financiera. Gastar te genera estrés. El ejercicio de expansión gradual (módulo 5) es clave para ti.',
+    link: '#modulo-5', linkText: 'Ejercicio de expansión' },
+  { name: 'Comparacion', keys: ['otros','los demás','envidia','comparar','comparo','averguenz','imagen','aparentar'],
+    text: 'Te comparas con otros económicamente. Tu valor no depende de tu cuenta bancaria. Relee el Inventario de valor (ejercicio 6).',
     link: '#modulo-3', linkText: 'Ejercicio de valor' },
+  { name: 'Miedo al éxito', keys: ['éxito','visibilidad','juzgar','juzgarán','envidiarán','responsabilidad','mantenerlo','demasiado','si me va bien','me verán','ser vista'],
+    text: 'Detectamos miedo al éxito — y no, no es absurdo. No es el dinero lo que te asusta, es lo que viene con él: ser vista, ser juzgada, tener que mantenerlo. Lee el bloque "Miedo al éxito vs fracaso" del Módulo 2.',
+    link: '#modulo-2', linkText: 'Leer sobre miedo al éxito' },
+  { name: 'Lealtad familiar', keys: ['familia','padres','madre','padre','casa','crianza','traición','desleal','diferente','orígenes','abandonar','dejar atrás'],
+    text: 'Hay una conexión fuerte con tu sistema familiar. Puede que inconscientemente sientas que ganar más es ser "desleal" a tus orígenes. Lee "Lealtad invisible" en el Módulo 2.',
+    link: '#modulo-2', linkText: 'Leer sobre lealtad familiar' },
   { name: 'Sabotaje', keys: ['saboteo','sabotaje','pierdo','gasto de mas','impulsivo','impulsiva','arrepiento','techo','limitacion','no puede ir bien'],
     text: 'Reconoces un ciclo de sabotaje \u2014 eso ya es un gran paso. Tienes un "termostato" financiero que te devuelve al nivel conocido. Usa el mapa de sabotaje para hacerlo visible y romperlo.',
     link: '#modulo-2', linkText: 'Mapa de sabotaje' }
@@ -1857,7 +1961,7 @@ function analyzeText(text, exerciseId) {
     panel.innerHTML = '<div class="analysis-header">\ud83d\udca1 Lo que vemos en tu escritura:</div>' +
       found.map(p => '<div class="analysis-pattern"><div class="analysis-pattern-title">' + p.name + '</div><div class="analysis-pattern-text">' + p.text + '</div><a class="analysis-pattern-link" href="' + p.link + '">' + p.linkText + ' \u2192</a></div>').join('');
   } else {
-    panel.innerHTML = '<div class="analysis-header">\ud83d\udca1 Tu reflexion:</div><div class="analysis-motivational">Escribir lo que sientes es el primer paso para cambiar. Tu subconsciente esta empezando a hacer consciente lo que antes era automatico. Sigue escribiendo \u2014 cada palabra te acerca a tu nueva relacion con el dinero.</div>';
+    panel.innerHTML = '<div class="analysis-header">\ud83d\udca1 Tu reflexión:</div><div class="analysis-motivational">Escribir lo qué sientes es el primer paso para cambiar. Tu subconsciente está empezando a hacer consciente lo que antes era automático. Sigue escribiendo \u2014 cada palabra te acerca a tu nueva relación con el dinero.</div>';
   }
   panel.classList.add('show');
   const detectedNames = found.map(p => p.name);
@@ -1894,17 +1998,17 @@ function saveExercise(id) {
 
 function showMoneyTestResult() {
   const checks = document.querySelectorAll('input[name="money-test"]:checked');
-  const scores = { evitacion: 0, adoracion: 0, estatus: 0, vigilancia: 0 };
+  const scores = { evitación: 0, adoración: 0, estatus: 0, vigilancia: 0 };
   checks.forEach(cb => { scores[cb.value]++; });
   const max = Math.max(...Object.values(scores));
   if (max === 0) return;
   const dominant = Object.keys(scores).find(k => scores[k] === max);
-  const labels = { evitacion:'Evitacion del dinero', adoracion:'Adoracion del dinero', estatus:'Estatus vinculado al dinero', vigilancia:'Vigilancia financiera' };
+  const labels = { evitación:'Evitación del dinero', adoración:'Adoración del dinero', estatus:'Estatus vinculado al dinero', vigilancia:'Vigilancia financiera' };
   const descs = {
-    evitacion: 'Tiendes a creer que el dinero es malo o que no lo mereces. Esto te lleva a evitar temas financieros o a sabotear oportunidades de abundancia.',
-    adoracion: 'Crees que el dinero resolveria todos tus problemas. Esta creencia genera ansiedad constante por no tener suficiente.',
-    estatus: 'Asocias tu valor personal con tu situacion economica. Esto puede llevarte a gastar mas de lo necesario para proyectar una imagen.',
-    vigilancia: 'Eres muy cuidadoso/a con el dinero, lo cual es positivo, pero el exceso de vigilancia puede generar ansiedad y rigidez financiera.'
+    evitación: 'Tiendes a creer que el dinero es malo o que no lo mereces. Esto te lleva a evitar temas financieros o a sabotear oportunidades de abundancia.',
+    adoración: 'Crees que el dinero resolvería todos tus problemas. Esta creencia genera ansiedad constante por no tener suficiente.',
+    estatus: 'Asocias tu valor personal con tu situacion economica. Esto puede llevarte a gastar más de lo necesario para proyectar una imagen.',
+    vigilancia: 'Eres muy cuidadoso/a con el dinero, lo cuál es positivo, pero el exceso de vigilancia puede generar ansiedad y rigidez financiera.'
   };
   const result = document.getElementById('money-test-result');
   if (result) { result.style.display = 'block'; result.innerHTML = '<strong>Tu Money Script dominante: ' + labels[dominant] + '</strong><p>' + descs[dominant] + '</p>'; }
@@ -1913,11 +2017,11 @@ function showMoneyTestResult() {
 function updateProgress() {
   const data = JSON.parse(localStorage.getItem('sanInspira') || '{}');
   let completed = 0;
-  const modCounts = {1:{t:2,d:0},2:{t:2,d:0},3:{t:2,d:0},4:{t:3,d:0},5:{t:2,d:0},6:{t:2,d:0}};
+  const modCounts = {1:{t:2,d:0},2:{t:3,d:0},3:{t:2,d:0},4:{t:3,d:0},5:{t:2,d:0},6:{t:2,d:0}};
   Object.keys(exerciseConfig).forEach(id => {
     if (data[id] && data[id].done) { completed++; modCounts[exerciseConfig[id].mod].d++; }
   });
-  const pct = Math.round((completed / 13) * 100);
+  const pct = Math.round((completed / 14) * 100);
   const fill = document.getElementById('globalProgressFill');
   if (fill) fill.style.width = pct + '%';
   for (let m = 1; m <= 6; m++) {
@@ -1952,7 +2056,7 @@ document.querySelectorAll('input[name="money-test"]').forEach(cb => {
 });
 
 function resetProgress() {
-  if (confirm('Estas seguro/a? Se borrara todo tu progreso y respuestas guardadas.')) {
+  if (confirm('Estás seguro/a? Se borrara todo tu progreso y respuestas guardadas.')) {
     localStorage.removeItem('sanInspira');
     location.reload();
   }
@@ -1966,15 +2070,16 @@ const exerciseNames = {
   'mod1-ex2': 'El termostato financiero',
   'mod2-ex1': 'Test Money Script',
   'mod2-ex2': 'Mapa de sabotaje',
+  'mod2-ex3': 'Encuentra la raíz',
   'mod3-ex1': 'Carta al dinero',
   'mod3-ex2': 'Inventario de valor',
   'mod4-ex1': 'Tapping EFT',
   'mod4-ex2': 'Reencuadre neuronal',
-  'mod4-ex3': 'Meditacion guiada',
+  'mod4-ex3': 'Meditación guiada',
   'mod5-ex1': 'Check-in corporal',
-  'mod5-ex2': 'Expansion gradual',
+  'mod5-ex2': 'Expansión gradual',
   'mod6-ex1': 'Manifiesto financiero',
-  'mod6-ex2': 'Plan 90 dias'
+  'mod6-ex2': 'Plan 90 días'
 };
 
 // Reprogramming phrases based on detected patterns
@@ -1990,19 +2095,29 @@ const reprogramPhrases = {
     'Me permito prosperar sin culpa. Mi abundancia no le quita nada a nadie.'
   ],
   'Escasez': [
-    'Hay suficiente para mi y para todos. El dinero fluye hacia mi con facilidad.',
-    'Soy una persona que atrae abundancia. Siempre hay mas en camino.',
-    'Elijo ver la abundancia que ya existe en mi vida y abrirme a recibir mas.'
+    'Hay suficiente para mi y para todos. El dinero fluye hacia mi con fácilidad.',
+    'Soy una persona que atrae abundancia. Siempre hay más en camino.',
+    'Elijo ver la abundancia que ya existe en mi vida y abrirme a recibir más.'
   ],
   'Control / Rigidez': [
     'Puedo soltar el control y confiar en que estare bien. El dinero fluye mejor cuando no lo aprieto.',
     'Me permito disfrutar de lo que tengo. Gastar con consciencia es diferente a gastar con miedo.',
-    'Mi seguridad no depende de controlar cada centimo. Yo soy mi mayor recurso.'
+    'Mi seguridad no depende de controlar cada céntimo. Yo soy mi mayor recurso.'
   ],
   'Comparacion': [
-    'Mi camino financiero es unico. No necesito la aprobacion de nadie para sentirme valiosa.',
+    'Mi camino financiero es único. No necesito la aprobacion de nadie para sentirme valiosa.',
     'Mi valor no se mide en euros. Soy suficiente exactamente como soy ahora.',
-    'Celebro el exito de otros porque se que hay espacio para el mio tambien.'
+    'Celebro el exito de otros porque se que hay espacio para el mio también.'
+  ],
+  'Miedo al éxito': [
+    'Me permito brillar. Mi éxito inspira a otros, no les quita nada.',
+    'Merezco ser vista y reconocida. Mi visibilidad es un servicio, no una amenaza.',
+    'Soy capaz de sostener el éxito. No necesito volver a lo conocido.'
+  ],
+  'Lealtad familiar': [
+    'Puedo amar a mi familia y prosperar al mismo tiempo. No son incompatibles.',
+    'Romper el patrón de escasez es el mayor regalo que puedo hacer a mis orígenes.',
+    'Mi éxito no traiciona a nadie. Demuestra que otra vida es posible.'
   ],
   'Sabotaje': [
     'Me permito tener exito y mantenerlo. No necesito volver a mi zona comoda.',
@@ -2025,9 +2140,9 @@ function showReprogramPhrase(exerciseId, detectedPatterns) {
   const mainPattern = detectedPatterns[0];
   const phrase = getReprogramPhrase(mainPattern);
   if (!phrase) return;
-  panel.innerHTML = '<div class="reprogram-phrase-label">Tu frase de reprogramacion</div>' +
+  panel.innerHTML = '<div class="reprogram-phrase-label">Tu frase de reprogramación</div>' +
     '<div class="reprogram-phrase-text">"' + phrase + '"</div>' +
-    '<div class="reprogram-phrase-instruction">Repite esta frase en voz alta 3 veces, sintiendo cada palabra. Hazlo cada manana durante 21 dias.</div>';
+    '<div class="reprogram-phrase-instruction">Repite esta frase en voz alta 3 veces, sintiendo cada palabra. Hazlo cada mañana durante 21 días.</div>';
   panel.classList.add('show');
   const detectedNames = found.map(p => p.name);
   showReprogramPhrase(exerciseId, detectedNames);
@@ -2126,11 +2241,11 @@ function updateDashboard() {
     if (dashRec && dashRecText) {
       dashRec.style.display = 'block';
       const recommendations = {
-        'Miedo / Ansiedad': 'Tu patron mas frecuente es el <strong>miedo</strong>. Te recomendamos especialmente el <a href="#modulo-5">Modulo 5</a> (regulacion del sistema nervioso) y la <a href="#modulo-4">meditacion del Modulo 4</a>.',
-        'Culpa': 'La <strong>culpa</strong> aparece mucho en tu escritura. Trabaja el <a href="#modulo-4">Tapping del Modulo 4</a> enfocado en "merezco recibir" y el <a href="#modulo-3">Inventario de valor</a>.',
-        'Escasez': 'Tu mente repite patrones de <strong>escasez</strong>. La <a href="#modulo-4">visualizacion del Modulo 4</a> y la <a href="#modulo-5">expansion gradual del Modulo 5</a> son clave para ti.',
-        'Control / Rigidez': 'Detectamos mucho <strong>control</strong> en tu relacion con el dinero. El <a href="#modulo-5">ejercicio de expansion gradual</a> te ayudara a soltar la rigidez poco a poco.',
-        'Comparacion': 'Te <strong>comparas</strong> con otros economicamente. Relee tu <a href="#modulo-3">Inventario de valor</a> y recuerda: tu camino es unico.',
+        'Miedo / Ansiedad': 'Tu patrón más frecuente es el <strong>miedo</strong>. Te recomendamos especialmente el <a href="#modulo-5">Módulo 5</a> (regulación del sistema nervioso) y la <a href="#modulo-4">meditación del Módulo 4</a>.',
+        'Culpa': 'La <strong>culpa</strong> aparece mucho en tu escritura. Trabaja el <a href="#modulo-4">Tapping del Módulo 4</a> enfocado en "merezco recibir" y el <a href="#modulo-3">Inventario de valor</a>.',
+        'Escasez': 'Tu mente repite patrones de <strong>escasez</strong>. La <a href="#modulo-4">visualización del Módulo 4</a> y la <a href="#modulo-5">expansión gradual del Módulo 5</a> son clave para ti.',
+        'Control / Rigidez': 'Detectamos mucho <strong>control</strong> en tu relación con el dinero. El <a href="#modulo-5">ejercicio de expansión gradual</a> te ayudara a soltar la rigidez poco a poco.',
+        'Comparacion': 'Te <strong>comparas</strong> con otros económicamente. Relee tu <a href="#modulo-3">Inventario de valor</a> y recuerda: tu camino es único.',
         'Sabotaje': 'Reconoces patrones de <strong>sabotaje</strong>. Eso es un gran paso. Revisa tu <a href="#modulo-2">Mapa de sabotaje</a> y usa el <a href="#modulo-4">Tapping</a> para soltar la creencia que lo causa.'
       };
       dashRecText.innerHTML = recommendations[topPattern] || '';
@@ -2138,7 +2253,7 @@ function updateDashboard() {
   }
 
   // Module progress bars
-  const modCounts = {1:{t:2,d:0},2:{t:2,d:0},3:{t:2,d:0},4:{t:3,d:0},5:{t:2,d:0},6:{t:2,d:0}};
+  const modCounts = {1:{t:2,d:0},2:{t:3,d:0},3:{t:2,d:0},4:{t:3,d:0},5:{t:2,d:0},6:{t:2,d:0}};
   Object.keys(exerciseConfig).forEach(id => {
     if (data[id] && data[id].done) modCounts[exerciseConfig[id].mod].d++;
   });
@@ -2192,7 +2307,7 @@ function renderDiary() {
     if (data[key] && data[key].trim().length > 0) {
       entries.push({
         id: key,
-        name: 'Reflexion',
+        name: 'Reflexión',
         mod: Math.ceil((i + 1) / 3) || 1,
         text: data[key],
         date: ''
