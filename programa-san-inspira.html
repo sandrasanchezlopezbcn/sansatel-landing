@@ -212,6 +212,11 @@
     from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
   }
+  /* El contenido del módulo activo siempre visible (aunque el JS no anime) */
+  .module.active .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 
   .module-header {
     margin-bottom: 40px;
@@ -912,7 +917,7 @@
 <!-- ═══════════════════════════════════════ -->
 <!-- MODULO 1 -->
 <!-- ═══════════════════════════════════════ -->
-<div class="module reveal" id="modulo-1">
+<div class="module reveal active" id="modulo-1">
   <div class="module-header">
     <div class="module-label">Módulo 1 <span class="module-progress-badge" data-mod-progress="1">0/2</span></div>
     <h2 class="module-title">Tu mente y el dinero</h2>
