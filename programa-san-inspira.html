@@ -193,14 +193,40 @@
 
   /* MODULE */
   .module {
-    padding: 80px 40px;
+    padding: 0 40px;
     max-width: 900px;
     margin: 0 auto;
     border-top: 1px solid var(--border);
   }
 
   .module-header {
-    margin-bottom: 40px;
+    padding: 30px 0;
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 0;
+    transition: background 0.2s;
+  }
+  .module-header:hover { opacity: 0.85; }
+  .module-header::after {
+    content: '▼';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: var(--purple-light);
+    transition: transform 0.3s;
+  }
+  .module.open .module-header::after { transform: translateY(-50%) rotate(180deg); }
+
+  .module-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+  .module.open .module-body {
+    max-height: none;
+    padding-bottom: 60px;
   }
 
   .module-label {
@@ -931,6 +957,8 @@
     <div class="module-progress-bar"><div class="module-progress-fill" id="mod-bar-1" style="width:0%"></div></div></div>
   </div>
 
+  <div class="module-body">
+
   <!-- TEORIA -->
   <div class="content-section">
     <div class="content-label">Contenido teórico</div>
@@ -1035,10 +1063,8 @@
       </ul>
     </div>
   </div>
+  </div>
 </div>
-
-<!-- DASHBOARD -->
-<div class="dashboard" id="dashboard">
   <div class="dashboard-card reveal">
     <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
     <div class="dashboard-grid">
@@ -1075,6 +1101,8 @@
     <h2 class="module-title">Identifica tus patrones</h2>
     <div class="module-objective">Objetivo: Poner nombre a las creencias y patrones automáticos que controlan tu relación con el dinero, para que dejen de operar en la sombra.</div>
   </div>
+
+  <div class="module-body">
 
   <div class="content-section">
     <div class="content-label">Contenido teórico</div>
@@ -1274,10 +1302,8 @@
       </ul>
     </div>
   </div>
+  </div>
 </div>
-
-<!-- DASHBOARD -->
-<div class="dashboard" id="dashboard">
   <div class="dashboard-card reveal">
     <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
     <div class="dashboard-grid">
@@ -1314,6 +1340,8 @@
     <h2 class="module-title">Descentra el dinero</h2>
     <div class="module-objective">Objetivo: Aprender a separar tu valor como persona del dinero que tienes o ganas, para que deje de ser el centro de tu ansiedad y tus decisiónes.</div>
   </div>
+
+  <div class="module-body">
 
   <div class="content-section">
     <div class="content-label">Contenido teórico</div>
@@ -1394,10 +1422,8 @@
       </ul>
     </div>
   </div>
+  </div>
 </div>
-
-<!-- DASHBOARD -->
-<div class="dashboard" id="dashboard">
   <div class="dashboard-card reveal">
     <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
     <div class="dashboard-grid">
@@ -1434,6 +1460,8 @@
     <h2 class="module-title">Reprograma tu sistema</h2>
     <div class="module-objective">Objetivo: Aplicar herramientas practicas de neurociencia para debilitar los patrones viejos y crear nuevas vías neuronales que te apoyen con el dinero.</div>
   </div>
+
+  <div class="module-body">
 
   <div class="content-section">
     <div class="content-label">Contenido teórico</div>
@@ -1552,10 +1580,8 @@
       </ul>
     </div>
   </div>
+  </div>
 </div>
-
-<!-- DASHBOARD -->
-<div class="dashboard" id="dashboard">
   <div class="dashboard-card reveal">
     <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
     <div class="dashboard-grid">
@@ -1592,6 +1618,8 @@
     <h2 class="module-title">Decisiónes desde la abundancia</h2>
     <div class="module-objective">Objetivo: Entender como tu sistema nervioso influye en tus decisiónes financieras y aprender a tomar decisiónes desde la seguridad, no desde el miedo.</div>
   </div>
+
+  <div class="module-body">
 
   <div class="content-section">
     <div class="content-label">Contenido teórico</div>
@@ -1683,10 +1711,8 @@
       </ul>
     </div>
   </div>
+  </div>
 </div>
-
-<!-- DASHBOARD -->
-<div class="dashboard" id="dashboard">
   <div class="dashboard-card reveal">
     <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
     <div class="dashboard-grid">
@@ -1723,6 +1749,8 @@
     <h2 class="module-title">Tu nueva relación con el dinero</h2>
     <div class="module-objective">Objetivo: Integrar todo lo aprendido en un plan de acción concreto y construir una relación sana, consciente y libre con el dinero para el resto de tu vida.</div>
   </div>
+
+  <div class="module-body">
 
   <div class="content-section">
     <div class="content-label">Contenido teórico</div>
@@ -1812,10 +1840,8 @@
       </ul>
     </div>
   </div>
+  </div>
 </div>
-
-<!-- DASHBOARD -->
-<div class="dashboard" id="dashboard">
   <div class="dashboard-card reveal">
     <div class="dashboard-title">&#128202; Tu resumen de progreso</div>
     <div class="dashboard-grid">
@@ -1888,6 +1914,38 @@ const ro = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+// Module accordion
+function openModule(id) {
+  document.querySelectorAll('.module').forEach(m => {
+    if (m.id === id) {
+      m.classList.add('open');
+      m.querySelectorAll('.reveal').forEach(r => r.classList.add('visible'));
+    } else {
+      m.classList.remove('open');
+    }
+  });
+  const target = document.getElementById(id);
+  if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+}
+
+document.querySelectorAll('.module-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const mod = header.closest('.module');
+    if (mod.classList.contains('open')) {
+      mod.classList.remove('open');
+    } else {
+      openModule(mod.id);
+    }
+  });
+});
+
+document.querySelectorAll('.index-item[href^="#modulo-"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModule(link.getAttribute('href').substring(1));
+  });
+});
 
 // Exercise config
 const exerciseConfig = {
