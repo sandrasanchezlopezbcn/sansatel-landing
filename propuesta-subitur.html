@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta Subitur — Sandra Sánchez</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f8f9fa;
+    color: #1a1a2e;
+    padding: 40px 20px;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.08);
+  }
+
+  .header {
+    background: linear-gradient(135deg, #1D4ED8, #1e3a8a);
+    padding: 40px;
+    color: white;
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+
+  .badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .header .subtitle {
+    font-size: 16px;
+    opacity: 0.9;
+  }
+
+  .header .client {
+    margin-top: 20px;
+    font-size: 14px;
+    opacity: 0.85;
+    line-height: 1.6;
+  }
+
+  .body { padding: 40px; }
+
+  .section { margin-bottom: 36px; }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #1D4ED8;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+
+  .option-block {
+    border: 2px solid #e5e7eb;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+
+  .option-header {
+    padding: 20px 28px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .option-1 .option-header { background: linear-gradient(135deg, #FF6D00, #e65100); }
+  .option-2 .option-header { background: linear-gradient(135deg, #1D4ED8, #7c3aed); }
+
+  .option-header h2 { font-size: 20px; font-weight: 800; }
+
+  .option-price {
+    text-align: right;
+  }
+
+  .option-price .amount {
+    font-size: 28px;
+    font-weight: 800;
+  }
+
+  .option-price .period {
+    font-size: 13px;
+    opacity: 0.85;
+  }
+
+  .option-body {
+    padding: 28px;
+  }
+
+  .option-body .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .service-block h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #1a1a2e;
+  }
+
+  .service-block ul { list-style: none; }
+
+  .service-block li {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+    padding-left: 18px;
+    position: relative;
+    color: #444;
+  }
+
+  .service-block li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #1D4ED8;
+    font-weight: 700;
+  }
+
+  .option-1 .service-block li::before { color: #FF6D00; }
+
+  .service-block li strong { color: #1a1a2e; }
+
+  .limitation {
+    background: #fff3e0;
+    border-left: 4px solid #FF6D00;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin-top: 18px;
+    font-size: 13px;
+    color: #555;
+  }
+
+  .limitation strong { color: #e65100; }
+
+  .advantage {
+    background: #e8eaf6;
+    border-left: 4px solid #1D4ED8;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin-top: 18px;
+    font-size: 13px;
+    color: #555;
+  }
+
+  .advantage strong { color: #1D4ED8; }
+
+  /* COMPARATIVA */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  .compare-table th {
+    background: #f1f5f9;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #555;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  .compare-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+  }
+
+  .compare-table tr:last-child td {
+    border-bottom: none;
+    font-weight: 700;
+    font-size: 15px;
+    padding-top: 16px;
+  }
+
+  .highlight-box {
+    background: #f0f4ff;
+    border-left: 4px solid #1D4ED8;
+    border-radius: 0 10px 10px 0;
+    padding: 20px 24px;
+    margin-top: 24px;
+  }
+
+  .highlight-box p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #444;
+  }
+
+  .highlight-box strong { color: #1a1a2e; }
+
+  .vat-note {
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    margin-top: 20px;
+    font-style: italic;
+  }
+
+  .footer {
+    background: #1a1a2e;
+    padding: 28px 40px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer .name { font-size: 16px; font-weight: 700; }
+  .footer .role { font-size: 13px; opacity: 0.7; margin-top: 2px; }
+  .footer .contact { font-size: 14px; text-align: right; line-height: 1.6; }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .page { box-shadow: none; border-radius: 0; max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="header-top">
+      <div class="badge">Propuesta comercial</div>
+      <div class="badge">Junio 2026</div>
+    </div>
+    <h1>Dos opciones reales para Subitur</h1>
+    <div class="subtitle">Análisis transparente — para que decidáis con todos los datos</div>
+    <div class="client">
+      <strong>Subitur</strong> · A la atención de Daniel Tura
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- OPCIÓN 1 -->
+    <div class="option-block option-1">
+      <div class="option-header">
+        <h2>Opción 1 — Orange completo</h2>
+        <div class="option-price">
+          <div class="amount">246 €</div>
+          <div class="period">/ mes sin IVA</div>
+        </div>
+      </div>
+      <div class="option-body">
+        <div class="grid">
+          <div class="service-block">
+            <h4>Conectividad</h4>
+            <ul>
+              <li><strong>Fibra 1 Gb</strong> con backup 4G automático</li>
+              <li>Si cae la fibra, la empresa sigue conectada</li>
+            </ul>
+          </div>
+          <div class="service-block">
+            <h4>Móviles</h4>
+            <ul>
+              <li>Líneas móviles con <strong>datos ilimitados</strong></li>
+              <li>Llamadas <strong>ilimitadas</strong> nacionales</li>
+              <li>Extensiones móviles integradas en la centralita</li>
+            </ul>
+          </div>
+          <div class="service-block">
+            <h4>Centralita Orange</h4>
+            <ul>
+              <li>Extensiones fijas y móviles</li>
+              <li>Desvíos, colas de llamada, grupos de salto</li>
+              <li>Locuciones: bienvenida, ausencia, espera, fuera de horario</li>
+            </ul>
+          </div>
+          <div class="service-block">
+            <h4>Ventajas</h4>
+            <ul>
+              <li><strong>Todo integrado</strong> en un solo proveedor</li>
+              <li>Backup doble: 4G + extensiones móviles activas sin fibra</li>
+              <li>Precio más competitivo</li>
+            </ul>
+          </div>
+        </div>
+        <div class="limitation">
+          <strong>Limitación:</strong> Orange no incluye minutos internacionales desde puestos fijos. Solo dispone de bonos limitados. Si hacéis llamadas internacionales frecuentes desde los fijos, esta opción no cubre esa necesidad.
+        </div>
+      </div>
+    </div>
+
+    <!-- OPCIÓN 2 -->
+    <div class="option-block option-2">
+      <div class="option-header">
+        <h2>Opción 2 — Híbrida (Orange + Aire Network)</h2>
+        <div class="option-price">
+          <div class="amount">362 €</div>
+          <div class="period">/ mes sin IVA</div>
+        </div>
+      </div>
+      <div class="option-body">
+        <div class="grid">
+          <div class="service-block">
+            <h4>Orange (254 €/mes)</h4>
+            <ul>
+              <li><strong>Fibra 1 Gb</strong> con backup 4G</li>
+              <li>Líneas móviles con <strong>datos ilimitados</strong></li>
+              <li>Llamadas <strong>ilimitadas</strong> nacionales</li>
+            </ul>
+          </div>
+          <div class="service-block">
+            <h4>Centralita Aire Network (108 €/mes)</h4>
+            <ul>
+              <li><strong>6 extensiones fijas</strong> con terminal SNOM D717</li>
+              <li>Llamadas <strong>ilimitadas</strong> a fijos y móviles nacionales</li>
+              <li>Fijos <strong>internacionales incluidos</strong> en +30 países</li>
+            </ul>
+          </div>
+          <div class="service-block">
+            <h4>Países internacionales incluidos</h4>
+            <ul>
+              <li>Alemania, Francia, EE.UU., Reino Unido, Italia</li>
+              <li>Argentina, Brasil, China, India, Perú</li>
+              <li>Canadá, Suiza, Portugal y 20 más</li>
+            </ul>
+          </div>
+          <div class="service-block">
+            <h4>Costes adicionales</h4>
+            <ul>
+              <li>Instalación centralita: <strong>250 € pago único</strong> sin IVA</li>
+              <li>Mantenimiento incluido en la cuota (108 €)</li>
+              <li>Permanencia centralita: 24 meses</li>
+            </ul>
+          </div>
+        </div>
+        <div class="advantage">
+          <strong>Ventaja:</strong> Cobertura internacional completa desde puestos fijos — sin límites de minutos, sin sorpresas en factura. Instalación y mantenimiento por un técnico directo.
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPARATIVA -->
+    <div class="section">
+      <div class="section-title">Comparativa rápida</div>
+      <table class="compare-table">
+        <tr>
+          <th>Concepto</th>
+          <th>Opción 1 — Orange</th>
+          <th>Opción 2 — Híbrida</th>
+        </tr>
+        <tr>
+          <td>Fibra + backup</td>
+          <td>1 Gb + backup 4G</td>
+          <td>1 Gb + backup 4G</td>
+        </tr>
+        <tr>
+          <td>Líneas móviles</td>
+          <td>Datos ilimitados</td>
+          <td>Datos ilimitados</td>
+        </tr>
+        <tr>
+          <td>Centralita</td>
+          <td>Orange (integrada)</td>
+          <td>Aire Network (independiente)</td>
+        </tr>
+        <tr>
+          <td>Internacionales desde fijo</td>
+          <td>Bonos limitados</td>
+          <td>Ilimitados (+30 países)</td>
+        </tr>
+        <tr>
+          <td>Instalación</td>
+          <td>Incluida</td>
+          <td>250 € pago único</td>
+        </tr>
+        <tr>
+          <td><strong>Total mensual</strong></td>
+          <td><strong>246 €/mes</strong></td>
+          <td><strong>362 €/mes</strong></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- VALORACIÓN -->
+    <div class="highlight-box">
+      <p><strong>Mi valoración sincera:</strong> la opción 1 os ahorra dinero pero no cubre las llamadas internacionales desde los puestos fijos. La opción 2 las cubre con la mejor centralita del mercado, pero el precio queda por encima de lo que pagáis actualmente con Movistar. Si vuestro producto actual os funciona bien, yo como asesora no recomendaría cambiar por cambiar. Pero si en algún momento las condiciones cambian, aquí tenéis una alternativa real y probada.</p>
+    </div>
+
+    <div class="vat-note">Todos los precios indicados son sin IVA (21%). Propuesta válida según ofertas vigentes de junio 2026.</div>
+
+  </div>
+
+  <div class="footer">
+    <div>
+      <div class="name">Sandra Sánchez</div>
+      <div class="role">Asesora premium en telecomunicaciones</div>
+    </div>
+    <div class="contact">
+      660 619 034<br>
+      sandra@onext-it.com
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
