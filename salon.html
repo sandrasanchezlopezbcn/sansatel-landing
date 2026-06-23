@@ -533,6 +533,33 @@ body {
   letter-spacing: 0.05em;
   margin: 16px 0 8px;
 }
+
+.badge-online {
+  display: inline-block;
+  background: #DBEAFE;
+  color: #1D4ED8;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.online-alert {
+  background: linear-gradient(135deg, #DBEAFE, #EDE9FE);
+  border: 1px solid #93C5FD;
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.online-alert-icon { font-size: 1.3rem; }
+.online-alert-text { flex: 1; }
+.online-alert-title { font-size: 0.85rem; font-weight: 600; color: #1E40AF; }
+.online-alert-sub { font-size: 0.75rem; color: #3B82F6; }
 </style>
 </head>
 <body>
@@ -575,6 +602,8 @@ body {
       <div class="stat-label">Avisos pendientes</div>
     </div>
   </div>
+
+  <div id="onlineAlerts"></div>
 
   <h3 style="margin-bottom:12px">Citas de hoy</h3>
   <div id="todayList"></div>
@@ -622,6 +651,21 @@ body {
 
 <!-- ═══════════ PANEL: AJUSTES ═══════════ -->
 <div class="panel" id="panel-settings">
+  <div class="card" style="border:2px solid var(--pink);background:var(--pink-soft)">
+    <h3 style="margin-bottom:8px">&#127760; Reserva online para tus clientas</h3>
+    <p style="font-size:0.8rem;color:var(--text);margin-bottom:12px">
+      Comparte este enlace por WhatsApp, Instagram o donde quieras. Tus clientas podrán reservar cita solas, sin que tú tengas que contestar.
+    </p>
+    <div style="display:flex;gap:8px;align-items:center;background:white;padding:10px 14px;border-radius:8px;border:1px solid var(--border)">
+      <input class="form-input" id="bookingLink" readonly style="border:none;padding:0;font-size:0.8rem;color:var(--pink);flex:1" value="">
+      <button class="btn btn-primary btn-sm" onclick="copyBookingLink()">Copiar</button>
+    </div>
+    <div style="margin-top:10px;display:flex;gap:8px">
+      <a id="shareWhatsApp" href="#" target="_blank" class="btn btn-sm" style="background:#25D366;color:white;text-decoration:none;flex:1;justify-content:center">Compartir por WhatsApp</a>
+      <a href="reservar.html" target="_blank" class="btn btn-outline btn-sm" style="flex:1;justify-content:center">Ver formulario</a>
+    </div>
+  </div>
+
   <div class="card">
     <h3 style="margin-bottom:12px">Datos de tu peluquería</h3>
     <div class="form-group">
@@ -902,11 +946,13 @@ function renderToday() {
     container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">&#128134;</div><h3>Sin citas hoy</h3><p>Pulsa + para añadir una cita nueva</p></div>';
     return;
   }
+  renderOnlineAlerts();
+
   container.innerHTML = todayAppts.map(a => `
     <div class="appointment-item">
       <div class="appointment-time">${sanitize(a.time)}</div>
       <div class="appointment-info">
-        <div class="appointment-name">${sanitize(a.clientName)}</div>
+        <div class="appointment-name">${sanitize(a.clientName)}${a.source === 'online' ? '<span class="badge-online">ONLINE</span>' : ''}</div>
         <div class="appointment-service">${sanitize(a.service || 'Sin servicio especificado')}</div>
       </div>
       <div class="appointment-actions">
@@ -1466,6 +1512,34 @@ function renderCurrentView() {
   switchTab(currentTab);
 }
 
+function copyBookingLink() {
+  const input = document.getElementById('bookingLink');
+  navigator.clipboard.writeText(input.value).then(() => showToast('Enlace copiado'));
+}
+
+function initBookingLink() {
+  const base = window.location.href.replace(/\/[^/]*$/, '/');
+  const link = base + 'reservar.html';
+  document.getElementById('bookingLink').value = link;
+  document.getElementById('shareWhatsApp').href =
+    'https://wa.me/?text=' + encodeURIComponent('¡Reserva tu cita aquí! 💇‍♀️ ' + link);
+}
+
+function renderOnlineAlerts() {
+  const onlineAppts = appointments.filter(a => a.source === 'online' && a.date >= todayStr());
+  const container = document.getElementById('onlineAlerts');
+  if (onlineAppts.length === 0) { container.innerHTML = ''; return; }
+  container.innerHTML = `
+    <div class="online-alert">
+      <div class="online-alert-icon">&#127760;</div>
+      <div class="online-alert-text">
+        <div class="online-alert-title">${onlineAppts.length} reserva${onlineAppts.length > 1 ? 's' : ''} online</div>
+        <div class="online-alert-sub">Clientas que han reservado desde el formulario web</div>
+      </div>
+    </div>
+  `;
+}
+
 // ═══════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════
@@ -1478,8 +1552,44 @@ function renderCurrentView() {
     days[now.getDay()].charAt(0).toUpperCase() + days[now.getDay()].slice(1) + ', ' +
     now.getDate() + ' de ' + months[now.getMonth()] + ' de ' + now.getFullYear();
 
+  if (appointments.length === 0 && clients.length === 0) loadDemoData();
+
+  initBookingLink();
   renderToday();
 })();
+
+function loadDemoData() {
+  const today = todayStr();
+  const tomorrow = tomorrowStr();
+  const d2 = daysFromNow(2);
+  const d3 = daysFromNow(3);
+
+  clients = [
+    { id: 'demo1', name: 'María García', phone: '612345678', email: 'maria@email.com', notes: 'Rubio ceniza natural. Alérgica al amoniaco. Usa Olaplex.', createdAt: '2025-01-15T10:00:00Z' },
+    { id: 'demo2', name: 'Laura Martínez', phone: '623456789', email: '', notes: 'Morena. Le gusta el flequillo cortina. Pelo fino.', createdAt: '2025-02-20T10:00:00Z' },
+    { id: 'demo3', name: 'Carmen López', phone: '634567890', email: 'carmen@email.com', notes: 'Pelirroja. Tinte 7.46 + 30vol. Cada 5 semanas.', createdAt: '2025-03-10T10:00:00Z' },
+    { id: 'demo4', name: 'Ana Ruiz', phone: '645678901', email: '', notes: 'Mechas babylights. Base 6 + mechas 10.1. Matizar con 9.1.', createdAt: '2025-04-05T10:00:00Z' },
+    { id: 'demo5', name: 'Sofía Fernández', phone: '656789012', email: '', notes: 'Corte bob. Pelo rizado. Prefiere sin secador.', createdAt: '2025-05-12T10:00:00Z' },
+    { id: 'demo6', name: 'Isabel Torres', phone: '', email: '', notes: 'Nueva clienta, vino por recomendación de María.', createdAt: '2025-06-01T10:00:00Z' },
+    { id: 'demo7', name: 'Pilar Navarro', phone: '678901234', email: '', notes: 'Alisado keratina cada 4 meses. Pelo largo.', createdAt: '2025-06-10T10:00:00Z' }
+  ];
+
+  appointments = [
+    { id: 'appt1', clientName: 'María García', clientId: 'demo1', phone: '612345678', date: today, time: '09:30', service: 'Tinte', notes: 'Retocar raíz + matizar puntas', reminderSent: true, createdAt: '2025-06-20T10:00:00Z' },
+    { id: 'appt2', clientName: 'Laura Martínez', clientId: 'demo2', phone: '623456789', date: today, time: '11:00', service: 'Corte', notes: 'Quiere repasar el flequillo', reminderSent: true, createdAt: '2025-06-20T11:00:00Z' },
+    { id: 'appt3', clientName: 'Sofía Fernández', clientId: 'demo5', phone: '656789012', date: today, time: '12:30', service: 'Corte', notes: '', reminderSent: false, createdAt: '2025-06-21T09:00:00Z' },
+    { id: 'appt4', clientName: 'Carmen López', clientId: 'demo3', phone: '634567890', date: tomorrow, time: '10:00', service: 'Tinte', notes: 'Tinte habitual 7.46', reminderSent: false, createdAt: '2025-06-21T10:00:00Z' },
+    { id: 'appt5', clientName: 'Ana Ruiz', clientId: 'demo4', phone: '645678901', date: tomorrow, time: '11:30', service: 'Mechas', notes: 'Babylights completas', reminderSent: false, createdAt: '2025-06-21T11:00:00Z' },
+    { id: 'appt6', clientName: 'Isabel Torres', clientId: 'demo6', phone: '', date: tomorrow, time: '16:00', service: 'Corte', notes: 'Primera visita', reminderSent: false, source: 'online', createdAt: '2025-06-22T08:00:00Z' },
+    { id: 'appt7', clientName: 'Pilar Navarro', clientId: 'demo7', phone: '678901234', date: d2, time: '09:30', service: 'Tratamiento', notes: 'Keratina', reminderSent: false, createdAt: '2025-06-22T09:00:00Z' },
+    { id: 'appt8', clientName: 'María García', clientId: 'demo1', phone: '612345678', date: d3, time: '10:00', service: 'Peinado', notes: 'Boda de su hermana', reminderSent: false, createdAt: '2025-06-22T10:00:00Z' }
+  ];
+
+  settings.salonName = 'Peluquería Demo';
+  settings.reminderTemplate = 'Hola {nombre}, te recuerdo tu cita en {salon} el {fecha} a las {hora} ({servicio}). ¡Te esperamos! Si necesitas cambiarla, avísanos.';
+
+  saveAll();
+}
 </script>
 </body>
 </html>

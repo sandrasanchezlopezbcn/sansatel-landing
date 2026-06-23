@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Reserva tu cita — Peluquería</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink: #E91E8C;
+  --pink-light: #F472B6;
+  --pink-soft: #FDF2F8;
+  --purple: #7C3AED;
+  --purple-light: #A78BFA;
+  --bg: #FAFAFA;
+  --card: #FFFFFF;
+  --text: #1F2937;
+  --text-light: #6B7280;
+  --border: #E5E7EB;
+  --success: #10B981;
+  --shadow: 0 1px 3px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+  --radius: 16px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 100%);
+  color: white;
+  padding: 40px 20px 50px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 0; right: 0;
+  height: 40px;
+  background: var(--bg);
+  border-radius: 50% 50% 0 0;
+}
+.hero-icon { font-size: 3rem; margin-bottom: 12px; }
+.hero h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.hero p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/* ── CONTAINER ── */
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+/* ── STEP INDICATOR ── */
+.steps {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: -20px auto 24px;
+  position: relative;
+  z-index: 2;
+}
+.step-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: all 0.3s;
+}
+.step-dot.active { background: var(--pink); width: 28px; border-radius: 5px; }
+.step-dot.done { background: var(--success); }
+
+/* ── FORM STEPS ── */
+.form-step { display: none; animation: fadeIn 0.3s ease; }
+.form-step.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── CARD ── */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 16px;
+}
+
+/* ── SERVICE PICKER ── */
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.service-option {
+  padding: 16px 12px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: white;
+}
+.service-option:hover { border-color: var(--pink-light); background: var(--pink-soft); }
+.service-option.selected {
+  border-color: var(--pink);
+  background: var(--pink-soft);
+  box-shadow: 0 0 0 3px rgba(233,30,140,0.15);
+}
+.service-icon { font-size: 1.5rem; margin-bottom: 6px; }
+.service-name { font-size: 0.85rem; font-weight: 600; }
+.service-duration { font-size: 0.7rem; color: var(--text-light); margin-top: 2px; }
+
+/* ── FORM FIELDS ── */
+.form-group { margin-bottom: 16px; }
+.form-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.form-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  background: white;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+.form-input:focus {
+  outline: none;
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(233,30,140,0.1);
+}
+.form-textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: var(--text);
+  background: white;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color 0.2s;
+}
+.form-textarea:focus { outline: none; border-color: var(--pink); }
+
+/* ── DATE PICKER ── */
+.date-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.date-option {
+  padding: 12px 8px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: white;
+}
+.date-option:hover { border-color: var(--pink-light); }
+.date-option.selected {
+  border-color: var(--pink);
+  background: var(--pink-soft);
+}
+.date-option.unavailable {
+  opacity: 0.4;
+  pointer-events: none;
+}
+.date-day { font-size: 0.7rem; color: var(--text-light); text-transform: uppercase; }
+.date-num { font-size: 1.1rem; font-weight: 700; margin: 2px 0; }
+.date-month { font-size: 0.7rem; color: var(--text-light); }
+
+/* ── TIME PICKER ── */
+.time-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.time-option {
+  padding: 10px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  background: white;
+}
+.time-option:hover { border-color: var(--pink-light); }
+.time-option.selected {
+  border-color: var(--pink);
+  background: var(--pink-soft);
+  color: var(--pink);
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(233,30,140,0.3);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(233,30,140,0.4); }
+.btn-primary:disabled { opacity: 0.5; transform: none; cursor: not-allowed; }
+.btn-outline {
+  background: transparent;
+  color: var(--text-light);
+  border: 2px solid var(--border);
+}
+.btn-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.btn-row .btn { flex: 1; }
+.btn-back { flex: 0.5 !important; }
+
+/* ── SUCCESS ── */
+.success-view {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  animation: fadeIn 0.5s ease;
+}
+.success-view.active { display: block; }
+.success-icon { font-size: 4rem; margin-bottom: 16px; }
+.success-view h2 { font-size: 1.3rem; margin-bottom: 8px; color: var(--success); }
+.success-view p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 6px; }
+.summary-card {
+  background: var(--pink-soft);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  text-align: left;
+}
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid rgba(233,30,140,0.1);
+}
+.summary-row:last-child { border-bottom: none; }
+.summary-label { color: var(--text-light); }
+.summary-value { font-weight: 600; }
+
+/* ── POWERED BY ── */
+.powered {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.7rem;
+  color: var(--text-light);
+  opacity: 0.6;
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-icon">&#9986;</div>
+  <h1 id="heroTitle">Reserva tu cita</h1>
+  <p id="heroSubtitle">Elige servicio, día y hora en menos de un minuto</p>
+</div>
+
+<!-- CONTAINER -->
+<div class="container">
+
+  <!-- STEP DOTS -->
+  <div class="steps">
+    <div class="step-dot active" id="dot0"></div>
+    <div class="step-dot" id="dot1"></div>
+    <div class="step-dot" id="dot2"></div>
+    <div class="step-dot" id="dot3"></div>
+  </div>
+
+  <!-- STEP 0: SERVICIO -->
+  <div class="form-step active" id="step0">
+    <div class="card">
+      <div class="section-label">¿Qué quieres hacerte?</div>
+      <div class="service-grid" id="serviceGrid"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="nextStep()" id="btnStep0" disabled>Elegir fecha &#8594;</button>
+    </div>
+  </div>
+
+  <!-- STEP 1: FECHA Y HORA -->
+  <div class="form-step" id="step1">
+    <div class="card">
+      <div class="section-label">¿Qué día te viene bien?</div>
+      <div class="date-grid" id="dateGrid"></div>
+
+      <div class="section-label" style="margin-top:20px" id="timeLabel" style="display:none">¿A qué hora prefieres?</div>
+      <div class="time-grid" id="timeGrid"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-outline btn-back" onclick="prevStep()">&#8592;</button>
+      <button class="btn btn-primary" onclick="nextStep()" id="btnStep1" disabled>Tus datos &#8594;</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: DATOS PERSONALES -->
+  <div class="form-step" id="step2">
+    <div class="card">
+      <div class="section-label">Tus datos</div>
+      <div class="form-group">
+        <label class="form-label">Nombre *</label>
+        <input class="form-input" id="bookName" placeholder="Tu nombre" required oninput="validateStep2()">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Teléfono (WhatsApp) *</label>
+        <input class="form-input" id="bookPhone" type="tel" placeholder="612 345 678" required oninput="validateStep2()">
+      </div>
+      <div class="form-group">
+        <label class="form-label">¿Algo que debamos saber?</label>
+        <textarea class="form-textarea" id="bookNotes" placeholder="Ej: Quiero un rubio ceniza, tengo alergia al amoniaco..."></textarea>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-outline btn-back" onclick="prevStep()">&#8592;</button>
+      <button class="btn btn-primary" onclick="nextStep()" id="btnStep2" disabled>Confirmar &#8594;</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: CONFIRMAR -->
+  <div class="form-step" id="step3">
+    <div class="card">
+      <div class="section-label">Confirma tu reserva</div>
+      <div class="summary-card" id="bookingSummary"></div>
+      <p style="font-size:0.8rem;color:var(--text-light);margin-top:12px">
+        &#128276; Recibirás un recordatorio por WhatsApp antes de tu cita.
+      </p>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-outline btn-back" onclick="prevStep()">&#8592;</button>
+      <button class="btn btn-primary" onclick="submitBooking()">&#10003; Confirmar cita</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-view" id="successView">
+    <div class="success-icon">&#127881;</div>
+    <h2>¡Cita reservada!</h2>
+    <p>Te hemos guardado la cita.</p>
+    <p style="font-size:0.85rem;color:var(--text)">Te enviaremos un recordatorio por WhatsApp.</p>
+    <div class="summary-card" id="successSummary"></div>
+    <button class="btn btn-primary" onclick="resetBooking()" style="margin-top:16px">Reservar otra cita</button>
+  </div>
+
+</div>
+
+<div class="powered">Gestión inteligente de citas</div>
+
+<script>
+// ═══════════════════════════════════════════
+// CONFIG & DATA
+// ═══════════════════════════════════════════
+
+function getData(key, fallback) {
+  try {
+    const d = localStorage.getItem('salon_' + key);
+    return d ? JSON.parse(d) : fallback;
+  } catch { return fallback; }
+}
+function setData(key, val) {
+  localStorage.setItem('salon_' + key, JSON.stringify(val));
+}
+
+const serviceIcons = {
+  'Corte': '&#9986;',
+  'Tinte': '&#127912;',
+  'Mechas': '&#9728;',
+  'Peinado': '&#128131;',
+  'Tratamiento': '&#10024;',
+  'Manicura': '&#128133;',
+  'Secado': '&#128168;',
+  'Alisado': '&#10024;',
+  'Recogido': '&#128131;',
+  'Barba': '&#129492;',
+  'Cejas': '&#128065;',
+  'Color': '&#127912;'
+};
+
+const serviceDurations = {
+  'Corte': '30 min',
+  'Tinte': '90 min',
+  'Mechas': '120 min',
+  'Peinado': '45 min',
+  'Tratamiento': '60 min',
+  'Manicura': '45 min',
+  'Secado': '20 min',
+  'Alisado': '120 min',
+  'Recogido': '60 min',
+  'Barba': '20 min',
+  'Cejas': '15 min',
+  'Color': '90 min'
+};
+
+let services = getData('services', ['Corte', 'Tinte', 'Mechas', 'Peinado', 'Tratamiento', 'Manicura', 'Secado']);
+let settings = getData('settings', { salonName: '', salonPhone: '', reminderTemplate: '' });
+let appointments = getData('appointments', []);
+let clients = getData('clients', []);
+
+let currentStep = 0;
+let selectedService = '';
+let selectedDate = '';
+let selectedTime = '';
+
+if (settings.salonName) {
+  document.getElementById('heroTitle').textContent = settings.salonName;
+  document.getElementById('heroSubtitle').textContent = 'Reserva tu cita en menos de un minuto';
+}
+
+// ═══════════════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════════════
+
+function genId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+}
+
+function todayStr() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+
+function formatDate(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00');
+  const days = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  const months = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  return days[d.getDay()] + ' ' + d.getDate() + ' de ' + months[d.getMonth()];
+}
+
+function sanitize(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// ═══════════════════════════════════════════
+// STEP NAVIGATION
+// ═══════════════════════════════════════════
+
+function goToStep(n) {
+  currentStep = n;
+  document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step' + n).classList.add('active');
+
+  for (let i = 0; i < 4; i++) {
+    const dot = document.getElementById('dot' + i);
+    dot.classList.remove('active', 'done');
+    if (i < n) dot.classList.add('done');
+    if (i === n) dot.classList.add('active');
+  }
+}
+
+function nextStep() {
+  if (currentStep === 2) buildConfirmation();
+  goToStep(currentStep + 1);
+}
+
+function prevStep() {
+  goToStep(currentStep - 1);
+}
+
+// ═══════════════════════════════════════════
+// STEP 0: SERVICIOS
+// ═══════════════════════════════════════════
+
+function renderServices() {
+  const grid = document.getElementById('serviceGrid');
+  grid.innerHTML = services.map(s => {
+    const icon = serviceIcons[s] || '&#10024;';
+    const dur = serviceDurations[s] || '';
+    return `
+      <div class="service-option" onclick="selectService(this, '${sanitize(s)}')" data-service="${sanitize(s)}">
+        <div class="service-icon">${icon}</div>
+        <div class="service-name">${sanitize(s)}</div>
+        ${dur ? `<div class="service-duration">${dur}</div>` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+function selectService(el, name) {
+  document.querySelectorAll('.service-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedService = name;
+  document.getElementById('btnStep0').disabled = false;
+  renderDates();
+}
+
+// ═══════════════════════════════════════════
+// STEP 1: FECHA Y HORA
+// ═══════════════════════════════════════════
+
+function renderDates() {
+  const grid = document.getElementById('dateGrid');
+  const days = ['DOM','LUN','MAR','MIÉ','JUE','VIE','SÁB'];
+  const months = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  let html = '';
+
+  for (let i = 1; i <= 9; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() + i);
+    const dateStr = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    const isSunday = d.getDay() === 0;
+
+    html += `
+      <div class="date-option ${isSunday ? 'unavailable' : ''}" onclick="selectDate(this, '${dateStr}')" data-date="${dateStr}">
+        <div class="date-day">${days[d.getDay()]}</div>
+        <div class="date-num">${d.getDate()}</div>
+        <div class="date-month">${months[d.getMonth()]}</div>
+      </div>
+    `;
+  }
+  grid.innerHTML = html;
+}
+
+function selectDate(el, dateStr) {
+  document.querySelectorAll('.date-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedDate = dateStr;
+  selectedTime = '';
+  document.getElementById('btnStep1').disabled = true;
+  renderTimes();
+}
+
+function renderTimes() {
+  const grid = document.getElementById('timeGrid');
+  const times = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30',
+                 '13:00','13:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30'];
+
+  const busyTimes = new Set(
+    appointments.filter(a => a.date === selectedDate).map(a => a.time)
+  );
+
+  grid.innerHTML = times.map(t => {
+    const busy = busyTimes.has(t);
+    return `<div class="time-option ${busy ? 'unavailable' : ''}" style="${busy ? 'opacity:0.3;pointer-events:none;text-decoration:line-through' : ''}" onclick="selectTime(this, '${t}')">${t}</div>`;
+  }).join('');
+
+  document.getElementById('timeLabel').style.display = 'block';
+}
+
+function selectTime(el, time) {
+  document.querySelectorAll('.time-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedTime = time;
+  document.getElementById('btnStep1').disabled = false;
+}
+
+// ═══════════════════════════════════════════
+// STEP 2: DATOS
+// ═══════════════════════════════════════════
+
+function validateStep2() {
+  const name = document.getElementById('bookName').value.trim();
+  const phone = document.getElementById('bookPhone').value.trim();
+  document.getElementById('btnStep2').disabled = !(name && phone.length >= 6);
+}
+
+// ═══════════════════════════════════════════
+// STEP 3: CONFIRMACIÓN
+// ═══════════════════════════════════════════
+
+function buildConfirmation() {
+  const name = document.getElementById('bookName').value.trim();
+  const phone = document.getElementById('bookPhone').value.trim();
+  const notes = document.getElementById('bookNotes').value.trim();
+
+  document.getElementById('bookingSummary').innerHTML = `
+    <div class="summary-row"><span class="summary-label">Servicio</span><span class="summary-value">${sanitize(selectedService)}</span></div>
+    <div class="summary-row"><span class="summary-label">Fecha</span><span class="summary-value">${formatDate(selectedDate)}</span></div>
+    <div class="summary-row"><span class="summary-label">Hora</span><span class="summary-value">${selectedTime}</span></div>
+    <div class="summary-row"><span class="summary-label">Nombre</span><span class="summary-value">${sanitize(name)}</span></div>
+    <div class="summary-row"><span class="summary-label">Teléfono</span><span class="summary-value">${sanitize(phone)}</span></div>
+    ${notes ? `<div class="summary-row"><span class="summary-label">Notas</span><span class="summary-value">${sanitize(notes)}</span></div>` : ''}
+  `;
+}
+
+// ═══════════════════════════════════════════
+// SUBMIT
+// ═══════════════════════════════════════════
+
+function submitBooking() {
+  const name = document.getElementById('bookName').value.trim();
+  const phone = document.getElementById('bookPhone').value.trim();
+  const notes = document.getElementById('bookNotes').value.trim();
+
+  let clientId = null;
+  let existingClient = clients.find(c => c.phone && c.phone.replace(/\D/g,'') === phone.replace(/\D/g,''));
+  if (!existingClient) {
+    existingClient = clients.find(c => c.name.toLowerCase() === name.toLowerCase());
+  }
+
+  if (existingClient) {
+    clientId = existingClient.id;
+    if (!existingClient.phone && phone) existingClient.phone = phone;
+  } else {
+    const newClient = {
+      id: genId(),
+      name: name,
+      phone: phone,
+      email: '',
+      notes: notes ? 'Nota de reserva online: ' + notes : '',
+      createdAt: new Date().toISOString()
+    };
+    clients.push(newClient);
+    clientId = newClient.id;
+  }
+
+  const newAppt = {
+    id: genId(),
+    clientName: name,
+    clientId: clientId,
+    phone: phone,
+    date: selectedDate,
+    time: selectedTime,
+    service: selectedService,
+    notes: notes,
+    reminderSent: false,
+    source: 'online',
+    createdAt: new Date().toISOString()
+  };
+  appointments.push(newAppt);
+
+  setData('appointments', appointments);
+  setData('clients', clients);
+
+  document.getElementById('successSummary').innerHTML = `
+    <div class="summary-row"><span class="summary-label">Servicio</span><span class="summary-value">${sanitize(selectedService)}</span></div>
+    <div class="summary-row"><span class="summary-label">Fecha</span><span class="summary-value">${formatDate(selectedDate)}</span></div>
+    <div class="summary-row"><span class="summary-label">Hora</span><span class="summary-value">${selectedTime}</span></div>
+  `;
+
+  document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+  document.querySelector('.steps').style.display = 'none';
+  document.getElementById('successView').classList.add('active');
+}
+
+function resetBooking() {
+  selectedService = '';
+  selectedDate = '';
+  selectedTime = '';
+  document.getElementById('bookName').value = '';
+  document.getElementById('bookPhone').value = '';
+  document.getElementById('bookNotes').value = '';
+  document.getElementById('btnStep0').disabled = true;
+  document.querySelectorAll('.service-option').forEach(o => o.classList.remove('selected'));
+  document.querySelector('.steps').style.display = 'flex';
+  document.getElementById('successView').classList.remove('active');
+  goToStep(0);
+}
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+renderServices();
+renderDates();
+</script>
+</body>
+</html>
