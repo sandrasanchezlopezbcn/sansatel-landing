@@ -625,7 +625,7 @@ const PLANS = {
 const GOAL_PARAMS = {
   muscle:   {sets:4,rMin:8, rMax:12,rest:120},
   lose:     {sets:3,rMin:15,rMax:20,rest:60},
-  tone:     {sets:3,rMin:10,rMax:15,rest:75},
+  tone:     {sets:3,rMin:10,rMax:15,rest:120},
   endurance:{sets:3,rMin:20,rMax:25,rest:45},
 };
 const LEVEL_SETS = {beginner:3,intermediate:4,advanced:5};
@@ -793,7 +793,7 @@ function genRoutine(p, day) {
       const rMin=ex.c?8:12, rMax=ex.c?12:15;
       exs.push({
         id:ex.id,name:ex.name,icon:ex.icon,muscle:m,
-        restSeconds:isMain?par.rest:ex.c?Math.max(60,par.rest-15):60,
+        restSeconds:isMain?120:ex.c?105:60,
         repsMin:rMin, repsMax:rMax,
         sets:Array.from({length:nSets},(_,i)=>({num:i+1,repsMin:rMin,repsMax:rMax,weight:0,done:false}))
       });
