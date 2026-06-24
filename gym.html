@@ -795,12 +795,15 @@ function genRoutine(p, day) {
     while(picked.length<n&&iso2.length){ const i=Math.floor(Math.random()*iso2.length); picked.push(iso2.splice(i,1)[0]); }
     const extraSets=isFocusMuscle?1:0;
     const nSets=Math.max(2,sets+extraSets-(manyGroups&&!BIG.includes(m)?1:0));
-    picked.forEach(ex=>exs.push({
-      id:ex.id,name:ex.name,icon:ex.icon,muscle:m,
-      restSeconds:par.rest,
-      repsMin:par.rMin, repsMax:par.rMax,
-      sets:Array.from({length:nSets},(_,i)=>({num:i+1,repsMin:par.rMin,repsMax:par.rMax,weight:0,done:false}))
-    }));
+    picked.forEach(ex=>{
+      const rMin=ex.c?8:12, rMax=ex.c?12:15;
+      exs.push({
+        id:ex.id,name:ex.name,icon:ex.icon,muscle:m,
+        restSeconds:ex.c?par.rest:Math.max(60,par.rest-15),
+        repsMin:rMin, repsMax:rMax,
+        sets:Array.from({length:nSets},(_,i)=>({num:i+1,repsMin:rMin,repsMax:rMax,weight:0,done:false}))
+      });
+    });
   });
   return exs;
 }
