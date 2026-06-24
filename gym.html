@@ -457,6 +457,7 @@ const EX = {
     {id:'e16',name:'Face pull en polea',icon:'😤',c:0,grip:'Neutro (cuerda — tira de los extremos hacia las orejas)'},
     {id:'e17',name:'Encogimientos de hombros',icon:'🤷',c:0,grip:'Prono o neutro (mancuernas)'},
     {id:'e18',name:'Pulldown en polea con cuerda',icon:'🔗',c:0,grip:'Neutro (cuerda — separa al final)'},
+    {id:'e19',name:'Seal row (remo en banco plano)',icon:'🦭',c:1,grip:'Neutro (mancuernas tumbada boca abajo en banco)'},
   ],
   hombros:[
     {id:'h1',name:'Press militar con barra',icon:'🔝',c:1,grip:'Prono ancho (barra olímpica)'},
@@ -552,6 +553,7 @@ const EX = {
     {id:'c16',name:'Pallof press',icon:'🛡️',c:0,grip:'Neutro (asa) — antirotación, core estabilizador'},
     {id:'c17',name:'Hollow body hold',icon:'🍌',c:0},
     {id:'c18',name:'V-up',icon:'✌️',c:0},
+    {id:'c19',name:'Crunch en máquina (abdominal corto)',icon:'🤖',c:0},
   ],
   cardio:[
     {id:'cv1',name:'Caminata en cinta',icon:'🚶',c:0},
@@ -604,11 +606,11 @@ const PLANS = {
     {name:'Hombros, Cintura y Cardio',muscles:['hombros','core','cintura','cardio']},
   ],
   5:[
-    {name:'Pecho y Tríceps',muscles:['pecho','triceps']},
-    {name:'Espalda, Bíceps y Lumbares',muscles:['espalda','biceps','lumbares']},
-    {name:'Piernas y Glúteos',muscles:['piernas','gluteos']},
-    {name:'Hombros y Cintura',muscles:['hombros','core','cintura']},
-    {name:'Full Body + Cardio',muscles:['pecho','espalda','piernas','core','cardio']},
+    {name:'Piernas + Glúteos (cuádriceps)',muscles:['piernas','gluteos']},
+    {name:'Espalda (forma V) + Bíceps',muscles:['espalda','biceps','lumbares']},
+    {name:'Hombros + Tríceps + Core',muscles:['hombros','triceps','core','cintura']},
+    {name:'Posterior: Glúteo + Femoral + Lumbar',muscles:['gluteos','piernas','lumbares']},
+    {name:'Espalda + Brazos + Cardio',muscles:['espalda','triceps','biceps','cardio']},
   ],
   6:[
     {name:'Empuje',muscles:['pecho','hombros','triceps']},
@@ -623,13 +625,13 @@ const PLANS = {
 const GOAL_PARAMS = {
   muscle:   {sets:4,rMin:8, rMax:12,rest:120},
   lose:     {sets:3,rMin:15,rMax:20,rest:60},
-  tone:     {sets:3,rMin:12,rMax:15,rest:90},
+  tone:     {sets:3,rMin:10,rMax:15,rest:75},
   endurance:{sets:3,rMin:20,rMax:25,rest:45},
 };
 const LEVEL_SETS = {beginner:3,intermediate:4,advanced:5};
 const BIG = ['pecho','espalda','piernas'];
 const COLORS = ['#10B981','#3B82F6','#8B5CF6','#EF4444','#F59E0B','#EC4899','#06B6D4','#84CC16'];
-const GOAL_LBL = {muscle:'💪 Ganar músculo',lose:'🔥 Perder peso',tone:'✨ Tonificar',endurance:'🏃 Resistencia'};
+const GOAL_LBL = {muscle:'💪 Ganar músculo',lose:'🔥 Perder peso',tone:'✨ Recomposición',endurance:'🏃 Resistencia'};
 const LEVEL_LBL = {beginner:'🌱 Principiante',intermediate:'⚡ Intermedio',advanced:'🏆 Avanzado'};
 const MUSCLE_LBL = {pecho:'Pecho',espalda:'Espalda',hombros:'Hombros',biceps:'Bíceps',triceps:'Tríceps',piernas:'Piernas',gluteos:'Glúteos',core:'Core',cardio:'Cardio',lumbares:'Lumbares',cintura:'Cintura'};
 
@@ -778,7 +780,7 @@ function genRoutine(p, day) {
       const pool=[...(EX[m]||[])];
       if(!pool.length)return;
       const ex=pool[Math.floor(Math.random()*pool.length)];
-      exs.push({id:ex.id,name:ex.name,icon:ex.icon,muscle:'cardio',isCardio:true,durationMin:20,sets:[{num:1,done:false,durationMin:20}]});
+      exs.push({id:ex.id,name:ex.name,icon:ex.icon,muscle:'cardio',isCardio:true,durationMin:25,sets:[{num:1,done:false,durationMin:25}]});
       return;
     }
     const pool=[...(EX[m]||[])];
