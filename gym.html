@@ -935,19 +935,25 @@ function renderSession(){
         </div>
       </div>`:`
       <div class="card">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
           <div style="font-weight:700;font-size:14px">${ex.icon} ${ex.name}</div>
-          <a href="https://www.youtube.com/results?search_query=como+hacer+${encodeURIComponent(ex.name)}+correctamente+gym" target="_blank" style="display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:#EF4444;text-decoration:none;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25);padding:4px 8px;border-radius:8px;white-space:nowrap">▶ Ver vídeo</a>
+          <a href="https://www.youtube.com/results?search_query=como+hacer+${encodeURIComponent(ex.name)}+correctamente+gym" target="_blank" style="display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:#EF4444;text-decoration:none;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25);padding:4px 8px;border-radius:8px;white-space:nowrap">▶ Vídeo</a>
         </div>
-        <div style="font-size:11px;color:var(--gray);margin-bottom:12px">${ex.sets.filter(s=>s.done).length}/${ex.sets.length} series · ⏱ ${fmtRest(ex.restSeconds||90)}</div>
+        <div style="font-size:11px;color:var(--gray);margin-bottom:10px">⏱ Descanso: ${fmtRest(ex.restSeconds||75)} · ${MUSCLE_LBL[ex.muscle]||ex.muscle}</div>
+        <div style="display:grid;grid-template-columns:36px 1fr 1fr 1fr 36px;gap:4px;text-align:center;margin-bottom:6px">
+          <div style="font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase">Serie</div>
+          <div style="font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase">KG</div>
+          <div style="font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase">Reps</div>
+          <div style="font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase">Obj.</div>
+          <div></div>
+        </div>
         ${ex.sets.map((s,si)=>`
-          <div class="set-row">
-            <div class="set-num ${s.done?'done':''}">${s.num}</div>
-            <div class="set-info"><strong>${s.repsMin&&s.repsMax&&s.repsMin!==s.repsMax?`${s.repsMin}-${s.repsMax}`:(s.reps||s.repsMin||12)} reps</strong>${s.weight>0?` · <strong>${s.weight}kg</strong>`:''}</div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <input type="number" value="${s.weight}" min="0" step="0.5" style="width:58px;text-align:center;padding:6px;font-size:13px" onchange="updW(${ei},${si},this.value)" placeholder="kg">
-              <button class="set-check ${s.done?'done':''}" onclick="togSet(${ei},${si})">${s.done?'✓':''}</button>
-            </div>
+          <div style="display:grid;grid-template-columns:36px 1fr 1fr 1fr 36px;gap:4px;align-items:center;text-align:center;padding:6px 0;border-bottom:1px solid var(--border);${s.done?'background:rgba(16,185,129,0.06);border-radius:8px':''}">
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:${s.done?'var(--green-light)':'var(--white)'}">${s.num}</div>
+            <input type="number" value="${s.weight||''}" min="0" step="0.5" style="width:100%;text-align:center;padding:8px 4px;font-size:14px;font-weight:600;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--white)" onchange="updW(${ei},${si},this.value)" placeholder="—">
+            <input type="number" value="${s.reps||''}" min="0" style="width:100%;text-align:center;padding:8px 4px;font-size:14px;font-weight:600;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--white)" onchange="updR(${ei},${si},this.value)" placeholder="—">
+            <div style="font-size:13px;color:var(--gray)">${s.repsMin&&s.repsMax&&s.repsMin!==s.repsMax?s.repsMin+'-'+s.repsMax:(s.repsMin||12)}</div>
+            <button class="set-check ${s.done?'done':''}" onclick="togSet(${ei},${si})" style="width:32px;height:32px;font-size:14px">${s.done?'✓':''}</button>
           </div>`).join('')}
       </div>`).join('')}
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">
@@ -964,6 +970,7 @@ function togSet(ei,si){
   else if(!s.done) stopTimer();
 }
 function updW(ei,si,v){ curSession.exercises[ei].sets[si].weight=parseFloat(v)||0; saveSess(); }
+function updR(ei,si,v){ curSession.exercises[ei].sets[si].reps=parseInt(v)||0; saveSess(); }
 function finishSess(){
   curSession.duration=Math.round((Date.now()-curSession.startTime)/60000);
   const h=getHist(curSession.profileId); h.push(curSession); setHist(curSession.profileId,h);
