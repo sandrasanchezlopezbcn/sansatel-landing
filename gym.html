@@ -746,17 +746,14 @@ function showTab(t) {
 // ─── PLAN CON ENFOQUE ─────────────────────────
 function buildFocusPlan(days, focus) {
   if(!focus||!focus.length) return PLANS[days]||PLANS[3];
-  // Build a plan that hits focus muscles twice per week
   const base = JSON.parse(JSON.stringify(PLANS[days]||PLANS[3]));
-  if(days<=3) return base; // For short weeks just boost exercises, don't add days
-  // For 4+ days: replace last day with a focus-heavy session
+  if(days<=3||days>=5) return base;
   const focusDay = {
     name: focus.map(f=>MUSCLE_LBL[f]).join(' + ') + ' (énfasis)',
     muscles: [...new Set([...focus, 'core'])],
     isFocus: true
   };
-  const result = [...base.slice(0,-1), focusDay];
-  return result;
+  return [...base.slice(0,-1), focusDay];
 }
 
 // ─── GENERAR RUTINA ───────────────────────────
