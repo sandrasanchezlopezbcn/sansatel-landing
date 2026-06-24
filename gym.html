@@ -832,7 +832,7 @@ function renderHoy() {
       <div class="today-subtitle">${GOAL_LBL[p.goal]} · ${LEVEL_LBL[p.level]}</div>
       <div class="muscle-tags">${todayDay.muscles.map(m=>`<span class="muscle-tag">${MUSCLE_LBL[m]||m}</span>`).join('')}</div>
       <div class="ex-preview">
-        ${todayEx.slice(0,5).map(ex=>`
+        ${todayEx.map(ex=>`
           <div class="ex-row">
             <div class="ex-row-icon">${ex.icon}</div>
             <div class="ex-row-name">${ex.name}</div>
@@ -841,7 +841,6 @@ function renderHoy() {
               ${!ex.isCardio?`<a href="https://www.youtube.com/results?search_query=como+hacer+${encodeURIComponent(ex.name)}+correctamente+gym" target="_blank" style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);text-decoration:none;font-size:13px;flex-shrink:0" title="Ver en YouTube">▶</a>`:''}
             </div>
           </div>`).join('')}
-        ${todayEx.length>5?`<div style="font-size:12px;color:var(--gray);text-align:center;padding:4px">+${todayEx.length-5} ejercicios más</div>`:''}
       </div>
       <div style="font-size:12px;color:var(--gray);margin-bottom:10px;display:flex;align-items:center;gap:6px">
         <span>⏱</span><span>Duración estimada: <strong style="color:var(--white)">${estimateMin(todayEx)} min</strong></span>
