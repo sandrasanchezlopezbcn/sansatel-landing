@@ -639,6 +639,17 @@ let curSession = JSON.parse(localStorage.getItem('gt2_session')||'null');
 let timerIv = null, timerSec = 0;
 let wiz = {name:'',color:COLORS[0],goal:'muscle',level:'intermediate',days:4,focus:[]};
 let todayEx = null, todayDay = null, todayIdx = parseInt(localStorage.getItem('gt2_dayIdx')||'0');
+function getMeso(pid){ return JSON.parse(localStorage.getItem('gt2_meso_'+pid)||'null'); }
+function setMeso(pid,m){ localStorage.setItem('gt2_meso_'+pid,JSON.stringify(m)); }
+function getFixedRoutine(p,day,dayIdx){
+  let meso=getMeso(p.id);
+  if(!meso) meso={created:new Date().toISOString(),routines:{}};
+  if(!meso.routines[dayIdx]){
+    meso.routines[dayIdx]=genRoutine(p,day);
+    setMeso(p.id,meso);
+  }
+  return meso.routines[dayIdx];
+}
 let npColor = COLORS[1];
 
 function save() { localStorage.setItem('gt2_profiles',JSON.stringify(profiles)); }
@@ -814,7 +825,7 @@ function renderHoy() {
   const totalSets=h.reduce((a,s)=>a+s.exercises.reduce((b,e)=>b+e.sets.filter(x=>x.done).length,0),0);
   const {plan}=getNextDay(p);
   if(!todayDay){ todayDay=plan[todayIdx]||plan[0]; }
-  if(!todayEx) todayEx=genRoutine(p,todayDay);
+  if(!todayEx) todayEx=getFixedRoutine(p,todayDay,todayIdx);
 
   document.getElementById('hoy-content').innerHTML=`
     <div style="margin-bottom:14px">
@@ -845,8 +856,17 @@ function renderHoy() {
       <div style="font-size:12px;color:var(--gray);margin-bottom:10px;display:flex;align-items:center;gap:6px">
         <span>⏱</span><span>Duración estimada: <strong style="color:var(--white)">${estimateMin(todayEx)} min</strong></span>
       </div>
+      ${(()=>{
+        const meso=getMeso(p.id);
+        if(!meso) return '';
+        const weeks=Math.floor((Date.now()-new Date(meso.created).getTime())/604800000);
+        const color=weeks>=8?'#EF4444':weeks>=6?'#F59E0B':'var(--green-light)';
+        return `<div style="font-size:11px;color:${color};margin-bottom:10px;display:flex;align-items:center;gap:6px;justify-content:center">
+          <span>📋</span><span>Mesociclo: semana ${weeks+1}${weeks>=8?' — toca cambiar ejercicios':weeks>=6?' — pronto toca cambiar':''}</span>
+        </div>`;
+      })()}
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px">
-        <button class="btn btn-ghost btn-full btn-sm" onclick="regen()">🔄 Otra rutina</button>
+        <button class="btn btn-ghost btn-full btn-sm" onclick="newMesocycle()">🔄 Nuevo mesociclo</button>
         <button class="btn btn-green btn-full" onclick="startToday()">▶️ ¡Empezar!</button>
       </div>
       <button class="btn btn-ghost btn-full btn-sm" onclick="openPickDay()" style="font-size:12px">📅 Elegir otro día del plan</button>
@@ -868,7 +888,14 @@ function renderHoy() {
     ${renderTemplates(p.id)}
   `;
 }
-function regen(){ const p=curP(); todayEx=genRoutine(p,todayDay); renderHoy(); }
+function newMesocycle(){
+  if(!confirm('¿Empezar nuevo mesociclo?\nSe generarán ejercicios nuevos para TODOS los días.\nHaz esto cada 6-8 semanas.'))return;
+  const p=curP();
+  localStorage.removeItem('gt2_meso_'+p.id);
+  todayEx=null;
+  renderHoy();
+  alert2('Nuevo mesociclo generado 🔄');
+}
 
 function openPickDay(){
   const p=curP();
@@ -889,7 +916,7 @@ function pickDay(i){
   const p=curP();
   const plan=buildFocusPlan(p.days,p.focus||[]);
   saveDayIdx(i);
-  todayDay=plan[i]; todayEx=genRoutine(p,todayDay);
+  todayDay=plan[i]; todayEx=getFixedRoutine(p,todayDay,i);
   closeModal('modal-pickday');
   renderHoy();
 }
@@ -1071,7 +1098,7 @@ function saveEP(){
   p.level=document.getElementById('ep-level').value;
   p.days=parseInt(document.getElementById('ep-days').value);
   p.focus=[...document.querySelectorAll('#ep-focus-grid .focus-chip.selected')].map(c=>c.dataset.focus);
-  save(); todayEx=null; closeModal('modal-ep'); renderSwitcher(); showTab('perfil'); alert2('Perfil actualizado');
+  save(); localStorage.removeItem('gt2_meso_'+p.id); todayEx=null; closeModal('modal-ep'); renderSwitcher(); showTab('perfil'); alert2('Perfil actualizado');
 }
 
 // Nuevo perfil
