@@ -606,10 +606,10 @@ const PLANS = {
     {name:'Hombros, Cintura y Cardio',muscles:['hombros','core','cintura','cardio']},
   ],
   5:[
-    {name:'Piernas + Glúteos (cuádriceps)',muscles:['piernas','gluteos']},
-    {name:'Espalda (forma V) + Bíceps',muscles:['espalda','biceps','lumbares']},
-    {name:'Hombros + Tríceps + Core',muscles:['hombros','triceps','core','cintura']},
-    {name:'Posterior: Glúteo + Femoral + Lumbar',muscles:['gluteos','piernas','lumbares']},
+    {name:'Piernas + Glúteos (cuádriceps)',muscles:['piernas','gluteos','cardio']},
+    {name:'Espalda (forma V) + Bíceps',muscles:['espalda','biceps','lumbares','cardio']},
+    {name:'Hombros + Tríceps + Core',muscles:['hombros','triceps','core','cintura','cardio']},
+    {name:'Posterior: Glúteo + Femoral + Lumbar',muscles:['gluteos','piernas','lumbares','cardio']},
     {name:'Espalda + Brazos + Cardio',muscles:['espalda','triceps','biceps','cardio']},
   ],
   6:[
@@ -629,7 +629,7 @@ const GOAL_PARAMS = {
   endurance:{sets:3,rMin:20,rMax:25,rest:45},
 };
 const LEVEL_SETS = {beginner:3,intermediate:4,advanced:5};
-const BIG = ['pecho','espalda','piernas'];
+const BIG = ['pecho','espalda','piernas','gluteos'];
 const COLORS = ['#10B981','#3B82F6','#8B5CF6','#EF4444','#F59E0B','#EC4899','#06B6D4','#84CC16'];
 const GOAL_LBL = {muscle:'💪 Ganar músculo',lose:'🔥 Perder peso',tone:'✨ Recomposición',endurance:'🏃 Resistencia'};
 const LEVEL_LBL = {beginner:'🌱 Principiante',intermediate:'⚡ Intermedio',advanced:'🏆 Avanzado'};
@@ -768,35 +768,32 @@ function estimateMin(exs){
 }
 function genRoutine(p, day) {
   const par=GOAL_PARAMS[p.goal]||GOAL_PARAMS.muscle;
-  const sets=LEVEL_SETS[p.level]||4;
   const focus=p.focus||[];
   const exs=[];
-  const manyGroups=day.muscles.filter(m=>m!=='cardio').length>=3;
+  const MAIN=['piernas','gluteos','espalda','pecho'];
   day.muscles.forEach(m=>{
     if(m==='cardio'){
-      const pool=[...(EX[m]||[])];
-      if(!pool.length)return;
-      const ex=pool[Math.floor(Math.random()*pool.length)];
-      exs.push({id:ex.id,name:ex.name,icon:ex.icon,muscle:'cardio',isCardio:true,durationMin:25,sets:[{num:1,done:false,durationMin:25}]});
+      const cv2=EX.cardio.find(e=>e.id==='cv2')||EX.cardio[0];
+      exs.push({id:cv2.id,name:cv2.name,icon:cv2.icon,muscle:'cardio',isCardio:true,durationMin:20,sets:[{num:1,done:false,durationMin:20}]});
       return;
     }
     const pool=[...(EX[m]||[])];
     if(!pool.length)return;
     const isFocusMuscle=focus.includes(m)||day.isFocus;
-    const n=isFocusMuscle?4:BIG.includes(m)?3:2;
+    const n=isFocusMuscle?4:MAIN.includes(m)?3:2;
     const picked=[];
     const comp=pool.filter(e=>e.c);
     const isol=pool.filter(e=>!e.c);
     if(comp.length){ const i=Math.floor(Math.random()*Math.min(2,comp.length)); picked.push(comp[i]); }
     const iso2=[...isol];
     while(picked.length<n&&iso2.length){ const i=Math.floor(Math.random()*iso2.length); picked.push(iso2.splice(i,1)[0]); }
-    const extraSets=isFocusMuscle?1:0;
-    const nSets=Math.max(2,sets+extraSets-(manyGroups&&!BIG.includes(m)?1:0));
     picked.forEach(ex=>{
+      const isMain=ex.c&&MAIN.includes(m);
+      const nSets=isMain?4:ex.c?3:MAIN.includes(m)?3:2;
       const rMin=ex.c?8:12, rMax=ex.c?12:15;
       exs.push({
         id:ex.id,name:ex.name,icon:ex.icon,muscle:m,
-        restSeconds:ex.c?par.rest:Math.max(60,par.rest-15),
+        restSeconds:isMain?par.rest:ex.c?Math.max(60,par.rest-15):60,
         repsMin:rMin, repsMax:rMax,
         sets:Array.from({length:nSets},(_,i)=>({num:i+1,repsMin:rMin,repsMax:rMax,weight:0,done:false}))
       });
@@ -933,7 +930,7 @@ function renderSession(){
         </div>
         <div class="set-row">
           <div class="set-num ${ex.sets[0].done?'done':''}">🚶</div>
-          <div class="set-info" style="flex:1"><strong>${ex.durationMin} min caminando</strong><div style="font-size:11px;color:var(--gray);margin-top:2px">Velocidad cómoda, respira tranquila</div></div>
+          <div class="set-info" style="flex:1"><strong>${ex.durationMin} min caminando</strong><div style="font-size:11px;color:var(--gray);margin-top:2px">Cinta con inclinación · ritmo moderado</div></div>
           <button class="set-check ${ex.sets[0].done?'done':''}" onclick="togSet(${ei},0)">${ex.sets[0].done?'✓':''}</button>
         </div>
       </div>`:`
