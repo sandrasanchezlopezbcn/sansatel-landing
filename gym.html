@@ -789,11 +789,15 @@ function renderHoy() {
           <span>📋</span><span>Mesociclo: semana ${weeks+1}${weeks>=8?' — toca cambiar ejercicios':weeks>=6?' — pronto toca cambiar':''}</span>
         </div>`;
       })()}
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px">
-        <button class="btn btn-ghost btn-full btn-sm" onclick="newMesocycle()">🔄 Nuevo mesociclo</button>
-        <button class="btn btn-green btn-full" onclick="startToday()">▶️ ¡Empezar!</button>
-      </div>
-      <button class="btn btn-ghost btn-full btn-sm" onclick="openPickDay()" style="font-size:12px">📅 Elegir otro día del plan</button>
+      ${curSession?`
+        <button class="btn btn-green btn-full" onclick="showTab('sesion')" style="font-size:16px;padding:14px">💪 Continuar sesión</button>
+      `:`
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px">
+          <button class="btn btn-ghost btn-full btn-sm" onclick="newMesocycle()">🔄 Nuevo mesociclo</button>
+          <button class="btn btn-green btn-full" onclick="startToday()">▶️ ¡Empezar!</button>
+        </div>
+        <button class="btn btn-ghost btn-full btn-sm" onclick="openPickDay()" style="font-size:12px">📅 Elegir otro día del plan</button>
+      `}
     </div>
     <div class="section-header" style="margin-top:8px"><div class="section-title">Tu plan semanal</div></div>
     <div class="week-plan">
