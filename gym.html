@@ -554,6 +554,39 @@ const GOAL_LBL = {muscle:'💪 Ganar músculo',lose:'🔥 Perder peso',tone:'✨
 const LEVEL_LBL = {beginner:'🌱 Principiante',intermediate:'⚡ Intermedio',advanced:'🏆 Avanzado'};
 const MUSCLE_LBL = {pecho:'Pecho',espalda:'Espalda',hombros:'Hombros',biceps:'Bíceps',triceps:'Tríceps',piernas:'Piernas',gluteos:'Glúteos',core:'Core',cardio:'Cardio',lumbares:'Lumbares',cintura:'Cintura'};
 const MUSCLE_ICON = {pecho:'🫁',espalda:'🔙',hombros:'🤷',biceps:'💪',triceps:'🦾',piernas:'🦵',gluteos:'🍑',core:'🎯',cardio:'❤️',lumbares:'🔻',cintura:'↔️'};
+function bodyMap(muscles,w=70){
+  const a=new Set(Array.isArray(muscles)?muscles:[muscles]);
+  const c=m=>a.has(m)?'#10B981':'rgba(255,255,255,0.07)';
+  const s=m=>a.has(m)?'rgba(16,185,129,0.4)':'rgba(255,255,255,0.12)';
+  const h=w*1.9;
+  return `<svg width="${w}" height="${h}" viewBox="0 0 70 133" style="display:block;margin:auto">
+    <circle cx="35" cy="10" r="8" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+    <rect x="32" y="18" width="6" height="5" rx="2" fill="rgba(255,255,255,0.08)"/>
+    <ellipse cx="18" cy="28" rx="7" ry="4.5" fill="${c('hombros')}" stroke="${s('hombros')}" stroke-width="0.8"/>
+    <ellipse cx="52" cy="28" rx="7" ry="4.5" fill="${c('hombros')}" stroke="${s('hombros')}" stroke-width="0.8"/>
+    <rect x="24" y="24" width="22" height="14" rx="4" fill="${c('pecho')}" stroke="${s('pecho')}" stroke-width="0.8"/>
+    <rect x="24" y="24" width="22" height="14" rx="4" fill="${c('espalda')}" stroke="${s('espalda')}" stroke-width="0.8" opacity="${a.has('espalda')?'0.6':'0'}"/>
+    <rect x="28" y="38" width="14" height="16" rx="2" fill="${c('core')}" stroke="${s('core')}" stroke-width="0.8"/>
+    <rect x="24" y="38" width="4" height="16" rx="1.5" fill="${c('cintura')}" stroke="${s('cintura')}" stroke-width="0.6"/>
+    <rect x="42" y="38" width="4" height="16" rx="1.5" fill="${c('cintura')}" stroke="${s('cintura')}" stroke-width="0.6"/>
+    <rect x="28" y="50" width="14" height="6" rx="2" fill="${c('lumbares')}" stroke="${s('lumbares')}" stroke-width="0.6" opacity="${a.has('lumbares')?'1':'0.3'}"/>
+    <rect x="9" y="30" width="7" height="20" rx="3" fill="${c('biceps')}" stroke="${s('biceps')}" stroke-width="0.8"/>
+    <rect x="54" y="30" width="7" height="20" rx="3" fill="${c('biceps')}" stroke="${s('biceps')}" stroke-width="0.8"/>
+    <rect x="9" y="30" width="7" height="20" rx="3" fill="${c('triceps')}" stroke="${s('triceps')}" stroke-width="0.8" opacity="${a.has('triceps')?'0.7':'0'}"/>
+    <rect x="54" y="30" width="7" height="20" rx="3" fill="${c('triceps')}" stroke="${s('triceps')}" stroke-width="0.8" opacity="${a.has('triceps')?'0.7':'0'}"/>
+    <rect x="10" y="50" width="5" height="16" rx="2" fill="rgba(255,255,255,0.06)"/>
+    <rect x="55" y="50" width="5" height="16" rx="2" fill="rgba(255,255,255,0.06)"/>
+    <ellipse cx="28" cy="58" rx="7" ry="5" fill="${c('gluteos')}" stroke="${s('gluteos')}" stroke-width="0.8"/>
+    <ellipse cx="42" cy="58" rx="7" ry="5" fill="${c('gluteos')}" stroke="${s('gluteos')}" stroke-width="0.8"/>
+    <rect x="22" y="62" width="11" height="28" rx="4" fill="${c('piernas')}" stroke="${s('piernas')}" stroke-width="0.8"/>
+    <rect x="37" y="62" width="11" height="28" rx="4" fill="${c('piernas')}" stroke="${s('piernas')}" stroke-width="0.8"/>
+    <rect x="23" y="92" width="9" height="22" rx="3" fill="rgba(255,255,255,0.06)"/>
+    <rect x="38" y="92" width="9" height="22" rx="3" fill="rgba(255,255,255,0.06)"/>
+    <rect x="22" y="114" width="11" height="6" rx="2" fill="rgba(255,255,255,0.05)"/>
+    <rect x="37" y="114" width="11" height="6" rx="2" fill="rgba(255,255,255,0.05)"/>
+    ${[...a].filter(m=>m!=='cardio').map((m,i)=>`<text x="35" y="${128+i*0}" text-anchor="middle" font-size="0" fill="transparent">${MUSCLE_LBL[m]||m}</text>`).join('')}
+  </svg>`;
+}
 
 // ─── STATE ────────────────────────────────────
 let profiles = JSON.parse(localStorage.getItem('gt2_profiles')||'[]');
@@ -767,6 +800,7 @@ function renderHoy() {
       <div class="today-title">${todayDay.name}</div>
       <div class="today-subtitle">${GOAL_LBL[p.goal]} · ${LEVEL_LBL[p.level]}</div>
       <div class="muscle-tags">${todayDay.muscles.map(m=>`<span class="muscle-tag">${MUSCLE_LBL[m]||m}</span>`).join('')}</div>
+      <div style="display:flex;align-items:center;justify-content:center;padding:8px 0">${bodyMap(todayDay.muscles.filter(m=>m!=='cardio'),80)}</div>
       <div class="ex-preview">
         ${todayEx.map(ex=>`
           <div class="ex-row">
@@ -887,13 +921,18 @@ function renderSession(){
         </div>
       </div>`:`
       <div class="card">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px">
-          <div style="font-weight:700;font-size:14px">${ex.icon} ${ex.name}</div>
-          <a href="https://www.youtube.com/results?search_query=como+hacer+${encodeURIComponent(ex.name)}+correctamente+gym" target="_blank" style="display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:#EF4444;text-decoration:none;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25);padding:4px 8px;border-radius:8px;white-space:nowrap">▶ Vídeo</a>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-          <span class="muscle-tag" style="font-size:10px;padding:2px 8px">${MUSCLE_ICON[ex.muscle]||'💪'} ${MUSCLE_LBL[ex.muscle]||ex.muscle}</span>
-          <span style="font-size:11px;color:var(--gray)">⏱ ${fmtRest(ex.restSeconds||75)}</span>
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px">
+          <div style="flex-shrink:0">${bodyMap([ex.muscle],40)}</div>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+              <div style="font-weight:700;font-size:14px">${ex.icon} ${ex.name}</div>
+              <a href="https://www.youtube.com/results?search_query=como+hacer+${encodeURIComponent(ex.name)}+correctamente+gym" target="_blank" style="display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:#EF4444;text-decoration:none;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25);padding:4px 8px;border-radius:8px;white-space:nowrap">▶ Vídeo</a>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span class="muscle-tag" style="font-size:10px;padding:2px 8px">${MUSCLE_LBL[ex.muscle]||ex.muscle}</span>
+              <span style="font-size:11px;color:var(--gray)">⏱ ${fmtRest(ex.restSeconds||75)}</span>
+            </div>
+          </div>
         </div>
         <div style="display:grid;grid-template-columns:30px 1fr 1fr 40px 40px 32px;gap:3px;text-align:center;margin-bottom:6px">
           <div style="font-size:9px;font-weight:700;color:var(--gray);text-transform:uppercase">Serie</div>
