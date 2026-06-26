@@ -570,57 +570,77 @@ function bodyMap(muscles,w=70,zone=''){
   const pc=isP?'#3B82F6':off, ps=isP?'rgba(59,130,246,0.5)':offS;
   const h=w*2.14;
   return `<svg width="${w}" height="${h}" viewBox="0 0 100 214" style="display:block;margin:auto">
+    <!-- Pelo coleta -->
+    <path d="M39 4 Q42 1 50 0 Q58 1 61 4 Q64 7 63 14 Q61 10 58 8 Q54 6 50 6 Q46 6 42 8 Q39 10 37 14 Q36 7 39 4Z" fill="rgba(180,140,100,0.5)" stroke="rgba(180,140,100,0.3)" stroke-width="0.5"/>
+    <path d="M61 4 Q65 3 67 6 Q69 10 68 18 Q67 24 64 28 Q66 22 66 16 Q66 10 64 7 Q63 5 61 4Z" fill="rgba(180,140,100,0.45)" stroke="rgba(180,140,100,0.25)" stroke-width="0.4"/>
+    <!-- Cabeza -->
     <circle cx="50" cy="14" r="11" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="0.7"/>
+    <!-- Ojos y boca -->
+    <circle cx="46" cy="13" r="1.2" fill="rgba(255,255,255,0.3)"/>
+    <circle cx="54" cy="13" r="1.2" fill="rgba(255,255,255,0.3)"/>
+    <path d="M47 18 Q50 20 53 18" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.6" stroke-linecap="round"/>
+    <!-- Cuello -->
     <path d="M44 25 Q50 24 56 25 L56 29 Q50 28 44 29Z" fill="rgba(255,255,255,0.08)"/>
 
+    <!-- Hombros -->
     <path d="M28 33 Q22 30 18 34 Q14 38 16 42 L20 36 Q24 33 28 33Z" fill="${c('hombros')}" stroke="${s('hombros')}" stroke-width="0.7"/>
     <path d="M72 33 Q78 30 82 34 Q86 38 84 42 L80 36 Q76 33 72 33Z" fill="${c('hombros')}" stroke="${s('hombros')}" stroke-width="0.7"/>
 
+    <!-- Pecho / Espalda -->
     <path d="M32 30 Q38 28 50 28 Q62 28 68 30 L70 34 Q62 32 50 32 Q38 32 30 34Z" fill="${c('pecho')}" stroke="${s('pecho')}" stroke-width="0.6"/>
     <path d="M30 34 Q38 32 50 32 Q62 32 70 34 L70 46 Q62 48 50 48 Q38 48 30 46Z" fill="${c('pecho')}" stroke="${s('pecho')}" stroke-width="0.7"/>
     <path d="M30 34 Q38 32 50 32 Q62 32 70 34 L70 46 Q62 48 50 48 Q38 48 30 46Z" fill="${c('espalda')}" stroke="${s('espalda')}" stroke-width="0.7" opacity="${a.has('espalda')?'0.65':'0'}"/>
     <line x1="50" y1="32" x2="50" y2="48" stroke="rgba(0,0,0,0.15)" stroke-width="0.5"/>
 
+    <!-- Core / Cintura -->
     <path d="M34 48 Q42 47 50 47 Q58 47 66 48 L64 60 Q58 62 50 62 Q42 62 36 60Z" fill="${c('core')}" stroke="${s('core')}" stroke-width="0.7"/>
     <line x1="50" y1="47" x2="50" y2="62" stroke="rgba(0,0,0,0.12)" stroke-width="0.4"/>
     <path d="M30 46 L34 48 L36 60 L32 62 Q28 56 30 46Z" fill="${c('cintura')}" stroke="${s('cintura')}" stroke-width="0.6"/>
     <path d="M70 46 L66 48 L64 60 L68 62 Q72 56 70 46Z" fill="${c('cintura')}" stroke="${s('cintura')}" stroke-width="0.6"/>
 
+    <!-- Lumbares -->
     <path d="M36 60 Q42 62 50 62 Q58 62 64 60 L62 68 Q56 70 50 70 Q44 70 38 68Z" fill="${c('lumbares')}" stroke="${s('lumbares')}" stroke-width="0.5" opacity="${a.has('lumbares')?'1':'0.25'}"/>
 
+    <!-- Biceps / Triceps -->
     <path d="M16 42 Q14 44 13 48 L12 56 Q12 60 14 62 L16 56 Q16 48 18 44Z" fill="${c('biceps')}" stroke="${s('biceps')}" stroke-width="0.7"/>
     <path d="M84 42 Q86 44 87 48 L88 56 Q88 60 86 62 L84 56 Q84 48 82 44Z" fill="${c('biceps')}" stroke="${s('biceps')}" stroke-width="0.7"/>
     <path d="M18 44 Q20 46 20 50 L20 58 Q18 62 16 56Z" fill="${c('triceps')}" stroke="${s('triceps')}" stroke-width="0.6" opacity="${a.has('triceps')?'0.8':'0'}"/>
     <path d="M82 44 Q80 46 80 50 L80 58 Q82 62 84 56Z" fill="${c('triceps')}" stroke="${s('triceps')}" stroke-width="0.6" opacity="${a.has('triceps')?'0.8':'0'}"/>
 
+    <!-- Antebrazos / Manos -->
     <path d="M14 62 Q12 66 11 72 L10 78 Q11 80 13 78 L14 72 Q14 66 16 64Z" fill="rgba(255,255,255,0.05)"/>
     <path d="M86 62 Q88 66 89 72 L90 78 Q89 80 87 78 L86 72 Q86 66 84 64Z" fill="rgba(255,255,255,0.05)"/>
     <ellipse cx="10" cy="80" rx="4" ry="2.5" fill="rgba(255,255,255,0.04)"/>
     <ellipse cx="90" cy="80" rx="4" ry="2.5" fill="rgba(255,255,255,0.04)"/>
 
+    <!-- Gluteos -->
     <path d="M36 68 Q40 72 42 74 Q44 76 42 78 L38 76 Q34 74 32 70Z" fill="${c('gluteos')}" stroke="${s('gluteos')}" stroke-width="0.7"/>
     <path d="M64 68 Q60 72 58 74 Q56 76 58 78 L62 76 Q66 74 68 70Z" fill="${c('gluteos')}" stroke="${s('gluteos')}" stroke-width="0.7"/>
 
+    <!-- Cuadriceps -->
     <path d="M34 78 Q36 76 40 76 Q44 76 46 78 L47 92 Q44 94 40 94 Q36 94 33 92Z" fill="${qc}" stroke="${qs}" stroke-width="0.7"/>
     <path d="M54 78 Q56 76 60 76 Q64 76 66 78 L67 92 Q64 94 60 94 Q56 94 53 92Z" fill="${qc}" stroke="${qs}" stroke-width="0.7"/>
 
+    <!-- Femoral -->
     <path d="M33 92 Q36 94 40 94 Q44 94 47 92 L48 112 Q44 114 40 114 Q36 114 32 112Z" fill="${fc}" stroke="${fs}" stroke-width="0.7"/>
     <path d="M53 92 Q56 94 60 94 Q64 94 67 92 L68 112 Q64 114 60 114 Q56 114 52 112Z" fill="${fc}" stroke="${fs}" stroke-width="0.7"/>
 
-    <path d="M36 116 Q38 114 40 114 Q42 114 44 116 L44 126 Q42 128 40 128 Q38 128 36 126Z" fill="rgba(255,255,255,0.04)"/>
-    <path d="M56 116 Q58 114 60 114 Q62 114 64 116 L64 126 Q62 128 60 128 Q58 128 56 126Z" fill="rgba(255,255,255,0.04)"/>
+    <!-- Rodillas -->
+    <ellipse cx="40" cy="115" rx="5" ry="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="0.4"/>
+    <ellipse cx="60" cy="115" rx="5" ry="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="0.4"/>
 
-    <path d="M32 112 Q36 114 40 114 Q44 114 48 112 L47 138 Q44 142 40 142 Q36 142 33 138Z" fill="${pc}" stroke="${ps}" stroke-width="0.6"/>
-    <path d="M52 112 Q56 114 60 114 Q64 114 68 112 L67 138 Q64 142 60 142 Q56 142 53 138Z" fill="${pc}" stroke="${ps}" stroke-width="0.6"/>
+    <!-- Pantorrillas -->
+    <path d="M34 118 Q37 116 40 116 Q43 116 46 118 L45 148 Q43 152 40 152 Q37 152 35 148Z" fill="${pc}" stroke="${ps}" stroke-width="0.6"/>
+    <path d="M54 118 Q57 116 60 116 Q63 116 66 118 L65 148 Q63 152 60 152 Q57 152 55 148Z" fill="${pc}" stroke="${ps}" stroke-width="0.6"/>
 
-    <path d="M34 140 Q37 142 40 142 Q43 142 46 140 L47 164 Q44 168 40 168 Q36 168 33 164Z" fill="rgba(255,255,255,0.04)"/>
-    <path d="M54 140 Q57 142 60 142 Q63 142 66 140 L67 164 Q64 168 60 168 Q56 168 53 164Z" fill="rgba(255,255,255,0.04)"/>
+    <!-- Tobillos + Pies -->
+    <path d="M37 152 Q39 154 40 154 Q41 154 43 152 L44 160 Q41 162 40 162 Q39 162 36 160Z" fill="rgba(255,255,255,0.04)"/>
+    <path d="M57 152 Q59 154 60 154 Q61 154 63 152 L64 160 Q61 162 60 162 Q59 162 56 160Z" fill="rgba(255,255,255,0.04)"/>
+    <path d="M35 160 Q38 162 40 162 Q42 162 45 160 L48 166 Q44 170 40 170 Q36 170 32 166Z" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="0.4"/>
+    <path d="M55 160 Q58 162 60 162 Q62 162 65 160 L68 166 Q64 170 60 170 Q56 170 52 166Z" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="0.4"/>
 
-    <path d="M33 166 Q37 168 40 168 Q43 168 47 166 L48 176 Q44 180 40 180 Q36 180 32 176Z" fill="rgba(255,255,255,0.04)"/>
-    <path d="M53 166 Q57 168 60 168 Q63 168 67 166 L68 176 Q64 180 60 180 Q56 180 52 176Z" fill="rgba(255,255,255,0.04)"/>
-
-    <path d="M32 176 Q36 180 40 180 Q44 180 48 176 L50 184 Q44 188 40 188 Q36 188 30 184Z" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="0.4"/>
-    <path d="M52 176 Q56 180 60 180 Q64 180 68 176 L70 184 Q64 188 60 188 Q56 188 50 184Z" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="0.4"/>
+    <!-- Etiqueta FRONTAL -->
+    <text x="50" y="182" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.25)" font-family="sans-serif">FRONTAL</text>
   </svg>`;
 }
 
