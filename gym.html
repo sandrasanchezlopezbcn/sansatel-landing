@@ -558,7 +558,7 @@ const MUSCLE_LBL = {pecho:'Pecho',espalda:'Espalda',hombros:'Hombros',biceps:'B�
 let profiles = JSON.parse(localStorage.getItem('gt2_profiles')||'[]');
 let curId = localStorage.getItem('gt2_cur')||null;
 let curSession = JSON.parse(localStorage.getItem('gt2_session')||'null');
-let timerIv = null, timerSec = 0;
+let timerIv = null, timerSec = 0, timerEnd = 0;
 let wiz = {name:'',color:COLORS[0],goal:'muscle',level:'intermediate',days:4,focus:[]};
 let todayEx = null, todayDay = null, todayIdx = parseInt(localStorage.getItem('gt2_dayIdx')||'0');
 function getMeso(pid){ return JSON.parse(localStorage.getItem('gt2_meso_'+pid)||'null'); }
@@ -942,11 +942,16 @@ function playBeep(){
   }catch(e){}
 }
 function startTimer(sec,name){
-  stopTimer(); timerSec=sec;
+  stopTimer(); timerEnd=Date.now()+sec*1000;
   document.getElementById('timer-bar').classList.add('visible');
   if(name) document.getElementById('timer-exname').textContent=name;
+  tickTimer();
+  timerIv=setInterval(tickTimer,500);
+}
+function tickTimer(){
+  timerSec=Math.ceil((timerEnd-Date.now())/1000);
+  if(timerSec<=0){stopTimer();playBeep();alert2('¡A por la siguiente serie! 💪');return;}
   updTimer();
-  timerIv=setInterval(()=>{ timerSec--; if(timerSec<=0){stopTimer();playBeep();alert2('¡A por la siguiente serie! 💪');return;} updTimer(); },1000);
 }
 function updTimer(){
   const el=document.getElementById('timer-count');
@@ -954,8 +959,9 @@ function updTimer(){
   el.textContent=`${m}:${s.toString().padStart(2,'0')}`;
   el.className='timer-count'+(timerSec<=10?' urgent':'');
 }
-function addTime(s){ timerSec=Math.max(5,timerSec+s); updTimer(); }
-function stopTimer(){ clearInterval(timerIv); timerIv=null; document.getElementById('timer-bar').classList.remove('visible'); }
+function addTime(s){ timerEnd=Math.max(Date.now()+5000,timerEnd+s*1000); tickTimer(); }
+function stopTimer(){ clearInterval(timerIv); timerIv=null; timerEnd=0; document.getElementById('timer-bar').classList.remove('visible'); }
+document.addEventListener('visibilitychange',()=>{ if(!document.hidden&&timerEnd>0) tickTimer(); });
 function fmtRest(s){ const m=Math.floor(s/60),r=s%60; return s<60?s+'s':r===0?m+'min':m+':'+String(r).padStart(2,'0'); }
 
 // ─── HISTORIAL ────────────────────────────────
