@@ -648,7 +648,7 @@ function showApp() {
   document.querySelectorAll('.view').forEach(v=>v.style.display='');
   if(curSession) document.getElementById('session-badge').style.display='flex';
   renderSwitcher();
-  showTab('hoy');
+  showTab(curSession?'sesion':'hoy');
 }
 function renderSwitcher() {
   const sw=document.getElementById('profile-switcher');
@@ -729,7 +729,9 @@ function genRoutine(p, day) {
       });
     });
   });
-  return exs;
+  const cardio=exs.filter(e=>e.isCardio);
+  const nonCardio=exs.filter(e=>!e.isCardio).slice(0,6);
+  return [...nonCardio,...cardio];
 }
 function getNextDay(p) {
   const plan=buildFocusPlan(p.days, p.focus||[]);
@@ -917,6 +919,7 @@ function togSet(ei,si){
 function updW(ei,si,v){ curSession.exercises[ei].sets[si].weight=parseFloat(v)||0; saveSess(); }
 function updR(ei,si,v){ curSession.exercises[ei].sets[si].reps=parseInt(v)||0; saveSess(); }
 function finishSess(){
+  if(!confirm('¿Finalizar la sesión y guardar en historial?'))return;
   curSession.duration=Math.round((Date.now()-curSession.startTime)/60000);
   const h=getHist(curSession.profileId); h.push(curSession); setHist(curSession.profileId,h);
   curSession=null; saveSess(); todayEx=null; todayDay=null;
