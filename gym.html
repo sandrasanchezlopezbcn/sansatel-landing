@@ -554,10 +554,24 @@ const GOAL_LBL = {muscle:'💪 Ganar músculo',lose:'🔥 Perder peso',tone:'✨
 const LEVEL_LBL = {beginner:'🌱 Principiante',intermediate:'⚡ Intermedio',advanced:'🏆 Avanzado'};
 const MUSCLE_LBL = {pecho:'Pecho',espalda:'Espalda',hombros:'Hombros',biceps:'Bíceps',triceps:'Tríceps',piernas:'Piernas',gluteos:'Glúteos',core:'Core',cardio:'Cardio',lumbares:'Lumbares',cintura:'Cintura'};
 const MUSCLE_ICON = {pecho:'🫁',espalda:'🔙',hombros:'🤷',biceps:'💪',triceps:'🦾',piernas:'🦵',gluteos:'🍑',core:'🎯',cardio:'❤️',lumbares:'🔻',cintura:'↔️'};
-function bodyMap(muscles,w=70){
+const QUAD_IDS=new Set(['l4','l5','l6']);
+const FEM_IDS=new Set(['l7','l9']);
+const PANT_IDS=new Set(['l17']);
+function exZone(ex){ if(!ex)return ''; if(QUAD_IDS.has(ex.id))return 'quad'; if(FEM_IDS.has(ex.id))return 'fem'; if(PANT_IDS.has(ex.id))return 'pant'; return ''; }
+function bodyMap(muscles,w=70,zone=''){
   const a=new Set(Array.isArray(muscles)?muscles:[muscles]);
   const c=m=>a.has(m)?'#10B981':'rgba(255,255,255,0.07)';
   const s=m=>a.has(m)?'rgba(16,185,129,0.4)':'rgba(255,255,255,0.12)';
+  const allLeg=a.has('piernas')&&!zone;
+  const isQ=allLeg||zone==='quad';
+  const isF=allLeg||zone==='fem';
+  const isP=allLeg||zone==='pant';
+  const qc=isQ?'#10B981':'rgba(255,255,255,0.07)';
+  const qs=isQ?'rgba(16,185,129,0.4)':'rgba(255,255,255,0.12)';
+  const fc=isF?'#F59E0B':'rgba(255,255,255,0.07)';
+  const fs=isF?'rgba(245,158,11,0.4)':'rgba(255,255,255,0.12)';
+  const pc=isP?'#3B82F6':'rgba(255,255,255,0.07)';
+  const ps=isP?'rgba(59,130,246,0.4)':'rgba(255,255,255,0.12)';
   const h=w*1.9;
   return `<svg width="${w}" height="${h}" viewBox="0 0 70 133" style="display:block;margin:auto">
     <circle cx="35" cy="10" r="8" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
@@ -578,13 +592,14 @@ function bodyMap(muscles,w=70){
     <rect x="55" y="50" width="5" height="16" rx="2" fill="rgba(255,255,255,0.06)"/>
     <ellipse cx="28" cy="58" rx="7" ry="5" fill="${c('gluteos')}" stroke="${s('gluteos')}" stroke-width="0.8"/>
     <ellipse cx="42" cy="58" rx="7" ry="5" fill="${c('gluteos')}" stroke="${s('gluteos')}" stroke-width="0.8"/>
-    <rect x="22" y="62" width="11" height="28" rx="4" fill="${c('piernas')}" stroke="${s('piernas')}" stroke-width="0.8"/>
-    <rect x="37" y="62" width="11" height="28" rx="4" fill="${c('piernas')}" stroke="${s('piernas')}" stroke-width="0.8"/>
-    <rect x="23" y="92" width="9" height="22" rx="3" fill="rgba(255,255,255,0.06)"/>
-    <rect x="38" y="92" width="9" height="22" rx="3" fill="rgba(255,255,255,0.06)"/>
+    <rect x="22" y="62" width="11" height="14" rx="3" fill="${qc}" stroke="${qs}" stroke-width="0.8"/>
+    <rect x="37" y="62" width="11" height="14" rx="3" fill="${qc}" stroke="${qs}" stroke-width="0.8"/>
+    <rect x="22" y="76" width="11" height="14" rx="3" fill="${fc}" stroke="${fs}" stroke-width="0.8"/>
+    <rect x="37" y="76" width="11" height="14" rx="3" fill="${fc}" stroke="${fs}" stroke-width="0.8"/>
+    <rect x="23" y="92" width="9" height="22" rx="3" fill="${pc}" stroke="${ps}" stroke-width="0.6"/>
+    <rect x="38" y="92" width="9" height="22" rx="3" fill="${pc}" stroke="${ps}" stroke-width="0.6"/>
     <rect x="22" y="114" width="11" height="6" rx="2" fill="rgba(255,255,255,0.05)"/>
     <rect x="37" y="114" width="11" height="6" rx="2" fill="rgba(255,255,255,0.05)"/>
-    ${[...a].filter(m=>m!=='cardio').map((m,i)=>`<text x="35" y="${128+i*0}" text-anchor="middle" font-size="0" fill="transparent">${MUSCLE_LBL[m]||m}</text>`).join('')}
   </svg>`;
 }
 
@@ -922,7 +937,7 @@ function renderSession(){
       </div>`:`
       <div class="card">
         <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px">
-          <div style="flex-shrink:0">${bodyMap([ex.muscle],40)}</div>
+          <div style="flex-shrink:0">${bodyMap([ex.muscle],40,exZone(ex))}</div>
           <div style="flex:1;min-width:0">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
               <div style="font-weight:700;font-size:14px">${ex.icon} ${ex.name}</div>
