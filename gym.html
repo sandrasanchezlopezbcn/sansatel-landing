@@ -928,12 +928,25 @@ function finishSess(){
 function cancelSess(){ curSession=null; saveSess(); document.getElementById('session-badge').style.display='none'; stopTimer(); renderSession(); }
 
 // ─── TIMER ────────────────────────────────────
+function playBeep(){
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    [0,0.25,0.5].forEach(t=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);
+      o.frequency.value=880;o.type='sine';
+      g.gain.setValueAtTime(0.3,ctx.currentTime+t);
+      g.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+t+0.2);
+      o.start(ctx.currentTime+t);o.stop(ctx.currentTime+t+0.2);
+    });
+  }catch(e){}
+}
 function startTimer(sec,name){
   stopTimer(); timerSec=sec;
   document.getElementById('timer-bar').classList.add('visible');
   if(name) document.getElementById('timer-exname').textContent=name;
   updTimer();
-  timerIv=setInterval(()=>{ timerSec--; if(timerSec<=0){stopTimer();alert2('¡A por la siguiente serie! 💪');return;} updTimer(); },1000);
+  timerIv=setInterval(()=>{ timerSec--; if(timerSec<=0){stopTimer();playBeep();alert2('¡A por la siguiente serie! 💪');return;} updTimer(); },1000);
 }
 function updTimer(){
   const el=document.getElementById('timer-count');
