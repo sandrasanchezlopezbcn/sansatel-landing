@@ -444,6 +444,7 @@ const EX = {
     {id:'e12',name:'Pull-over en polea',icon:'🌀',c:0,grip:'Prono (barra recta) o cuerda'},
     {id:'e16',name:'Face pull en polea',icon:'😤',c:0,grip:'Neutro (cuerda — tira de los extremos hacia las orejas)'},
     {id:'e18',name:'Pulldown en polea con cuerda',icon:'🔗',c:0,grip:'Neutro (cuerda — separa al final)'},
+    {id:'e15',name:'Encogimientos de hombros',icon:'🤷',c:0,grip:'Neutro (mancuernas a los lados) — sube los hombros hacia las orejas'},
   ],
   hombros:[
     {id:'h2',name:'Press militar con mancuernas',icon:'🔛',c:1,grip:'Prono (palmas al frente)'},
@@ -468,9 +469,11 @@ const EX = {
     {id:'l4',name:'Hack squat en máquina',icon:'🔩',c:1},
     {id:'l5',name:'Prensa de piernas',icon:'🦶',c:1},
     {id:'l6',name:'Extensión de cuádriceps',icon:'🔁',c:0},
+    {id:'l17',name:'Pantorrillas de pie',icon:'👟',c:0},
+  ],
+  femoral:[
     {id:'l7',name:'Curl femoral tumbado',icon:'🔄',c:0},
     {id:'l9',name:'Curl femoral sentado en máquina',icon:'🪑',c:0},
-    {id:'l17',name:'Pantorrillas de pie',icon:'👟',c:0},
   ],
   gluteos:[
     {id:'g1',name:'Hip thrust con barra',icon:'🍑',c:1,grip:'Barra olímpica sobre caderas (usa almohadilla)'},
@@ -511,33 +514,33 @@ const EX = {
 const PLANS = {
   2:[
     {name:'Tren superior',muscles:['pecho','espalda','hombros','biceps','triceps']},
-    {name:'Tren inferior + Core',muscles:['piernas','gluteos','core','lumbares','cintura']},
+    {name:'Tren inferior + Core',muscles:['piernas','femoral','gluteos','core','lumbares','cintura']},
   ],
   3:[
     {name:'Empuje',muscles:['pecho','hombros','triceps']},
     {name:'Tirón + Lumbares',muscles:['espalda','biceps','lumbares']},
-    {name:'Piernas, Glúteos y Cintura',muscles:['piernas','gluteos','core','cintura']},
+    {name:'Piernas, Glúteos y Cintura',muscles:['piernas','femoral','gluteos','core','cintura']},
   ],
   4:[
     {name:'Pecho y Tríceps',muscles:['pecho','triceps','core']},
     {name:'Espalda, Bíceps y Lumbares',muscles:['espalda','biceps','lumbares']},
-    {name:'Piernas y Glúteos',muscles:['piernas','gluteos']},
+    {name:'Piernas y Glúteos',muscles:['piernas','femoral','gluteos']},
     {name:'Hombros, Cintura y Cardio',muscles:['hombros','core','cintura','cardio']},
   ],
   5:[
     {name:'Piernas + Glúteos (cuádriceps)',muscles:['piernas','gluteos','cardio']},
     {name:'Espalda (forma V) + Bíceps',muscles:['espalda','biceps','lumbares','cardio']},
     {name:'Hombros + Tríceps + Core',muscles:['hombros','triceps','core','cintura','cardio']},
-    {name:'Posterior: Glúteo + Femoral + Lumbar',muscles:['gluteos','piernas','lumbares','cardio']},
+    {name:'Posterior: Glúteo + Femoral + Lumbar',muscles:['gluteos','femoral','lumbares','cardio']},
     {name:'Espalda + Brazos + Cardio',muscles:['espalda','triceps','biceps','cardio']},
   ],
   6:[
     {name:'Empuje',muscles:['pecho','hombros','triceps']},
     {name:'Tirón + Lumbares',muscles:['espalda','biceps','lumbares']},
-    {name:'Piernas y Glúteos',muscles:['piernas','gluteos']},
+    {name:'Piernas y Glúteos',muscles:['piernas','femoral','gluteos']},
     {name:'Empuje (variante)',muscles:['pecho','hombros','triceps']},
     {name:'Tirón (variante)',muscles:['espalda','biceps']},
-    {name:'Piernas + Core y Cintura',muscles:['piernas','gluteos','core','cintura']},
+    {name:'Piernas + Core y Cintura',muscles:['piernas','femoral','gluteos','core','cintura']},
   ],
 };
 
@@ -552,8 +555,8 @@ const BIG = ['pecho','espalda','piernas','gluteos'];
 const COLORS = ['#10B981','#3B82F6','#8B5CF6','#EF4444','#F59E0B','#EC4899','#06B6D4','#84CC16'];
 const GOAL_LBL = {muscle:'💪 Ganar músculo',lose:'🔥 Perder peso',tone:'✨ Recomposición',endurance:'🏃 Resistencia'};
 const LEVEL_LBL = {beginner:'🌱 Principiante',intermediate:'⚡ Intermedio',advanced:'🏆 Avanzado'};
-const MUSCLE_LBL = {pecho:'Pecho',espalda:'Espalda',hombros:'Hombros',biceps:'Bíceps',triceps:'Tríceps',piernas:'Piernas',gluteos:'Glúteos',core:'Core',cardio:'Cardio',lumbares:'Lumbares',cintura:'Cintura'};
-const MUSCLE_ICON = {pecho:'🫁',espalda:'🔙',hombros:'🤷',biceps:'💪',triceps:'🦾',piernas:'🦵',gluteos:'🍑',core:'🎯',cardio:'❤️',lumbares:'🔻',cintura:'↔️'};
+const MUSCLE_LBL = {pecho:'Pecho',espalda:'Espalda',hombros:'Hombros',biceps:'Bíceps',triceps:'Tríceps',piernas:'Piernas (cuádriceps)',femoral:'Femoral',gluteos:'Glúteos',core:'Core',cardio:'Cardio',lumbares:'Lumbares',cintura:'Cintura'};
+const MUSCLE_ICON = {pecho:'🫁',espalda:'🔙',hombros:'🤷',biceps:'💪',triceps:'🦾',piernas:'🦵',femoral:'🔄',gluteos:'🍑',core:'🎯',cardio:'❤️',lumbares:'🔻',cintura:'↔️'};
 const QUAD_IDS=new Set(['l4','l5','l6']);
 const FEM_IDS=new Set(['l7','l9']);
 const PANT_IDS=new Set(['l17']);
@@ -564,8 +567,9 @@ function bodyMap(muscles,w=70,zone=''){
   const c=m=>a.has(m)?on:off;
   const s=m=>a.has(m)?onS:offS;
   const glow=m=>a.has(m)?`filter:drop-shadow(0 0 3px ${on})`:'';
-  const allLeg=a.has('piernas')&&!zone;
-  const isQ=allLeg||zone==='quad', isF=allLeg||zone==='fem', isP=allLeg||zone==='pant';
+  const isQ=zone==='quad'||(a.has('piernas')&&!zone);
+  const isF=zone==='fem'||a.has('femoral');
+  const isP=zone==='pant'||(a.has('piernas')&&!zone);
   const qc=isQ?'#34D399':off, qs=isQ?'rgba(52,211,153,0.7)':offS;
   const fc=isF?'#FBBF24':off, fs=isF?'rgba(251,191,36,0.7)':offS;
   const pc=isP?'#60A5FA':off, ps=isP?'rgba(96,165,250,0.7)':offS;
@@ -656,7 +660,15 @@ function getFixedRoutine(p,day,dayIdx){
   let meso=getMeso(p.id);
   if(!meso) meso={created:new Date().toISOString(),routines:{}};
   if(!meso.routines[dayIdx]){
-    meso.routines[dayIdx]=genRoutine(p,day);
+    const usedByMuscle={};
+    Object.values(meso.routines).forEach(routine=>{
+      routine.forEach(ex=>{
+        if(ex.isCardio)return;
+        if(!usedByMuscle[ex.muscle]) usedByMuscle[ex.muscle]=new Set();
+        usedByMuscle[ex.muscle].add(ex.id);
+      });
+    });
+    meso.routines[dayIdx]=genRoutine(p,day,usedByMuscle);
     setMeso(p.id,meso);
   }
   return meso.routines[dayIdx];
@@ -785,11 +797,13 @@ function estimateMin(exs){
   });
   return Math.round(m);
 }
-function genRoutine(p, day) {
+function genRoutine(p, day, usedByMuscle) {
   const par=GOAL_PARAMS[p.goal]||GOAL_PARAMS.muscle;
   const focus=p.focus||[];
   const exs=[];
   const MAIN=['piernas','gluteos','espalda','pecho'];
+  const BIG_ISO=['piernas','gluteos','espalda','pecho','biceps','femoral'];
+  usedByMuscle=usedByMuscle||{};
   day.muscles.forEach(m=>{
     if(m==='cardio'){
       const cv2=EX.cardio.find(e=>e.id==='cv2')||EX.cardio[0];
@@ -800,15 +814,21 @@ function genRoutine(p, day) {
     if(!pool.length)return;
     const isFocusMuscle=focus.includes(m)||day.isFocus;
     const n=isFocusMuscle?4:MAIN.includes(m)?3:2;
+    const used=usedByMuscle[m]||new Set();
     const picked=[];
     const comp=pool.filter(e=>e.c);
     const isol=pool.filter(e=>!e.c);
-    if(comp.length){ const i=Math.floor(Math.random()*Math.min(2,comp.length)); picked.push(comp[i]); }
-    const iso2=[...isol];
+    // Prefer exercises not already used in another day of this mesocycle to avoid repeats across days
+    const compFresh=comp.filter(e=>!used.has(e.id));
+    const compChoices=compFresh.length?compFresh:comp;
+    if(compChoices.length){ const i=Math.floor(Math.random()*Math.min(2,compChoices.length)); picked.push(compChoices[i]); }
+    const isolFresh=isol.filter(e=>!used.has(e.id));
+    const isolChoices=isolFresh.length>=(n-picked.length)?isolFresh:isol;
+    const iso2=[...isolChoices];
     while(picked.length<n&&iso2.length){ const i=Math.floor(Math.random()*iso2.length); picked.push(iso2.splice(i,1)[0]); }
     picked.forEach(ex=>{
       const isMain=ex.c&&MAIN.includes(m);
-      const nSets=isMain?4:ex.c?3:MAIN.includes(m)?3:2;
+      const nSets=isMain?4:ex.c?3:BIG_ISO.includes(m)?3:2;
       const rMin=ex.c?8:12, rMax=ex.c?12:15;
       exs.push({
         id:ex.id,name:ex.name,icon:ex.icon,muscle:m,
@@ -1368,6 +1388,7 @@ const EX_TIPS = {
   biceps:'Codos pegados al cuerpo durante todo el movimiento. Sube apretando el bíceps y baja muy despacio (cuenta 3 segundos). El control en la bajada es igual de importante.',
   triceps:'Mantén los codos completamente fijos y solo mueve el antebrazo. Extiende completamente el codo al final. El rango completo es clave para el crecimiento.',
   piernas:'Espalda recta y core apretado durante todo el movimiento. Rodillas alineadas con los pies (no hacia dentro). Baja hasta que los muslos estén paralelos al suelo o más abajo.',
+  femoral:'Controla la bajada (excéntrica) tanto como la subida — ahí está gran parte del estímulo. Evita arquear la zona lumbar al final del recorrido. No bloquees la rodilla con fuerza al extender.',
   gluteos:'Empuja con los talones, no con los dedos. Aprieta el glúteo en la contracción máxima y aguanta 1-2 segundos antes de bajar. Esto duplica la activación muscular.',
   core:'Exhala en el esfuerzo para activar mejor el core. Evita tirar del cuello en los crunchs. Mantén la zona lumbar pegada al suelo en los ejercicios tumbados.',
   cardio:'Para quema de grasa: frecuencia cardíaca entre 60-75% del máximo (220 - tu edad). Para HIIT: alterna 30s al máximo con 30-60s de recuperación activa.',
@@ -1395,6 +1416,8 @@ function bodyDiagram(muscles){
   const f=m=>has(m)?hi:bg, s=m=>has(m)?hiS:brd, w=m=>has(m)?'2':'1.2';
   const arm=has('biceps')?hi:has('triceps')?'rgba(239,68,68,0.5)':bg;
   const armS=(has('biceps')||has('triceps'))?hiS:brd, armW=(has('biceps')||has('triceps'))?'2':'1.2';
+  const leg=has('piernas')||has('femoral')?hi:bg;
+  const legS=(has('piernas')||has('femoral'))?hiS:brd, legW=(has('piernas')||has('femoral'))?'2':'1.2';
   return `<svg viewBox="0 0 100 190" width="90" height="171" xmlns="http://www.w3.org/2000/svg">
   <circle cx="50" cy="13" r="10" fill="${bg}" stroke="${brd}" stroke-width="1.5"/>
   <rect x="46" y="22" width="8" height="8" rx="2" fill="${bg}" stroke="${brd}" stroke-width="1.2"/>
@@ -1408,8 +1431,8 @@ function bodyDiagram(muscles){
   <rect x="12" y="69" width="11" height="24" rx="5" fill="${bg}" stroke="${brd}" stroke-width="1.2"/>
   <rect x="77" y="69" width="11" height="24" rx="5" fill="${bg}" stroke="${brd}" stroke-width="1.2"/>
   <rect x="29" y="74" width="42" height="18" rx="7" fill="${f('gluteos')}" stroke="${s('gluteos')}" stroke-width="${w('gluteos')}"/>
-  <rect x="29" y="90" width="18" height="47" rx="9" fill="${f('piernas')}" stroke="${s('piernas')}" stroke-width="${w('piernas')}"/>
-  <rect x="53" y="90" width="18" height="47" rx="9" fill="${f('piernas')}" stroke="${s('piernas')}" stroke-width="${w('piernas')}"/>
+  <rect x="29" y="90" width="18" height="47" rx="9" fill="${leg}" stroke="${legS}" stroke-width="${legW}"/>
+  <rect x="53" y="90" width="18" height="47" rx="9" fill="${leg}" stroke="${legS}" stroke-width="${legW}"/>
   <rect x="30" y="139" width="15" height="32" rx="7" fill="${bg}" stroke="${brd}" stroke-width="1.2"/>
   <rect x="55" y="139" width="15" height="32" rx="7" fill="${bg}" stroke="${brd}" stroke-width="1.2"/>
   ${has('lumbares')?`<rect x="33" y="66" width="34" height="12" rx="4" fill="rgba(239,68,68,0.6)" stroke="#ef4444" stroke-width="2" stroke-dasharray="3,2"/>`:''}
@@ -1425,6 +1448,7 @@ function renderEjercicios(){
     {k:'pecho',i:'💪',l:'Pecho'},{k:'espalda',i:'🦾',l:'Espalda'},
     {k:'hombros',i:'✈️',l:'Hombros'},{k:'biceps',i:'💪',l:'Bíceps'},
     {k:'triceps',i:'⬇️',l:'Tríceps'},{k:'piernas',i:'🦵',l:'Piernas'},
+    {k:'femoral',i:'🔄',l:'Femoral'},
     {k:'gluteos',i:'🍑',l:'Glúteos'},{k:'core',i:'🎯',l:'Core'},{k:'cardio',i:'🏃',l:'Cardio'},
     {k:'lumbares',i:'🦸',l:'Lumbares'},{k:'cintura',i:'📐',l:'Cintura'},
   ];
