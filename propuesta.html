@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta comercial — SanSatel</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A1628;
+    --blue: #1D4ED8;
+    --amber: #D97706;
+    --gray: #4B5563;
+    --gray-light: #F3F4F6;
+    --border: #D1D5DB;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #E5E7EB;
+    color: var(--navy);
+    padding: 30px 0 80px;
+  }
+
+  /* ── BARRA DE INSTRUCCIONES (no se imprime) ── */
+  .toolbar {
+    max-width: 900px;
+    margin: 0 auto 24px;
+    background: var(--navy);
+    color: #fff;
+    border-radius: 12px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 14px;
+  }
+  .toolbar p { line-height: 1.5; }
+  .toolbar strong { color: var(--amber); }
+  .toolbar button {
+    background: var(--amber);
+    color: var(--navy);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .toolbar button:hover { background: #F59E0B; }
+
+  /* ── HOJA DE PROPUESTA ── */
+  .sheet {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    padding: 50px 55px;
+  }
+
+  [contenteditable="true"] {
+    outline: none;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  [contenteditable="true"]:hover {
+    background: rgba(29,78,216,0.06);
+  }
+  [contenteditable="true"]:focus {
+    background: rgba(29,78,216,0.1);
+    box-shadow: 0 0 0 2px var(--blue);
+  }
+
+  /* Header */
+  .doc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 24px;
+    border-bottom: 3px solid var(--navy);
+    margin-bottom: 28px;
+  }
+  .doc-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .doc-logo img {
+    height: 46px;
+    width: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .doc-logo-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--navy);
+  }
+  .doc-logo-text span { color: var(--blue); }
+
+  .doc-partner {
+    text-align: right;
+  }
+  .doc-partner-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray);
+    margin-bottom: 4px;
+  }
+  .doc-partner-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--navy);
+    padding: 4px 10px;
+  }
+
+  /* Título propuesta */
+  .doc-title-block {
+    margin-bottom: 32px;
+  }
+  .doc-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    padding: 4px 8px;
+    display: inline-block;
+  }
+  .doc-meta {
+    display: flex;
+    gap: 24px;
+    font-size: 13px;
+    color: var(--gray);
+    flex-wrap: wrap;
+  }
+  .doc-meta-item { display: flex; gap: 6px; }
+  .doc-meta-label { font-weight: 600; color: var(--navy); }
+
+  /* Cuerpo en dos columnas */
+  .doc-body {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 40px;
+  }
+
+  .block { margin-bottom: 28px; }
+
+  .block-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #fff;
+    background: var(--navy);
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  .block ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .block > ul > li {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    padding: 2px 4px;
+  }
+  .block ul ul {
+    padding-left: 18px;
+    margin-top: 4px;
+  }
+  .block ul ul li {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--gray);
+    margin-bottom: 4px;
+    position: relative;
+    padding: 2px 4px 2px 12px;
+  }
+  .block ul ul li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--amber);
+  }
+
+  /* Caja de precio */
+  .price-box {
+    background: var(--gray-light);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 22px;
+    margin-top: 8px;
+  }
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .price-row:last-child { border-bottom: none; }
+  .price-label {
+    font-size: 13px;
+    color: var(--gray);
+    padding: 2px 4px;
+  }
+  .price-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 2px 4px;
+  }
+  .price-row.total .price-label,
+  .price-row.total .price-value {
+    font-size: 20px;
+    color: var(--navy);
+  }
+  .price-row.total .price-value { color: var(--blue); }
+
+  /* Nota de validez */
+  .doc-footer-note {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--gray);
+    padding: 20px 4px 0;
+  }
+
+  .add-block-btn, .remove-block-btn {
+    display: inline-block;
+    font-size: 12px;
+    color: var(--blue);
+    background: none;
+    border: 1px dashed var(--blue);
+    border-radius: 6px;
+    padding: 4px 10px;
+    cursor: pointer;
+    margin-top: 4px;
+    margin-bottom: 20px;
+  }
+  .remove-block-btn { color: #B91C1C; border-color: #B91C1C; margin-left: 6px; }
+
+  /* ── IMPRESIÓN ── */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .toolbar, .add-block-btn, .remove-block-btn { display: none !important; }
+    .sheet { box-shadow: none; padding: 20px 10px; max-width: 100%; }
+    [contenteditable="true"]:hover,
+    [contenteditable="true"]:focus {
+      background: none;
+      box-shadow: none;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .sheet { padding: 30px 20px; }
+    .doc-body { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar no-print">
+  <p>📝 Haz clic en cualquier texto para <strong>editarlo directamente</strong>. Cuando esté lista, pulsa el botón o <strong>Ctrl+P / Cmd+P</strong> y elige "Guardar como PDF" para enviarla al cliente.</p>
+  <button onclick="window.print()">🖨️ Exportar a PDF</button>
+</div>
+
+<div class="sheet" id="sheet">
+
+  <!-- CABECERA -->
+  <div class="doc-header">
+    <div class="doc-logo">
+      <img src="assets/logo-sansatel.svg" alt="SanSatel">
+      <div class="doc-logo-text">SanSatel <span>Energy</span></div>
+    </div>
+    <div class="doc-partner">
+      <div class="doc-partner-label">En colaboración con</div>
+      <div class="doc-partner-name" contenteditable="true">[Nombre operador / partner]</div>
+    </div>
+  </div>
+
+  <!-- TÍTULO Y DATOS -->
+  <div class="doc-title-block">
+    <div class="doc-title" contenteditable="true">Propuesta para [Nombre de la empresa]</div>
+    <div class="doc-meta">
+      <div class="doc-meta-item"><span class="doc-meta-label">Fecha:</span><span contenteditable="true">[dd/mm/aaaa]</span></div>
+      <div class="doc-meta-item"><span class="doc-meta-label">Preparado por:</span><span contenteditable="true">Sandra Sánchez</span></div>
+      <div class="doc-meta-item"><span class="doc-meta-label">Válida hasta:</span><span contenteditable="true">[dd/mm/aaaa]</span></div>
+    </div>
+  </div>
+
+  <!-- CUERPO -->
+  <div class="doc-body">
+
+    <!-- COLUMNA IZQUIERDA: bloques de servicio -->
+    <div class="col-left" id="colLeft">
+
+      <div class="block">
+        <div class="block-title" contenteditable="true">Telefonía fija</div>
+        <ul>
+          <li contenteditable="true">Centralita virtual con operadora automática
+            <ul>
+              <li contenteditable="true">[Minutos] para llamadas nacionales/internacionales</li>
+              <li contenteditable="true">[Roaming, SMS, MB según zona]</li>
+            </ul>
+          </li>
+          <li contenteditable="true">[Nº] puestos fijos con llamadas ilimitadas
+            <ul>
+              <li contenteditable="true">Llamadas ilimitadas a fijos y móviles nacionales</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="block-title" contenteditable="true">Conectividad</div>
+        <ul>
+          <li contenteditable="true">[Nº] línea(s) de fibra de [velocidad] GB</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="block-title" contenteditable="true">Telefonía móvil</div>
+        <ul>
+          <li contenteditable="true">[Nº] líneas móviles
+            <ul>
+              <li contenteditable="true">Llamadas ilimitadas nacionales + roaming zona [1]</li>
+              <li contenteditable="true">Datos ilimitados / [GB] a nivel nacional</li>
+              <li contenteditable="true">[Minutos] internacionales zona [1]</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <button class="add-block-btn no-print" onclick="addBlock('colLeft')">+ Añadir otro bloque (ej. Ciberseguridad, IA, Energía)</button>
+    </div>
+
+    <!-- COLUMNA DERECHA: terminales, descuentos, precio -->
+    <div class="col-right" id="colRight">
+
+      <div class="block">
+        <div class="block-title" contenteditable="true">Terminales</div>
+        <ul>
+          <li contenteditable="true">[Nº] x [Modelo de terminal]
+            <ul>
+              <li contenteditable="true">Pago único de [importe]€, o [nº] cuotas de [importe]€/mes</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="block-title" contenteditable="true">Descuentos</div>
+        <ul>
+          <li contenteditable="true">[X]% de descuento durante la vigencia del contrato</li>
+          <li contenteditable="true">[X]% adicional durante los primeros [nº] meses</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="block-title" contenteditable="true">Duración del contrato</div>
+        <ul>
+          <li contenteditable="true">[Nº] meses</li>
+        </ul>
+      </div>
+
+      <div class="price-box">
+        <div class="price-row">
+          <span class="price-label">Precio primeros meses</span>
+          <span class="price-value" contenteditable="true">[importe]€ + IVA</span>
+        </div>
+        <div class="price-row">
+          <span class="price-label">Cuota media contrato</span>
+          <span class="price-value" contenteditable="true">[importe]€ + IVA</span>
+        </div>
+        <div class="price-row total">
+          <span class="price-label" contenteditable="true">Total / mes</span>
+          <span class="price-value" contenteditable="true">[importe]€ + IVA</span>
+        </div>
+      </div>
+
+      <button class="add-block-btn no-print" onclick="addBlock('colRight')">+ Añadir bloque</button>
+    </div>
+
+  </div>
+
+  <!-- NOTA FINAL -->
+  <div class="doc-footer-note" contenteditable="true">
+    Propuesta sujeta a estudio y aprobación del operador. Sandra Sánchez · SanSatel Energy · contacto@sansatel.com · 660 619 034
+  </div>
+
+</div>
+
+<script>
+  function addBlock(colId) {
+    const col = document.getElementById(colId);
+    const btn = col.querySelector('.add-block-btn');
+    const block = document.createElement('div');
+    block.className = 'block';
+    block.innerHTML = `
+      <div class="block-title" contenteditable="true">Nuevo bloque</div>
+      <ul>
+        <li contenteditable="true">Escribe aquí el detalle
+          <ul>
+            <li contenteditable="true">Añade las condiciones o características</li>
+          </ul>
+        </li>
+      </ul>
+      <button class="remove-block-btn no-print" onclick="this.parentElement.remove()">✕ Quitar este bloque</button>
+    `;
+    col.insertBefore(block, btn);
+  }
+</script>
+
+</body>
+</html>
