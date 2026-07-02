@@ -1,4 +1,4 @@
-const CACHE = 'gymtrack-v9';
+const CACHE = 'gymtrack-v10';
 const ASSETS = ['/gym.html', '/manifest.json', '/apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
@@ -11,6 +11,14 @@ self.addEventListener('activate', e => {
     Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
   ));
   self.clients.claim();
+});
+
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  e.waitUntil(clients.matchAll({type:'window',includeUncontrolled:true}).then(list => {
+    const open = list.find(c => c.url.includes('gym.html') && 'focus' in c);
+    return open ? open.focus() : clients.openWindow('/gym.html');
+  }));
 });
 
 self.addEventListener('fetch', e => {

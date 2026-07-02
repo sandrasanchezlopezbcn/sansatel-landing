@@ -653,7 +653,16 @@ function bodyMap(muscles,w=70,zone=''){
 let profiles = JSON.parse(localStorage.getItem('gt2_profiles')||'[]');
 let curId = localStorage.getItem('gt2_cur')||null;
 let curSession = JSON.parse(localStorage.getItem('gt2_session')||'null');
-let timerIv = null, timerSec = 0, timerEnd = 0;
+let timerIv = null, timerSec = 0, timerEnd = 0, timerExName = '';
+function requestNotifPermission(){
+  if('Notification' in window && Notification.permission==='default') Notification.requestPermission();
+}
+function showTimerNotif(){
+  if(!('Notification' in window)||Notification.permission!=='granted') return;
+  const opts={body:`Serie de ${timerExName} — ¡ya puedes empezar! 💪`,icon:'/apple-touch-icon.png',tag:'rest-timer',renotify:true,vibrate:[200,100,200]};
+  if('serviceWorker' in navigator) navigator.serviceWorker.ready.then(r=>r.showNotification('⏱ Descanso terminado',opts)).catch(()=>new Notification('⏱ Descanso terminado',opts));
+  else new Notification('⏱ Descanso terminado',opts);
+}
 let wiz = {name:'',color:COLORS[0],goal:'muscle',level:'intermediate',days:4,focus:[]};
 let todayEx = null, todayDay = null, todayIdx = parseInt(localStorage.getItem('gt2_dayIdx')||'0');
 function getMeso(pid){ return JSON.parse(localStorage.getItem('gt2_meso_'+pid)||'null'); }
@@ -962,6 +971,7 @@ function pickDay(i){
 }
 function startToday(){
   const p=curP();
+  requestNotifPermission();
   curSession={id:Date.now(),profileId:p.id,name:todayDay.name,planIndex:todayIdx,date:new Date().toISOString(),startTime:Date.now(),exercises:todayEx};
   todayEx=null; saveSess();
   document.getElementById('session-badge').style.display='flex';
@@ -1082,7 +1092,7 @@ function playBeep(){
   }catch(e){}
 }
 function startTimer(sec,name){
-  stopTimer(); timerEnd=Date.now()+sec*1000;
+  stopTimer(); timerEnd=Date.now()+sec*1000; timerExName=name||'ejercicio';
   document.getElementById('timer-bar').classList.add('visible');
   if(name) document.getElementById('timer-exname').textContent=name;
   tickTimer();
@@ -1090,7 +1100,12 @@ function startTimer(sec,name){
 }
 function tickTimer(){
   timerSec=Math.ceil((timerEnd-Date.now())/1000);
-  if(timerSec<=0){stopTimer();playBeep();alert2('¡A por la siguiente serie! 💪');return;}
+  if(timerSec<=0){
+    stopTimer(); playBeep();
+    if(document.hidden) showTimerNotif();
+    else alert2('¡A por la siguiente serie! 💪');
+    return;
+  }
   updTimer();
 }
 function updTimer(){
