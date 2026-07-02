@@ -824,7 +824,7 @@ function genRoutine(p, day, usedByMuscle) {
     // Prefer exercises not already used in another day of this mesocycle to avoid repeats across days
     const compFresh=comp.filter(e=>!used.has(e.id));
     const compChoices=compFresh.length?compFresh:comp;
-    if(compChoices.length){ const i=Math.floor(Math.random()*Math.min(2,compChoices.length)); picked.push(compChoices[i]); }
+    if(compChoices.length){ const i=Math.floor(Math.random()*compChoices.length); picked.push(compChoices[i]); }
     const isolFresh=isol.filter(e=>!used.has(e.id));
     const isolChoices=isolFresh.length>=(n-picked.length)?isolFresh:isol;
     const iso2=[...isolChoices];
@@ -842,7 +842,7 @@ function genRoutine(p, day, usedByMuscle) {
     });
   });
   const cardio=exs.filter(e=>e.isCardio);
-  const nonCardio=exs.filter(e=>!e.isCardio).slice(0,7);
+  const nonCardio=exs.filter(e=>!e.isCardio).slice(0,8);
   return [...nonCardio,...cardio];
 }
 function getNextDay(p) {
@@ -1417,7 +1417,6 @@ const EX_DESC = {
   e2:['Siéntate en la máquina con las rodillas bajo los apoyos y coge la barra con las manos más anchas que los hombros, palmas al frente.','Inclina el torso ligeramente hacia atrás (10-15°) y saca pecho.','Tira de la barra hacia el pecho superior llevando los codos hacia las caderas — imagina que quieres meter los codos en los bolsillos.','Aguanta 1 segundo apretando la espalda y sube de forma controlada en 3 segundos.'],
   e11:['Ajusta el asiento para que el pecho quede bien apoyado en el almohadillado.','Coge las asas y tira hacia atrás juntando los omóplatos como si intentaras sujetar un lápiz entre ellos.','Mantén el cuello neutro — no tires con el cuello ni con los hombros.','Vuelve a la posición inicial dejando que los brazos se estiren completamente.'],
   e12:['De pie de espaldas a la polea alta. Coge la barra o cuerda con ambas manos, brazos casi rectos.','Mantén los codos ligeramente doblados y fijos durante todo el movimiento.','Baja los brazos en arco hacia los muslos empujando hacia abajo — el movimiento es de hombros, no de codos.','Vuelve arriba de forma controlada en 3 segundos sintiendo el estiramiento del dorsal.'],
-  e16:['Ajusta la polea a la altura de la cara y da un paso atrás para crear tensión.','Coge la cuerda con ambas manos, palmas hacia dentro, codos a la altura de los hombros.','Tira hacia tu cara separando los extremos de la cuerda hacia las orejas — los codos van bien arriba y abiertos.','Aguanta 1 segundo al final apretando los hombros traseros y vuelve muy despacio.'],
   e18:['De pie frente a la polea alta. Coge la cuerda con ambas manos, codos junto al cuerpo.','Mantén los codos completamente fijos pegados a los costados durante todo el movimiento.','Empuja hacia abajo estirando los codos y al final separa los extremos de la cuerda hacia los muslos.','Vuelve despacio — la fase de subida es igual de importante que la bajada.'],
   e15:['De pie con una mancuerna en cada mano a los lados, brazos rectos.','Sube los hombros directamente hacia las orejas — no los gires hacia delante ni hacia atrás.','Aguanta 1-2 segundos en la parte alta apretando la tensión.','Baja muy despacio en 3 segundos. El trapecio trabaja mucho más en la bajada controlada.'],
   // Hombros
@@ -1461,7 +1460,6 @@ const EX_DESC = {
   c13:['Túmbate boca arriba con los brazos hacia el techo y las caderas y rodillas a 90°.','Baja simultáneamente el brazo derecho hacia el suelo por encima de la cabeza y la pierna izquierda hasta casi tocar el suelo.','La zona lumbar NO se debe despegar del suelo en ningún momento — si lo hace, acorta el recorrido.','Vuelve al centro y alterna con el brazo izquierdo y pierna derecha. Es un ejercicio lento y controlado.'],
   c16:['De pie junto a la polea a la altura del pecho. Coge el asa con ambas manos frente al pecho, de lado a la máquina.','Empuja el asa hacia adelante estirando los brazos completamente. La polea intenta girarte hacia ella — tú resistes.','Aguanta 2 segundos con los brazos extendidos. Core activo, sin girar el torso ni las caderas.','Vuelve al pecho. Este ejercicio fortalece la capacidad del core de resistir la rotación, que protege la espalda.'],
   // Lumbares
-  lu4:['Colócate en el banco de hiperextensión con las caderas al filo del apoyo. Los muslos apoyados, los pies en la plataforma.','Baja el torso hacia el suelo de forma controlada.','Sube hasta que el cuerpo quede en línea recta — no más. Hiperextender (seguir subiendo) fuerza la zona lumbar.','Aprieta los glúteos y los lumbares al llegar arriba. Puedes cruzar los brazos en el pecho o sujetar peso para progresar.'],
   lu2:['A cuatro patas con las manos bajo los hombros y las rodillas bajo las caderas. Espalda plana como una mesa.','Extiende el brazo derecho hacia adelante y la pierna izquierda hacia atrás al mismo tiempo.','Aguanta 2-3 segundos. La cadera no debe rotar ni subir — si sube, es que vas demasiado alto.','Vuelve al centro con control y alterna. Es un ejercicio de estabilización, no de fuerza explosiva.'],
   lu9:['Ajusta el asiento y los apoyos de la máquina. La almohadilla queda a la altura de los omóplatos o la zona lumbar.','Inclínate hacia adelante de forma controlada.','Empuja hacia atrás hasta que el cuerpo quede recto — no hiperextiendas.','Aguanta 1 segundo en la posición recta y vuelve despacio al inicio.'],
   lu10:['Túmbate boca abajo en el suelo con los brazos extendidos por encima de la cabeza y las piernas rectas.','Levanta simultáneamente los brazos, el pecho y las piernas del suelo contrayendo los lumbares y los glúteos.','Aguanta 2-3 segundos en el punto más alto sin aguantar la respiración.','Baja despacio. Es el ejercicio más sencillo para activar los lumbares sin ningún material.'],
@@ -1658,7 +1656,7 @@ function _exProgTab(ex){
 }
 
 // ─── ALERT ────────────────────────────────────
-function alert2(msg,type){ const el=document.getElementById('alert'); el.textContent=msg; el.className='alert show'+(type===' amber'?' amber':''); setTimeout(()=>el.classList.remove('show'),2500); }
+function alert2(msg,type){ const el=document.getElementById('alert'); el.textContent=msg; el.className='alert show'+(type==='amber'?' amber':''); setTimeout(()=>el.classList.remove('show'),2500); }
 
 if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
 init();
