@@ -448,7 +448,6 @@ const EX = {
   ],
   hombros:[
     {id:'h2',name:'Press militar con mancuernas',icon:'🔛',c:1,grip:'Prono (palmas al frente)'},
-    {id:'h3',name:'Press en máquina hombros',icon:'🤖',c:1,grip:'Prono (asas de la máquina)'},
     {id:'h4',name:'Elevaciones laterales',icon:'✈️',c:0,grip:'Neutro (mancuernas, pulgar ligeramente abajo)'},
     {id:'h12',name:'Face pull en polea',icon:'😤',c:0,grip:'Neutro (cuerda — tira hacia las orejas, codos arriba)'},
     {id:'h11',name:'Rotación externa en polea',icon:'🔄',c:0,grip:'Neutro (asa) — codo a 90°'},
@@ -468,12 +467,17 @@ const EX = {
   piernas:[
     {id:'l4',name:'Hack squat en máquina',icon:'🔩',c:1},
     {id:'l5',name:'Prensa de piernas',icon:'🦶',c:1},
+    {id:'l10',name:'Sentadilla goblet con mancuerna',icon:'🏋️',c:1},
+    {id:'l11',name:'Zancada con mancuernas',icon:'🚶',c:1},
     {id:'l6',name:'Extensión de cuádriceps',icon:'🔁',c:0},
     {id:'l17',name:'Pantorrillas de pie',icon:'👟',c:0},
+    {id:'l18',name:'Pantorrillas sentado en máquina',icon:'🪑',c:0},
   ],
   femoral:[
+    {id:'l19',name:'Peso muerto rumano',icon:'🏋️',c:1,grip:'Barra o mancuernas — rodillas ligeramente dobladas, bisagra de cadera'},
     {id:'l7',name:'Curl femoral tumbado',icon:'🔄',c:0},
     {id:'l9',name:'Curl femoral sentado en máquina',icon:'🪑',c:0},
+    {id:'l20',name:'Peso muerto a una pierna con mancuerna',icon:'🦩',c:0,grip:'Neutro — unilateral, rodilla ligeramente doblada'},
   ],
   gluteos:[
     {id:'g1',name:'Hip thrust con barra',icon:'🍑',c:1,grip:'Barra olímpica sobre caderas (usa almohadilla)'},
@@ -497,14 +501,12 @@ const EX = {
     {id:'cv5',name:'Bicicleta estática ritmo suave',icon:'🚴',c:0},
   ],
   lumbares:[
-    {id:'lu6',name:'Peso muerto rumano',icon:'🇷🇴',c:1,grip:'Prono (barra) o neutro (mancuernas)'},
     {id:'lu4',name:'Hiperextensión a 45°',icon:'📐',c:0},
     {id:'lu2',name:'Bird dog',icon:'🐦',c:0},
     {id:'lu9',name:'Extensión lumbar en máquina',icon:'🤖',c:0},
   ],
   cintura:[
     {id:'ci5',name:'Wood chop en polea',icon:'🪵',c:0,grip:'Neutro (asa) — rotación diagonal'},
-    {id:'ci8',name:'Pallof press',icon:'🛡️',c:0,grip:'Neutro (asa) — antirotación lateral'},
     {id:'ci2',name:'Russian twist',icon:'🔄',c:0},
     {id:'ci3',name:'Crunch oblicuo',icon:'↗️',c:0},
   ],
@@ -513,34 +515,34 @@ const EX = {
 // ─── PLANES SEMANALES ─────────────────────────
 const PLANS = {
   2:[
-    {name:'Tren superior',muscles:['pecho','espalda','hombros','biceps','triceps']},
-    {name:'Tren inferior + Core',muscles:['piernas','femoral','gluteos','core','lumbares','cintura']},
+    {name:'Tren superior',muscles:['espalda','hombros','biceps','triceps']},
+    {name:'Tren inferior + Core',muscles:['piernas','femoral','gluteos','core','lumbares']},
   ],
   3:[
     {name:'Empuje',muscles:['pecho','hombros','triceps']},
     {name:'Tirón + Lumbares',muscles:['espalda','biceps','lumbares']},
-    {name:'Piernas, Glúteos y Cintura',muscles:['piernas','femoral','gluteos','core','cintura']},
+    {name:'Piernas, Femoral y Glúteos',muscles:['piernas','femoral','gluteos']},
   ],
   4:[
-    {name:'Pecho y Tríceps',muscles:['pecho','triceps','core']},
-    {name:'Espalda, Bíceps y Lumbares',muscles:['espalda','biceps','lumbares']},
-    {name:'Piernas y Glúteos',muscles:['piernas','femoral','gluteos']},
-    {name:'Hombros, Cintura y Cardio',muscles:['hombros','core','cintura','cardio']},
+    {name:'Piernas + Glúteos (A)',muscles:['piernas','gluteos']},
+    {name:'Espalda + Bíceps + Lumbares',muscles:['espalda','biceps','lumbares']},
+    {name:'Femoral + Glúteos (B)',muscles:['femoral','gluteos']},
+    {name:'Hombros + Tríceps + Core',muscles:['hombros','triceps','core']},
   ],
   5:[
-    {name:'Piernas + Glúteos (cuádriceps)',muscles:['piernas','gluteos','cardio']},
-    {name:'Espalda (forma V) + Bíceps',muscles:['espalda','biceps','lumbares','cardio']},
-    {name:'Hombros + Tríceps + Core',muscles:['hombros','triceps','core','cintura','cardio']},
-    {name:'Posterior: Glúteo + Femoral + Lumbar',muscles:['gluteos','femoral','lumbares','cardio']},
-    {name:'Espalda + Brazos + Cardio',muscles:['espalda','triceps','biceps','cardio']},
+    {name:'Piernas (cuádriceps) + Glúteos',muscles:['piernas','gluteos','cardio']},
+    {name:'Espalda + Bíceps + Lumbares',muscles:['espalda','biceps','lumbares','cardio']},
+    {name:'Hombros + Tríceps + Core',muscles:['hombros','triceps','core','cardio']},
+    {name:'Femoral + Glúteos',muscles:['femoral','gluteos','cardio']},
+    {name:'Brazos + Core + Cintura',muscles:['biceps','triceps','core','cintura','cardio']},
   ],
   6:[
-    {name:'Empuje',muscles:['pecho','hombros','triceps']},
-    {name:'Tirón + Lumbares',muscles:['espalda','biceps','lumbares']},
-    {name:'Piernas y Glúteos',muscles:['piernas','femoral','gluteos']},
-    {name:'Empuje (variante)',muscles:['pecho','hombros','triceps']},
-    {name:'Tirón (variante)',muscles:['espalda','biceps']},
-    {name:'Piernas + Core y Cintura',muscles:['piernas','femoral','gluteos','core','cintura']},
+    {name:'Piernas (cuádriceps)',muscles:['piernas','cardio']},
+    {name:'Espalda + Bíceps',muscles:['espalda','biceps','lumbares','cardio']},
+    {name:'Hombros + Tríceps + Core',muscles:['hombros','triceps','core','cardio']},
+    {name:'Femoral + Glúteos',muscles:['femoral','gluteos','cardio']},
+    {name:'Pecho + Brazos',muscles:['pecho','biceps','triceps','cardio']},
+    {name:'Glúteos + Core + Cintura',muscles:['gluteos','core','cintura','cardio']},
   ],
 };
 
@@ -557,9 +559,9 @@ const GOAL_LBL = {muscle:'💪 Ganar músculo',lose:'🔥 Perder peso',tone:'✨
 const LEVEL_LBL = {beginner:'🌱 Principiante',intermediate:'⚡ Intermedio',advanced:'🏆 Avanzado'};
 const MUSCLE_LBL = {pecho:'Pecho',espalda:'Espalda',hombros:'Hombros',biceps:'Bíceps',triceps:'Tríceps',piernas:'Piernas (cuádriceps)',femoral:'Femoral',gluteos:'Glúteos',core:'Core',cardio:'Cardio',lumbares:'Lumbares',cintura:'Cintura'};
 const MUSCLE_ICON = {pecho:'🫁',espalda:'🔙',hombros:'🤷',biceps:'💪',triceps:'🦾',piernas:'🦵',femoral:'🔄',gluteos:'🍑',core:'🎯',cardio:'❤️',lumbares:'🔻',cintura:'↔️'};
-const QUAD_IDS=new Set(['l4','l5','l6']);
-const FEM_IDS=new Set(['l7','l9']);
-const PANT_IDS=new Set(['l17']);
+const QUAD_IDS=new Set(['l4','l5','l6','l10','l11']);
+const FEM_IDS=new Set(['l7','l9','l19','l20']);
+const PANT_IDS=new Set(['l17','l18']);
 function exZone(ex){ if(!ex)return ''; if(QUAD_IDS.has(ex.id))return 'quad'; if(FEM_IDS.has(ex.id))return 'fem'; if(PANT_IDS.has(ex.id))return 'pant'; return ''; }
 function bodyMap(muscles,w=70,zone=''){
   const a=new Set(Array.isArray(muscles)?muscles:[muscles]);
@@ -801,7 +803,7 @@ function genRoutine(p, day, usedByMuscle) {
   const par=GOAL_PARAMS[p.goal]||GOAL_PARAMS.muscle;
   const focus=p.focus||[];
   const exs=[];
-  const MAIN=['piernas','gluteos','espalda','pecho','hombros'];
+  const MAIN=['piernas','gluteos','espalda','pecho','hombros','femoral'];
   const BIG_ISO=['piernas','gluteos','espalda','pecho','biceps','femoral','hombros','triceps'];
   usedByMuscle=usedByMuscle||{};
   day.muscles.forEach(m=>{
@@ -839,7 +841,7 @@ function genRoutine(p, day, usedByMuscle) {
     });
   });
   const cardio=exs.filter(e=>e.isCardio);
-  const nonCardio=exs.filter(e=>!e.isCardio).slice(0,6);
+  const nonCardio=exs.filter(e=>!e.isCardio).slice(0,7);
   return [...nonCardio,...cardio];
 }
 function getNextDay(p) {
@@ -1394,8 +1396,8 @@ const EX_TIPS = {
   hombros:'Mantén el core activo y evita balancear el torso. En elevaciones laterales, sube hasta paralelo al suelo y baja en 3 segundos para mayor activación.',
   biceps:'Codos pegados al cuerpo durante todo el movimiento. Sube apretando el bíceps y baja muy despacio (cuenta 3 segundos). El control en la bajada es igual de importante.',
   triceps:'Mantén los codos completamente fijos y solo mueve el antebrazo. Extiende completamente el codo al final. El rango completo es clave para el crecimiento.',
-  piernas:'Espalda recta y core apretado durante todo el movimiento. Rodillas alineadas con los pies (no hacia dentro). Baja hasta que los muslos estén paralelos al suelo o más abajo.',
-  femoral:'Controla la bajada (excéntrica) tanto como la subida — ahí está gran parte del estímulo. Evita arquear la zona lumbar al final del recorrido. No bloquees la rodilla con fuerza al extender.',
+  piernas:'Rodillas alineadas con los pies (no hacia dentro). En la prensa y el hack squat baja hasta que los muslos estén paralelos. En las zancadas, baja la rodilla de atrás casi al suelo manteniendo el torso recto. En la goblet, sujeta la mancuerna frente al pecho y empuja las rodillas hacia fuera al bajar.',
+  femoral:'En el peso muerto rumano: bisagra de cadera, no cuclillas — empuja las caderas hacia atrás mientras bajas la barra por las piernas. Sientes el estiramiento en los femorales, no en la espalda. En los curls: controla la bajada en 3 segundos, ese es el estímulo real.',
   gluteos:'Empuja con los talones, no con los dedos. Aprieta el glúteo en la contracción máxima y aguanta 1-2 segundos antes de bajar. Esto duplica la activación muscular.',
   core:'Exhala en el esfuerzo para activar mejor el core. Evita tirar del cuello en los crunchs. Mantén la zona lumbar pegada al suelo en los ejercicios tumbados.',
   cardio:'Para quema de grasa: frecuencia cardíaca entre 60-75% del máximo (220 - tu edad). Para HIIT: alterna 30s al máximo con 30-60s de recuperación activa.',
