@@ -423,26 +423,18 @@
 // ─── EJERCICIOS ───────────────────────────────
 const EX = {
   pecho:[
-    {id:'p1',name:'Press de banca con barra',icon:'🏋️',c:1,grip:'Prono ancho (barra olímpica)'},
-    {id:'p2',name:'Press de banca con mancuernas',icon:'🏋️',c:1,grip:'Neutro o prono'},
-    {id:'p3',name:'Press inclinado con barra',icon:'📐',c:1,grip:'Prono ancho (barra olímpica)'},
-    {id:'p4',name:'Press inclinado con mancuernas',icon:'📐',c:1,grip:'Neutro o prono'},
-    {id:'p5',name:'Press declinado',icon:'📉',c:1,grip:'Prono ancho (barra olímpica)'},
-    {id:'p6',name:'Aperturas con mancuernas',icon:'🦋',c:0},
-    {id:'p7',name:'Cruces en polea alta',icon:'✂️',c:0,grip:'Neutro (asas/D-handles) — poleas altas'},
-    {id:'p8',name:'Fondos en paralelas',icon:'⬇️',c:1},
-    {id:'p9',name:'Pull-over con mancuerna',icon:'🔄',c:0},
+    {id:'p2',name:'Press de banca con mancuernas',icon:'🏋️',c:1,grip:'Neutro o prono (palmas enfrentadas o al frente)'},
+    {id:'p4',name:'Press inclinado con mancuernas',icon:'📐',c:1,grip:'Neutro o prono — banco a 30-45°'},
     {id:'p10',name:'Press en máquina pecho',icon:'🤖',c:1,grip:'Prono (asas de la máquina)'},
     {id:'p11',name:'Flexiones',icon:'🙆',c:1},
+    {id:'p6',name:'Aperturas con mancuernas',icon:'🦋',c:0},
+    {id:'p7',name:'Cruces en polea alta',icon:'✂️',c:0,grip:'Neutro (asas/D-handles) — poleas altas'},
     {id:'p12',name:'Cruces en polea baja',icon:'🔀',c:0,grip:'Neutro (asas/D-handles) — poleas bajas, cruza hacia arriba'},
-    {id:'p13',name:'Cruces en polea media',icon:'↔️',c:0,grip:'Neutro (asas) — poleas al nivel del pecho'},
-    {id:'p14',name:'Press en Smith inclinado',icon:'🔩',c:1,grip:'Prono ancho (barra Smith)'},
   ],
   espalda:[
     {id:'e2',name:'Jalón al pecho agarre ancho',icon:'🔽',c:1,grip:'Prono ancho (barra larga)'},
     {id:'e11',name:'Remo en máquina',icon:'🤖',c:1,grip:'Prono o neutro (según máquina)'},
     {id:'e12',name:'Pull-over en polea',icon:'🌀',c:0,grip:'Prono (barra recta) o cuerda'},
-    {id:'e16',name:'Face pull en polea',icon:'😤',c:0,grip:'Neutro (cuerda — tira de los extremos hacia las orejas)'},
     {id:'e18',name:'Pulldown en polea con cuerda',icon:'🔗',c:0,grip:'Neutro (cuerda — separa al final)'},
     {id:'e15',name:'Encogimientos de hombros',icon:'🤷',c:0,grip:'Neutro (mancuernas a los lados) — sube los hombros hacia las orejas'},
   ],
@@ -501,9 +493,9 @@ const EX = {
     {id:'cv5',name:'Bicicleta estática ritmo suave',icon:'🚴',c:0},
   ],
   lumbares:[
-    {id:'lu4',name:'Hiperextensión a 45°',icon:'📐',c:0},
     {id:'lu2',name:'Bird dog',icon:'🐦',c:0},
     {id:'lu9',name:'Extensión lumbar en máquina',icon:'🤖',c:0},
+    {id:'lu10',name:'Superman',icon:'🦸',c:0},
   ],
   cintura:[
     {id:'ci5',name:'Wood chop en polea',icon:'🪵',c:0,grip:'Neutro (asa) — rotación diagonal'},
@@ -1472,16 +1464,21 @@ const EX_DESC = {
   lu4:['Colócate en el banco de hiperextensión con las caderas al filo del apoyo. Los muslos apoyados, los pies en la plataforma.','Baja el torso hacia el suelo de forma controlada.','Sube hasta que el cuerpo quede en línea recta — no más. Hiperextender (seguir subiendo) fuerza la zona lumbar.','Aprieta los glúteos y los lumbares al llegar arriba. Puedes cruzar los brazos en el pecho o sujetar peso para progresar.'],
   lu2:['A cuatro patas con las manos bajo los hombros y las rodillas bajo las caderas. Espalda plana como una mesa.','Extiende el brazo derecho hacia adelante y la pierna izquierda hacia atrás al mismo tiempo.','Aguanta 2-3 segundos. La cadera no debe rotar ni subir — si sube, es que vas demasiado alto.','Vuelve al centro con control y alterna. Es un ejercicio de estabilización, no de fuerza explosiva.'],
   lu9:['Ajusta el asiento y los apoyos de la máquina. La almohadilla queda a la altura de los omóplatos o la zona lumbar.','Inclínate hacia adelante de forma controlada.','Empuja hacia atrás hasta que el cuerpo quede recto — no hiperextiendas.','Aguanta 1 segundo en la posición recta y vuelve despacio al inicio.'],
+  lu10:['Túmbate boca abajo en el suelo con los brazos extendidos por encima de la cabeza y las piernas rectas.','Levanta simultáneamente los brazos, el pecho y las piernas del suelo contrayendo los lumbares y los glúteos.','Aguanta 2-3 segundos en el punto más alto sin aguantar la respiración.','Baja despacio. Es el ejercicio más sencillo para activar los lumbares sin ningún material.'],
   // Cintura
   ci5:['Ajusta la polea a la altura de los hombros o más arriba. Sitúate de lado a la máquina.','Coge el asa con ambas manos. Los pies no se mueven en ningún momento — son el punto de anclaje.','Tira en diagonal hacia abajo y hacia el lado contrario girando el torso. Los brazos van casi rectos.','Vuelve de forma controlada resistiendo la tensión de la polea. Haz todas las repeticiones y cambia de lado.'],
   ci2:['Siéntate en el suelo con las rodillas dobladas a 90° y el torso inclinado hacia atrás a 45°. Puedes sujetar una mancuerna frente al pecho.','Gira el torso hacia la derecha, vuelve al centro y gira hacia la izquierda. Las caderas no se mueven.','El movimiento viene de la cintura, no de los brazos. Expira en cada giro.','Para más intensidad, levanta los pies del suelo ligeramente.'],
   ci3:['Túmbate boca arriba con las rodillas dobladas. Manos detrás de la cabeza, codos abiertos.','Lleva el codo derecho hacia la rodilla izquierda elevada simultáneamente. Solo el hombro se separa del suelo.','El codo no se cierra — si lo haces, empujas del cuello. La rotación viene del torso.','Vuelve al suelo y repite alternando lados. Los oblicuos trabajan en la rotación, no en la flexión.'],
   // Cardio
   cv2:['Ajusta la inclinación de la cinta entre 10 y 15°.','Velocidad moderada: entre 5 y 6,5 km/h — el objetivo es mantenerte en zona de quema de grasa, no correr.','No te agarres a los pasamanos — si lo necesitas, baja la inclinación.','20 minutos continuos. La caminata inclinada activa glúteos y femorales mucho más que caminar en plano.'],
-  // Pecho (básicos por si los usa en otros planes)
-  p1:['Túmbate en el banco plano. Coge la barra con las manos algo más anchas que los hombros.','Retrae los omóplatos y apóyalos firmemente en el banco durante todo el movimiento.','Baja la barra hasta rozar el pecho en 2-3 segundos. No rebotas — control total.','Empuja hacia arriba y ligeramente hacia atrás. Exhala en el esfuerzo.'],
+  // Pecho
+  p2:['Túmbate en el banco plano con una mancuerna en cada mano a los lados del pecho. Codos a 45° del torso — ni muy abiertos ni pegados al cuerpo.','Empuja hacia arriba y ligeramente hacia el centro hasta casi juntar las mancuernas. Exhala en el esfuerzo.','Baja en 2-3 segundos hasta que los codos bajen al nivel del banco — sientes el estiramiento del pecho.','Las mancuernas dan más rango de movimiento que la barra y trabajan mejor la estabilización del hombro.'],
+  p4:['Ajusta el banco a 30-45° de inclinación. Siéntate con una mancuerna en cada mano y recuéstate.','La posición es igual que en plano pero el pecho superior (cerca de las clavículas) es lo que más trabaja.','Codos a 45° del torso al bajar. Si los abres demasiado, el hombro carga más que el pecho.','Baja de forma controlada hasta sentir el estiramiento. El press inclinado da más alzada y volumen visual al pecho.'],
   p6:['Túmbate en un banco plano o inclinado con una mancuerna en cada mano, brazos hacia el techo.','Baja los brazos hacia los lados en arco amplio con los codos ligeramente doblados — como si abrazaras un árbol grande.','Sientes el estiramiento del pecho en la posición más baja. No bajes más de lo cómodo.','Sube en arco volviendo a juntar las mancuernas. El movimiento es de hombros, no de codos.'],
   p7:['Ajusta las poleas en la posición alta. De pie en el centro con un asa en cada mano.','Inclínate ligeramente hacia adelante. Lleva las manos hacia el centro y hacia abajo cruzándolas.','El movimiento es de hombros — los codos están ligeramente doblados y fijos. No los estiras.','Vuelve abriendo los brazos despacio. La tensión de la polea trabaja el pecho de forma constante.'],
+  p10:['Ajusta el asiento para que las asas queden a la altura del pecho, no de los hombros.','Retrae los omóplatos y apóyalos en el respaldo durante todo el movimiento — si se despegan, los hombros cargan más que el pecho.','Empuja hacia adelante hasta casi extender los codos. No bloquees del todo.','Vuelve de forma controlada. La máquina es muy segura y permite concentrarse en la contracción del pecho.'],
+  p11:['Manos ligeramente más anchas que los hombros, dedos apuntando hacia adelante. Cuerpo en línea recta de cabeza a talones.','Baja el pecho hasta casi tocar el suelo. Si no llegas con buena forma, pon las rodillas en el suelo.','Empuja hacia arriba sin hundir la cabeza ni subir las caderas. Exhala al subir.','Para más dificultad: eleva los pies en un banco. Para menos: rodillas en el suelo. Uno de los mejores ejercicios de pecho sin material.'],
+  p12:['Ajusta las poleas en la posición más baja. De pie en el centro con un asa en cada mano.','Inclínate ligeramente hacia adelante. Lleva las manos hacia arriba y hacia el centro cruzándolas a la altura del pecho o por encima.','Los codos están ligeramente doblados y fijos — el movimiento viene del hombro, no del codo.','Baja abriendo los brazos de forma controlada. Las cruces bajas trabajan más la parte superior del pecho que las cruces altas.'],
 };
 
 let libFilter='all', libExId=null, libDTab='info';
