@@ -551,6 +551,13 @@ const GOAL_LBL = {muscle:'💪 Ganar músculo',lose:'🔥 Perder peso',tone:'✨
 const LEVEL_LBL = {beginner:'🌱 Principiante',intermediate:'⚡ Intermedio',advanced:'🏆 Avanzado'};
 const MUSCLE_LBL = {pecho:'Pecho',espalda:'Espalda',hombros:'Hombros',biceps:'Bíceps',triceps:'Tríceps',piernas:'Piernas (cuádriceps)',femoral:'Femoral',gluteos:'Glúteos',core:'Core',cardio:'Cardio',lumbares:'Lumbares',cintura:'Cintura'};
 const MUSCLE_ICON = {pecho:'🫁',espalda:'🔙',hombros:'🤷',biceps:'💪',triceps:'🦾',piernas:'🦵',femoral:'🔄',gluteos:'🍑',core:'🎯',cardio:'❤️',lumbares:'🔻',cintura:'↔️'};
+const DAY_WHY = {
+  'Piernas (cuádriceps) + Glúteos':'Empezamos la semana con los grupos más grandes. Activan más hormonas anabólicas y queman más calorías. Cuádriceps + glúteos son el motor de tu recomposición.',
+  'Espalda + Bíceps + Lumbares':'La espalda y los bíceps trabajan juntos de forma natural (tirón). Fortalecer la espalda mejora la postura y reduce la grasa acumulada en esa zona. Lumbares al final para estabilizar la columna.',
+  'Hombros + Core + Cintura':'El hombro necesita trabajo específico: es la articulación más compleja del cuerpo. Core y cintura en la misma sesión protegen la columna y definen la zona media.',
+  'Femoral + Glúteos':'Segunda sesión de glúteos de la semana. Esta frecuencia (2×/semana) es la clave para la recomposición corporal femenina. El femoral completa el trabajo de pierna posterior y mejora la forma del trasero.',
+  'Pecho + Brazos':'El pecho trabaja junto con el tríceps de forma natural (empuje). Sumamos bíceps porque comparten recuperación. Tonifica brazos y pecho en una sola sesión eficiente.',
+};
 const QUAD_IDS=new Set(['l4','l5','l6','l10','l11']);
 const FEM_IDS=new Set(['l7','l9','l19','l20']);
 const PANT_IDS=new Set(['l17','l18']);
@@ -685,6 +692,20 @@ function saveSess() { localStorage.setItem('gt2_session',JSON.stringify(curSessi
 function getHist(id) { return JSON.parse(localStorage.getItem('gt2_h_'+id)||'[]'); }
 function setHist(id,h) { localStorage.setItem('gt2_h_'+id,JSON.stringify(h)); }
 function curP() { return profiles.find(p=>p.id===curId)||profiles[0]; }
+function getLastExData(exId) {
+  const p=curP(); if(!p) return null;
+  const h=getHist(p.id);
+  for(let i=h.length-1;i>=0;i--){
+    const ex=h[i].exercises.find(e=>e.id===exId);
+    if(!ex) continue;
+    const done=ex.sets.filter(s=>s.done&&s.weight>0);
+    if(!done.length) continue;
+    const w=done[done.length-1].weight;
+    const ready=done.length>=ex.sets.length&&done.every(s=>(s.reps||0)>=(s.repsMax||ex.repsMax||12));
+    return {weight:w, progressionReady:ready};
+  }
+  return null;
+}
 
 // ─── INIT ─────────────────────────────────────
 function init() {
@@ -877,6 +898,7 @@ function renderHoy() {
       <div class="today-label">🤖 Tu entrenadora recomienda hoy</div>
       <div class="today-title">${todayDay.name}</div>
       <div class="today-subtitle">${GOAL_LBL[p.goal]} · ${LEVEL_LBL[p.level]}</div>
+      ${DAY_WHY[todayDay.name]?`<div style="font-size:12px;color:var(--gray);line-height:1.65;margin:10px 0 4px;padding:10px 12px;background:rgba(59,130,246,0.08);border-left:3px solid var(--blue-light);border-radius:0 8px 8px 0;text-align:left">${DAY_WHY[todayDay.name]}</div>`:''}
       <div class="muscle-tags">${todayDay.muscles.map(m=>`<span class="muscle-tag">${MUSCLE_LBL[m]||m}</span>`).join('')}</div>
       <div style="display:flex;align-items:center;justify-content:center;padding:8px 0">${bodyMap(todayDay.muscles.filter(m=>m!=='cardio'),80)}</div>
       <div class="ex-preview">
@@ -965,6 +987,16 @@ function startToday(){
   const p=curP();
   requestNotifPermission();
   curSession={id:Date.now(),profileId:p.id,name:todayDay.name,planIndex:todayIdx,date:new Date().toISOString(),startTime:Date.now(),exercises:todayEx};
+  // Pre-fill weights from history + mark progression
+  curSession.exercises.forEach(ex=>{
+    if(ex.isCardio) return;
+    const last=getLastExData(ex.id);
+    if(!last) return;
+    const suggested=last.progressionReady?Math.round((last.weight+2.5)*2)/2:last.weight;
+    ex.sets.forEach(s=>s.weight=suggested);
+    ex._lastWeight=last.weight;
+    ex._progReady=last.progressionReady;
+  });
   todayEx=null; saveSess();
   document.getElementById('session-badge').style.display='flex';
   showTab('sesion');
@@ -1011,6 +1043,10 @@ function renderSession(){
               <span class="muscle-tag" style="font-size:10px;padding:2px 8px">${MUSCLE_LBL[ex.muscle]||ex.muscle}</span>
               <span style="font-size:11px;color:var(--gray)">⏱ ${fmtRest(ex.restSeconds||75)}</span>
             </div>
+            ${ex._progReady!=null?(ex._progReady
+              ?`<div style="font-size:11px;color:var(--green-light);margin-top:5px;font-weight:600">↑ Progresión: sube a ${Math.round((ex._lastWeight+2.5)*2)/2} kg (antes ${ex._lastWeight} kg)</div>`
+              :`<div style="font-size:11px;color:var(--gray);margin-top:5px">= Mantén ${ex._lastWeight} kg — completa todas las reps para subir</div>`)
+              :`<div style="font-size:11px;color:var(--amber-light);margin-top:5px">★ Primera vez — empieza ligera y ajusta el peso</div>`}
           </div>
         </div>
         <div style="display:grid;grid-template-columns:30px 1fr 1fr 40px 40px 32px;gap:3px;text-align:center;margin-bottom:6px">
