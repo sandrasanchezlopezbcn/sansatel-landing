@@ -1054,7 +1054,7 @@ function renderSession(){
           <div style="font-size:9px;font-weight:700;color:var(--gray);text-transform:uppercase">KG</div>
           <div style="font-size:9px;font-weight:700;color:var(--gray);text-transform:uppercase">Reps</div>
           <div style="font-size:9px;font-weight:700;color:var(--gray);text-transform:uppercase">Obj.</div>
-          <div style="font-size:9px;font-weight:700;color:var(--gray);text-transform:uppercase">RPE</div>
+          <div style="font-size:9px;font-weight:700;color:var(--gray);text-transform:uppercase">Esfuerzo</div>
           <div></div>
         </div>
         ${ex.sets.map((s,si)=>`
@@ -1063,12 +1063,22 @@ function renderSession(){
             <input type="number" value="${s.weight||''}" min="0" step="0.5" style="width:100%;text-align:center;padding:8px 2px;font-size:14px;font-weight:600;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--white)" onchange="updW(${ei},${si},this.value)" placeholder="—">
             <input type="number" value="${s.reps||''}" min="0" style="width:100%;text-align:center;padding:8px 2px;font-size:14px;font-weight:600;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--white)" onchange="updR(${ei},${si},this.value)" placeholder="—">
             <div style="font-size:12px;color:var(--gray)">${s.repsMin&&s.repsMax&&s.repsMin!==s.repsMax?s.repsMin+'-'+s.repsMax:(s.repsMin||12)}</div>
-            <select style="width:100%;text-align:center;padding:6px 0;font-size:13px;font-weight:600;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:${s.rpe>=8?'#EF4444':s.rpe>=6?'var(--amber-light)':'var(--green-light)'}" onchange="updRpe(${ei},${si},this.value)">
+            <select style="width:100%;text-align:center;padding:6px 0;font-size:13px;font-weight:600;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:${s.rpe>=9?'var(--amber-light)':s.rpe>=7?'var(--green-light)':s.rpe>=6?'var(--amber-light)':'var(--gray)'}" onchange="updRpe(${ei},${si},this.value)">
               <option value="" ${!s.rpe?'selected':''}>—</option>
               ${[6,7,8,9,10].map(v=>`<option value="${v}" ${s.rpe==v?'selected':''}>${v}</option>`).join('')}
             </select>
             <button class="set-check ${s.done?'done':''}" onclick="togSet(${ei},${si})" style="width:32px;height:32px;font-size:14px">${s.done?'✓':''}</button>
           </div>`).join('')}
+        <div style="font-size:10px;color:var(--gray);margin-top:8px;padding:6px 8px;background:rgba(30,58,138,0.15);border-radius:8px">🎯 Objetivo: esfuerzo 7-8/10 — te quedan 2-3 repeticiones en el cuerpo. Si puedes hacer 5+ más, sube el peso.</div>
+        ${(()=>{
+          const rpes=ex.sets.filter(s=>s.done&&s.rpe).map(s=>s.rpe);
+          if(!rpes.length) return '';
+          const avg=Math.round(rpes.reduce((a,b)=>a+b,0)/rpes.length);
+          const color=avg>=9?'var(--amber-light)':avg>=7?'var(--green-light)':'var(--amber-light)';
+          const bg=avg>=9?'rgba(245,158,11,0.08)':avg>=7?'rgba(16,185,129,0.08)':'rgba(245,158,11,0.08)';
+          const msg=avg>=9?'⚠️ Muy al límite — en la próxima sesión reduce el peso ligeramente':avg>=7?'✅ Zona perfecta — estás estimulando el músculo correctamente':'↑ Demasiado fácil — sube el peso en la próxima serie';
+          return `<div style="font-size:11px;padding:6px 8px;margin-top:6px;border-radius:8px;background:${bg};color:${color};line-height:1.5">${msg}</div>`;
+        })()}
         <button onclick="addSet(${ei})" style="width:100%;margin-top:8px;padding:7px;font-size:12px;font-weight:600;color:var(--gray);background:transparent;border:1px dashed var(--border);border-radius:8px;cursor:pointer">+ Serie</button>
       </div>`).join('')}
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">
