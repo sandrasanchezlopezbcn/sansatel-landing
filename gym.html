@@ -850,6 +850,16 @@ function genRoutine(p, day, usedByMuscle) {
     const isolChoices=isolFresh.length>=(n-picked.length)?isolFresh:isol;
     const iso2=[...isolChoices];
     while(picked.length<n&&iso2.length){ const i=Math.floor(Math.random()*iso2.length); picked.push(iso2.splice(i,1)[0]); }
+    // For piernas: limit pantorrillas to max 1 (avoid 2 calf exercises instead of a quad isolation)
+    if(m==='piernas'){
+      let pantSeen=false;
+      const filtered=picked.filter(e=>{ if(PANT_IDS.has(e.id)){ if(pantSeen) return false; pantSeen=true; } return true; });
+      if(filtered.length<picked.length){
+        const alt=pool.filter(e=>!e.c&&!PANT_IDS.has(e.id)&&!filtered.find(p=>p.id===e.id));
+        if(alt.length) filtered.push(alt[0]);
+        picked.length=0; filtered.forEach(e=>picked.push(e));
+      }
+    }
     picked.forEach(ex=>{
       const isMain=ex.c&&MAIN.includes(m);
       const nSets=isMain?4:ex.c?3:BIG_ISO.includes(m)?3:2;
@@ -863,7 +873,7 @@ function genRoutine(p, day, usedByMuscle) {
     });
   });
   const cardio=exs.filter(e=>e.isCardio);
-  const nonCardio=exs.filter(e=>!e.isCardio).slice(0,8);
+  const nonCardio=exs.filter(e=>!e.isCardio).slice(0,6);
   return [...nonCardio,...cardio];
 }
 function getNextDay(p) {
@@ -890,9 +900,9 @@ function renderHoy() {
       <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;margin-top:2px">Hola, ${p.name} 👋</div>
     </div>
     <div class="stat-grid">
-      <div class="stat-box"><div class="stat-num">${h.length}</div><div class="stat-lbl">Sesiones</div></div>
-      <div class="stat-box"><div class="stat-num">${week}</div><div class="stat-lbl">Esta semana</div></div>
-      <div class="stat-box"><div class="stat-num">${totalSets}</div><div class="stat-lbl">Series totales</div></div>
+      <div class="stat-box"><div class="stat-num">${h.length}</div><div class="stat-lbl">💪 Entrenamientos</div></div>
+      <div class="stat-box"><div class="stat-num">${week}</div><div class="stat-lbl">📅 Esta semana</div></div>
+      <div class="stat-box"><div class="stat-num">${totalSets}</div><div class="stat-lbl">🔁 Series hechas</div></div>
     </div>
     <div class="today-hero">
       <div class="today-label">🤖 Tu entrenadora recomienda hoy</div>
