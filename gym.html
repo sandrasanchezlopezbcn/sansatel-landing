@@ -1453,6 +1453,19 @@ function renderTemplates(pid) {
 }
 
 // ─── BIBLIOTECA DE EJERCICIOS ─────────────────
+const EX_SECONDARY = {
+  p2:['hombros','triceps'],p4:['hombros','triceps'],p10:['hombros','triceps'],p11:['hombros','triceps'],p6:['hombros'],p7:['hombros'],p12:['hombros'],
+  e2:['biceps','hombros'],e11:['biceps'],e12:['hombros'],e18:['triceps'],e15:['hombros'],
+  h2:['triceps','pecho'],h4:[],h12:['espalda'],h11:[],
+  b2:['hombros'],b3:['hombros'],b4:['hombros'],b5:['hombros'],
+  t2:['hombros'],t4:['hombros'],t5:['hombros'],t9:['hombros'],
+  l4:['gluteos','femoral'],l5:['gluteos','femoral'],l10:['gluteos'],l11:['gluteos','femoral'],l6:[],l17:[],l18:[],
+  l19:['gluteos','lumbares'],l7:[],l9:[],l20:['gluteos','lumbares'],
+  g1:['femoral','lumbares'],g2:['femoral'],g4:['femoral'],g6:[],g13:['femoral','lumbares'],
+  c2:['hombros'],c4:['hombros'],c8:[],c13:['lumbares'],c16:[],
+  lu2:['gluteos'],lu9:[],lu10:['gluteos'],
+  ci5:['core','hombros'],ci2:['core'],ci3:['core'],
+};
 const EX_TIPS = {
   pecho:'Retrae los omóplatos y apóyalos en el banco durante todo el movimiento. Baja el peso lentamente (2-3s) y empuja de forma explosiva. Exhala al subir.',
   espalda:'Inicia el movimiento tirando con los codos hacia atrás, no con las manos. Mantén el pecho hacia fuera y la espalda ligeramente arqueada. Aprieta las escápulas al final del recorrido.',
@@ -1549,14 +1562,17 @@ function toggleFav(exId,e){
   else renderEjercicios();
 }
 
-function bodyDiagram(muscles){
+function bodyDiagram(muscles,secondary=[]){
   const has=m=>muscles.includes(m);
-  const hi='rgba(239,68,68,0.8)',hiS='#ef4444',bg='#0D1F3C',brd='#1e3a8a';
-  const f=m=>has(m)?hi:bg, s=m=>has(m)?hiS:brd, w=m=>has(m)?'2':'1.2';
-  const arm=has('biceps')?hi:has('triceps')?'rgba(239,68,68,0.5)':bg;
-  const armS=(has('biceps')||has('triceps'))?hiS:brd, armW=(has('biceps')||has('triceps'))?'2':'1.2';
-  const leg=has('piernas')||has('femoral')?hi:bg;
-  const legS=(has('piernas')||has('femoral'))?hiS:brd, legW=(has('piernas')||has('femoral'))?'2':'1.2';
+  const sec=m=>secondary.includes(m)&&!has(m);
+  const hi='rgba(239,68,68,0.85)',hiS='#ef4444',dim='rgba(239,68,68,0.28)',dimS='rgba(239,68,68,0.5)',bg='#0D1F3C',brd='#1e3a8a';
+  const f=m=>has(m)?hi:sec(m)?dim:bg, s=m=>has(m)?hiS:sec(m)?dimS:brd, w=m=>(has(m)||sec(m))?'2':'1.2';
+  const armPri=has('biceps')||has('triceps'), armSec=sec('biceps')||sec('triceps');
+  const arm=armPri?hi:armSec?dim:bg;
+  const armS=(armPri||armSec)?hiS:brd, armW=(armPri||armSec)?'2':'1.2';
+  const legPri=has('piernas')||has('femoral'), legSec=sec('piernas')||sec('femoral');
+  const leg=legPri?hi:legSec?dim:bg;
+  const legS=(legPri||legSec)?hiS:brd, legW=(legPri||legSec)?'2':'1.2';
   return `<svg viewBox="0 0 100 190" width="90" height="171" xmlns="http://www.w3.org/2000/svg">
   <circle cx="50" cy="13" r="10" fill="${bg}" stroke="${brd}" stroke-width="1.5"/>
   <rect x="46" y="22" width="8" height="8" rx="2" fill="${bg}" stroke="${brd}" stroke-width="1.2"/>
@@ -1640,14 +1656,21 @@ function _exInfoTab(ex){
   const tip=EX_TIPS[ex.muscle]||'Realiza el movimiento de forma controlada enfocándote en el músculo objetivo.';
   const steps=EX_DESC[ex.id]||[];
   return `
-    <div class="body-wrap">${bodyDiagram([ex.muscle])}</div>
+    ${(()=>{const sec2=EX_SECONDARY[ex.id]||[];return`<div class="body-wrap">${bodyDiagram([ex.muscle],sec2)}</div>
     <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px">
-      <div style="font-size:13px;font-weight:600;margin-bottom:8px">Músculos trabajados</div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px">
-        <span class="muscle-tag">${MUSCLE_LBL[ex.muscle]||ex.muscle}</span>
-        ${ex.c?`<span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:rgba(59,130,246,0.15);color:var(--blue-light);border:1px solid rgba(59,130,246,0.3)">Compuesto</span>`:''}
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div style="font-size:13px;font-weight:600">Músculos trabajados</div>
+        ${ex.c?`<span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;background:rgba(59,130,246,0.15);color:var(--blue-light);border:1px solid rgba(59,130,246,0.3)">Compuesto</span>`:''}
       </div>
-    </div>
+      <div style="font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px">● Principal</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:${sec2.length?'10':'0'}px">
+        <span class="muscle-tag">${MUSCLE_LBL[ex.muscle]||ex.muscle}</span>
+      </div>
+      ${sec2.length?`<div style="font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px">◌ Secundario</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        ${sec2.map(m=>`<span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:rgba(239,68,68,0.1);color:rgba(239,68,68,0.7);border:1px solid rgba(239,68,68,0.25)">${MUSCLE_LBL[m]||m}</span>`).join('')}
+      </div>`:''}
+    </div>`;})()}
     ${ex.grip?`<div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px">
       <div style="font-size:13px;font-weight:600;margin-bottom:6px">🤝 Tipo de agarre</div>
       <div style="font-size:13px;color:var(--gray);line-height:1.6">${ex.grip}</div>
