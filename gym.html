@@ -1714,6 +1714,21 @@ function _renderExDetail(){
     <div style="padding:20px;max-width:600px;margin:0 auto">${body}</div>`;
 }
 
+function detectEquip(grip){
+  if(!grip) return [];
+  const g=grip.toLowerCase();
+  const items=[];
+  if(g.includes('cuerda')) items.push({c:'rgba(251,191,36,0.15)','border':'rgba(251,191,36,0.35)',t:'#fbbf24',label:'🔗 Cuerda'});
+  if(g.includes('barra ez')) items.push({c:'rgba(139,92,246,0.12)',border:'rgba(139,92,246,0.35)',t:'#a78bfa',label:'〜 Barra EZ'});
+  else if(g.includes('barra ancha')||g.includes('más anchas que')) items.push({c:'rgba(107,114,128,0.12)',border:'rgba(107,114,128,0.35)',t:'#9ca3af',label:'━━ Barra ancha'});
+  else if(g.includes('barra recta')||g.includes('barra con')) items.push({c:'rgba(107,114,128,0.12)',border:'rgba(107,114,128,0.35)',t:'#9ca3af',label:'━ Barra recta'});
+  else if(g.includes('barra')) items.push({c:'rgba(107,114,128,0.12)',border:'rgba(107,114,128,0.35)',t:'#9ca3af',label:'━ Barra'});
+  if(g.includes('triángulo')) items.push({c:'rgba(16,185,129,0.12)',border:'rgba(16,185,129,0.35)',t:'#34d399',label:'△ Triángulo'});
+  if(g.includes('mancuerna')) items.push({c:'rgba(59,130,246,0.12)',border:'rgba(59,130,246,0.35)',t:'#60a5fa',label:'🏋️ Mancuerna'});
+  if(g.includes('tobillera')) items.push({c:'rgba(239,68,68,0.12)',border:'rgba(239,68,68,0.35)',t:'#f87171',label:'🦵 Tobillera'});
+  return items;
+}
+
 function _exInfoTab(ex){
   const yt=`https://www.youtube.com/results?search_query=como+hacer+${encodeURIComponent(ex.name)}+correctamente+gym`;
   const tip=EX_TIPS[ex.muscle]||'Realiza el movimiento de forma controlada enfocándote en el músculo objetivo.';
@@ -1734,15 +1749,18 @@ function _exInfoTab(ex){
         ${sec2.map(m=>`<span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:rgba(239,68,68,0.1);color:rgba(239,68,68,0.7);border:1px solid rgba(239,68,68,0.25)">${MUSCLE_LBL[m]||m}</span>`).join('')}
       </div>`:''}
     </div>`;})()}
-    ${ex.grip?`<div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px">
-      <div style="font-size:13px;font-weight:600;margin-bottom:6px">🤝 Tipo de agarre</div>
+    ${ex.grip?(()=>{const eq=detectEquip(ex.grip);return`<div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px">
+      <div style="font-size:13px;font-weight:600;margin-bottom:10px">🤝 Agarre y accesorio</div>
+      ${eq.length?`<div style="margin-bottom:10px"><div style="font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Qué coger</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">${eq.map(e=>`<span style="font-size:12px;font-weight:600;padding:5px 11px;border-radius:20px;background:${e.c};border:1px solid ${e.border};color:${e.t}">${e.label}</span>`).join('')}</div></div>`:''}
+      <div style="font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px">Cómo cogerlo</div>
       <div style="font-size:13px;color:var(--gray);line-height:1.6">${ex.grip}</div>
-      ${(ex.grip.includes('Supino')||ex.grip.includes('Prono')||ex.grip.includes('Neutro'))?`<div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
-        ${ex.grip.includes('Supino')?`<div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--gray);background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:8px;padding:5px 9px"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><ellipse cx="9" cy="11" rx="7" ry="5" fill="rgba(59,130,246,0.2)" stroke="#60a5fa" stroke-width="1.2"/><rect x="5" y="4" width="8" height="7" rx="2" fill="rgba(59,130,246,0.15)" stroke="#60a5fa" stroke-width="1"/><circle cx="6.5" cy="3" r="1" fill="#93c5fd"/><circle cx="9" cy="2.5" r="1" fill="#93c5fd"/><circle cx="11.5" cy="3" r="1" fill="#93c5fd"/></svg><span><strong>Supino</strong> = palmas hacia ti</span></div>`:''}
-        ${ex.grip.includes('Prono')?`<div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--gray);background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:5px 9px"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><ellipse cx="9" cy="7" rx="7" ry="5" fill="rgba(239,68,68,0.15)" stroke="#f87171" stroke-width="1.2"/><rect x="5" y="7" width="8" height="7" rx="2" fill="rgba(239,68,68,0.1)" stroke="#f87171" stroke-width="1"/><circle cx="6.5" cy="15" r="1" fill="#fca5a5"/><circle cx="9" cy="15.5" r="1" fill="#fca5a5"/><circle cx="11.5" cy="15" r="1" fill="#fca5a5"/></svg><span><strong>Prono</strong> = palmas al frente / suelo</span></div>`:''}
-        ${ex.grip.includes('Neutro')?`<div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--gray);background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:5px 9px"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="4" y="5" width="10" height="8" rx="2" fill="rgba(16,185,129,0.15)" stroke="#34d399" stroke-width="1.2"/><rect x="12" y="7" width="4" height="4" rx="1" fill="rgba(16,185,129,0.2)" stroke="#34d399" stroke-width="1"/><circle cx="14" cy="5.5" r="1.2" fill="#6ee7b7"/></svg><span><strong>Neutro</strong> = pulgares arriba</span></div>`:''}
+      ${(ex.grip.includes('Supino')||ex.grip.includes('Prono')||ex.grip.includes('Neutro'))?`<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+        ${ex.grip.includes('Supino')?`<div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--gray);background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:8px;padding:5px 9px">↑ <strong>Supino</strong> = palmas hacia ti</div>`:''}
+        ${ex.grip.includes('Prono')?`<div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--gray);background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:5px 9px">↓ <strong>Prono</strong> = palmas al suelo / frente</div>`:''}
+        ${ex.grip.includes('Neutro')?`<div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--gray);background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:5px 9px">→ <strong>Neutro</strong> = pulgares arriba</div>`:''}
       </div>`:''}
-    </div>`:''}
+    </div>`})():''}
     ${steps.length?`<div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px">
       <div style="font-size:13px;font-weight:600;margin-bottom:10px">📋 Cómo hacerlo</div>
       <ol style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px">
