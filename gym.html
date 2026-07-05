@@ -681,7 +681,14 @@ function getFixedRoutine(p,day,dayIdx){
     meso.routines[dayIdx]=genRoutine(p,day,usedByMuscle);
     setMeso(p.id,meso);
   }
-  return meso.routines[dayIdx];
+  // Enforce limits on cached routines too (fixes old mesocycles with 8 exercises or 2 calves)
+  const routine=meso.routines[dayIdx];
+  const cardio=routine.filter(e=>e.isCardio);
+  let nc=routine.filter(e=>!e.isCardio);
+  let pantSeen=false;
+  nc=nc.filter(e=>{ if(PANT_IDS.has(e.id)){ if(pantSeen) return false; pantSeen=true; } return true; });
+  nc=nc.slice(0,6);
+  return [...nc,...cardio];
 }
 let npColor = COLORS[1];
 
