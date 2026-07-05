@@ -842,6 +842,7 @@ function genRoutine(p, day, usedByMuscle) {
   const MAIN=['piernas','gluteos','espalda','pecho','hombros','femoral'];
   const BIG_ISO=['piernas','gluteos','espalda','pecho','biceps','femoral','hombros','triceps'];
   usedByMuscle=usedByMuscle||{};
+  const prevEx=JSON.parse(localStorage.getItem('gt2_prevex_'+p.id)||'{}');
   day.muscles.forEach(m=>{
     if(m==='cardio'){
       const cv2=EX.cardio.find(e=>e.id==='cv2')||EX.cardio[0];
@@ -853,15 +854,19 @@ function genRoutine(p, day, usedByMuscle) {
     const isFocusMuscle=focus.includes(m)||day.isFocus;
     const n=isFocusMuscle?4:MAIN.includes(m)?3:2;
     const used=usedByMuscle[m]||new Set();
+    const prevUsed=new Set(prevEx[m]||[]);
     const picked=[];
     const comp=pool.filter(e=>e.c);
     const isol=pool.filter(e=>!e.c);
-    // Prefer exercises not already used in another day of this mesocycle to avoid repeats across days
+    // Prefer exercises not in current meso (cross-day) and not in previous meso (cross-mesocycle)
     const compFresh=comp.filter(e=>!used.has(e.id));
-    const compChoices=compFresh.length?compFresh:comp;
+    const compFreshNew=compFresh.filter(e=>!prevUsed.has(e.id));
+    const compChoices=compFreshNew.length?compFreshNew:compFresh.length?compFresh:comp;
     if(compChoices.length){ const i=Math.floor(Math.random()*compChoices.length); picked.push(compChoices[i]); }
     const isolFresh=isol.filter(e=>!used.has(e.id));
-    const isolChoices=isolFresh.length>=(n-picked.length)?isolFresh:isol;
+    const isolFreshNew=isolFresh.filter(e=>!prevUsed.has(e.id));
+    const need=n-picked.length;
+    const isolChoices=isolFreshNew.length>=need?isolFreshNew:isolFresh.length>=need?isolFresh:isol;
     const iso2=[...isolChoices];
     while(picked.length<n&&iso2.length){ const i=Math.floor(Math.random()*iso2.length); picked.push(iso2.splice(i,1)[0]); }
     // For piernas: limit pantorrillas to max 1 (avoid 2 calf exercises instead of a quad isolation)
@@ -869,9 +874,20 @@ function genRoutine(p, day, usedByMuscle) {
       let pantSeen=false;
       const filtered=picked.filter(e=>{ if(PANT_IDS.has(e.id)){ if(pantSeen) return false; pantSeen=true; } return true; });
       if(filtered.length<picked.length){
-        const alt=pool.filter(e=>!e.c&&!PANT_IDS.has(e.id)&&!filtered.find(p=>p.id===e.id));
+        const alt=pool.filter(e=>!e.c&&!PANT_IDS.has(e.id)&&!filtered.find(x=>x.id===e.id));
         if(alt.length) filtered.push(alt[0]);
         picked.length=0; filtered.forEach(e=>picked.push(e));
+      }
+    }
+    // Diversify movement types: if all exercises are the same type (e.g. 2 pulls), swap the last iso for a different type
+    if(picked.length>=2){
+      const mvTypes=picked.map(e=>EX_MOVE[e.id]).filter(Boolean);
+      if(mvTypes.length>1&&mvTypes.every(t=>t===mvTypes[0])){
+        const altPool=pool.filter(e=>EX_MOVE[e.id]&&EX_MOVE[e.id]!==mvTypes[0]&&!picked.find(x=>x.id===e.id));
+        if(altPool.length){
+          const lastIso=picked.map((e,i)=>({e,i})).filter(({e})=>!e.c).pop();
+          if(lastIso) picked[lastIso.i]=altPool[Math.floor(Math.random()*altPool.length)];
+        }
       }
     }
     picked.forEach(ex=>{
@@ -943,9 +959,15 @@ function renderHoy() {
         const meso=getMeso(p.id);
         if(!meso) return '';
         const weeks=Math.floor((Date.now()-new Date(meso.created).getTime())/604800000);
-        const color=weeks>=8?'#EF4444':weeks>=6?'#F59E0B':'var(--green-light)';
+        if(weeks>=8) return `<div style="background:linear-gradient(135deg,#1e3a8a,#1e1b4b);border:2px solid #6366f1;border-radius:14px;padding:16px;margin-bottom:12px;text-align:center">
+          <div style="font-size:24px;margin-bottom:6px">🎉</div>
+          <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:4px">¡2 meses completados!</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;margin-bottom:12px">Has terminado este programa. Es hora de un nuevo reto con ejercicios distintos.</div>
+          <button onclick="newMesocycle()" style="background:#6366f1;color:#fff;border:none;border-radius:10px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;width:100%">🔄 Generar nuevo programa (2 meses)</button>
+        </div>`;
+        const color=weeks>=6?'#F59E0B':'var(--green-light)';
         return `<div style="font-size:11px;color:${color};margin-bottom:10px;display:flex;align-items:center;gap:6px;justify-content:center">
-          <span>📋</span><span>Mesociclo: semana ${weeks+1}${weeks>=8?' — toca cambiar ejercicios':weeks>=6?' — pronto toca cambiar':''}</span>
+          <span>📋</span><span>Mesociclo: semana ${weeks+1} de 8${weeks>=6?' — casi listo para cambiar':''}  </span>
         </div>`;
       })()}
       ${curSession?`
@@ -976,8 +998,19 @@ function renderHoy() {
   `;
 }
 function newMesocycle(){
-  if(!confirm('¿Empezar nuevo mesociclo?\nSe generarán ejercicios nuevos para TODOS los días.\nHaz esto cada 6-8 semanas.'))return;
+  if(!confirm('¿Empezar nuevo mesociclo?\nSe generarán ejercicios nuevos para TODOS los días.\nHaz esto cada 2 meses.'))return;
   const p=curP();
+  const prevMeso=getMeso(p.id);
+  if(prevMeso){
+    const prev={};
+    Object.values(prevMeso.routines).forEach(r=>r.forEach(ex=>{
+      if(!ex.isCardio){
+        if(!prev[ex.muscle])prev[ex.muscle]=[];
+        if(!prev[ex.muscle].includes(ex.id))prev[ex.muscle].push(ex.id);
+      }
+    }));
+    localStorage.setItem('gt2_prevex_'+p.id,JSON.stringify(prev));
+  }
   localStorage.removeItem('gt2_meso_'+p.id);
   todayEx=null;
   renderHoy();
