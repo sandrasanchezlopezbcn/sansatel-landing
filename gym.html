@@ -1005,6 +1005,8 @@ function newMesocycle(){
     const prev={};
     Object.values(prevMeso.routines).forEach(r=>r.forEach(ex=>{
       if(!ex.isCardio){
+        const def=(EX[ex.muscle]||[]).find(e=>e.id===ex.id);
+        if(def&&def.c) return; // keep compounds — rotate only isolation exercises
         if(!prev[ex.muscle])prev[ex.muscle]=[];
         if(!prev[ex.muscle].includes(ex.id))prev[ex.muscle].push(ex.id);
       }
