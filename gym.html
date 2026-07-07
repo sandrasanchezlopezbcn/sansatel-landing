@@ -437,6 +437,7 @@ const EX = {
     {id:'e3',name:'Remo con mancuerna unilateral',icon:'💪',c:1,grip:'Neutro (pulgar arriba) — apoyo de rodilla en banco, espalda paralela al suelo'},
     {id:'e4',name:'Remo en polea baja sentado',icon:'🔃',c:1,grip:'Neutro (triángulo) o Prono (barra recta)'},
     {id:'e5',name:'Jalón agarre supino estrecho',icon:'🔼',c:1,grip:'Supino estrecho (palmas hacia ti) — manos a la anchura de hombros o menos'},
+    {id:'e6',name:'Pullover con barra',icon:'🏋️',c:1,grip:'Prono — barra a la anchura de hombros, codos ligeramente doblados y fijos durante todo el movimiento'},
     {id:'e12',name:'Pull-over en polea',icon:'🌀',c:0,grip:'Prono (barra recta) o cuerda'},
     {id:'e18',name:'Pulldown en polea con cuerda',icon:'🔗',c:0,grip:'Neutro (cuerda — separa al final)'},
     {id:'e15',name:'Encogimientos de hombros',icon:'🤷',c:0,grip:'Neutro (mancuernas a los lados) — sube los hombros hacia las orejas'},
@@ -1514,7 +1515,7 @@ function renderTemplates(pid) {
 // ─── BIBLIOTECA DE EJERCICIOS ─────────────────
 const EX_SECONDARY = {
   p2:['hombros','triceps'],p4:['hombros','triceps'],p10:['hombros','triceps'],p11:['hombros','triceps'],p6:['hombros'],p7:['hombros'],p12:['hombros'],
-  e2:['biceps','hombros'],e11:['biceps'],e3:['biceps','hombros'],e4:['biceps','hombros'],e5:['biceps'],e12:['hombros'],e18:['triceps'],e15:['hombros'],
+  e2:['biceps','hombros'],e11:['biceps'],e3:['biceps','hombros'],e4:['biceps','hombros'],e5:['biceps'],e6:['pecho','triceps'],e12:['hombros'],e18:['triceps'],e15:['hombros'],
   h2:['triceps','pecho'],h5:['triceps','pecho'],h4:[],h6:[],h12:['espalda'],h11:[],
   b2:['hombros'],b3:['hombros'],b4:['hombros'],b5:['hombros'],
   t2:['hombros'],t4:['hombros'],t5:['hombros'],t9:['hombros'],
@@ -1545,7 +1546,7 @@ cardio:`<svg viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
 const EX_MOVE={
   p2:'push',p4:'push',p10:'push',p11:'push',
   p6:'fly',p7:'fly',p12:'fly',
-  e2:'pull',e11:'row',e3:'row',e4:'row',e5:'pull',e12:'pull',e18:'extend',e15:'raise',
+  e2:'pull',e11:'row',e3:'row',e4:'row',e5:'pull',e6:'pull',e12:'pull',e18:'extend',e15:'raise',
   h2:'push',h5:'push',h4:'raise',h6:'raise',h12:'row',h11:'raise',
   b2:'curl',b3:'curl',b4:'curl',b5:'curl',
   t2:'extend',t4:'extend',t5:'extend',t9:'extend',
@@ -1582,6 +1583,7 @@ const EX_DESC = {
   e3:['Apoya la rodilla y la mano del mismo lado en un banco plano. La espalda queda paralela al suelo y el brazo libre cuelga perpendicularmente.','Coge la mancuerna con el brazo libre. Hombro abajo y relajado al inicio — no lo encoja.','Tira de la mancuerna hacia la cadera, no hacia el hombro. El codo sube pegado al costado y sobrepasa la línea de la espalda.','Aguanta 1 segundo arriba apretando el dorsal y baja en 3 segundos dejando el brazo completamente estirado. Haz todas las repeticiones y cambia de lado.'],
   e4:['Siéntate en el banco con los pies en los apoyos y las rodillas ligeramente dobladas. Coge el triángulo o la barra con ambas manos.','Siéntate erguida con el pecho hacia fuera y los omóplatos hacia atrás y abajo antes de empezar el movimiento.','Tira hacia el abdomen bajo manteniendo los codos pegados al cuerpo y juntando los omóplatos al final del recorrido. Aguanta 1 segundo.','Vuelve a la posición inicial controlando el movimiento en 3 segundos. No dejes que el torso oscile hacia atrás — el impulso roba el trabajo al dorsal.'],
   e5:['Siéntate en la máquina de jalón con las rodillas bajo los apoyos. Coge la barra con las manos a la anchura de los hombros o menos, palmas hacia ti (agarre supino).','Inclínate ligeramente hacia atrás e inicia el movimiento pensando en llevar los codos hacia las caderas, no en tirar con las manos.','Baja la barra hasta el pecho superior. El agarre supino activa más el bíceps y trabaja más la parte baja del dorsal que el agarre prono ancho.','Sube de forma controlada en 3 segundos sintiendo el estiramiento del dorsal con los brazos casi completamente extendidos.'],
+  e6:['Túmbate en un banco plano con los pies apoyados en el suelo. Coge la barra con agarre prono a la anchura de hombros, brazos extendidos hacia el techo sobre el pecho.','Baja la barra en arco amplio por detrás de la cabeza manteniendo los codos ligeramente doblados y completamente fijos — el movimiento viene solo del hombro, no del codo.','Baja hasta sentir el estiramiento completo del dorsal y el pecho, con los brazos casi paralelos al suelo. No fuerces más allá del rango cómodo para el hombro.','Sube la barra volviendo al inicio en el mismo arco controlado. El pullover trabaja el dorsal en máximo estiramiento, complementando el remo de forma única.'],
   // Espalda existentes
   e2:['Siéntate en la máquina con las rodillas bajo los apoyos y coge la barra con las manos más anchas que los hombros, palmas al frente.','Inclina el torso ligeramente hacia atrás (10-15°) y saca pecho.','Tira de la barra hacia el pecho superior llevando los codos hacia las caderas — imagina que quieres meter los codos en los bolsillos.','Aguanta 1 segundo apretando la espalda y sube de forma controlada en 3 segundos.'],
   e11:['Ajusta el asiento para que el pecho quede bien apoyado en el almohadillado.','Coge las asas y tira hacia atrás juntando los omóplatos como si intentaras sujetar un lápiz entre ellos.','Mantén el cuello neutro — no tires con el cuello ni con los hombros.','Vuelve a la posición inicial dejando que los brazos se estiren completamente.'],
