@@ -862,7 +862,17 @@ function genRoutine(p, day, usedByMuscle) {
     const compFresh=comp.filter(e=>!used.has(e.id));
     const compFreshNew=compFresh.filter(e=>!prevUsed.has(e.id));
     const compChoices=compFreshNew.length?compFreshNew:compFresh.length?compFresh:comp;
-    if(compChoices.length){ const i=Math.floor(Math.random()*compChoices.length); picked.push(compChoices[i]); }
+    if(m==='espalda'){
+      // Espalda: always pick 1 jalón (pull) + 1 remo (row) to cover the full back
+      const pullComps=compChoices.filter(e=>EX_MOVE[e.id]==='pull');
+      const rowComps=compChoices.filter(e=>EX_MOVE[e.id]==='row');
+      const pullPool=pullComps.length?pullComps:compChoices;
+      const rowPool=rowComps.length?rowComps:compChoices.filter(e=>!picked.find(x=>x.id===e.id));
+      if(pullPool.length) picked.push(pullPool[Math.floor(Math.random()*pullPool.length)]);
+      if(rowPool.length)  picked.push(rowPool [Math.floor(Math.random()*rowPool.length)]);
+    } else {
+      if(compChoices.length){ const i=Math.floor(Math.random()*compChoices.length); picked.push(compChoices[i]); }
+    }
     const isolFresh=isol.filter(e=>!used.has(e.id));
     const isolFreshNew=isolFresh.filter(e=>!prevUsed.has(e.id));
     const need=n-picked.length;
