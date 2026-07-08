@@ -680,15 +680,33 @@ function getFixedRoutine(p,day,dayIdx){
   let meso=getMeso(p.id);
   if(!meso) meso={created:new Date().toISOString(),routines:{}};
   if(!meso.routines[dayIdx]){
-    const usedByMuscle={};
-    Object.values(meso.routines).forEach(routine=>{
-      routine.forEach(ex=>{
-        if(ex.isCardio)return;
-        if(!usedByMuscle[ex.muscle]) usedByMuscle[ex.muscle]=new Set();
-        usedByMuscle[ex.muscle].add(ex.id);
+    // Pre-generate all days in order so cross-day dedup always works correctly
+    const plan=buildFocusPlan(p.days,p.focus||[]);
+    if(Object.keys(meso.routines).length===0){
+      // Fresh meso: generate all days sequentially so day 0 is always before day 4
+      const usedByMuscle={};
+      plan.forEach((d,i)=>{
+        if(!meso.routines[i]){
+          meso.routines[i]=genRoutine(p,d,usedByMuscle);
+          meso.routines[i].forEach(ex=>{
+            if(ex.isCardio)return;
+            if(!usedByMuscle[ex.muscle]) usedByMuscle[ex.muscle]=new Set();
+            usedByMuscle[ex.muscle].add(ex.id);
+          });
+        }
       });
-    });
-    meso.routines[dayIdx]=genRoutine(p,day,usedByMuscle);
+    } else {
+      // Partial meso: just generate the missing day with existing context
+      const usedByMuscle={};
+      Object.values(meso.routines).forEach(routine=>{
+        routine.forEach(ex=>{
+          if(ex.isCardio)return;
+          if(!usedByMuscle[ex.muscle]) usedByMuscle[ex.muscle]=new Set();
+          usedByMuscle[ex.muscle].add(ex.id);
+        });
+      });
+      meso.routines[dayIdx]=genRoutine(p,day,usedByMuscle);
+    }
     setMeso(p.id,meso);
   }
   // Enforce limits on cached routines too (fixes old mesocycles with 8 exercises or 2 calves)
