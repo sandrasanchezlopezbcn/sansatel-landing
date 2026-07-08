@@ -487,6 +487,7 @@ const EX = {
     {id:'g4',name:'Patada trasera en polea',icon:'🦵',c:0,grip:'Tobillera (accesorio de tobillo)'},
     {id:'g6',name:'Abductor en máquina',icon:'↔️',c:0},
     {id:'g13',name:'Hiperextensión glúteos 45°',icon:'📐',c:0},
+    {id:'g9',name:'Patada trasera en máquina de glúteos',icon:'🤖',c:0,grip:'Apoya el pie en la almohadilla — rodilla ligeramente doblada, empuja hacia atrás y arriba'},
   ],
   core:[
     {id:'c2',name:'Crunch en polea',icon:'〰️',c:0,grip:'Cuerda detrás de la cabeza — codos hacia rodillas'},
@@ -873,7 +874,7 @@ function genRoutine(p, day, usedByMuscle) {
     const pool=[...(EX[m]||[])];
     if(!pool.length)return;
     const isFocusMuscle=focus.includes(m)||day.isFocus;
-    const n=isFocusMuscle?4:MAIN.includes(m)?3:2;
+    const n=isFocusMuscle?4:m==='femoral'?2:MAIN.includes(m)?3:2;
     const used=usedByMuscle[m]||new Set();
     const prevUsed=new Set(prevEx[m]||[]);
     const picked=[];
@@ -1541,7 +1542,7 @@ const EX_SECONDARY = {
   t2:['hombros'],t4:['hombros'],t5:['hombros'],t9:['hombros'],
   l4:['gluteos','femoral'],l5:['gluteos','femoral'],l10:['gluteos'],l11:['gluteos','femoral'],l6:[],l17:[],l18:[],
   l19:['gluteos','lumbares'],l7:[],l9:[],l20:[],l22:['gluteos','femoral'],
-  g1:['femoral','lumbares'],g2:['femoral'],g7:['piernas','femoral'],g4:['femoral'],g6:[],g13:['femoral','lumbares'],
+  g1:['femoral','lumbares'],g2:['femoral'],g7:['piernas','femoral'],g4:['femoral'],g6:[],g13:['femoral','lumbares'],g9:['femoral'],
   c2:['hombros'],c4:['hombros'],c8:[],c13:['lumbares'],c16:[],
   lu2:['gluteos'],lu9:[],lu10:['gluteos'],
   ci5:['core','hombros'],ci2:['core'],ci3:['core'],
@@ -1572,7 +1573,7 @@ const EX_MOVE={
   t2:'extend',t4:'extend',t5:'extend',t9:'extend',
   l4:'squat',l5:'squat',l10:'squat',l11:'lunge',l6:'squat',l17:'squat',l18:'squat',l22:'squat',
   l19:'hinge',l7:'curl',l9:'curl',l20:'curl',
-  g1:'thrust',g2:'thrust',g7:'squat',g4:'kickback',g6:'abduct',g13:'hinge',
+  g1:'thrust',g2:'thrust',g7:'squat',g4:'kickback',g6:'abduct',g13:'hinge',g9:'kickback',
   c2:'core',c4:'core',c8:'core',c13:'core',c16:'core',
   cv1:'cardio',cv2:'cardio',cv3:'cardio',cv4:'cardio',cv5:'cardio',
   lu2:'core',lu9:'extend',lu10:'core',
@@ -1649,6 +1650,7 @@ const EX_DESC = {
   g4:['Coloca la tobillera en el tobillo y sitúate de pie frente a la polea baja, ligeramente inclinada hacia adelante sujetando el soporte.','Mantén el torso fijo y la cadera estable. El movimiento es solo de la pierna.','Lleva la pierna hacia atrás y arriba apretando el glúteo — el movimiento viene de la cadera, no de la rodilla.','Vuelve despacio sin dejar que la cadera rote ni que el torso se incline. Haz todas las repeticiones con una pierna y luego cambia.'],
   g6:['Ajusta la máquina para que los cojines queden en la cara interna de los muslos, justo encima de las rodillas.','Empuja las piernas hacia fuera abriendo la máquina con fuerza. Aprieta el glúteo medio (lateral) al final.','Aguanta 1 segundo en la apertura máxima.','Cierra muy despacio en 3 segundos — si cierras con un golpe, pierdes la mitad del trabajo.'],
   g13:['Ajusta el banco de hiperextensión a 45°. Coloca las caderas al filo del apoyo, con los cuádriceps apoyados también.','Baja el torso hasta que estés casi vertical.','Sube empujando con los glúteos y los femorales hasta quedar en línea recta con el cuerpo. No hiperextiendas la espalda.','Para más glúteo: inclínate hacia adelante y redondea ligeramente la espalda alta. Para más lumbar: mantén la espalda recta.'],
+  g9:['Coloca el pie en la almohadilla de la máquina con la rodilla ligeramente doblada. Apoya el pecho en el soporte y las manos en las asas.','Empuja la pierna hacia atrás y arriba contrayendo el glúteo. La rodilla se mantiene doblada durante todo el movimiento.','Aguanta 1-2 segundos en la contracción máxima apretando el glúteo con fuerza.','Vuelve despacio sin llegar a la posición de descanso total — mantén la tensión. Haz todas las repeticiones y cambia de pierna.'],
   g7:['De pie con los pies muy abiertos, puntas hacia fuera a unos 45°. Sujeta una mancuerna verticalmente por la parte superior entre las dos manos, colgando frente al cuerpo.','Baja la mancuerna entre las piernas doblando las rodillas hacia fuera siguiendo la dirección de los pies. El torso se mantiene más erguido que en la sentadilla estándar.','La apertura de los pies activa el glúteo medio y el interior del muslo más que la sentadilla con pies juntos. No dejes que las rodillas colapsen hacia dentro.','Sube apretando los glúteos con fuerza. Los talones empujan contra el suelo — no te pongas de puntillas.'],
   // Core
   c2:['Arrodíllate de espaldas a la polea alta. Coge la cuerda por detrás de la cabeza a ambos lados.','Contrae el abdomen hacia adentro y baja el torso llevando los codos hacia las rodillas.','El movimiento es de la caja torácica hacia las caderas, NO de la cabeza hacia las rodillas. No tires del cuello.','Vuelve despacio a la posición inicial sin soltar la tensión abdominal.'],
