@@ -1340,6 +1340,7 @@ function renderPerfil(){
       <button class="btn btn-ghost btn-full btn-sm" style="margin-bottom:8px;border-color:rgba(59,130,246,0.4);color:var(--blue-light)" onclick="exportBackup()">⬇️ Exportar copia de seguridad</button>
       <button class="btn btn-ghost btn-full btn-sm" style="color:var(--gray)" onclick="importBackup()">⬆️ Importar copia de seguridad</button>
     </div>
+    <button class="btn btn-ghost btn-full btn-sm" style="margin-top:8px;border-color:rgba(52,211,153,0.4);color:var(--green-light)" onclick="restoreDefaultRoutine()">🔄 Restaurar rutina original</button>
     <button class="btn btn-danger btn-sm" style="width:100%;margin-top:4px;justify-content:center" onclick="delProfile()">Eliminar perfil</button>
     <button class="btn btn-ghost btn-sm" style="width:100%;margin-top:8px;justify-content:center;color:var(--gray);font-size:11px" onclick="resetApp()">⚠️ Resetear app (borrar todo)</button>
   `;
@@ -1378,6 +1379,14 @@ function importBackup(){
     reader.readAsText(file);
   };
   document.body.appendChild(input); input.click(); document.body.removeChild(input);
+}
+function restoreDefaultRoutine(){
+  const p=curP(); if(!p)return;
+  localStorage.removeItem('gt2_prevex_'+p.id);
+  setMeso(p.id,buildDefaultMeso());
+  todayEx=null; todayDay=null;
+  showTab('hoy');
+  alert2('Rutina original restaurada ✅');
 }
 function delProfile(){ if(profiles.length===1){alert2('No puedes borrar el único perfil','amber');return;} if(!confirm('¿Eliminar este perfil?'))return; const p=curP(); localStorage.removeItem('gt2_h_'+p.id); profiles=profiles.filter(x=>x.id!==p.id); save(); curId=profiles[0].id; saveCur(); renderSwitcher(); showTab('hoy'); }
 function delOtherProfile(id){ if(!confirm('¿Eliminar este perfil?'))return; localStorage.removeItem('gt2_h_'+id); profiles=profiles.filter(x=>x.id!==id); save(); renderSwitcher(); renderPerfil(); }
