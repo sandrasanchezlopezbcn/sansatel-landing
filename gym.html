@@ -911,14 +911,27 @@ function genRoutine(p, day, usedByMuscle) {
         picked.length=0; filtered.forEach(e=>picked.push(e));
       }
     }
-    // Diversify movement types: if all exercises are the same type (e.g. 2 pulls), swap the last iso for a different type
+    // Diversify movement types: avoid duplicate types among isolation exercises
     if(picked.length>=2){
+      const isoList=picked.map((e,i)=>({e,i})).filter(({e})=>!e.c);
+      const seenTypes=new Set(); let dupIso=null;
+      for(const entry of isoList){
+        const t=EX_MOVE[entry.e.id];
+        if(t&&seenTypes.has(t)) dupIso=entry;
+        else if(t) seenTypes.add(t);
+      }
+      // Also catch case where ALL exercises are the same type
       const mvTypes=picked.map(e=>EX_MOVE[e.id]).filter(Boolean);
-      if(mvTypes.length>1&&mvTypes.every(t=>t===mvTypes[0])){
-        const altPool=pool.filter(e=>EX_MOVE[e.id]&&EX_MOVE[e.id]!==mvTypes[0]&&!picked.find(x=>x.id===e.id));
-        if(altPool.length){
-          const lastIso=picked.map((e,i)=>({e,i})).filter(({e})=>!e.c).pop();
-          if(lastIso) picked[lastIso.i]=altPool[Math.floor(Math.random()*altPool.length)];
+      if(!dupIso&&mvTypes.length>1&&mvTypes.every(t=>t===mvTypes[0])) dupIso=isoList[isoList.length-1];
+      if(dupIso){
+        const usedTypes=new Set(picked.filter((_,i)=>i!==dupIso.i).map(e=>EX_MOVE[e.id]).filter(Boolean));
+        const altPool=pool.filter(e=>EX_MOVE[e.id]&&!usedTypes.has(EX_MOVE[e.id])&&!picked.find(x=>x.id===e.id));
+        if(altPool.length) picked[dupIso.i]=altPool[Math.floor(Math.random()*altPool.length)];
+        else{
+          // fallback: just avoid same type as the other isolation
+          const dupType=EX_MOVE[dupIso.e.id];
+          const altPool2=pool.filter(e=>EX_MOVE[e.id]&&EX_MOVE[e.id]!==dupType&&!picked.find(x=>x.id===e.id));
+          if(altPool2.length) picked[dupIso.i]=altPool2[Math.floor(Math.random()*altPool2.length)];
         }
       }
     }
