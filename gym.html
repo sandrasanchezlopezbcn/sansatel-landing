@@ -539,7 +539,7 @@ const PLANS = {
     {name:'Espalda + Bíceps + Lumbares',muscles:['espalda','biceps','lumbares','cardio']},
     {name:'Hombros + Core + Cintura',muscles:['hombros','core','cintura','cardio']},
     {name:'Femoral + Glúteos',muscles:['femoral','gluteos','cardio']},
-    {name:'Pecho + Brazos',muscles:['pecho','biceps','triceps','cardio']},
+    {name:'Pecho + Tríceps',muscles:['pecho','triceps','cardio']},
   ],
   6:[
     {name:'Piernas (cuádriceps)',muscles:['piernas','cardio']},
@@ -569,7 +569,7 @@ const DAY_WHY = {
   'Espalda + Bíceps + Lumbares':'La espalda y los bíceps trabajan juntos de forma natural (tirón). Fortalecer la espalda mejora la postura y reduce la grasa acumulada en esa zona. Lumbares al final para estabilizar la columna.',
   'Hombros + Core + Cintura':'El hombro necesita trabajo específico: es la articulación más compleja del cuerpo. Core y cintura en la misma sesión protegen la columna y definen la zona media.',
   'Femoral + Glúteos':'Segunda sesión de glúteos de la semana. Esta frecuencia (2×/semana) es la clave para la recomposición corporal femenina. El femoral completa el trabajo de pierna posterior y mejora la forma del trasero.',
-  'Pecho + Brazos':'El pecho trabaja junto con el tríceps de forma natural (empuje). Sumamos bíceps porque comparten recuperación. Tonifica brazos y pecho en una sola sesión eficiente.',
+  'Pecho + Tríceps':'El pecho y el tríceps trabajan juntos en todos los ejercicios de empuje. Combinarlos es lo más eficiente — el tríceps ya trabaja en el press de pecho, aquí lo terminamos de fatigar con ejercicios específicos.',
 };
 const QUAD_IDS=new Set(['l4','l5','l6','l10','l11']);
 const FEM_IDS=new Set(['l7','l9','l19','l20']);
@@ -697,7 +697,7 @@ function buildDefaultMeso(){
     1:[mkEx('e11','espalda',true),mkEx('e12','espalda',false),mkEx('e18','espalda',false),mkEx('e15','espalda',false),mkEx('b5','biceps',false),mkEx('b3','biceps',false),cv].filter(Boolean),
     2:[mkEx('h2','hombros',true),mkEx('h4','hombros',false),mkEx('h12','hombros',false),mkEx('h6','hombros',false),mkEx('c13','core',false),mkEx('c2','core',false),cv].filter(Boolean),
     3:[mkEx('l19','femoral',true),mkEx('l9','femoral',false),mkEx('g7','gluteos',true),mkEx('g13','gluteos',false),mkEx('g6','gluteos',false),cv].filter(Boolean),
-    4:[mkEx('p10','pecho',true),mkEx('p13','pecho',true),mkEx('p14','pecho',false),mkEx('b2','biceps',false),mkEx('b4','biceps',false),mkEx('t5','triceps',false),cv].filter(Boolean),
+    4:[mkEx('p10','pecho',true),mkEx('p13','pecho',true),mkEx('p14','pecho',false),mkEx('t5','triceps',false),mkEx('t9','triceps',false),cv].filter(Boolean),
   }};
 }
 function getFixedRoutine(p,day,dayIdx){
