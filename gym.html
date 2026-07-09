@@ -677,14 +677,40 @@ let wiz = {name:'',color:COLORS[0],goal:'muscle',level:'intermediate',days:4,foc
 let todayEx = null, todayDay = null, todayIdx = parseInt(localStorage.getItem('gt2_dayIdx')||'0');
 function getMeso(pid){ return JSON.parse(localStorage.getItem('gt2_meso_'+pid)||'null'); }
 function setMeso(pid,m){ localStorage.setItem('gt2_meso_'+pid,JSON.stringify(m)); }
+function buildDefaultMeso(){
+  const MAIN=['piernas','gluteos','espalda','pecho','hombros','femoral'];
+  const BIG=['piernas','gluteos','espalda','pecho','biceps','femoral','hombros','triceps'];
+  const mkEx=(id,muscle,c)=>{
+    const def=(EX[muscle]||[]).find(e=>e.id===id); if(!def)return null;
+    const isMain=c&&MAIN.includes(muscle);
+    const nSets=isMain?4:c?3:BIG.includes(muscle)?3:2;
+    const rMin=c?8:12,rMax=c?12:15;
+    return{id:def.id,name:def.name,icon:def.icon,muscle,
+      restSeconds:isMain?120:c?105:60,repsMin:rMin,repsMax:rMax,
+      sets:Array.from({length:nSets},(_,i)=>({num:i+1,repsMin:rMin,repsMax:rMax,weight:0,done:false}))};
+  };
+  const cv={id:'cv2',name:'Caminata inclinada en cinta',icon:'⛰️',muscle:'cardio',isCardio:true,durationMin:20,sets:[{num:1,done:false,durationMin:20}]};
+  return{created:new Date().toISOString(),routines:{
+    0:[mkEx('l5','piernas',true),mkEx('l18','piernas',false),mkEx('l6','piernas',false),mkEx('g2','gluteos',true),mkEx('g13','gluteos',false),mkEx('g6','gluteos',false),cv].filter(Boolean),
+    1:[mkEx('e11','espalda',true),mkEx('e12','espalda',false),mkEx('e18','espalda',false),mkEx('e15','espalda',false),mkEx('b5','biceps',false),mkEx('b3','biceps',false),cv].filter(Boolean),
+    2:[mkEx('h2','hombros',true),mkEx('h4','hombros',false),mkEx('h12','hombros',false),mkEx('h6','hombros',false),mkEx('c13','core',false),mkEx('c2','core',false),cv].filter(Boolean),
+    3:[mkEx('l19','femoral',true),mkEx('l9','femoral',false),mkEx('g7','gluteos',true),mkEx('g13','gluteos',false),mkEx('g6','gluteos',false),cv].filter(Boolean),
+    4:[mkEx('p10','pecho',true),mkEx('p12','pecho',false),mkEx('p6','pecho',false),mkEx('b2','biceps',false),mkEx('b4','biceps',false),mkEx('t5','triceps',false),cv].filter(Boolean),
+  }};
+}
 function getFixedRoutine(p,day,dayIdx){
   let meso=getMeso(p.id);
-  if(!meso) meso={created:new Date().toISOString(),routines:{}};
+  if(!meso){
+    // First launch (no prevex = never clicked Nuevo Mesociclo): use the fixed default routine
+    // After clicking Nuevo Mesociclo, prevex exists → random generation
+    const hasReset=localStorage.getItem('gt2_prevex_'+p.id);
+    meso=hasReset?{created:new Date().toISOString(),routines:{}}:buildDefaultMeso();
+    setMeso(p.id,meso);
+  }
   if(!meso.routines[dayIdx]){
-    // Pre-generate all days in order so cross-day dedup always works correctly
+    // Partial meso: generate missing day with context from existing days
     const plan=buildFocusPlan(p.days,p.focus||[]);
     if(Object.keys(meso.routines).length===0){
-      // Fresh meso: generate all days sequentially so day 0 is always before day 4
       const usedByMuscle={};
       plan.forEach((d,i)=>{
         if(!meso.routines[i]){
@@ -697,7 +723,6 @@ function getFixedRoutine(p,day,dayIdx){
         }
       });
     } else {
-      // Partial meso: just generate the missing day with existing context
       const usedByMuscle={};
       Object.values(meso.routines).forEach(routine=>{
         routine.forEach(ex=>{
