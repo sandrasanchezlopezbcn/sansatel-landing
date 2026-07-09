@@ -1296,9 +1296,46 @@ function renderPerfil(){
       ${plan.map((d,i)=>`<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)"><div style="width:26px;height:26px;border-radius:50%;background:rgba(16,185,129,0.15);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--green-light)">${i+1}</div><div style="font-size:13px;font-weight:500">${d.name}</div></div>`).join('')}
     </div>
     ${profiles.length>1?`<div class="card"><div class="card-title">Otros perfiles</div>${profiles.filter(pr=>pr.id!==p.id).map(pr=>`<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)"><div style="width:36px;height:36px;border-radius:50%;background:${pr.color};display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;font-family:'Space Grotesk',sans-serif">${pr.name[0].toUpperCase()}</div><div style="flex:1"><div style="font-size:14px;font-weight:600">${pr.name}</div><div style="font-size:11px;color:var(--gray)">${GOAL_LBL[pr.goal]}</div></div><button class="btn btn-ghost btn-sm" onclick="switchP('${pr.id}')">Cambiar</button><button class="btn btn-ghost btn-sm" onclick="delOtherProfile('${pr.id}')" style="padding:6px 8px;color:var(--gray)">🗑</button></div>`).join('')}</div>`:''}
+    <div class="card" style="margin-top:8px;border:1px solid rgba(59,130,246,0.3)">
+      <div class="card-title" style="color:var(--blue-light)">💾 Copia de seguridad</div>
+      <div style="font-size:12px;color:var(--gray);margin-bottom:12px;line-height:1.5">Guarda tus datos (perfil, historial, rutinas) en un archivo. Si alguna vez pierdes los datos, podrás restaurarlos aquí.</div>
+      <button class="btn btn-ghost btn-full btn-sm" style="margin-bottom:8px;border-color:rgba(59,130,246,0.4);color:var(--blue-light)" onclick="exportBackup()">⬇️ Exportar copia de seguridad</button>
+      <button class="btn btn-ghost btn-full btn-sm" style="color:var(--gray)" onclick="importBackup()">⬆️ Importar copia de seguridad</button>
+    </div>
     <button class="btn btn-danger btn-sm" style="width:100%;margin-top:4px;justify-content:center" onclick="delProfile()">Eliminar perfil</button>
     <button class="btn btn-ghost btn-sm" style="width:100%;margin-top:8px;justify-content:center;color:var(--gray);font-size:11px" onclick="resetApp()">⚠️ Resetear app (borrar todo)</button>
   `;
+}
+function exportBackup(){
+  const keys=Object.keys(localStorage).filter(k=>k.startsWith('gt2_'));
+  const data={};
+  keys.forEach(k=>data[k]=localStorage.getItem(k));
+  const blob=new Blob([JSON.stringify(data)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download='gymtrack-backup-'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  alert2('Copia guardada — guárdala en Fotos o iCloud 📁');
+}
+function importBackup(){
+  const input=document.createElement('input');
+  input.type='file'; input.accept='.json';
+  input.onchange=e=>{
+    const file=e.target.files[0]; if(!file)return;
+    const reader=new FileReader();
+    reader.onload=evt=>{
+      try{
+        const data=JSON.parse(evt.target.result);
+        if(!data.gt2_profiles){alert2('Archivo no válido','amber');return;}
+        if(!confirm('¿Restaurar copia? Esto reemplazará todos los datos actuales.'))return;
+        Object.keys(data).forEach(k=>localStorage.setItem(k,data[k]));
+        location.reload();
+      }catch(e){alert2('Error al importar — archivo corrupto','amber');}
+    };
+    reader.readAsText(file);
+  };
+  document.body.appendChild(input); input.click(); document.body.removeChild(input);
 }
 function delProfile(){ if(profiles.length===1){alert2('No puedes borrar el único perfil','amber');return;} if(!confirm('¿Eliminar este perfil?'))return; const p=curP(); localStorage.removeItem('gt2_h_'+p.id); profiles=profiles.filter(x=>x.id!==p.id); save(); curId=profiles[0].id; saveCur(); renderSwitcher(); showTab('hoy'); }
 function delOtherProfile(id){ if(!confirm('¿Eliminar este perfil?'))return; localStorage.removeItem('gt2_h_'+id); profiles=profiles.filter(x=>x.id!==id); save(); renderSwitcher(); renderPerfil(); }
