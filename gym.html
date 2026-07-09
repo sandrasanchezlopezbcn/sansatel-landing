@@ -430,6 +430,8 @@ const EX = {
     {id:'p6',name:'Aperturas con mancuernas',icon:'🦋',c:0},
     {id:'p7',name:'Cruces en polea alta',icon:'✂️',c:0,grip:'Neutro (asas/D-handles) — poleas altas'},
     {id:'p12',name:'Cruces en polea baja',icon:'🔀',c:0,grip:'Neutro (asas/D-handles) — poleas bajas, cruza hacia arriba'},
+    {id:'p13',name:'Press inclinado en Smith',icon:'🏗️',c:1,grip:'Prono — banco a 30-45°, barra desciende al pecho alto, codos a 45° del cuerpo'},
+    {id:'p14',name:'Apertura en máquina (Pec Deck)',icon:'🤖',c:0,grip:'Neutro (asas de la máquina) — codos ligeramente doblados, junta los brazos delante del pecho'},
   ],
   espalda:[
     {id:'e2',name:'Jalón al pecho agarre ancho',icon:'🔽',c:1,grip:'Prono ancho (barra larga)'},
@@ -695,7 +697,7 @@ function buildDefaultMeso(){
     1:[mkEx('e11','espalda',true),mkEx('e12','espalda',false),mkEx('e18','espalda',false),mkEx('e15','espalda',false),mkEx('b5','biceps',false),mkEx('b3','biceps',false),cv].filter(Boolean),
     2:[mkEx('h2','hombros',true),mkEx('h4','hombros',false),mkEx('h12','hombros',false),mkEx('h6','hombros',false),mkEx('c13','core',false),mkEx('c2','core',false),cv].filter(Boolean),
     3:[mkEx('l19','femoral',true),mkEx('l9','femoral',false),mkEx('g7','gluteos',true),mkEx('g13','gluteos',false),mkEx('g6','gluteos',false),cv].filter(Boolean),
-    4:[mkEx('p10','pecho',true),mkEx('p12','pecho',false),mkEx('p7','pecho',false),mkEx('b2','biceps',false),mkEx('b4','biceps',false),mkEx('t5','triceps',false),cv].filter(Boolean),
+    4:[mkEx('p10','pecho',true),mkEx('p13','pecho',true),mkEx('p14','pecho',false),mkEx('b2','biceps',false),mkEx('b4','biceps',false),mkEx('t5','triceps',false),cv].filter(Boolean),
   }};
 }
 function getFixedRoutine(p,day,dayIdx){
@@ -1623,7 +1625,7 @@ function renderTemplates(pid) {
 
 // ─── BIBLIOTECA DE EJERCICIOS ─────────────────
 const EX_SECONDARY = {
-  p2:['hombros','triceps'],p4:['hombros','triceps'],p10:['hombros','triceps'],p11:['hombros','triceps'],p6:['hombros'],p7:['hombros'],p12:['hombros'],
+  p2:['hombros','triceps'],p4:['hombros','triceps'],p10:['hombros','triceps'],p11:['hombros','triceps'],p6:['hombros'],p7:['hombros'],p12:['hombros'],p13:['hombros','triceps'],p14:[],
   e2:['biceps','hombros'],e11:['biceps'],e3:['biceps','hombros'],e4:['biceps','hombros'],e5:['biceps'],e6:['pecho','triceps'],e12:['hombros'],e18:['triceps'],e15:['hombros'],
   h2:['triceps','pecho'],h5:['triceps','pecho'],h7:['triceps','pecho'],h4:[],h8:[],h6:[],h12:['espalda'],h11:[],
   b2:['hombros'],b3:['hombros'],b4:['hombros'],b5:['hombros'],
@@ -1653,8 +1655,8 @@ core:`<svg viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg"><r
 cardio:`<svg viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="70" height="70" rx="8" fill="#0D1F3C"/><rect x="5" y="47" width="58" height="8" rx="4" fill="#1e3a8a" transform="rotate(-7 34 51)"/><rect x="12" y="57" width="48" height="5" rx="2" fill="#0f2a4a"/><line x1="25" y1="18" x2="22" y2="46" stroke="#1e3a8a" stroke-width="2.5"/><line x1="45" y1="18" x2="48" y2="46" stroke="#1e3a8a" stroke-width="2.5"/><circle cx="35" cy="10" r="7" fill="rgba(255,255,255,0.8)"/><line x1="35" y1="17" x2="33" y2="36" stroke="white" stroke-width="3"/><line x1="34" y1="23" x2="22" y2="28" stroke="white" stroke-width="2.5"/><line x1="34" y1="23" x2="46" y2="28" stroke="white" stroke-width="2.5"/><line x1="32" y1="36" x2="18" y2="46" stroke="white" stroke-width="3"/><line x1="18" y1="46" x2="12" y2="44" stroke="white" stroke-width="2"/><line x1="34" y1="36" x2="48" y2="44" stroke="white" stroke-width="3"/><ellipse cx="35" cy="28" rx="6" ry="8" fill="rgba(52,211,153,0.3)"/></svg>`,
 };
 const EX_MOVE={
-  p2:'push',p4:'push',p10:'push',p11:'push',
-  p6:'fly',p7:'fly',p12:'fly',
+  p2:'push',p4:'push',p10:'push',p11:'push',p13:'push',
+  p6:'fly',p7:'fly',p12:'fly',p14:'fly',
   e2:'pull',e11:'row',e3:'row',e4:'row',e5:'pull',e6:'pull',e12:'pull',e18:'extend',e15:'raise',
   h2:'push',h5:'push',h7:'push',h4:'raise',h8:'raise',h6:'raise',h12:'row',h11:'raise',
   b2:'curl',b3:'curl',b4:'curl',b5:'curl',
@@ -1764,6 +1766,8 @@ const EX_DESC = {
   p10:['Ajusta el asiento para que las asas queden a la altura del pecho, no de los hombros.','Retrae los omóplatos y apóyalos en el respaldo durante todo el movimiento — si se despegan, los hombros cargan más que el pecho.','Empuja hacia adelante hasta casi extender los codos. No bloquees del todo.','Vuelve de forma controlada. La máquina es muy segura y permite concentrarse en la contracción del pecho.'],
   p11:['Manos ligeramente más anchas que los hombros, dedos apuntando hacia adelante. Cuerpo en línea recta de cabeza a talones.','Baja el pecho hasta casi tocar el suelo. Si no llegas con buena forma, pon las rodillas en el suelo.','Empuja hacia arriba sin hundir la cabeza ni subir las caderas. Exhala al subir.','Para más dificultad: eleva los pies en un banco. Para menos: rodillas en el suelo. Uno de los mejores ejercicios de pecho sin material.'],
   p12:['Ajusta las poleas en la posición más baja. De pie en el centro con un asa en cada mano.','Inclínate ligeramente hacia adelante. Lleva las manos hacia arriba y hacia el centro cruzándolas a la altura del pecho o por encima.','Los codos están ligeramente doblados y fijos — el movimiento viene del hombro, no del codo.','Baja abriendo los brazos de forma controlada. Las cruces bajas trabajan más la parte superior del pecho que las cruces altas.'],
+  p13:['Ajusta el banco de Smith a 30-45° de inclinación. Siéntate, recuéstate y agarra la barra con las manos ligeramente más anchas que los hombros.','Desbloquea la barra girándola. Baja de forma controlada hasta que toque el pecho alto (cerca de las clavículas).','Empuja hacia arriba en línea recta. La barra guiada por el Smith hace el movimiento más seguro que con barra libre.','Bloquea la barra al terminar. El banco inclinado trabaja principalmente el pecho superior y da más volumen visual.'],
+  p14:['Ajusta el asiento para que las asas queden a la altura del pecho. Siéntate con la espalda bien apoyada.','Junta los brazos hacia el centro del pecho como si abrazaras un árbol. Los codos están ligeramente doblados y fijos.','Contrae el pecho en la posición cerrada 1-2 segundos.','Abre los brazos de forma controlada — no dejes caer el peso. La máquina permite un rango de movimiento amplio y seguro.'],
 };
 
 let libFilter='all', libExId=null, libDTab='info';
