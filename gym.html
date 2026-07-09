@@ -1306,17 +1306,21 @@ function renderPerfil(){
     <button class="btn btn-ghost btn-sm" style="width:100%;margin-top:8px;justify-content:center;color:var(--gray);font-size:11px" onclick="resetApp()">⚠️ Resetear app (borrar todo)</button>
   `;
 }
-function exportBackup(){
+async function exportBackup(){
   const keys=Object.keys(localStorage).filter(k=>k.startsWith('gt2_'));
   const data={};
   keys.forEach(k=>data[k]=localStorage.getItem(k));
-  const blob=new Blob([JSON.stringify(data)],{type:'application/json'});
+  const json=JSON.stringify(data);
+  const filename='gymtrack-backup-'+new Date().toISOString().slice(0,10)+'.json';
+  const file=new File([json],filename,{type:'application/json'});
+  if(navigator.canShare&&navigator.canShare({files:[file]})){
+    try{ await navigator.share({files:[file],title:'GymTrack Backup'}); return; }catch(e){}
+  }
+  // Fallback: open blob in new tab (iOS)
+  const blob=new Blob([json],{type:'application/json'});
   const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url; a.download='gymtrack-backup-'+new Date().toISOString().slice(0,10)+'.json';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  alert2('Copia guardada — guárdala en Fotos o iCloud 📁');
+  window.open(url,'_blank');
+  alert2('Abre el archivo → pulsa Compartir → Guardar en Archivos 📁');
 }
 function importBackup(){
   const input=document.createElement('input');
