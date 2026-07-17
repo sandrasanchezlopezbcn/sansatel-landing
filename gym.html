@@ -982,8 +982,8 @@ function showApp() {
 }
 function renderSwitcher() {
   const sw=document.getElementById('profile-switcher');
-  sw.innerHTML=profiles.map(p=>`<div class="profile-btn ${p.id===curId?'active':''}" style="background:${p.color}" onclick="switchP('${p.id}')">${p.name[0].toUpperCase()}</div>`).join('');
-  if(profiles.length<3) sw.innerHTML+=`<button class="add-profile-btn" onclick="openNP()">+</button>`;
+  const p=curP()||profiles[0];
+  sw.innerHTML=p?`<div class="profile-btn active" style="background:${p.color}" title="${p.name}">${p.name[0].toUpperCase()}</div>`:'';
 }
 function switchP(id) {
   curId=id; saveCur(); curSession=null; saveSess();
@@ -1519,7 +1519,6 @@ function renderPerfil(){
       <div class="card-title">Tu plan semanal</div>
       ${plan.map((d,i)=>`<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)"><div style="width:26px;height:26px;border-radius:50%;background:rgba(16,185,129,0.15);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--green-light)">${i+1}</div><div style="font-size:13px;font-weight:500">${d.name}</div></div>`).join('')}
     </div>
-    ${profiles.length>1?`<div class="card"><div class="card-title">Otros perfiles</div>${profiles.filter(pr=>pr.id!==p.id).map(pr=>`<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)"><div style="width:36px;height:36px;border-radius:50%;background:${pr.color};display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;font-family:'Space Grotesk',sans-serif">${pr.name[0].toUpperCase()}</div><div style="flex:1"><div style="font-size:14px;font-weight:600">${pr.name}</div><div style="font-size:11px;color:var(--gray)">${GOAL_LBL[pr.goal]}</div></div><button class="btn btn-ghost btn-sm" onclick="switchP('${pr.id}')">Cambiar</button><button class="btn btn-ghost btn-sm" onclick="delOtherProfile('${pr.id}')" style="padding:6px 8px;color:var(--gray)">🗑</button></div>`).join('')}</div>`:''}
     <div class="card" style="margin-top:8px;border:1px solid rgba(59,130,246,0.3)">
       <div class="card-title" style="color:var(--blue-light)">💾 Copia de seguridad</div>
       <div style="font-size:12px;color:var(--gray);margin-bottom:12px;line-height:1.5">Guarda tus datos (perfil, historial, rutinas) en un archivo. Si alguna vez pierdes los datos, podrás restaurarlos aquí.</div>
