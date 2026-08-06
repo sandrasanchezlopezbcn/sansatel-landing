@@ -311,6 +311,17 @@
       background:rgba(7,18,36,.96); border-top:1px solid rgba(127,161,214,.18); border-bottom:0;
       box-shadow:0 -16px 40px rgba(0,0,0,.36); backdrop-filter:blur(24px);
     }
+    .timer-bar {
+      bottom:calc(64px + env(safe-area-inset-bottom));
+      z-index:460;
+      padding:9px 12px;
+      gap:8px;
+      box-shadow:0 -10px 28px rgba(0,0,0,.35);
+    }
+    .timer-count { font-size:27px; min-width:62px; }
+    .timer-btns { flex-direction:row; gap:3px; }
+    .timer-btn { padding:6px 7px; font-size:10px; }
+    .timer-btns .timer-btn:last-child { padding-left:8px; padding-right:8px; }
     .tab-btn { flex:0 0 72px; min-height:48px; padding:8px 6px; border-radius:14px; font-size:9px; line-height:1.25; }
     .tab-btn.active { transform:translateY(-3px); background:linear-gradient(145deg,#10B981,#0EA5A4); color:#fff; box-shadow:0 8px 22px rgba(16,185,129,.28); }
     .view { padding:22px 14px; }
@@ -816,6 +827,22 @@ function showTimerNotif(){
   if('serviceWorker' in navigator) navigator.serviceWorker.ready.then(r=>r.showNotification('⏱ Descanso terminado',opts)).catch(()=>new Notification('⏱ Descanso terminado',opts));
   else new Notification('⏱ Descanso terminado',opts);
 }
+function saveTimerState(){
+  if(timerEnd>0) localStorage.setItem('gt2_timer',JSON.stringify({end:timerEnd,name:timerExName}));
+  else localStorage.removeItem('gt2_timer');
+}
+function restoreTimer(){
+  const saved=JSON.parse(localStorage.getItem('gt2_timer')||'null');
+  if(!saved||!saved.end) return;
+  const remaining=Math.ceil((saved.end-Date.now())/1000);
+  timerExName=saved.name||'ejercicio';
+  if(remaining>0) startTimer(remaining,timerExName);
+  else {
+    localStorage.removeItem('gt2_timer');
+    showTimerNotif();
+    if('vibrate' in navigator) navigator.vibrate([250,120,250]);
+  }
+}
 let wiz = {name:'',color:COLORS[0],goal:'muscle',level:'intermediate',days:4,focus:[]};
 let todayEx = null, todayDay = null, todayIdx = parseInt(localStorage.getItem('gt2_dayIdx')||'0');
 function getMeso(pid){ return JSON.parse(localStorage.getItem('gt2_meso_'+pid)||'null'); }
@@ -896,6 +923,20 @@ function saveDayIdx(i){ todayIdx=i; localStorage.setItem('gt2_dayIdx',i); }
 function saveSess() { localStorage.setItem('gt2_session',JSON.stringify(curSession)); }
 function getHist(id) { return JSON.parse(localStorage.getItem('gt2_h_'+id)||'[]'); }
 function setHist(id,h) { localStorage.setItem('gt2_h_'+id,JSON.stringify(h)); }
+function getWeightMemory(pid) { return JSON.parse(localStorage.getItem('gt2_weights_'+pid)||'{}'); }
+function rememberWeight(exId,si,weight) {
+  const p=curP(); if(!p) return;
+  const memory=getWeightMemory(p.id);
+  if(!memory[exId]) memory[exId]=[];
+  memory[exId][si]=weight;
+  localStorage.setItem('gt2_weights_'+p.id,JSON.stringify(memory));
+}
+function restoreWeights(ex) {
+  const p=curP(); if(!p) return;
+  const saved=getWeightMemory(p.id)[ex.id];
+  if(!saved) return;
+  ex.sets.forEach((s,si)=>{ if(saved[si]>0) s.weight=saved[si]; });
+}
 function curP() { return profiles.find(p=>p.id===curId)||profiles[0]; }
 function getLastExData(exId) {
   const p=curP(); if(!p) return null;
@@ -1269,10 +1310,11 @@ function startToday(){
   // Pre-fill weights from history + mark progression
   curSession.exercises.forEach(ex=>{
     if(ex.isCardio) return;
+    restoreWeights(ex);
     const last=getLastExData(ex.id);
     if(!last) return;
     const suggested=last.progressionReady?Math.round((last.weight+2.5)*2)/2:last.weight;
-    ex.sets.forEach(s=>s.weight=suggested);
+    ex.sets.forEach(s=>{ if(!s.weight) s.weight=suggested; });
     ex._lastWeight=last.weight;
     ex._progReady=last.progressionReady;
   });
@@ -1339,7 +1381,7 @@ function renderSession(){
         ${ex.sets.map((s,si)=>`
           <div style="display:grid;grid-template-columns:30px 1fr 1fr 40px 40px 32px;gap:3px;align-items:center;text-align:center;padding:6px 0;border-bottom:1px solid var(--border);${s.done?'background:rgba(16,185,129,0.06);border-radius:8px':''}">
             <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:${s.done?'var(--green-light)':'var(--white)'}">${s.num}</div>
-            <input type="number" value="${s.weight||''}" min="0" step="0.5" style="width:100%;text-align:center;padding:8px 2px;font-size:14px;font-weight:600;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--white)" onchange="updW(${ei},${si},this.value)" placeholder="—">
+            <input type="number" value="${s.weight||''}" min="0" step="0.5" style="width:100%;text-align:center;padding:8px 2px;font-size:14px;font-weight:600;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--white)" oninput="updW(${ei},${si},this.value)" placeholder="—">
             <input type="number" value="${s.reps||''}" min="0" style="width:100%;text-align:center;padding:8px 2px;font-size:14px;font-weight:600;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--white)" onchange="updR(${ei},${si},this.value)" placeholder="—">
             <div style="font-size:12px;color:var(--gray)">${s.repsMin&&s.repsMax&&s.repsMin!==s.repsMax?s.repsMin+'-'+s.repsMax:(s.repsMin||12)}</div>
             <select style="width:100%;text-align:center;padding:6px 0;font-size:13px;font-weight:600;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:${s.rpe>=9?'var(--amber-light)':s.rpe>=7?'var(--green-light)':s.rpe>=6?'var(--amber-light)':'var(--gray)'}" onchange="updRpe(${ei},${si},this.value)">
@@ -1358,7 +1400,10 @@ function renderSession(){
           const msg=avg>=9?'⚠️ Muy al límite — en la próxima sesión reduce el peso ligeramente':avg>=7?'✅ Zona perfecta — estás estimulando el músculo correctamente':'↑ Demasiado fácil — sube el peso en la próxima serie';
           return `<div style="font-size:11px;padding:6px 8px;margin-top:6px;border-radius:8px;background:${bg};color:${color};line-height:1.5">${msg}</div>`;
         })()}
-        <button onclick="addSet(${ei})" style="width:100%;margin-top:8px;padding:7px;font-size:12px;font-weight:600;color:var(--gray);background:transparent;border:1px dashed var(--border);border-radius:8px;cursor:pointer">+ Serie</button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+          <button onclick="removeSet(${ei})" style="width:100%;padding:7px;font-size:12px;font-weight:600;color:var(--gray);background:transparent;border:1px dashed var(--border);border-radius:8px;cursor:pointer">− Serie</button>
+          <button onclick="addSet(${ei})" style="width:100%;padding:7px;font-size:12px;font-weight:600;color:var(--gray);background:transparent;border:1px dashed var(--border);border-radius:8px;cursor:pointer">+ Serie</button>
+        </div>
       </div>`).join('')}
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">
       <button class="btn btn-ghost btn-full" onclick="if(confirm('¿Abandonar la sesión?'))cancelSess()">Cancelar</button>
@@ -1373,13 +1418,27 @@ function togSet(ei,si){
   if(s.done&&!ex.isCardio) startTimer(ex.restSeconds||90,ex.name);
   else if(!s.done) stopTimer();
 }
-function updW(ei,si,v){ curSession.exercises[ei].sets[si].weight=parseFloat(v)||0; saveSess(); }
+function updW(ei,si,v){
+  const ex=curSession.exercises[ei];
+  const weight=parseFloat(v)||0;
+  ex.sets[si].weight=weight;
+  rememberWeight(ex.id,si,weight);
+  saveSess();
+}
 function updR(ei,si,v){ curSession.exercises[ei].sets[si].reps=parseInt(v)||0; saveSess(); }
 function updRpe(ei,si,v){ curSession.exercises[ei].sets[si].rpe=parseInt(v)||0; saveSess(); }
 function addSet(ei){
   const ex=curSession.exercises[ei];
   const last=ex.sets[ex.sets.length-1];
   ex.sets.push({num:ex.sets.length+1,repsMin:last.repsMin,repsMax:last.repsMax,weight:last.weight||0,done:false});
+  saveSess(); renderSession();
+}
+function removeSet(ei){
+  const ex=curSession.exercises[ei];
+  if(ex.sets.length<=1){ alert2('Debe quedar al menos una serie'); return; }
+  const last=ex.sets[ex.sets.length-1];
+  if((last.done||last.weight||last.reps||last.rpe)&&!confirm('Esta serie tiene datos. ¿Quieres quitarla?')) return;
+  ex.sets.pop();
   saveSess(); renderSession();
 }
 function finishSess(){
@@ -1410,6 +1469,7 @@ function playBeep(){
 }
 function startTimer(sec,name){
   stopTimer(); timerEnd=Date.now()+sec*1000; timerExName=name||'ejercicio';
+  saveTimerState();
   document.getElementById('timer-bar').classList.add('visible');
   if(name) document.getElementById('timer-exname').textContent=name;
   tickTimer();
@@ -1419,8 +1479,9 @@ function tickTimer(){
   timerSec=Math.ceil((timerEnd-Date.now())/1000);
   if(timerSec<=0){
     stopTimer(); playBeep();
-    if(document.hidden) showTimerNotif();
-    else alert2('¡A por la siguiente serie! 💪');
+    showTimerNotif();
+    if('vibrate' in navigator) navigator.vibrate([250,120,250]);
+    if(!document.hidden) alert2('¡A por la siguiente serie! 💪');
     return;
   }
   updTimer();
@@ -1432,7 +1493,7 @@ function updTimer(){
   el.className='timer-count'+(timerSec<=10?' urgent':'');
 }
 function addTime(s){ timerEnd=Math.max(Date.now()+5000,timerEnd+s*1000); tickTimer(); }
-function stopTimer(){ clearInterval(timerIv); timerIv=null; timerEnd=0; document.getElementById('timer-bar').classList.remove('visible'); }
+function stopTimer(){ clearInterval(timerIv); timerIv=null; timerEnd=0; saveTimerState(); document.getElementById('timer-bar').classList.remove('visible'); }
 document.addEventListener('visibilitychange',()=>{ if(!document.hidden&&timerEnd>0) tickTimer(); });
 function fmtRest(s){ const m=Math.floor(s/60),r=s%60; return s<60?s+'s':r===0?m+'min':m+':'+String(r).padStart(2,'0'); }
 
@@ -1672,6 +1733,7 @@ function startFromTemplate(tplId) {
   if(!tpl) return;
   curSession={id:Date.now(),profileId:p.id,name:tpl.name,planIndex:todayIdx,date:new Date().toISOString(),startTime:Date.now(),
     exercises:tpl.exercises.map(ex=>({...ex,sets:ex.sets.map(s=>({...s,done:false,weight:0}))}))};
+  curSession.exercises.forEach(ex=>{ if(!ex.isCardio) restoreWeights(ex); });
   saveSess();
   document.getElementById('session-badge').style.display='flex';
   showTab('sesion');
@@ -2224,6 +2286,7 @@ function alert2(msg,type){ const el=document.getElementById('alert'); el.textCon
 
 if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
 init();
+restoreTimer();
 </script>
 </body>
 </html>
