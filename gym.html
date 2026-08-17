@@ -682,9 +682,9 @@ const PLANS = {
   5:[
     {name:'Piernas (cuádriceps) + Glúteos',muscles:['piernas','gluteos','cardio']},
     {name:'Espalda + Bíceps + Lumbares',muscles:['espalda','biceps','lumbares','cardio']},
-    {name:'Hombros + Core + Pecho suave',muscles:['hombros','core','pecho','triceps','cardio']},
-    {name:'Femoral + Glúteos + Pierna suave',muscles:['femoral','gluteos','piernas','cardio']},
-    {name:'Pecho + Tríceps + Espalda suave',muscles:['pecho','triceps','espalda','biceps','hombros','cardio']},
+    {name:'Hombros + Core',muscles:['hombros','core','cardio']},
+    {name:'Femoral + Glúteos',muscles:['femoral','gluteos','cardio']},
+    {name:'Pecho + Tríceps',muscles:['pecho','triceps','cardio']},
   ],
   6:[
     {name:'Piernas (cuádriceps)',muscles:['piernas','cardio']},
@@ -710,9 +710,6 @@ const LEVEL_LBL = {beginner:'🌱 Principiante',intermediate:'⚡ Intermedio',ad
 const MUSCLE_LBL = {pecho:'Pecho',espalda:'Espalda',hombros:'Hombros',biceps:'Bíceps',triceps:'Tríceps',piernas:'Piernas (cuádriceps)',femoral:'Femoral',gluteos:'Glúteos',core:'Core',cardio:'Cardio',lumbares:'Lumbares',cintura:'Cintura'};
 const MUSCLE_ICON = {pecho:'🫁',espalda:'🔙',hombros:'🤷',biceps:'💪',triceps:'🦾',piernas:'🦵',femoral:'🔄',gluteos:'🍑',core:'🎯',cardio:'❤️',lumbares:'🔻',cintura:'↔️'};
 const DAY_WHY = {
-  'Hombros + Core + Pecho suave':'Se mantiene tu día de hombros y core. Añadimos solo un press de pecho moderado para darle el primer estímulo semanal.',
-  'Femoral + Glúteos + Pierna suave':'Se mantiene tu día de cadena posterior y añadimos una sentadilla controlada como segundo estímulo de pierna.',
-  'Pecho + Tríceps + Espalda suave':'Pecho y tríceps siguen siendo protagonistas. Un único remo completa la frecuencia 2 de espalda sin convertirlo en otro día completo de espalda.',
   'Piernas (cuádriceps) + Glúteos':'Trabajamos dos grandes grupos del tren inferior con movimientos de empuje de rodilla y extensión de cadera. Prioriza el recorrido que puedas controlar y aumenta la carga gradualmente.',
   'Espalda + Bíceps + Lumbares':'La espalda y los bíceps colaboran en los movimientos de tirón. Combinamos jalones y remos para cubrir distintos ángulos; el trabajo lumbar aporta estabilidad y control.',
   'Hombros + Core':'Combinamos empuje, elevaciones y trabajo posterior del hombro. El core se entrena para resistir movimiento y mantener una posición estable, no para reducir grasa localizada.',
@@ -722,9 +719,9 @@ const DAY_WHY = {
 const WARMUPS = {
   0:['5 min de bicicleta o cinta suave','10 sentadillas sin peso + 10 puentes de glúteo','Movilidad de tobillo y cadera: 8 repeticiones por lado','2 series de Hack Squat subiendo el peso gradualmente'],
   1:['5 min de elíptica o remo suave','10 retracciones escapulares + 10 círculos de hombros','1 serie ligera de jalón de 12–15 repeticiones','1 segunda serie de jalón con peso intermedio'],
-  2:['5 min de elíptica suave','10 círculos de brazos en cada dirección','12 rotaciones externas con goma o polea ligera','1 serie ligera de press de hombros y otra de press de pecho'],
+  2:['5 min de elíptica suave','10 círculos de brazos en cada dirección','12 rotaciones externas con goma o polea ligera','2 series de press de hombros subiendo el peso gradualmente'],
   3:['5 min de bicicleta suave','10 bisagras de cadera sin peso + 10 puentes de glúteo','Movilidad de cadera: 8 repeticiones por lado','2 series de peso muerto rumano con carga progresiva'],
-  4:['5 min de elíptica o cinta suave','10 retracciones escapulares + 10 círculos de brazos','10 aperturas con goma o peso muy ligero','2 series de press de pecho subiendo el peso gradualmente'],
+  4:['5 min de elíptica o cinta suave','10 retracciones escapulares + 10 círculos de brazos','10 aperturas con goma o peso muy ligero','2 series de press inclinado subiendo el peso gradualmente'],
 };
 const QUAD_IDS=new Set(['l4','l5','l6','l10','l11']);
 const FEM_IDS=new Set(['l7','l9','l19','l20']);
@@ -860,16 +857,16 @@ function buildDefaultMeso(){
   };
   const cv={id:'cv2',name:'Caminata inclinada en cinta',icon:'⛰️',muscle:'cardio',isCardio:true,durationMin:20,sets:[{num:1,done:false,durationMin:20}]};
   return{created:new Date().toISOString(),routines:{
-    // Tu día de pierna original se mantiene sin cambios.
+    // Día 1: cuádriceps + glúteos. Se conservan Hack Squat y prensa, con volumen controlado.
     0:[mkEx('l4','piernas',3,8,10),mkEx('g2','gluteos',3,8,10),mkEx('l5','piernas',3,10,12),mkEx('l6','piernas',2,12,15),mkEx('l18','piernas',3,12,15),cv].filter(Boolean),
-    // Tu día de espalda y bíceps original se mantiene sin cambios.
+    // Día 2: jalón + remo + pullover con barra recta, la combinación elegida por la usuaria.
     1:[mkEx('e2','espalda',3,8,12),mkEx('e20','espalda',3,8,12),mkEx('e12','espalda',3,12,15),mkEx('lu11','lumbares',2,12,15),mkEx('b6','biceps',3,10,15),mkEx('b7','biceps',2,10,15),cv].filter(Boolean),
-    // Día de hombros original: un press de pecho sustituye a un cuarto ejercicio de hombro.
-    2:[mkEx('h7','hombros',3,8,12),mkEx('h8','hombros',3,12,15),mkEx('h9','hombros',3,12,15),mkEx('p15','pecho',3,10,12),mkEx('c13','core',3,10,12),mkEx('c16','core',3,10,12),cv].filter(Boolean),
-    // Cadena posterior original: la sentadilla Smith sustituye a una patada para repetir pierna.
-    3:[mkEx('l24','femoral',3,8,10),mkEx('g2','gluteos',3,12,15),mkEx('l7','femoral',3,10,15),mkEx('l22','piernas',2,10,12),mkEx('g13','gluteos',3,12,15),mkEx('g6','gluteos',2,15,20),cv].filter(Boolean),
-    // Día de pecho original: añadimos solo un remo y un curl cortos para completar frecuencia 2.
-    4:[mkEx('p10','pecho',3,8,12),mkEx('p14','pecho',2,12,15),mkEx('t5','triceps',3,10,12),mkEx('t9','triceps',2,12,15),mkEx('e11','espalda',2,10,12),mkEx('b7','biceps',2,10,15),cv].filter(Boolean),
+    // Día 3: hombros equilibrados + core estabilizador.
+    2:[mkEx('h7','hombros',3,8,12),mkEx('h8','hombros',3,12,15),mkEx('h9','hombros',3,12,15),mkEx('h12','hombros',2,12,15),mkEx('c13','core',3,10,12),mkEx('c16','core',3,10,12),cv].filter(Boolean),
+    // Día 4: cadena posterior. El segundo hip thrust es moderado y con más repeticiones.
+    3:[mkEx('l24','femoral',3,8,10),mkEx('g2','gluteos',3,12,15),mkEx('l7','femoral',3,10,15),mkEx('g13','gluteos',3,12,15),mkEx('g9','gluteos',2,12,15),mkEx('g6','gluteos',2,15,20),cv].filter(Boolean),
+    // Día 5: empuje de pecho + tríceps.
+    4:[mkEx('p15','pecho',3,8,12),mkEx('p10','pecho',3,8,12),mkEx('p14','pecho',2,12,15),mkEx('t5','triceps',3,10,12),mkEx('t9','triceps',2,12,15),cv].filter(Boolean),
   }};
 }
 function getFixedRoutine(p,day,dayIdx){
@@ -2287,9 +2284,9 @@ function _exProgTab(ex){
 // ─── ALERT ────────────────────────────────────
 function alert2(msg,type){ const el=document.getElementById('alert'); el.textContent=msg; el.className='alert show'+(type==='amber'?' amber':''); setTimeout(()=>el.classList.remove('show'),2500); }
 
-// Aplica una sola vez la nueva rutina frecuencia 2 al perfil activo.
-function migrateToFrequency2(){
-  const version='freq2-v2';
+// Restaura una sola vez la rutina original sin tocar historial ni pesos guardados.
+function restoreOriginalRoutineOnce(){
+  const version='original-restored-v1';
   if(localStorage.getItem('gt2_routine_version')===version||!profiles.length)return;
   const p=profiles.find(x=>x.id===curId)||profiles[0];
   p.days=5;
@@ -2301,7 +2298,7 @@ function migrateToFrequency2(){
 }
 
 if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
-migrateToFrequency2();
+restoreOriginalRoutineOnce();
 init();
 restoreTimer();
 </script>
