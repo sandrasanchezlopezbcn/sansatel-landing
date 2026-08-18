@@ -2286,7 +2286,7 @@ function alert2(msg,type){ const el=document.getElementById('alert'); el.textCon
 
 // Restaura una sola vez la rutina original sin tocar historial ni pesos guardados.
 function restoreOriginalRoutineOnce(){
-  const version='original-restored-v1';
+  const version='original-restored-v2';
   if(localStorage.getItem('gt2_routine_version')===version||!profiles.length)return;
   const p=profiles.find(x=>x.id===curId)||profiles[0];
   p.days=5;
