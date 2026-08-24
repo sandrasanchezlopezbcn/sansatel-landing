@@ -616,7 +616,7 @@ const EX = {
     {id:'l22',name:'Sentadilla en Smith',icon:'🏗️',c:1,grip:'Barra en trapecios — pies ligeramente adelantados respecto a la barra, espalda recta, descenso controlado'},
     {id:'l23',name:'Zancada en Smith',icon:'🏗️',c:1,grip:'Barra en trapecios — pie trasero ligeramente atrasado, baja la rodilla hacia el suelo con control'},
     {id:'l6',name:'Extensión de cuádriceps',icon:'🔁',c:0},
-    {id:'l17',name:'Pantorrillas de pie',icon:'👟',c:0},
+    {id:'l17',name:'Gemelos de pie en máquina',icon:'👟',c:0},
     {id:'l18',name:'Pantorrillas sentado en máquina',icon:'🪑',c:0},
   ],
   femoral:[
@@ -682,7 +682,7 @@ const PLANS = {
   5:[
     {name:'Pierna A + Femoral',muscles:['piernas','gluteos','femoral','cardio']},
     {name:'Espalda A + Bíceps',muscles:['espalda','biceps','lumbares','cardio']},
-    {name:'Pecho A + Hombros + Tríceps',muscles:['pecho','hombros','triceps','core','cardio']},
+    {name:'Hombros + Tríceps + Core · Pecho complementario',muscles:['hombros','triceps','core','pecho','cardio']},
     {name:'Pierna B + Glúteos',muscles:['femoral','gluteos','piernas','core','cardio']},
     {name:'Superior B · Frecuencia 2',muscles:['pecho','espalda','hombros','biceps','triceps','cardio']},
   ],
@@ -858,7 +858,7 @@ function buildDefaultMeso(){
   const cv={id:'cv2',name:'Caminata inclinada en cinta',icon:'⛰️',muscle:'cardio',isCardio:true,durationMin:20,sets:[{num:1,done:false,durationMin:20}]};
   return{created:new Date().toISOString(),routines:{
     // Mismos ejercicios de siempre: primer estímulo del tren inferior.
-    0:[mkEx('l4','piernas',3,8,10),mkEx('g2','gluteos',3,8,10),mkEx('l6','piernas',2,12,15),mkEx('l7','femoral',3,10,15),mkEx('l18','piernas',3,12,15),cv].filter(Boolean),
+    0:[mkEx('l4','piernas',3,8,10),mkEx('g2','gluteos',3,8,10),mkEx('l6','piernas',2,12,15),mkEx('l7','femoral',3,10,15),mkEx('l17','piernas',3,12,15),cv].filter(Boolean),
     // Primer estímulo de espalda y bíceps.
     1:[mkEx('e2','espalda',3,8,12),mkEx('e12','espalda',3,12,15),mkEx('lu11','lumbares',2,12,15),mkEx('b6','biceps',3,10,15),cv].filter(Boolean),
     // Primer estímulo de pecho, hombros y tríceps.
@@ -2284,16 +2284,16 @@ function _exProgTab(ex){
 // ─── ALERT ────────────────────────────────────
 function alert2(msg,type){ const el=document.getElementById('alert'); el.textContent=msg; el.className='alert show'+(type==='amber'?' amber':''); setTimeout(()=>el.classList.remove('show'),2500); }
 
-// Restaura una sola vez la rutina original sin tocar historial ni pesos guardados.
+// Aplica una sola vez los ajustes de frecuencia 2 sin tocar historial ni pesos guardados.
 function migrateToSameExercisesFrequency2(){
-  const version='same-exercises-freq2-v1';
+  const version='same-exercises-freq2-v2';
   if(localStorage.getItem('gt2_routine_version')===version||!profiles.length)return;
   const p=profiles.find(x=>x.id===curId)||profiles[0];
   p.days=5;
   save();
   localStorage.removeItem('gt2_prevex_'+p.id);
   setMeso(p.id,buildDefaultMeso());
-  saveDayIdx(0);
+  saveDayIdx(Math.min(todayIdx,4));
   localStorage.setItem('gt2_routine_version',version);
 }
 
