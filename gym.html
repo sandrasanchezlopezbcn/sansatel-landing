@@ -2332,7 +2332,7 @@ function migrateToSameExercisesFrequency2(){
   localStorage.setItem('gt2_routine_version',version);
 }
 
-if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
+if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').then(r=>r.update()).catch(()=>{});
 migrateToSameExercisesFrequency2();
 init();
 restoreTimer();
