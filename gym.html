@@ -571,7 +571,7 @@ const EX = {
   ],
   espalda:[
     {id:'e2',name:'Jalón con barra',icon:'🔽',c:1,grip:'Prono ancho (barra larga)'},
-    {id:'e20',name:'Seal row (remo pecho apoyado)',icon:'🦭',c:1,grip:'Neutro o prono (barra o mancuernas) — pecho apoyado en banco inclinado alto, codos pegados al cuerpo al tirar'},
+    {id:'e20',name:'Remo en T unilateral en máquina',icon:'🤖',c:1,grip:'Neutro — pecho apoyado, trabaja un brazo y después el otro'},
     {id:'e21',name:'Pulldown con cuerda brazos estirados',icon:'📐',c:0,grip:'Neutro (cuerda) — brazos casi rectos, empuja hacia abajo y atrás hasta las caderas'},
     {id:'e11',name:'Remo en máquina',icon:'🤖',c:1,grip:'Prono o neutro (según máquina)'},
     {id:'e3',name:'Remo con mancuerna unilateral',icon:'💪',c:1,grip:'Neutro (pulgar arriba) — apoyo de rodilla en banco, espalda paralela al suelo'},
@@ -859,15 +859,42 @@ function buildDefaultMeso(){
   return{created:new Date().toISOString(),routines:{
     // Mismos ejercicios de siempre: primer estímulo del tren inferior.
     0:[mkEx('l4','piernas',3,8,10),mkEx('g2','gluteos',3,8,10),mkEx('l6','piernas',2,12,15),mkEx('l7','femoral',3,10,15),mkEx('l17','piernas',3,12,15),cv].filter(Boolean),
-    // Primer estímulo de espalda y bíceps.
-    1:[mkEx('e2','espalda',3,8,12),mkEx('e12','espalda',3,12,15),mkEx('lu11','lumbares',2,12,15),mkEx('b6','biceps',3,10,15),cv].filter(Boolean),
-    // Primer estímulo de pecho, hombros y tríceps.
-    2:[mkEx('h7','hombros',3,8,12),mkEx('h8','hombros',3,12,15),mkEx('h9','hombros',3,12,15),mkEx('p15','pecho',3,8,12),mkEx('t5','triceps',3,10,12),mkEx('c13','core',3,10,12),cv].filter(Boolean),
+    // Sesión principal de espalda completa y bíceps.
+    1:[mkEx('e2','espalda',3,8,12),mkEx('e4','espalda',3,8,12),mkEx('e20','espalda',3,10,12),mkEx('lu11','lumbares',2,12,15),mkEx('b6','biceps',3,10,15),cv].filter(Boolean),
+    // Primer estímulo de hombros y tríceps. Sin trabajo directo de pecho.
+    2:[mkEx('h7','hombros',3,8,12),mkEx('h8','hombros',3,12,15),mkEx('t5','triceps',3,10,12),mkEx('c16','core',3,10,12),cv].filter(Boolean),
     // Segundo estímulo de pierna, femoral y glúteos.
     3:[mkEx('l24','femoral',3,8,10),mkEx('g2','gluteos',3,12,15),mkEx('l5','piernas',3,10,12),mkEx('g13','gluteos',3,12,15),mkEx('g9','gluteos',2,12,15),mkEx('g6','gluteos',2,15,20),mkEx('c16','core',3,10,12),cv].filter(Boolean),
-    // Segundo estímulo superior con los ejercicios restantes de tu rutina.
-    4:[mkEx('p10','pecho',3,8,12),mkEx('p14','pecho',2,12,15),mkEx('e20','espalda',3,8,12),mkEx('h12','hombros',2,12,15),mkEx('b7','biceps',2,10,15),mkEx('t9','triceps',2,12,15),cv].filter(Boolean),
-  }};
+    // Segundo estímulo corto de espalda y hombros, más brazos.
+    4:[mkEx('e12','espalda',3,12,15),mkEx('h9','hombros',3,12,15),mkEx('h12','hombros',3,12,15),mkEx('b7','biceps',2,10,15),mkEx('t9','triceps',2,12,15),cv].filter(Boolean),
+  },routineVersion:4};
+}
+function migrateRoutineV4(meso){
+  if(!meso||Number(meso.routineVersion||0)>=4) return meso;
+  meso.routines=meso.routines||{};
+  const previousById={};
+  Object.values(meso.routines).flat().forEach(ex=>{ if(ex&&ex.id&&!previousById[ex.id]) previousById[ex.id]=ex; });
+  Object.keys(meso.routines).forEach(day=>{
+    meso.routines[day]=(meso.routines[day]||[]).filter(ex=>ex&&ex.muscle!=='pecho');
+  });
+  const defaults=buildDefaultMeso().routines;
+  const rebuildDay=day=>{
+    const current=meso.routines[day]||[];
+    meso.routines[day]=defaults[day].map(template=>{
+      const sameDay=current.find(ex=>ex.id===template.id);
+      if(sameDay) return sameDay;
+      const added=JSON.parse(JSON.stringify(template));
+      const previous=previousById[added.id];
+      if(previous&&Array.isArray(previous.sets)){
+        added.sets.forEach((set,i)=>{ if(previous.sets[i]&&previous.sets[i].weight!=null) set.weight=previous.sets[i].weight; });
+      }
+      return added;
+    });
+  };
+  // Reorganiza únicamente los días superiores; los dos días de pierna no cambian.
+  [1,2,4].forEach(rebuildDay);
+  meso.routineVersion=4;
+  return meso;
 }
 function getFixedRoutine(p,day,dayIdx){
   let meso=getMeso(p.id);
@@ -878,6 +905,9 @@ function getFixedRoutine(p,day,dayIdx){
     meso=hasReset?{created:new Date().toISOString(),routines:{}}:buildDefaultMeso();
     setMeso(p.id,meso);
   }
+  const migrated=migrateRoutineV4(meso);
+  if(migrated!==meso||Number(meso.routineVersion||0)===4) setMeso(p.id,migrated);
+  meso=migrated;
   if(!meso.routines[dayIdx]){
     // Partial meso: generate missing day with context from existing days
     const plan=buildFocusPlan(p.days,p.focus||[]);
@@ -1978,7 +2008,7 @@ const EX_TIPS = {
 
 const EX_DESC = {
   // Nuevos ejercicios
-  e20:['Ajusta el banco a unos 45° de inclinación. Apoya el pecho completamente en el respaldo con los pies en el suelo. Coge la barra o mancuernas con agarre neutro o prono, brazos colgando hacia el suelo.','Tira hacia arriba llevando los codos pegados al cuerpo y juntando los omóplatos en la parte alta. El pecho queda fijo en el banco en todo momento — no hay posibilidad de usar el balanceo del torso.','Aguanta 1 segundo arriba apretando el dorsal.','Baja de forma controlada en 3 segundos hasta el estiramiento completo. El apoyo del pecho aisla el dorsal mejor que cualquier otro remo.'],
+  e20:['Ajusta el asiento para apoyar bien el pecho y coloca los pies firmes. Agarra una sola asa con agarre neutro.','Tira con un brazo llevando el codo hacia atrás y hacia la cadera, sin girar el tronco.','Aguanta 1 segundo atrás y aprieta la espalda. Completa todas las repeticiones antes de cambiar de lado.','Vuelve lentamente hasta estirar el brazo sin despegar el pecho del apoyo ni elevar el hombro.'],
   e21:['Ajusta la polea en posición alta. Coge la cuerda con ambas manos, pulgares arriba. Da un paso atrás. Brazos casi rectos con los codos ligeramente doblados y fijos durante todo el movimiento.','Inclínate ligeramente hacia adelante. Tira de la cuerda hacia las caderas en un arco descendente llevando los codos hacia los bolsillos.','Separa los extremos de la cuerda al llegar abajo. Aprieta el dorsal en la contracción final.','Vuelve arriba de forma controlada en 3 segundos sintiendo el estiramiento del dorsal. Es uno de los mejores ejercicios para activar el dorsal en estiramiento máximo.'],
   lu11:['Ajusta el banco de hiperextensión para que las caderas queden al borde del apoyo. Los cuádriceps también apoyan en el cojín. Cruza los brazos sobre el pecho o ponlos detrás de la cabeza.','Baja el torso de forma controlada hacia el suelo sintiendo el estiramiento en los lumbares y los glúteos.','Sube empujando con los lumbares y los glúteos hasta que el cuerpo forme una línea recta. No hiperextiendas más allá de la línea recta.','Aguanta 1 segundo arriba apretando los lumbares. Para añadir intensidad, sostén una mancuerna o disco en el pecho.'],
   b6:['Siéntate en la máquina de curl o en el banco Scott. Ajusta el asiento para que los codos queden bien apoyados en la almohadilla, ligeramente por delante de los hombros.','El apoyo del codo elimina completamente el balanceo del cuerpo — solo trabaja el bíceps puro. Coge las asas o la barra en supino (palmas hacia arriba).','Sube apretando el bíceps hasta la contracción máxima. Aguanta 1 segundo arriba.','Baja muy despacio en 3 segundos. La bajada controlada con apoyo fijo es muy efectiva para el crecimiento del bíceps.'],
