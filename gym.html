@@ -864,13 +864,13 @@ function buildDefaultMeso(){
     // Primer estímulo de hombros y tríceps. Sin trabajo directo de pecho.
     2:[mkEx('h7','hombros',3,8,12),mkEx('h8','hombros',3,12,15),mkEx('t5','triceps',3,10,12),mkEx('c16','core',3,10,12),cv].filter(Boolean),
     // Segundo estímulo de pierna, femoral y glúteos.
-    3:[mkEx('l24','femoral',3,8,10),mkEx('g2','gluteos',3,12,15),mkEx('l5','piernas',3,10,12),mkEx('g13','gluteos',3,12,15),mkEx('g9','gluteos',2,12,15),mkEx('g6','gluteos',2,15,20),mkEx('c16','core',3,10,12),cv].filter(Boolean),
+    3:[mkEx('l24','femoral',3,8,10),mkEx('g2','gluteos',3,12,15),mkEx('l5','piernas',3,10,12),mkEx('g13','gluteos',2,12,15),mkEx('g9','gluteos',2,12,15),mkEx('g6','gluteos',2,15,20),mkEx('c16','core',2,10,12),cv].filter(Boolean),
     // Segundo estímulo corto de espalda y hombros, más brazos.
     4:[mkEx('e12','espalda',3,12,15),mkEx('h9','hombros',3,12,15),mkEx('h12','hombros',3,12,15),mkEx('b7','biceps',2,10,15),mkEx('t9','triceps',2,12,15),cv].filter(Boolean),
-  },routineVersion:4};
+  },routineVersion:5};
 }
-function migrateRoutineV4(meso){
-  if(!meso||Number(meso.routineVersion||0)>=4) return meso;
+function migrateRoutineV5(meso){
+  if(!meso||Number(meso.routineVersion||0)>=5) return meso;
   meso.routines=meso.routines||{};
   const previousById={};
   Object.values(meso.routines).flat().forEach(ex=>{ if(ex&&ex.id&&!previousById[ex.id]) previousById[ex.id]=ex; });
@@ -893,7 +893,12 @@ function migrateRoutineV4(meso){
   };
   // Reorganiza únicamente los días superiores; los dos días de pierna no cambian.
   [1,2,4].forEach(rebuildDay);
-  meso.routineVersion=4;
+  // Ajusta el segundo día de pierna para que la sesión completa no supere 90 minutos.
+  ['g13','c16'].forEach(id=>{
+    const ex=(meso.routines[3]||[]).find(item=>item.id===id);
+    if(ex&&Array.isArray(ex.sets)) ex.sets=ex.sets.slice(0,2);
+  });
+  meso.routineVersion=5;
   return meso;
 }
 function getFixedRoutine(p,day,dayIdx){
@@ -905,8 +910,8 @@ function getFixedRoutine(p,day,dayIdx){
     meso=hasReset?{created:new Date().toISOString(),routines:{}}:buildDefaultMeso();
     setMeso(p.id,meso);
   }
-  const migrated=migrateRoutineV4(meso);
-  if(migrated!==meso||Number(meso.routineVersion||0)===4) setMeso(p.id,migrated);
+  const migrated=migrateRoutineV5(meso);
+  if(migrated!==meso||Number(meso.routineVersion||0)===5) setMeso(p.id,migrated);
   meso=migrated;
   if(!meso.routines[dayIdx]){
     // Partial meso: generate missing day with context from existing days
