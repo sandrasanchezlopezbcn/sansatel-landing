@@ -600,6 +600,7 @@ const EX = {
     {id:'b5',name:'Curl inclinado en banco',icon:'📐',c:0,grip:'Supino (mancuernas — mayor estiramiento)'},
     {id:'b6',name:'Curl en máquina / Scott',icon:'🤖',c:0,grip:'Supino (asas de la máquina o barra EZ en banco Scott) — el apoyo elimina el balanceo'},
     {id:'b7',name:'Curl martillo con cuerda',icon:'🔗',c:0,grip:'Neutro (cuerda en polea baja — pulgares arriba durante todo el movimiento)'},
+    {id:'b8',name:'Curl unilateral en polea baja',icon:'💪',c:0,grip:'Supino (asa individual — trabaja un brazo y después el otro)'},
   ],
   triceps:[
     {id:'t2',name:'Press francés con barra EZ',icon:'〽️',c:0,grip:'Prono interior (barra EZ) — codos al techo'},
@@ -618,6 +619,7 @@ const EX = {
     {id:'l6',name:'Extensión de cuádriceps',icon:'🔁',c:0},
     {id:'l17',name:'Gemelos de pie en máquina',icon:'👟',c:0},
     {id:'l18',name:'Pantorrillas sentado en máquina',icon:'🪑',c:0},
+    {id:'l25',name:'Aductor en máquina',icon:'↔️',c:0,grip:'Rodillas en las almohadillas — junta las piernas con control'},
   ],
   femoral:[
     {id:'l19',name:'Peso muerto rumano',icon:'🏋️',c:1,grip:'Barra o mancuernas — rodillas ligeramente dobladas, bisagra de cadera'},
@@ -684,7 +686,7 @@ const PLANS = {
     {name:'Espalda A + Bíceps',muscles:['espalda','biceps','lumbares','cardio']},
     {name:'Hombros + Tríceps + Core',muscles:['hombros','triceps','core','cardio']},
     {name:'Pierna B + Glúteos',muscles:['femoral','gluteos','piernas','core','cardio']},
-    {name:'Espalda B + Hombros + Brazos',muscles:['espalda','hombros','biceps','triceps','cardio']},
+    {name:'Dorsal + Brazos + Core',muscles:['espalda','piernas','biceps','triceps','core','cardio']},
   ],
   6:[
     {name:'Piernas (cuádriceps)',muscles:['piernas','cardio']},
@@ -856,6 +858,7 @@ function buildDefaultMeso(){
       sets:Array.from({length:nSets},(_,i)=>({num:i+1,repsMin,repsMax,weight:0,done:false}))};
   };
   const cv={id:'cv2',name:'Caminata inclinada en cinta',icon:'⛰️',muscle:'cardio',isCardio:true,durationMin:20,sets:[{num:1,done:false,durationMin:20}]};
+  const cv15={id:'cv2',name:'Caminata inclinada en cinta',icon:'⛰️',muscle:'cardio',isCardio:true,durationMin:15,sets:[{num:1,done:false,durationMin:15}]};
   return{created:new Date().toISOString(),routines:{
     // Mismos ejercicios de siempre: primer estímulo del tren inferior.
     0:[mkEx('l4','piernas',3,8,10),mkEx('g2','gluteos',3,8,10),mkEx('l6','piernas',2,12,15),mkEx('l7','femoral',3,10,15),mkEx('l17','piernas',3,12,15),cv].filter(Boolean),
@@ -865,12 +868,12 @@ function buildDefaultMeso(){
     2:[mkEx('h7','hombros',3,8,12),mkEx('h8','hombros',3,12,15),mkEx('t5','triceps',3,10,12),mkEx('c16','core',3,10,12),cv].filter(Boolean),
     // Segundo estímulo de pierna, femoral y glúteos.
     3:[mkEx('l24','femoral',3,8,10),mkEx('g2','gluteos',3,12,15),mkEx('l5','piernas',3,10,12),mkEx('g13','gluteos',2,12,15),mkEx('g9','gluteos',2,12,15),mkEx('g6','gluteos',2,15,20),mkEx('c16','core',2,10,12),cv].filter(Boolean),
-    // Segundo estímulo corto de espalda y hombros, más brazos.
-    4:[mkEx('e12','espalda',3,12,15),mkEx('h9','hombros',3,12,15),mkEx('h12','hombros',3,12,15),mkEx('b7','biceps',2,10,15),mkEx('t9','triceps',2,12,15),cv].filter(Boolean),
-  },routineVersion:5};
+    // Recordatorio de dorsal, brazos, aductor y core: sesión de 60-75 minutos.
+    4:[mkEx('e12','espalda',3,12,15),mkEx('l25','piernas',3,15,20),mkEx('b7','biceps',3,10,15),mkEx('b8','biceps',2,10,12),mkEx('t9','triceps',3,10,15),mkEx('t5','triceps',2,12,15),mkEx('c16','core',2,10,12),cv15].filter(Boolean),
+  },routineVersion:6};
 }
-function migrateRoutineV5(meso){
-  if(!meso||Number(meso.routineVersion||0)>=5) return meso;
+function migrateRoutineV6(meso){
+  if(!meso||Number(meso.routineVersion||0)>=6) return meso;
   meso.routines=meso.routines||{};
   const previousById={};
   Object.values(meso.routines).flat().forEach(ex=>{ if(ex&&ex.id&&!previousById[ex.id]) previousById[ex.id]=ex; });
@@ -882,7 +885,14 @@ function migrateRoutineV5(meso){
     const current=meso.routines[day]||[];
     meso.routines[day]=defaults[day].map(template=>{
       const sameDay=current.find(ex=>ex.id===template.id);
-      if(sameDay) return sameDay;
+      if(sameDay){
+        const preserved=JSON.parse(JSON.stringify(template));
+        preserved.sets=template.sets.map((set,i)=>({
+          ...set,...(sameDay.sets&&sameDay.sets[i]?sameDay.sets[i]:{}),
+          num:i+1,repsMin:template.repsMin,repsMax:template.repsMax
+        }));
+        return preserved;
+      }
       const added=JSON.parse(JSON.stringify(template));
       const previous=previousById[added.id];
       if(previous&&Array.isArray(previous.sets)){
@@ -898,7 +908,7 @@ function migrateRoutineV5(meso){
     const ex=(meso.routines[3]||[]).find(item=>item.id===id);
     if(ex&&Array.isArray(ex.sets)) ex.sets=ex.sets.slice(0,2);
   });
-  meso.routineVersion=5;
+  meso.routineVersion=6;
   return meso;
 }
 function getFixedRoutine(p,day,dayIdx){
@@ -910,8 +920,8 @@ function getFixedRoutine(p,day,dayIdx){
     meso=hasReset?{created:new Date().toISOString(),routines:{}}:buildDefaultMeso();
     setMeso(p.id,meso);
   }
-  const migrated=migrateRoutineV5(meso);
-  if(migrated!==meso||Number(meso.routineVersion||0)===5) setMeso(p.id,migrated);
+  const migrated=migrateRoutineV6(meso);
+  if(migrated!==meso||Number(meso.routineVersion||0)===6) setMeso(p.id,migrated);
   meso=migrated;
   if(!meso.routines[dayIdx]){
     // Partial meso: generate missing day with context from existing days
