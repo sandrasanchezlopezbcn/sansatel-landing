@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="SansaTel">
   <defs>
     <linearGradient id="ring" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%"   stop-color="#1D4ED8"/>
-      <stop offset="55%"  stop-color="#0E9AA7"/>
-      <stop offset="100%" stop-color="#14B8A6"/>
+      <stop offset="0%"   stop-color="#A8873F"/>
+      <stop offset="55%"  stop-color="#C4A35A"/>
+      <stop offset="100%" stop-color="#E8C97A"/>
     </linearGradient>
     <linearGradient id="fondo" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%"   stop-color="#0D1F3C"/>
@@ -14,23 +14,23 @@
   <circle cx="200" cy="200" r="198" fill="url(#ring)"/>
   <circle cx="200" cy="200" r="187" fill="url(#fondo)"/>
 
-  <!-- Señal (telecomunicaciones) + rayo (energía, único uso del naranja) -->
+  <!-- Señal (telecomunicaciones) + rayo (energía) -->
   <g transform="translate(5,0)">
-    <g fill="none" stroke="#14B8A6" stroke-linecap="round">
+    <g fill="none" stroke="#C4A35A" stroke-linecap="round">
       <path d="M139 136 a 36 36 0 0 1 46 0" stroke-width="8"/>
       <path d="M149 152 a 22 22 0 0 1 26 0" stroke-width="8" opacity="0.62"/>
     </g>
-    <circle cx="162" cy="167" r="5.5" fill="#14B8A6" opacity="0.62"/>
-    <path d="M227 112 l-22 36 h13 l-9 29 24 -39 h-13 z" fill="#F59E0B"/>
+    <circle cx="162" cy="167" r="5.5" fill="#C4A35A" opacity="0.62"/>
+    <path d="M227 112 l-22 36 h13 l-9 29 24 -39 h-13 z" fill="#E8C97A"/>
   </g>
 
   <text x="200" y="248" text-anchor="middle"
-        font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif"
+        font-family="'Playfair Display', Georgia, serif"
         font-size="66" font-weight="800" letter-spacing="-2" fill="#FFFFFF">SansaTel</text>
 
-  <line x1="118" y1="271" x2="282" y2="271" stroke="#14B8A6" stroke-width="1.6" opacity="0.45"/>
+  <line x1="118" y1="271" x2="282" y2="271" stroke="#C4A35A" stroke-width="1.6" opacity="0.45"/>
 
   <text x="200" y="298" text-anchor="middle"
-        font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif"
-        font-size="16" font-weight="600" letter-spacing="2.6" fill="#14B8A6">TELECOM · ENERGÍA</text>
+        font-family="Inter, Helvetica, Arial, sans-serif"
+        font-size="16" font-weight="600" letter-spacing="2.6" fill="#C4A35A">TELECOM · ENERGÍA</text>
 </svg>

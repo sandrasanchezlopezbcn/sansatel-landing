@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SansaTel — Telecomunicaciones · Energía · Ciberseguridad · Digitalización</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0A1628;
@@ -12,10 +12,8 @@
     --bg3: #112040;
     --blue: #1D4ED8;
     --blue-light: #3B82F6;
-    --teal: #0D9488;
-    --teal-light: #14B8A6;
-    --amber: #D97706;
-    --amber-light: #F59E0B;
+    --gold: #C4A35A;
+    --gold-light: #E8C97A;
     --white: #F1F5F9;
     --gray: #7B8FAE;
     --gray2: #4E6080;
@@ -78,7 +76,7 @@
   .nav-links a:hover { color: var(--white); }
 
   .nav-cta {
-    background: var(--teal);
+    background: var(--gold);
     color: var(--bg);
     padding: 10px 22px;
     border-radius: 100px;
@@ -90,7 +88,7 @@
     align-items: center;
     gap: 6px;
   }
-  .nav-cta:hover { background: var(--teal-light); transform: translateY(-1px); }
+  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
 
   /* ── HERO ── */
   .hero {
@@ -240,7 +238,7 @@
 
   .ig-handle {
     font-size: 13px;
-    color: var(--blue-light);
+    color: var(--gold);
     text-decoration: none;
     font-weight: 500;
   }
@@ -248,7 +246,7 @@
 
   .ig-category {
     font-size: 11px;
-    color: var(--teal);
+    color: var(--gold);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -292,7 +290,7 @@
     color: var(--gray);
     line-height: 1.6;
     margin-bottom: 14px;
-    border-left: 2px solid var(--teal);
+    border-left: 2px solid var(--gold);
     padding-left: 10px;
   }
 
@@ -321,15 +319,15 @@
   }
 
   .ig-btn-primary {
-    background: var(--teal);
+    background: var(--gold);
     color: var(--bg);
   }
-  .ig-btn-primary:hover { background: var(--teal-light); transform: translateY(-1px); }
+  .ig-btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
 
   .ig-btn-secondary {
-    background: rgba(37,99,235,0.15);
-    color: var(--blue-light);
-    border: 1px solid rgba(37,99,235,0.3);
+    background: rgba(255,255,255,0.05);
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.18);
   }
   .ig-btn-secondary:hover { background: rgba(37,99,235,0.25); }
 
@@ -406,7 +404,7 @@
   }
 
   .hero-title {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Playfair Display', Georgia, serif;
     font-size: clamp(36px, 4vw, 56px);
     font-weight: 800;
     line-height: 1.1;
@@ -414,12 +412,9 @@
     color: var(--white);
   }
 
-  .hero-title .accent { color: var(--teal); }
+  .hero-title .accent { color: var(--gold); }
 
-  /* Naranja: acento exclusivo de Energia */
-  .service-card.energia .service-tag { background: rgba(217,119,6,0.14); color: var(--amber-light); }
-  .service-pill.energia { border-color: rgba(217,119,6,0.35); color: var(--amber-light); }
-  .hero-title .accent-blue { color: var(--blue-light); }
+  .hero-title .accent-blue { color: var(--white); }
 
   .hero-subtitle {
     font-size: 18px;
@@ -458,7 +453,7 @@
   }
 
   .btn-primary {
-    background: var(--teal);
+    background: var(--gold);
     color: #0A1628;
     padding: 14px 28px;
     border-radius: 100px;
@@ -470,7 +465,7 @@
     gap: 8px;
     transition: all 0.2s;
   }
-  .btn-primary:hover { background: var(--teal-light); transform: translateY(-2px); }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
 
   .btn-secondary {
     background: transparent;
@@ -503,7 +498,7 @@
     font-family: 'Space Grotesk', sans-serif;
     font-size: 28px;
     font-weight: 800;
-    color: var(--teal);
+    color: var(--gold);
   }
 
   .community-label {
@@ -541,7 +536,7 @@
   }
 
   .section-title {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Playfair Display', Georgia, serif;
     font-size: clamp(28px, 3vw, 40px);
     font-weight: 700;
     color: var(--white);
@@ -621,7 +616,7 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--blue), var(--teal));
+    background: linear-gradient(90deg, var(--blue), var(--gold));
   }
 
   .about-card-title {
@@ -633,7 +628,7 @@
 
   .about-card-sub {
     font-size: 13px;
-    color: var(--teal);
+    color: var(--gold);
     font-weight: 600;
     margin-bottom: 20px;
     text-transform: uppercase;
@@ -685,7 +680,7 @@
     position: absolute;
     bottom: 0; left: 0; right: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--blue), var(--teal));
+    background: linear-gradient(90deg, var(--blue), var(--gold));
     transform: scaleX(0);
     transition: transform 0.3s;
   }
@@ -734,7 +729,7 @@
     border-radius: 100px;
     font-size: 11px;
     font-weight: 600;
-    color: var(--teal);
+    color: var(--gold);
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
@@ -834,7 +829,7 @@
     margin-bottom: 8px;
   }
 
-  .stat-num .stat-suffix { color: var(--teal); }
+  .stat-num .stat-suffix { color: var(--gold); }
 
   .stat-label {
     font-size: 14px;
@@ -919,7 +914,7 @@
 
   .form-submit {
     width: 100%;
-    background: var(--teal);
+    background: var(--gold);
     color: var(--bg);
     border: none;
     padding: 14px;
@@ -934,7 +929,7 @@
     justify-content: center;
     gap: 8px;
   }
-  .form-submit:hover { background: var(--teal-light); transform: translateY(-1px); }
+  .form-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
 
   /* ── FOOTER ── */
   footer {
@@ -1300,7 +1295,7 @@
   <div class="gallery-notice">
     📲 Pon tus fotos de Instagram en <code style="color:var(--blue-light)">assets/instagram/post-1.jpg</code> y aparecerán aquí automáticamente.
     &nbsp;·&nbsp;
-    <a href="https://instagram.com/sansatel_asesoras" target="_blank" style="color:var(--teal);text-decoration:none;font-weight:600;">Seguir en Instagram →</a>
+    <a href="https://instagram.com/sansatel_asesoras" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:600;">Seguir en Instagram →</a>
   </div>
 </section>
 
