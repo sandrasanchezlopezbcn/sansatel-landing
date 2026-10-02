@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 180" width="880" height="180" role="img" aria-label="SansaTel — Consultora independiente">
+  <defs>
+    <linearGradient id="ringB" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#1D4ED8"/>
+      <stop offset="55%"  stop-color="#0E9AA7"/>
+      <stop offset="100%" stop-color="#14B8A6"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(20,26)">
+    <circle cx="64" cy="64" r="64" fill="url(#ringB)"/>
+    <circle cx="64" cy="64" r="56" fill="#0A1628"/>
+    <g transform="translate(-7,0)">
+      <g fill="none" stroke="#14B8A6" stroke-linecap="round">
+      <path d="M34 68 a 30 30 0 0 1 38 0" stroke-width="7"/>
+      <path d="M42 81 a 18 18 0 0 1 22 0" stroke-width="7" opacity="0.62"/>
+      <circle cx="53" cy="93" r="4.5" fill="#14B8A6" stroke="none" opacity="0.62"/>
+    </g>
+      <path d="M101 40 l-18 30 h11 l-7 24 19 -32 h-11 z" fill="#F59E0B"/>
+    </g>
+  </g>
+
+  <text x="178" y="86"
+        font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif"
+        font-size="58" font-weight="800" letter-spacing="-1.8" fill="#FFFFFF">SansaTel</text>
+
+  <line x1="180" y1="104" x2="856" y2="104" stroke="#14B8A6" stroke-width="2" opacity="0.5"/>
+
+  <text x="179" y="130"
+        font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif"
+        font-size="15.5" font-weight="600" letter-spacing="1.2" fill="#14B8A6">Consultora Independiente · Telecomunicaciones · Energía · Ciberseguridad</text>
+</svg>

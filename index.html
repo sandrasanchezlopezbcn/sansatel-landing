@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SanSatel Energy — Conéctate con la excelencia</title>
+<title>SansaTel — Telecomunicaciones · Energía · Ciberseguridad · Digitalización</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -12,6 +12,8 @@
     --bg3: #112040;
     --blue: #1D4ED8;
     --blue-light: #3B82F6;
+    --teal: #0D9488;
+    --teal-light: #14B8A6;
     --amber: #D97706;
     --amber-light: #F59E0B;
     --white: #F1F5F9;
@@ -76,7 +78,7 @@
   .nav-links a:hover { color: var(--white); }
 
   .nav-cta {
-    background: var(--amber);
+    background: var(--teal);
     color: var(--bg);
     padding: 10px 22px;
     border-radius: 100px;
@@ -88,7 +90,7 @@
     align-items: center;
     gap: 6px;
   }
-  .nav-cta:hover { background: var(--amber-light); transform: translateY(-1px); }
+  .nav-cta:hover { background: var(--teal-light); transform: translateY(-1px); }
 
   /* ── HERO ── */
   .hero {
@@ -246,7 +248,7 @@
 
   .ig-category {
     font-size: 11px;
-    color: var(--amber);
+    color: var(--teal);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -290,7 +292,7 @@
     color: var(--gray);
     line-height: 1.6;
     margin-bottom: 14px;
-    border-left: 2px solid var(--amber);
+    border-left: 2px solid var(--teal);
     padding-left: 10px;
   }
 
@@ -319,10 +321,10 @@
   }
 
   .ig-btn-primary {
-    background: var(--amber);
+    background: var(--teal);
     color: var(--bg);
   }
-  .ig-btn-primary:hover { background: var(--amber-light); transform: translateY(-1px); }
+  .ig-btn-primary:hover { background: var(--teal-light); transform: translateY(-1px); }
 
   .ig-btn-secondary {
     background: rgba(37,99,235,0.15);
@@ -412,7 +414,11 @@
     color: var(--white);
   }
 
-  .hero-title .accent { color: var(--amber); }
+  .hero-title .accent { color: var(--teal); }
+
+  /* Naranja: acento exclusivo de Energia */
+  .service-card.energia .service-tag { background: rgba(217,119,6,0.14); color: var(--amber-light); }
+  .service-pill.energia { border-color: rgba(217,119,6,0.35); color: var(--amber-light); }
   .hero-title .accent-blue { color: var(--blue-light); }
 
   .hero-subtitle {
@@ -452,7 +458,7 @@
   }
 
   .btn-primary {
-    background: var(--amber);
+    background: var(--teal);
     color: #0A1628;
     padding: 14px 28px;
     border-radius: 100px;
@@ -464,7 +470,7 @@
     gap: 8px;
     transition: all 0.2s;
   }
-  .btn-primary:hover { background: var(--amber-light); transform: translateY(-2px); }
+  .btn-primary:hover { background: var(--teal-light); transform: translateY(-2px); }
 
   .btn-secondary {
     background: transparent;
@@ -497,7 +503,7 @@
     font-family: 'Space Grotesk', sans-serif;
     font-size: 28px;
     font-weight: 800;
-    color: var(--amber);
+    color: var(--teal);
   }
 
   .community-label {
@@ -615,7 +621,7 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--blue), var(--amber));
+    background: linear-gradient(90deg, var(--blue), var(--teal));
   }
 
   .about-card-title {
@@ -627,7 +633,7 @@
 
   .about-card-sub {
     font-size: 13px;
-    color: var(--amber);
+    color: var(--teal);
     font-weight: 600;
     margin-bottom: 20px;
     text-transform: uppercase;
@@ -679,7 +685,7 @@
     position: absolute;
     bottom: 0; left: 0; right: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--blue), var(--amber));
+    background: linear-gradient(90deg, var(--blue), var(--teal));
     transform: scaleX(0);
     transition: transform 0.3s;
   }
@@ -728,7 +734,7 @@
     border-radius: 100px;
     font-size: 11px;
     font-weight: 600;
-    color: var(--amber);
+    color: var(--teal);
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
@@ -828,7 +834,7 @@
     margin-bottom: 8px;
   }
 
-  .stat-num .stat-suffix { color: var(--amber); }
+  .stat-num .stat-suffix { color: var(--teal); }
 
   .stat-label {
     font-size: 14px;
@@ -913,7 +919,7 @@
 
   .form-submit {
     width: 100%;
-    background: var(--amber);
+    background: var(--teal);
     color: var(--bg);
     border: none;
     padding: 14px;
@@ -928,7 +934,7 @@
     justify-content: center;
     gap: 8px;
   }
-  .form-submit:hover { background: var(--amber-light); transform: translateY(-1px); }
+  .form-submit:hover { background: var(--teal-light); transform: translateY(-1px); }
 
   /* ── FOOTER ── */
   footer {
@@ -1054,7 +1060,7 @@
 <!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <img src="assets/logo-sansatel.svg" alt="SansaTel" style="height:44px;width:44px;border-radius:50%;object-fit:cover;">
+    <img src="assets/logo-sansatel-circular.svg" alt="SansaTel" style="height:44px;width:44px;border-radius:50%;object-fit:cover;">
   </a>
   <ul class="nav-links">
     <li><a href="#sobre-mi">Sobre mí</a></li>
@@ -1078,7 +1084,7 @@
         <div class="ig-avatar-wrap">
           <div class="ig-avatar-ring">
             <div class="ig-avatar-inner">
-              <img src="assets/profile.jpg" alt="SanSatel Energy"
+              <img src="assets/profile.jpg" alt="SansaTel"
                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
               <div class="ig-avatar-fallback" style="display:none;">SansaTel</div>
             </div>
@@ -1086,13 +1092,13 @@
         </div>
         <div class="ig-info">
           <div class="ig-name-row">
-            <span class="ig-name">SanSatel Energy</span>
+            <span class="ig-name">SansaTel</span>
             <div class="ig-verified">
               <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
             </div>
           </div>
           <a href="https://instagram.com/sansatel_asesoras" target="_blank" class="ig-handle">@sansatel_asesoras</a>
-          <div class="ig-category">Consultora · Telecomunicaciones · Energía</div>
+          <div class="ig-category">Asesoría independiente · Telecomunicaciones · Energía</div>
         </div>
       </div>
 
@@ -1112,7 +1118,7 @@
       </div>
 
       <div class="ig-bio">
-        Consultora de telecomunicaciones, Energía — Soluciones Digitales i Conectivitat.
+        Asesoría independiente para pymes, autónomos y particulares. Telecomunicaciones · Energía · Ciberseguridad · Digitalización. España.
       </div>
 
       <div class="ig-btns">
@@ -1148,7 +1154,7 @@
 
       <div class="hero-services">
         <div class="service-pill"><span>📡</span> Telecomunicaciones</div>
-        <div class="service-pill"><span>⚡</span> Energía</div>
+        <div class="service-pill energia"><span>⚡</span> Energía</div>
         <div class="service-pill"><span>🔒</span> Ciberseguridad</div>
         <div class="service-pill"><span>💻</span> Digitalización</div>
       </div>
@@ -1204,10 +1210,10 @@
 
     <div class="about-visual reveal reveal-delay-2">
       <div class="about-card">
-        <div class="about-card-title">SanSatel Energy</div>
+        <div class="about-card-title">SansaTel</div>
         <div class="about-card-sub">Asesoría independiente · Barcelona</div>
         <p class="about-card-bio">
-          Consultora de telecomunicaciones, energía y soluciones digitales. Trabajo con las principales operadoras y comercializadoras para encontrar siempre la mejor oferta para tu empresa.
+          Asesoría independiente en telecomunicaciones, energía, ciberseguridad y digitalización. Trabajo con las principales operadoras y comercializadoras para encontrar siempre la mejor oferta para tu empresa.
         </p>
         <a href="https://www.sansatel.com" target="_blank" class="about-link">🌐 www.sansatel.com →</a>
       </div>
@@ -1230,7 +1236,7 @@
         <span class="service-tag">Ahorro garantizado</span>
       </div>
 
-      <div class="service-card reveal reveal-delay-1">
+      <div class="service-card reveal reveal-delay-1 energia">
         <div class="service-icon">⚡</div>
         <div class="service-name">Energía</div>
         <p class="service-desc">Optimización de tus contratos de luz y gas. Analizo tu consumo y te propongo la comercializadora y tarifa que más te conviene.</p>
@@ -1294,7 +1300,7 @@
   <div class="gallery-notice">
     📲 Pon tus fotos de Instagram en <code style="color:var(--blue-light)">assets/instagram/post-1.jpg</code> y aparecerán aquí automáticamente.
     &nbsp;·&nbsp;
-    <a href="https://instagram.com/sansatel_asesoras" target="_blank" style="color:var(--amber);text-decoration:none;font-weight:600;">Seguir en Instagram →</a>
+    <a href="https://instagram.com/sansatel_asesoras" target="_blank" style="color:var(--teal);text-decoration:none;font-weight:600;">Seguir en Instagram →</a>
   </div>
 </section>
 
@@ -1363,7 +1369,7 @@
 <footer>
   <div class="footer-inner">
     <a href="#" class="footer-logo">
-      <img src="assets/logo-sansatel.svg" alt="SansaTel" style="height:48px;width:48px;border-radius:50%;object-fit:cover;">
+      <img src="assets/logo-sansatel-circular.svg" alt="SansaTel" style="height:48px;width:48px;border-radius:50%;object-fit:cover;">
     </a>
     <ul class="footer-links">
       <li><a href="#sobre-mi">Sobre mí</a></li>
@@ -1377,7 +1383,7 @@
       <a href="https://www.sansatel.com" target="_blank" class="social-btn">🌐</a>
     </div>
     <div class="footer-copy">
-      © 2026 SanSatel Energy · Asesoría independiente de telecomunicaciones y energía para empresas
+      © 2026 SansaTel · Asesoría independiente en telecomunicaciones, energía, ciberseguridad y digitalización
     </div>
   </div>
 </footer>

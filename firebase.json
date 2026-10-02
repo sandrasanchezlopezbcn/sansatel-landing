@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "site": "sansatel-landing",
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      "**/.*",
+      "**/node_modules/**",
+      "*.js",
+      "*.json",
+      "*.md",
+      "CNAME"
+    ]
+  }
+}
