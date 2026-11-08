@@ -571,6 +571,8 @@ const EX = {
   ],
   espalda:[
     {id:'e2',name:'Jalón con barra',icon:'🔽',c:1,grip:'Prono ancho (barra larga)'},
+    {id:'e22',name:'Jalón con agarre neutro medio',icon:'🔽',c:1,grip:'Neutro medio — palmas enfrentadas, codos hacia los costados'},
+    {id:'e23',name:'Remo alto en máquina',icon:'🤖',c:1,grip:'Neutro o prono — tira hacia la parte alta del torso'},
     {id:'e20',name:'Remo en T unilateral en máquina',icon:'🤖',c:1,grip:'Neutro — pecho apoyado, trabaja un brazo y después el otro'},
     {id:'e21',name:'Pulldown con cuerda brazos estirados',icon:'📐',c:0,grip:'Neutro (cuerda) — brazos casi rectos, empuja hacia abajo y atrás hasta las caderas'},
     {id:'e11',name:'Remo en máquina',icon:'🤖',c:1,grip:'Prono o neutro (según máquina)'},
@@ -610,6 +612,7 @@ const EX = {
     {id:'t10',name:'Fondos asistidos / Máquina de tríceps',icon:'🤖',c:0,grip:'Neutro o prono (según la máquina) — bajada controlada hasta 90°, sube empujando con los tríceps'},
   ],
   piernas:[
+    {id:'l26',name:'Sentadilla en máquina de palanca',icon:'🏗️',c:1,grip:'Hombros bajo las almohadillas — pies a la anchura de hombros'},
     {id:'l4',name:'Hack squat en máquina',icon:'🔩',c:1},
     {id:'l5',name:'Prensa de piernas',icon:'🦶',c:1},
     {id:'l10',name:'Sentadilla goblet con mancuerna',icon:'🏋️',c:1},
@@ -620,6 +623,7 @@ const EX = {
     {id:'l17',name:'Gemelos de pie en máquina',icon:'👟',c:0},
     {id:'l18',name:'Pantorrillas sentado en máquina',icon:'🪑',c:0},
     {id:'l25',name:'Aductor en máquina',icon:'↔️',c:0,grip:'Rodillas en las almohadillas — junta las piernas con control'},
+    {id:'l27',name:'Gemelos en máquina de palanca',icon:'👟',c:0,grip:'Antepié en el borde — baja y eleva los talones con control'},
   ],
   femoral:[
     {id:'l19',name:'Peso muerto rumano',icon:'🏋️',c:1,grip:'Barra o mancuernas — rodillas ligeramente dobladas, bisagra de cadera'},
@@ -682,11 +686,11 @@ const PLANS = {
     {name:'Hombros + Tríceps + Core',muscles:['hombros','triceps','core']},
   ],
   5:[
-    {name:'Pierna A + Femoral',muscles:['piernas','gluteos','femoral','cardio']},
+    {name:'Pierna anterior',muscles:['piernas','cardio']},
     {name:'Espalda A + Bíceps',muscles:['espalda','biceps','lumbares','cardio']},
     {name:'Hombros + Tríceps + Core',muscles:['hombros','triceps','core','cardio']},
-    {name:'Pierna B + Glúteos',muscles:['femoral','gluteos','piernas','core','cardio']},
-    {name:'Dorsal + Brazos + Core',muscles:['espalda','piernas','biceps','triceps','core','cardio']},
+    {name:'Pierna posterior + Glúteos',muscles:['femoral','gluteos','cardio']},
+    {name:'Espalda alta + Hombro posterior + Brazos',muscles:['espalda','hombros','biceps','triceps','core','cardio']},
   ],
   6:[
     {name:'Piernas (cuádriceps)',muscles:['piernas','cardio']},
@@ -719,15 +723,15 @@ const DAY_WHY = {
   'Pecho + Tríceps':'El pecho y el tríceps colaboran en los movimientos de empuje. Entrenarlos juntos permite aprovechar ese trabajo compartido sin necesidad de llevar todas las series al fallo.',
 };
 const WARMUPS = {
-  0:['5 min de bicicleta o cinta suave','10 sentadillas sin peso + 10 puentes de glúteo','Movilidad de tobillo y cadera: 8 repeticiones por lado','2 series de Hack Squat subiendo el peso gradualmente'],
-  1:['5 min de elíptica o remo suave','10 retracciones escapulares + 10 círculos de hombros','1 serie ligera de jalón de 12–15 repeticiones','1 segunda serie de jalón con peso intermedio'],
+  0:['5 min de bicicleta o cinta suave','10 sentadillas sin peso + movilidad de tobillo','Movilidad de cadera: 8 repeticiones por lado','2 series ligeras de sentadilla en máquina de palanca'],
+  1:['5 min de elíptica o remo suave','10 retracciones escapulares + 10 círculos de hombros','1 serie ligera de jalón neutro de 12–15 repeticiones','1 segunda serie de jalón neutro con peso intermedio'],
   2:['5 min de elíptica suave','10 círculos de brazos en cada dirección','12 rotaciones externas con goma o polea ligera','2 series de press de hombros subiendo el peso gradualmente'],
   3:['5 min de bicicleta suave','10 bisagras de cadera sin peso + 10 puentes de glúteo','Movilidad de cadera: 8 repeticiones por lado','2 series de peso muerto rumano con carga progresiva'],
-  4:['5 min de elíptica o cinta suave','10 retracciones escapulares + 10 círculos de brazos','10 aperturas con goma o peso muy ligero','2 series de press inclinado subiendo el peso gradualmente'],
+  4:['5 min de elíptica o cinta suave','10 retracciones escapulares + 10 círculos de brazos','12 pájaros con peso muy ligero','2 series ligeras de remo alto en máquina'],
 };
-const QUAD_IDS=new Set(['l4','l5','l6','l10','l11']);
+const QUAD_IDS=new Set(['l4','l5','l6','l10','l11','l26']);
 const FEM_IDS=new Set(['l7','l9','l19','l20']);
-const PANT_IDS=new Set(['l17','l18']);
+const PANT_IDS=new Set(['l17','l18','l27']);
 function exZone(ex){ if(!ex)return ''; if(QUAD_IDS.has(ex.id))return 'quad'; if(FEM_IDS.has(ex.id))return 'fem'; if(PANT_IDS.has(ex.id))return 'pant'; return ''; }
 function bodyMap(muscles,w=70,zone=''){
   const a=new Set(Array.isArray(muscles)?muscles:[muscles]);
@@ -860,20 +864,20 @@ function buildDefaultMeso(){
   const cv={id:'cv2',name:'Caminata inclinada en cinta',icon:'⛰️',muscle:'cardio',isCardio:true,durationMin:20,sets:[{num:1,done:false,durationMin:20}]};
   const cv15={id:'cv2',name:'Caminata inclinada en cinta',icon:'⛰️',muscle:'cardio',isCardio:true,durationMin:15,sets:[{num:1,done:false,durationMin:15}]};
   return{created:new Date().toISOString(),routines:{
-    // Mismos ejercicios de siempre: primer estímulo del tren inferior.
-    0:[mkEx('l4','piernas',3,8,10),mkEx('g2','gluteos',3,8,10),mkEx('l6','piernas',2,12,15),mkEx('l7','femoral',3,10,15),mkEx('l17','piernas',3,12,15),cv].filter(Boolean),
-    // Sesión principal de espalda completa y bíceps.
-    1:[mkEx('e2','espalda',3,8,12),mkEx('e4','espalda',3,8,12),mkEx('e20','espalda',3,10,12),mkEx('lu11','lumbares',2,12,15),mkEx('b6','biceps',3,10,15),cv].filter(Boolean),
+    // Parte delantera de pierna en máquinas.
+    0:[mkEx('l26','piernas',3,8,12),mkEx('l5','piernas',3,10,12),mkEx('l6','piernas',3,12,15),mkEx('l25','piernas',3,12,15),mkEx('l27','piernas',3,15,20),cv15].filter(Boolean),
+    // Espalda equilibrada y bíceps, con agarre neutro medio.
+    1:[mkEx('e22','espalda',3,8,12),mkEx('e4','espalda',3,8,12),mkEx('e20','espalda',3,10,12),mkEx('lu11','lumbares',2,12,15),mkEx('b6','biceps',3,10,15),cv15].filter(Boolean),
     // Primer estímulo de hombros y tríceps. Sin trabajo directo de pecho.
-    2:[mkEx('h7','hombros',3,8,12),mkEx('h8','hombros',3,12,15),mkEx('t5','triceps',3,10,12),mkEx('c16','core',3,10,12),cv].filter(Boolean),
-    // Segundo estímulo de pierna, femoral y glúteos.
-    3:[mkEx('l24','femoral',3,8,10),mkEx('g2','gluteos',3,12,15),mkEx('l5','piernas',3,10,12),mkEx('g13','gluteos',2,12,15),mkEx('g9','gluteos',2,12,15),mkEx('g6','gluteos',2,15,20),mkEx('c16','core',2,10,12),cv].filter(Boolean),
-    // Recordatorio de dorsal, brazos, aductor y core: sesión de 60-75 minutos.
-    4:[mkEx('e12','espalda',3,12,15),mkEx('l25','piernas',3,15,20),mkEx('b7','biceps',3,10,15),mkEx('b8','biceps',2,10,12),mkEx('t9','triceps',3,10,15),mkEx('t5','triceps',2,12,15),mkEx('c16','core',2,10,12),cv15].filter(Boolean),
-  },routineVersion:6};
+    2:[mkEx('h7','hombros',3,8,12),mkEx('h8','hombros',3,12,15),mkEx('t5','triceps',3,10,12),mkEx('c16','core',3,10,12),cv15].filter(Boolean),
+    // Parte posterior de pierna y glúteos, sin repetir sentadilla sumo.
+    3:[mkEx('l19','femoral',3,8,12),mkEx('l9','femoral',3,10,15),mkEx('g1','gluteos',3,8,12),mkEx('g9','gluteos',3,12,15),mkEx('g6','gluteos',3,15,20),cv15].filter(Boolean),
+    // Espalda alta, hombro posterior, brazos y core.
+    4:[mkEx('e23','espalda',3,10,12),mkEx('h9','hombros',3,12,15),mkEx('b7','biceps',3,10,15),mkEx('t9','triceps',3,10,15),mkEx('c16','core',2,10,12),cv15].filter(Boolean),
+  },routineVersion:7};
 }
-function migrateRoutineV6(meso){
-  if(!meso||Number(meso.routineVersion||0)>=6) return meso;
+function migrateRoutineV7(meso){
+  if(!meso||Number(meso.routineVersion||0)>=7) return meso;
   meso.routines=meso.routines||{};
   const previousById={};
   Object.values(meso.routines).flat().forEach(ex=>{ if(ex&&ex.id&&!previousById[ex.id]) previousById[ex.id]=ex; });
@@ -901,14 +905,9 @@ function migrateRoutineV6(meso){
       return added;
     });
   };
-  // Reorganiza únicamente los días superiores; los dos días de pierna no cambian.
-  [1,2,4].forEach(rebuildDay);
-  // Ajusta el segundo día de pierna para que la sesión completa no supere 90 minutos.
-  ['g13','c16'].forEach(id=>{
-    const ex=(meso.routines[3]||[]).find(item=>item.id===id);
-    if(ex&&Array.isArray(ex.sets)) ex.sets=ex.sets.slice(0,2);
-  });
-  meso.routineVersion=6;
+  // Nuevo mesociclo completo de cinco días, conservando cargas de ejercicios existentes.
+  [0,1,2,3,4].forEach(rebuildDay);
+  meso.routineVersion=7;
   return meso;
 }
 function getFixedRoutine(p,day,dayIdx){
@@ -920,8 +919,8 @@ function getFixedRoutine(p,day,dayIdx){
     meso=hasReset?{created:new Date().toISOString(),routines:{}}:buildDefaultMeso();
     setMeso(p.id,meso);
   }
-  const migrated=migrateRoutineV6(meso);
-  if(migrated!==meso||Number(meso.routineVersion||0)===6) setMeso(p.id,migrated);
+  const migrated=migrateRoutineV7(meso);
+  if(migrated!==meso||Number(meso.routineVersion||0)===7) setMeso(p.id,migrated);
   meso=migrated;
   if(!meso.routines[dayIdx]){
     // Partial meso: generate missing day with context from existing days
@@ -1958,11 +1957,11 @@ function renderTemplates(pid) {
 // ─── BIBLIOTECA DE EJERCICIOS ─────────────────
 const EX_SECONDARY = {
   p2:['hombros','triceps'],p4:['hombros','triceps'],p10:['hombros','triceps'],p11:['hombros','triceps'],p6:['hombros'],p7:['hombros'],p12:['hombros'],p13:['hombros','triceps'],p14:[],p15:['hombros','triceps'],
-  e2:['biceps','hombros'],e20:['biceps','hombros'],e21:['triceps'],e11:['biceps'],e3:['biceps','hombros'],e4:['biceps','hombros'],e5:['biceps'],e6:['pecho','triceps'],e12:['hombros'],e18:['triceps'],e15:['hombros'],
+  e2:['biceps','hombros'],e22:['biceps'],e23:['biceps','hombros'],e20:['biceps','hombros'],e21:['triceps'],e11:['biceps'],e3:['biceps','hombros'],e4:['biceps','hombros'],e5:['biceps'],e6:['pecho','triceps'],e12:['hombros'],e18:['triceps'],e15:['hombros'],
   h2:['triceps','pecho'],h5:['triceps','pecho'],h7:['triceps','pecho'],h4:[],h8:[],h9:[],h6:[],h12:['espalda'],h11:[],
   b2:['hombros'],b3:['hombros'],b4:['hombros'],b5:['hombros'],b6:['hombros'],b7:['hombros'],
   t2:['hombros'],t4:['hombros'],t5:['hombros'],t9:['hombros'],t10:['hombros','pecho'],
-  l4:['gluteos','femoral'],l5:['gluteos','femoral'],l10:['gluteos'],l11:['gluteos','femoral'],l6:[],l17:[],l18:[],l22:['gluteos','femoral'],l23:['gluteos','femoral'],
+  l4:['gluteos','femoral'],l5:['gluteos','femoral'],l10:['gluteos'],l11:['gluteos','femoral'],l6:[],l17:[],l18:[],l22:['gluteos','femoral'],l23:['gluteos','femoral'],l26:['gluteos'],l27:[],
   l19:['gluteos','lumbares'],l7:[],l9:[],l20:[],l24:['gluteos','lumbares'],
   g1:['femoral','lumbares'],g2:['femoral'],g7:['piernas','femoral'],g4:['femoral'],g6:[],g13:['femoral','lumbares'],g9:['femoral'],
   c2:['hombros'],c4:['hombros'],c8:[],c13:['lumbares'],c16:[],
@@ -1989,7 +1988,7 @@ cardio:`<svg viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
 const EX_MOVE={
   p2:'push',p4:'push',p10:'push',p11:'push',p13:'push',p15:'push',
   p6:'fly',p7:'fly',p12:'fly',p14:'fly',
-  e2:'pull',e20:'row',e21:'pull',e11:'row',e3:'row',e4:'row',e5:'pull',e6:'pull',e12:'pull',e18:'extend',e15:'raise',
+  e2:'pull',e22:'pull',e23:'row',e20:'row',e21:'pull',e11:'row',e3:'row',e4:'row',e5:'pull',e6:'pull',e12:'pull',e18:'extend',e15:'raise',
   h2:'push',h5:'push',h7:'push',h4:'raise',h8:'raise',h9:'raise',h6:'raise',h12:'row',h11:'raise',
   b2:'curl',b3:'curl',b4:'curl',b5:'curl',b6:'curl',b7:'curl',
   t2:'extend',t4:'extend',t5:'extend',t9:'extend',t10:'extend',
@@ -2024,6 +2023,10 @@ const EX_TIPS = {
 const EX_DESC = {
   // Nuevos ejercicios
   e20:['Ajusta el asiento para apoyar bien el pecho y coloca los pies firmes. Agarra una sola asa con agarre neutro.','Tira con un brazo llevando el codo hacia atrás y hacia la cadera, sin girar el tronco.','Aguanta 1 segundo atrás y aprieta la espalda. Completa todas las repeticiones antes de cambiar de lado.','Vuelve lentamente hasta estirar el brazo sin despegar el pecho del apoyo ni elevar el hombro.'],
+  e22:['Coloca el agarre neutro medio en la polea alta y ajusta el apoyo de las piernas.','Eleva ligeramente el pecho y lleva los hombros hacia abajo, lejos de las orejas.','Tira llevando los codos hacia los costados hasta acercar el agarre a la parte alta del pecho.','Regresa lentamente sin balancearte y deja que los brazos se extiendan con control.'],
+  e23:['Ajusta el asiento para que las asas queden a la altura de los hombros o ligeramente por encima.','Apoya el pecho y tira con los codos hacia atrás, sin encoger los hombros.','Junta los omóplatos y mantén un segundo la contracción en la parte alta de la espalda.','Vuelve lentamente hasta extender los brazos sin perder la postura.'],
+  l26:['Coloca los hombros bajo las almohadillas y los pies a la anchura de hombros sobre la plataforma.','Desbloquea la palanca y baja flexionando rodillas y cadera, manteniendo la espalda neutra.','Empuja con toda la planta del pie hasta subir sin bloquear completamente las rodillas.','Controla la bajada y mantén las rodillas alineadas con las puntas de los pies.'],
+  l27:['Coloca la parte delantera de los pies en el borde de la plataforma y mantén las rodillas casi estiradas.','Baja los talones lentamente hasta notar el estiramiento del gemelo.','Sube todo lo posible poniéndote de puntillas y aprieta un segundo arriba.','Desciende de forma controlada sin rebotar.'],
   e21:['Ajusta la polea en posición alta. Coge la cuerda con ambas manos, pulgares arriba. Da un paso atrás. Brazos casi rectos con los codos ligeramente doblados y fijos durante todo el movimiento.','Inclínate ligeramente hacia adelante. Tira de la cuerda hacia las caderas en un arco descendente llevando los codos hacia los bolsillos.','Separa los extremos de la cuerda al llegar abajo. Aprieta el dorsal en la contracción final.','Vuelve arriba de forma controlada en 3 segundos sintiendo el estiramiento del dorsal. Es uno de los mejores ejercicios para activar el dorsal en estiramiento máximo.'],
   lu11:['Ajusta el banco de hiperextensión para que las caderas queden al borde del apoyo. Los cuádriceps también apoyan en el cojín. Cruza los brazos sobre el pecho o ponlos detrás de la cabeza.','Baja el torso de forma controlada hacia el suelo sintiendo el estiramiento en los lumbares y los glúteos.','Sube empujando con los lumbares y los glúteos hasta que el cuerpo forme una línea recta. No hiperextiendas más allá de la línea recta.','Aguanta 1 segundo arriba apretando los lumbares. Para añadir intensidad, sostén una mancuerna o disco en el pecho.'],
   b6:['Siéntate en la máquina de curl o en el banco Scott. Ajusta el asiento para que los codos queden bien apoyados en la almohadilla, ligeramente por delante de los hombros.','El apoyo del codo elimina completamente el balanceo del cuerpo — solo trabaja el bíceps puro. Coge las asas o la barra en supino (palmas hacia arriba).','Sube apretando el bíceps hasta la contracción máxima. Aguanta 1 segundo arriba.','Baja muy despacio en 3 segundos. La bajada controlada con apoyo fijo es muy efectiva para el crecimiento del bíceps.'],
