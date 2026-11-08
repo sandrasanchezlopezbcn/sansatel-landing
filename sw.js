@@ -1,4 +1,4 @@
-const CACHE = 'gymtrack-v23';
+const CACHE = 'gymtrack-v24';
 const ASSETS = ['/gym.html', '/manifest.json', '/apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
